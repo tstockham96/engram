@@ -3,6 +3,7 @@ import { MemoryStore } from './store.js';
 import { RememberInputSchema, RecallInputSchema } from './types.js';
 import type { Memory, Edge, Entity, RememberInput, RecallInput, RememberParsed, RecallParsed, ConsolidationReport, VaultConfig } from './types.js';
 import type { EmbeddingProvider } from './embeddings.js';
+import { extract } from './extract.js';
 
 // ============================================================
 // Vault — The public API for Engram
@@ -29,6 +30,15 @@ export class Vault {
     const parsed: RememberParsed = typeof input === 'string'
       ? RememberInputSchema.parse({ content: input })
       : RememberInputSchema.parse(input);
+
+    // Auto-extract entities and topics if not provided
+    if (parsed.entities.length === 0 && parsed.topics.length === 0) {
+      const extracted = extract(parsed.content);
+      if (parsed.entities.length === 0) parsed.entities = extracted.entities;
+      if (parsed.topics.length === 0) parsed.topics = extracted.topics;
+      // Only use suggested salience if user didn't set one (default is 0.5)
+      if (parsed.salience === 0.5) parsed.salience = extracted.suggestedSalience;
+    }
 
     // Auto-set source metadata from vault config
     if (!parsed.source) {

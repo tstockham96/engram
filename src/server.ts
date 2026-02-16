@@ -180,6 +180,21 @@ route('POST', '/v1/export', (req, res, vault) => {
   json(res, 200, data);
 });
 
+// POST /v1/ingest — auto-extract memories from raw conversation text
+route('POST', '/v1/ingest', async (req, res, vault) => {
+  const body = JSON.parse(await readBody(req));
+  const { text, content, transcript } = body;
+  const rawText = text ?? content ?? transcript;
+  if (!rawText || typeof rawText !== 'string') {
+    error(res, 400, 'text, content, or transcript field is required (string)');
+    return;
+  }
+
+  // Simple mode: just remember() with auto-extraction (no LLM needed)
+  const memory = vault.remember({ content: rawText });
+  json(res, 201, memory);
+});
+
 // GET /health — health check
 route('GET', '/health', (req, res) => {
   json(res, 200, { status: 'ok', version: '0.1.0', timestamp: new Date().toISOString() });
