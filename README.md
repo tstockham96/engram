@@ -1,8 +1,8 @@
 # 🧠 Engram
 
-**Universal memory layer for AI agents.**
+**Universal memory protocol for AI agents.**
 
-AI agents have amnesia. Every session starts blank. Engram fixes this — a local-first memory SDK that lets agents remember, recall, and consolidate knowledge over time. Think of it as giving your agent a hippocampus.
+AI agents have amnesia. Every session starts blank. Engram fixes this — a memory protocol with a REST API, knowledge graph, and consolidation engine that turns raw episodes into structured knowledge. Think of it as giving your agent a hippocampus.
 
 ## Why
 
@@ -14,9 +14,29 @@ Every AI agent framework bolts on memory as an afterthought — a flat file, a v
 - **No decay**: Everything is equally important forever
 - **No portability**: Memory locked into one framework
 
-Engram is a protocol, not a plugin. It works with any agent, any framework, any LLM.
+Engram is a protocol, not a plugin. It works with any agent, any framework, any language.
 
 ## Quick Start
+
+### REST API (any language)
+
+```bash
+# Start the server
+ENGRAM_OWNER=my-agent npx engram serve
+
+# Store a memory
+curl -X POST http://localhost:3800/v1/memories \
+  -H 'Content-Type: application/json' \
+  -d '{"content": "User prefers dark mode and concise answers", "entities": ["User"], "topics": ["preferences"], "salience": 0.8}'
+
+# Recall relevant memories
+curl http://localhost:3800/v1/memories/recall?context=user+preferences
+
+# Run consolidation
+curl -X POST http://localhost:3800/v1/consolidate
+```
+
+### TypeScript SDK (native, no network overhead)
 
 ```bash
 npm install engram
@@ -40,14 +60,109 @@ vault.remember({
 });
 
 // Recall relevant context
-const memories = vault.recall('What are the user\'s preferences?');
-// → Returns ranked memories by relevance
+const memories = await vault.recall('What are the user\'s preferences?');
 
 // Consolidate episodes into knowledge
 await vault.consolidate();
-// → Extracts patterns, builds entity graph, decays old memories
 
 vault.close();
+```
+
+### Python (via REST API)
+
+```python
+import requests
+
+API = "http://localhost:3800/v1"
+
+# Store a memory
+requests.post(f"{API}/memories", json={
+    "content": "User prefers dark mode and concise answers",
+    "entities": ["User"],
+    "topics": ["preferences"],
+    "salience": 0.8,
+})
+
+# Recall
+memories = requests.get(f"{API}/memories/recall", params={"context": "user preferences"}).json()
+```
+
+Python SDK coming soon. The REST API works with any language — no SDK required.
+
+## REST API Reference
+
+Start the server:
+
+```bash
+# Environment variables
+ENGRAM_OWNER=my-agent        # Vault owner ID (required)
+ENGRAM_DB_PATH=./my.db       # Database path (optional)
+ENGRAM_PORT=3800             # Port (default: 3800)
+ENGRAM_HOST=127.0.0.1        # Host (default: 127.0.0.1)
+ENGRAM_LLM_PROVIDER=anthropic # LLM for consolidation (optional)
+ENGRAM_LLM_API_KEY=sk-...    # LLM API key (optional)
+
+npx engram serve
+# or
+npm run serve
+```
+
+### Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `POST` | `/v1/memories` | Store a memory |
+| `GET` | `/v1/memories/recall?context=...` | Recall memories (simple) |
+| `POST` | `/v1/memories/recall` | Recall memories (complex query) |
+| `DELETE` | `/v1/memories/:id` | Forget a memory |
+| `GET` | `/v1/memories/:id/neighbors` | Graph traversal |
+| `POST` | `/v1/connections` | Connect two memories |
+| `POST` | `/v1/consolidate` | Run consolidation engine |
+| `GET` | `/v1/entities` | List tracked entities |
+| `GET` | `/v1/stats` | Vault statistics |
+| `POST` | `/v1/export` | Export full vault as JSON |
+| `GET` | `/health` | Health check |
+
+### POST /v1/memories
+
+```json
+{
+  "content": "User prefers TypeScript over JavaScript",
+  "type": "episodic",           // episodic | semantic | procedural
+  "entities": ["User", "TypeScript", "JavaScript"],
+  "topics": ["preferences", "engineering"],
+  "salience": 0.8,              // 0-1, importance
+  "confidence": 0.9,            // 0-1, certainty
+  "visibility": "owner_agents"  // private | owner_agents | shared | public
+}
+```
+
+### GET /v1/memories/recall
+
+Query params: `context` (required), `entities`, `topics`, `types`, `limit`
+
+### POST /v1/memories/recall
+
+```json
+{
+  "context": "project status",
+  "entities": ["Engram"],
+  "topics": ["engineering"],
+  "types": ["semantic"],
+  "minSalience": 0.5,
+  "limit": 10
+}
+```
+
+### POST /v1/connections
+
+```json
+{
+  "sourceId": "memory-uuid-1",
+  "targetId": "memory-uuid-2",
+  "type": "supports",           // supports | contradicts | elaborates | supersedes | causes | caused_by | ...
+  "strength": 0.7
+}
 ```
 
 ## Core Concepts
@@ -69,8 +184,8 @@ Episode → Remember → Store → Recall → Consolidate → Knowledge
 ```
 
 1. **Remember**: Raw episodes go in with metadata (entities, topics, salience)
-2. **Recall**: Hybrid retrieval — entity matching, topic matching, keyword search, recency
-3. **Consolidate**: The "sleep cycle" — episodes get distilled into semantic memories, entities get discovered, connections form, contradictions surface, old memories decay
+2. **Recall**: Hybrid retrieval — entity matching, topic matching, semantic search, recency
+3. **Consolidate**: The "sleep cycle" — episodes get distilled into semantic memories, entities get discovered, connections form, contradictions surface
 4. **Decay**: Memories naturally fade unless reinforced by access. High-salience memories resist decay.
 
 ### Memory Graph
@@ -88,99 +203,6 @@ Memories aren't flat — they're a graph. Edges connect related memories:
 
 Engram automatically tracks entities (people, places, projects, concepts) across memories. Entity frequency and co-occurrence drive importance scores and recall relevance.
 
-## API
-
-### `vault.remember(input)`
-
-Store a memory. Accepts a plain string or a full input object.
-
-```typescript
-// Simple
-vault.remember('User likes dark mode');
-
-// Full control
-vault.remember({
-  content: 'Quarterly review went well, promoted to senior',
-  type: 'episodic',
-  entities: ['User', 'quarterly review'],
-  topics: ['career', 'milestones'],
-  salience: 0.9,
-  confidence: 0.95,
-  visibility: 'private',
-  source: {
-    type: 'conversation',
-    sessionId: 'session-123',
-  },
-});
-```
-
-### `vault.recall(input)`
-
-Retrieve relevant memories. Uses hybrid retrieval: entity matching → topic matching → keyword search → recency, with salience/stability weighting.
-
-```typescript
-// Simple
-const memories = vault.recall('What does the user do for work?');
-
-// With filters
-const memories = vault.recall({
-  context: 'project status',
-  entities: ['Engram'],
-  topics: ['engineering'],
-  types: ['semantic'],
-  minSalience: 0.5,
-  limit: 10,
-});
-```
-
-### `vault.consolidate()`
-
-Run the consolidation engine. Without an LLM configured, uses rule-based consolidation (entity frequency, co-occurrence edges, temporal sequencing, decay). With an LLM, extracts semantic memories, discovers entities, finds contradictions, and forms rich connections.
-
-```typescript
-const report = await vault.consolidate();
-// {
-//   episodesProcessed: 47,
-//   semanticMemoriesCreated: 12,
-//   entitiesDiscovered: 8,
-//   connectionsFormed: 23,
-//   contradictionsFound: 2,
-//   memoriesDecayed: 15,
-//   memoriesArchived: 3,
-// }
-```
-
-### `vault.forget(id, hard?)`
-
-Soft forget (salience → 0) or hard delete.
-
-### `vault.connect(sourceId, targetId, type, strength?)`
-
-Manually create an edge between two memories.
-
-### `vault.neighbors(memoryId, depth?)`
-
-Graph traversal — find memories connected to a given memory, up to N hops deep.
-
-### `vault.stats()` / `vault.entities()` / `vault.export()`
-
-Introspection and portability.
-
-## CLI
-
-```bash
-# Via npx (after install)
-npx engram remember "User prefers React over Vue"
-npx engram recall "frontend preferences"
-npx engram stats
-npx engram entities
-npx engram consolidate
-npx engram export > backup.json
-
-# Interactive mode
-npx engram repl
-```
-
 ## LLM-Powered Consolidation
 
 For the full consolidation experience, configure an LLM:
@@ -191,9 +213,15 @@ const vault = new Vault({
   llm: {
     provider: 'anthropic',
     apiKey: process.env.ANTHROPIC_API_KEY!,
-    model: 'claude-3-5-haiku-20241022',  // Fast + cheap for consolidation
+    model: 'claude-3-5-haiku-20241022',
   },
 });
+```
+
+Or via environment variables with the REST API:
+
+```bash
+ENGRAM_LLM_PROVIDER=anthropic ENGRAM_LLM_API_KEY=sk-... npx engram serve
 ```
 
 The LLM analyzes episodes and extracts:
@@ -202,21 +230,37 @@ The LLM analyzes episodes and extracts:
 - **Contradictions**: Conflicting information
 - **Connections**: How episodes relate to each other
 
+## CLI
+
+```bash
+npx engram remember "User prefers React over Vue"
+npx engram recall "frontend preferences"
+npx engram stats
+npx engram entities
+npx engram consolidate
+npx engram export > backup.json
+npx engram repl          # Interactive mode
+npx engram serve         # Start REST API server
+```
+
 ## Architecture
 
 ```
 ┌─────────────────────────────────────────────────┐
+│                  REST API Server                  │
+│  POST /v1/memories · GET /v1/memories/recall · …  │
+├─────────────────────────────────────────────────┤
 │                    Vault API                      │
 │  remember() · recall() · consolidate() · forget() │
 ├─────────────────────────────────────────────────┤
 │               Retrieval Engine                    │
-│  Entity match · Topic match · Keywords · Recency  │
+│  Entity match · Topic match · Vector search · FTS │
 ├─────────────────────────────────────────────────┤
 │            Consolidation Engine                   │
 │  Rule-based │ LLM-powered (Anthropic/OpenAI)      │
 ├─────────────────────────────────────────────────┤
 │              SQLite Storage Layer                  │
-│  Memories · Edges · Entities · Embeddings (planned)│
+│  Memories · Edges · Entities · Embeddings          │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -224,14 +268,36 @@ The LLM analyzes episodes and extracts:
 
 **Portable**: Export your entire vault as JSON. Import it elsewhere. Your agent's memory belongs to you.
 
+## Comparison
+
+| Feature | Engram | Mem0 | Zep | Letta/MemGPT |
+|---------|--------|------|-----|-------------|
+| Memory graph | ✅ | ❌ | ❌ | ❌ |
+| Consolidation engine | ✅ | ❌ | ❌ | Partial |
+| Entity tracking | ✅ | ❌ | ✅ | ❌ |
+| Memory decay | ✅ | ❌ | ❌ | ❌ |
+| REST API | ✅ | ✅ | ✅ | ✅ |
+| Local-first | ✅ | ❌ | ❌ | ✅ |
+| Language-agnostic | ✅ | Python-first | Python-first | Python-first |
+| Open source | ✅ | Partial | Partial | ✅ |
+
 ## Roadmap
 
-- [ ] **Embeddings**: sqlite-vec integration for semantic search
-- [ ] **Hosted Vaults**: Cloud sync + multi-agent sharing
-- [ ] **Framework integrations**: OpenClaw, LangChain, CrewAI, AutoGen adapters
-- [ ] **REST API**: HTTP interface for non-Node agents
-- [ ] **Protocol spec**: Open standard for agent memory interop
-- [ ] **Conflict resolution**: Automatic handling of contradicting memories across agents
+- [x] TypeScript SDK
+- [x] REST API server
+- [x] sqlite-vec vector search
+- [x] LLM-powered consolidation
+- [x] CLI with REPL
+- [ ] Hosted service (api.engram.ai)
+- [ ] Python SDK
+- [ ] Framework integrations (OpenClaw, LangChain, CrewAI)
+- [ ] Protocol spec (open standard)
+- [ ] Multi-agent vault sharing
+- [ ] Conflict resolution across agents
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
 
