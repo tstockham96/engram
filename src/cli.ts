@@ -13,6 +13,8 @@ const HELP = `
 engram — Universal memory layer for AI agents
 
 Usage:
+  engram init                        Set up Engram for Claude Code / Cursor / MCP clients
+  engram mcp                         Start the MCP server (stdio transport)
   engram remember <text>             Store a memory
   engram recall <context>            Retrieve relevant memories
   engram stats                       Show vault statistics
@@ -20,7 +22,6 @@ Usage:
   engram export                      Export entire vault as JSON
   engram consolidate                 Run memory consolidation
   engram forget <id> [--hard]        Forget a memory (soft or hard delete)
-  engram recent [--limit N]          Show recent memories
   engram search <query>              Full-text search
   engram repl                        Interactive REPL mode
 
@@ -93,6 +94,154 @@ function yellow(s: string) { return `\x1b[33m${s}\x1b[0m`; }
 function cyan(s: string) { return `\x1b[36m${s}\x1b[0m`; }
 
 // ============================================================
+// Init — Zero-friction setup for Claude Code / Cursor / MCP
+// ============================================================
+
+async function runInit(values: Record<string, unknown>) {
+  const { existsSync, readFileSync, writeFileSync, mkdirSync } = await import('fs');
+  const { homedir } = await import('os');
+  const { join } = await import('path');
+  const { createInterface } = await import('readline');
+
+  const rl = createInterface({ input: process.stdin, output: process.stdout });
+  const ask = (q: string): Promise<string> => new Promise(r => rl.question(q, r));
+
+  console.log(bold('\n🧠 Engram Setup\n'));
+  console.log('This will configure Engram as an MCP server for your AI coding agent.\n');
+
+  // 1. Detect which tools are installed
+  const home = homedir();
+  const claudeConfigDir = join(home, '.claude');
+  const claudeConfigPath = join(claudeConfigDir, 'claude_desktop_config.json');
+  const cursorConfigDir = join(home, '.cursor');
+  const cursorMcpPath = join(cursorConfigDir, 'mcp.json');
+
+  const hasClaudeDir = existsSync(claudeConfigDir);
+  const hasCursorDir = existsSync(cursorConfigDir);
+
+  // Also check for Claude Code's settings.json approach
+  const claudeCodeSettingsDir = join(home, '.claude');
+  const claudeCodeMcpPath = join(claudeCodeSettingsDir, 'claude_desktop_config.json');
+
+  // 2. Ask for owner name
+  const defaultOwner = (values.owner as string) || process.env.USER || 'my-agent';
+  const owner = (await ask(`  Agent name [${cyan(defaultOwner)}]: `)).trim() || defaultOwner;
+
+  // 3. Ask for Gemini key (optional but recommended)
+  let geminiKey = process.env.GEMINI_API_KEY || '';
+  const geminiKeyPath = join(home, '.config', 'engram', 'gemini-key');
+  if (!geminiKey && existsSync(geminiKeyPath)) {
+    geminiKey = readFileSync(geminiKeyPath, 'utf-8').trim();
+  }
+  if (!geminiKey) {
+    console.log(dim('\n  Gemini API key enables embeddings + consolidation (free tier available).'));
+    console.log(dim('  Get one at: https://aistudio.google.com/apikey\n'));
+    geminiKey = (await ask('  Gemini API key (optional, press Enter to skip): ')).trim();
+  } else {
+    console.log(`  ${green('✓')} Gemini API key found`);
+  }
+
+  // 4. Build the MCP server config block
+  const engramConfig: Record<string, unknown> = {
+    command: 'npx',
+    args: ['tsx', join(process.cwd(), 'src', 'mcp.ts')],
+    env: {
+      ENGRAM_OWNER: owner,
+      ...(geminiKey ? { GEMINI_API_KEY: geminiKey } : {}),
+    },
+  };
+
+  // For published package, use this instead:
+  const engramConfigPublished: Record<string, unknown> = {
+    command: 'npx',
+    args: ['engram', 'mcp'],
+    env: {
+      ENGRAM_OWNER: owner,
+      ...(geminiKey ? { GEMINI_API_KEY: geminiKey } : {}),
+    },
+  };
+
+  console.log('\n' + bold('  MCP Server Configuration:\n'));
+  console.log(dim('  ' + JSON.stringify({ engram: engramConfigPublished }, null, 2).split('\n').join('\n  ')));
+
+  // 5. Write config to detected tools
+  const targets: string[] = [];
+
+  if (hasClaudeDir) {
+    const write = (await ask(`\n  Write to Claude Code config? (${claudeConfigPath}) [Y/n]: `)).trim().toLowerCase();
+    if (write !== 'n') {
+      let config: Record<string, unknown> = {};
+      if (existsSync(claudeConfigPath)) {
+        try { config = JSON.parse(readFileSync(claudeConfigPath, 'utf-8')); } catch {}
+      }
+      if (!config.mcpServers) config.mcpServers = {};
+      (config.mcpServers as Record<string, unknown>).engram = engramConfig;
+      mkdirSync(claudeConfigDir, { recursive: true });
+      writeFileSync(claudeConfigPath, JSON.stringify(config, null, 2));
+      targets.push('Claude Code');
+      console.log(`  ${green('✓')} Written to ${claudeConfigPath}`);
+    }
+  }
+
+  if (hasCursorDir) {
+    const write = (await ask(`\n  Write to Cursor MCP config? (${cursorMcpPath}) [Y/n]: `)).trim().toLowerCase();
+    if (write !== 'n') {
+      let config: Record<string, unknown> = {};
+      if (existsSync(cursorMcpPath)) {
+        try { config = JSON.parse(readFileSync(cursorMcpPath, 'utf-8')); } catch {}
+      }
+      if (!config.mcpServers) config.mcpServers = {};
+      (config.mcpServers as Record<string, unknown>).engram = engramConfig;
+      mkdirSync(cursorConfigDir, { recursive: true });
+      writeFileSync(cursorMcpPath, JSON.stringify(config, null, 2));
+      targets.push('Cursor');
+      console.log(`  ${green('✓')} Written to ${cursorMcpPath}`);
+    }
+  }
+
+  if (!hasClaudeDir && !hasCursorDir) {
+    console.log(yellow('\n  No Claude Code or Cursor installation detected.'));
+    console.log('  Add this to your MCP client config manually:\n');
+    console.log('  ' + JSON.stringify({ mcpServers: { engram: engramConfigPublished } }, null, 2).split('\n').join('\n  '));
+  }
+
+  // 6. Save Gemini key if provided
+  if (geminiKey) {
+    const configDir = join(home, '.config', 'engram');
+    mkdirSync(configDir, { recursive: true });
+    writeFileSync(geminiKeyPath, geminiKey);
+    console.log(`  ${green('✓')} Gemini key saved to ${geminiKeyPath}`);
+  }
+
+  // 7. Create initial vault to verify setup
+  const dbPath = join(home, `.engram-${owner}.db`);
+  const testVault = new Vault({ owner, dbPath });
+  const stats = testVault.stats();
+  testVault.close();
+  console.log(`  ${green('✓')} Vault created at ${dbPath} (${stats.total} memories)`);
+
+  console.log(bold('\n  🎉 Setup complete!\n'));
+  if (targets.length > 0) {
+    console.log(`  Restart ${targets.join(' and ')} to activate Engram.\n`);
+    console.log('  Your agent now has 10 memory tools:');
+    console.log('    engram_remember    — Store a memory');
+    console.log('    engram_recall      — Retrieve relevant memories');
+    console.log('    engram_surface     — Proactive context surfacing');
+    console.log('    engram_briefing    — Session start briefing');
+    console.log('    engram_consolidate — Sleep cycle consolidation');
+    console.log('    engram_connect     — Link memories in the graph');
+    console.log('    engram_forget      — Remove memories');
+    console.log('    engram_entities    — List tracked entities');
+    console.log('    engram_stats       — Vault statistics');
+    console.log('    engram_ingest      — Auto-extract from text');
+  } else {
+    console.log('  Add the config to your MCP client, then restart it.\n');
+  }
+
+  rl.close();
+}
+
+// ============================================================
 // Commands
 // ============================================================
 
@@ -105,6 +254,20 @@ async function main() {
   }
 
   const command = positionals[0];
+
+  // ── Commands that don't need a vault ──
+
+  if (command === 'init') {
+    await runInit(values);
+    process.exit(0);
+  }
+
+  if (command === 'mcp') {
+    // Delegate to the MCP server entry point
+    await import('./mcp.js');
+    return; // MCP server runs until killed
+  }
+
   const vault = createVault(values);
 
   try {
