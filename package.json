@@ -20,6 +20,7 @@
     "test": "vitest run",
     "lint": "tsc --noEmit",
     "cli": "tsx src/cli.ts",
+    "serve": "tsx src/server.ts",
     "prepublishOnly": "npm run build"
   },
   "keywords": [

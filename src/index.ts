@@ -1,4 +1,5 @@
 export { Vault } from './vault.js';
+export { createEngramServer } from './server.js';
 export { OpenAIEmbeddings, LocalEmbeddings } from './embeddings.js';
 export { ingest, ingestDailyLog } from './ingest.js';
 export { brief } from './brief.js';
