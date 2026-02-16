@@ -36,7 +36,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tstockham/engram"
+    "url": "https://github.com/tstockham96/engram"
   },
   "engines": {
     "node": ">=20.0.0"
