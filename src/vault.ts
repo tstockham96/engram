@@ -383,7 +383,10 @@ export class Vault {
     }
 
     const llmConfig = this.config.llm!;
-    const model = llmConfig.model ?? 'claude-3-5-haiku-20241022';
+    const defaultModel = llmConfig.provider === 'gemini' ? 'gemini-2.0-flash'
+      : llmConfig.provider === 'openai' ? 'gpt-4o-mini'
+      : 'claude-3-5-haiku-20241022';
+    const model = llmConfig.model ?? defaultModel;
 
     // Build the consolidation prompt
     const episodeSummaries = episodes.map((e, i) =>
@@ -505,6 +508,37 @@ Be conservative with confidence scores. Only extract what's clearly supported by
       const text = data.content?.find(c => c.type === 'text')?.text ?? '';
 
       // Extract JSON from response (handle markdown code blocks)
+      const jsonMatch = text.match(/```json\s*([\s\S]*?)\s*```/) ?? text.match(/\{[\s\S]*\}/);
+      return jsonMatch ? (jsonMatch[1] ?? jsonMatch[0]) : text;
+    }
+
+    if (config.provider === 'gemini') {
+      const geminiModel = model.startsWith('gemini') ? model : 'gemini-2.0-flash';
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${config.apiKey}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: {
+              responseMimeType: 'application/json',
+              maxOutputTokens: 4096,
+            },
+          }),
+        },
+      );
+
+      if (!response.ok) {
+        const err = await response.text();
+        throw new Error(`Gemini API error: ${response.status} ${err}`);
+      }
+
+      const data = await response.json() as {
+        candidates: Array<{ content: { parts: Array<{ text: string }> } }>;
+      };
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
+      // Gemini with responseMimeType=application/json should return clean JSON
       const jsonMatch = text.match(/```json\s*([\s\S]*?)\s*```/) ?? text.match(/\{[\s\S]*\}/);
       return jsonMatch ? (jsonMatch[1] ?? jsonMatch[0]) : text;
     }
