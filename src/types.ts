@@ -32,6 +32,15 @@ export const EdgeType = z.enum([
 ]);
 export type EdgeType = z.infer<typeof EdgeType>;
 
+export const MemoryStatus = z.enum([
+  'active',       // Current, valid memory
+  'pending',      // Commitment/plan not yet fulfilled
+  'fulfilled',    // Commitment completed
+  'superseded',   // Replaced by newer information
+  'archived',     // Decayed beyond usefulness
+]);
+export type MemoryStatus = z.infer<typeof MemoryStatus>;
+
 export const Visibility = z.enum([
   'private',        // Only the creating agent
   'owner_agents',   // All of the owner's agents
@@ -74,6 +83,9 @@ export interface Memory {
   // Semantic anchors
   entities: string[];   // Entity names/IDs referenced
   topics: string[];     // Topic tags
+
+  // Lifecycle
+  status: MemoryStatus;
 
   // Access control
   visibility: Visibility;
@@ -123,6 +135,7 @@ export const RememberInputSchema = z.object({
   topics: z.array(z.string()).default([]),
   salience: z.number().min(0).max(1).default(0.5),
   confidence: z.number().min(0).max(1).default(0.8),
+  status: MemoryStatus.default('active'),
   visibility: Visibility.default('owner_agents'),
   source: z.object({
     type: SourceType.default('conversation'),

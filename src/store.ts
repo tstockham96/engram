@@ -66,6 +66,9 @@ export class MemoryStore {
         entities TEXT NOT NULL DEFAULT '[]',   -- JSON array
         topics TEXT NOT NULL DEFAULT '[]',     -- JSON array
 
+        -- Lifecycle
+        status TEXT NOT NULL DEFAULT 'active' CHECK(status IN ('active', 'pending', 'fulfilled', 'superseded', 'archived')),
+
         -- Access Control
         visibility TEXT NOT NULL DEFAULT 'owner_agents',
 
@@ -149,6 +152,7 @@ export class MemoryStore {
       stability: 1.0,
       entities: input.entities ?? [],
       topics: input.topics ?? [],
+      status: input.status ?? 'active',
       visibility: input.visibility ?? 'owner_agents',
     };
 
@@ -158,13 +162,13 @@ export class MemoryStore {
         source_type, source_session_id, source_agent_id, source_evidence, source_timestamp,
         created_at, last_accessed_at, last_modified_at, access_count, expires_at,
         salience, confidence, stability,
-        entities, topics, visibility
+        entities, topics, status, visibility
       ) VALUES (
         ?, ?, ?, ?,
         ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?,
         ?, ?, ?,
-        ?, ?, ?
+        ?, ?, ?, ?
       )
     `).run(
       memory.id, memory.type, memory.content, memory.summary,
@@ -173,7 +177,7 @@ export class MemoryStore {
       memory.createdAt, memory.lastAccessedAt, memory.lastModifiedAt,
       memory.accessCount, memory.expiresAt ?? null,
       memory.salience, memory.confidence, memory.stability,
-      JSON.stringify(memory.entities), JSON.stringify(memory.topics), memory.visibility,
+      JSON.stringify(memory.entities), JSON.stringify(memory.topics), memory.status, memory.visibility,
     );
 
     // Auto-discover/update entities
@@ -512,6 +516,7 @@ export class MemoryStore {
       stability: row.stability,
       entities: JSON.parse(row.entities),
       topics: JSON.parse(row.topics),
+      status: (row as any).status ?? 'active',
       visibility: row.visibility as Memory['visibility'],
     };
   }
@@ -570,6 +575,7 @@ interface MemoryRow {
   stability: number;
   entities: string;
   topics: string;
+  status: string;
   visibility: string;
   embedding: Buffer | null;
 }
