@@ -13,12 +13,14 @@ An AI agent with Engram memory performs measurably better at tasks requiring con
 1. **Baseline (no Engram):** Agent uses only OpenClaw's default memory system (MEMORY.md flat files + vector search over markdown)
 2. **Engram-enhanced:** Agent uses Engram vault (auto-ingest, semantic recall, consolidation, knowledge graph)
 
+**Interface:** REST API + auto-ingest pipeline — the same way any OpenClaw user would run it. No MCP needed. Just the Engram server running alongside the agent, auto-ingesting conversations, and serving recall queries via HTTP.
+
 **Method:** Over 72 hours of normal use with Thomas, I'll log specific moments where memory matters. At each moment, I'll:
-1. Query Engram for relevant context
-2. Note what my flat-file memory would have returned
+1. Query Engram's REST API for relevant context
+2. Note what my flat-file memory (MEMORY.md + vector search) would have returned
 3. Compare the quality of recall
 
-This isn't a synthetic benchmark — it's real-world usage. More ecologically valid than a lab test.
+This isn't a synthetic benchmark — it's real-world usage on the same setup any OpenClaw user would have. More ecologically valid than a lab test.
 
 ## Metrics
 
