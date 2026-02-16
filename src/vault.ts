@@ -2,6 +2,7 @@ import path from 'path';
 import { MemoryStore } from './store.js';
 import { RememberInputSchema, RecallInputSchema } from './types.js';
 import type { Memory, Edge, Entity, RememberInput, RecallInput, RememberParsed, RecallParsed, ConsolidationReport, VaultConfig } from './types.js';
+import type { EmbeddingProvider } from './embeddings.js';
 
 // ============================================================
 // Vault — The public API for Engram
@@ -10,11 +11,13 @@ import type { Memory, Edge, Entity, RememberInput, RecallInput, RememberParsed, 
 export class Vault {
   private store: MemoryStore;
   private config: Required<Pick<VaultConfig, 'owner'>> & VaultConfig;
+  private embedder: EmbeddingProvider | null = null;
 
-  constructor(config: VaultConfig) {
+  constructor(config: VaultConfig, embedder?: EmbeddingProvider) {
     this.config = config;
+    this.embedder = embedder ?? null;
     const dbPath = config.dbPath ?? path.resolve(`engram-${config.owner}.db`);
-    this.store = new MemoryStore(dbPath);
+    this.store = new MemoryStore(dbPath, embedder?.dimensions());
   }
 
   // --------------------------------------------------------
@@ -38,14 +41,52 @@ export class Vault {
       parsed.source.sessionId = this.config.sessionId;
     }
 
-    return this.store.createMemory(parsed);
+    const memory = this.store.createMemory(parsed);
+
+    // Queue embedding computation (non-blocking)
+    if (this.embedder) {
+      this.computeAndStoreEmbedding(memory.id, memory.content).catch(err => {
+        console.warn(`Failed to compute embedding for ${memory.id}:`, err);
+      });
+    }
+
+    return memory;
+  }
+
+  /** Compute embedding and store it — can be awaited if needed */
+  async computeAndStoreEmbedding(memoryId: string, content: string): Promise<void> {
+    if (!this.embedder) return;
+    const embedding = await this.embedder.embed(content);
+    this.store.storeEmbedding(memoryId, embedding);
+  }
+
+  /** Batch compute embeddings for all memories missing them */
+  async backfillEmbeddings(): Promise<number> {
+    if (!this.embedder) return 0;
+
+    const allMemories = this.store.exportAll().memories;
+    let count = 0;
+
+    // Process in batches of 50
+    for (let i = 0; i < allMemories.length; i += 50) {
+      const batch = allMemories.slice(i, i + 50);
+      const texts = batch.map(m => m.content);
+      const embeddings = await this.embedder.embedBatch(texts);
+
+      for (let j = 0; j < batch.length; j++) {
+        this.store.storeEmbedding(batch[j].id, embeddings[j]);
+        count++;
+      }
+    }
+
+    return count;
   }
 
   // --------------------------------------------------------
   // recall() — Retrieve relevant memories for a context
   // --------------------------------------------------------
 
-  recall(input: RecallInput | string): Memory[] {
+  async recall(input: RecallInput | string): Promise<Memory[]> {
     const parsed: RecallParsed = typeof input === 'string'
       ? RecallInputSchema.parse({ context: input })
       : RecallInputSchema.parse(input);
@@ -72,13 +113,25 @@ export class Vault {
       }
     }
 
-    // 3. Content search (keyword-based for now, embeddings in v2)
-    const keywords = this.extractKeywords(parsed.context);
-    for (const keyword of keywords.slice(0, 5)) { // Top 5 keywords
-      const memories = this.store.search(keyword, 20);
-      for (const mem of memories) {
-        this.addCandidate(candidates, mem, 0.3);
+    // 3. Semantic search via embeddings (or fall back to keyword search)
+    if (this.embedder && this.store.hasVectorSearch()) {
+      try {
+        const queryEmbedding = await this.embedder.embed(parsed.context);
+        const vectorResults = this.store.searchByVector(queryEmbedding, 30);
+        for (const vr of vectorResults) {
+          const mem = this.store.getMemory(vr.memoryId);
+          if (mem) {
+            // Convert distance to score (lower distance = higher score)
+            const score = Math.max(0, 1 - vr.distance);
+            this.addCandidate(candidates, mem, score * 0.9); // High weight for semantic match
+          }
+        }
+      } catch (err) {
+        // Fall back to keyword search on embedding failure
+        this.keywordSearch(parsed.context, candidates);
       }
+    } else {
+      this.keywordSearch(parsed.context, candidates);
     }
 
     // 4. Recent memories (always include some recency)
@@ -469,6 +522,23 @@ Be conservative with confidence scores. Only extract what's clearly supported by
     }
 
     throw new Error(`Unsupported LLM provider: ${config.provider}`);
+  }
+
+  // --------------------------------------------------------
+  // Private: Keyword search fallback
+  // --------------------------------------------------------
+
+  private keywordSearch(
+    context: string,
+    candidates: Map<string, { memory: Memory; score: number }>,
+  ): void {
+    const keywords = this.extractKeywords(context);
+    for (const keyword of keywords.slice(0, 5)) {
+      const memories = this.store.search(keyword, 20);
+      for (const mem of memories) {
+        this.addCandidate(candidates, mem, 0.3);
+      }
+    }
   }
 
   // --------------------------------------------------------

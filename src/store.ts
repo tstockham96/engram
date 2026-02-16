@@ -1,5 +1,6 @@
 import Database from 'better-sqlite3';
 import { v4 as uuid } from 'uuid';
+import * as sqliteVec from 'sqlite-vec';
 import type { Memory, Edge, Entity, RememberParsed } from './types.js';
 
 // ============================================================
@@ -8,11 +9,25 @@ import type { Memory, Edge, Entity, RememberParsed } from './types.js';
 
 export class MemoryStore {
   private db: Database.Database;
+  private vecEnabled: boolean = false;
+  private embeddingDimensions: number = 0;
 
-  constructor(dbPath: string) {
+  constructor(dbPath: string, embeddingDimensions?: number) {
     this.db = new Database(dbPath);
     this.db.pragma('journal_mode = WAL');
     this.db.pragma('foreign_keys = ON');
+
+    // Load sqlite-vec extension
+    if (embeddingDimensions && embeddingDimensions > 0) {
+      try {
+        sqliteVec.load(this.db);
+        this.vecEnabled = true;
+        this.embeddingDimensions = embeddingDimensions;
+      } catch (err) {
+        console.warn('sqlite-vec extension not available, falling back to non-vector search:', (err as Error).message);
+      }
+    }
+
     this.migrate();
   }
 
@@ -90,6 +105,16 @@ export class MemoryStore {
       CREATE INDEX IF NOT EXISTS idx_edges_type ON edges(type);
       CREATE INDEX IF NOT EXISTS idx_entities_name ON entities(name);
     `);
+
+    // Create vector virtual table if sqlite-vec is loaded
+    if (this.vecEnabled && this.embeddingDimensions > 0) {
+      this.db.exec(`
+        CREATE VIRTUAL TABLE IF NOT EXISTS vec_memories USING vec0(
+          memory_id TEXT PRIMARY KEY,
+          embedding float[${this.embeddingDimensions}]
+        );
+      `);
+    }
   }
 
   // --------------------------------------------------------
@@ -289,15 +314,17 @@ export class MemoryStore {
   }
 
   getEdgesFrom(memoryId: string): Edge[] {
-    return this.db.prepare(
+    const rows = this.db.prepare(
       'SELECT * FROM edges WHERE source_id = ?'
-    ).all(memoryId) as Edge[];
+    ).all(memoryId) as EdgeRow[];
+    return rows.map(r => this.rowToEdge(r));
   }
 
   getEdgesTo(memoryId: string): Edge[] {
-    return this.db.prepare(
+    const rows = this.db.prepare(
       'SELECT * FROM edges WHERE target_id = ?'
-    ).all(memoryId) as Edge[];
+    ).all(memoryId) as EdgeRow[];
+    return rows.map(r => this.rowToEdge(r));
   }
 
   getNeighbors(memoryId: string, depth: number = 1): Memory[] {
@@ -371,6 +398,48 @@ export class MemoryStore {
   }
 
   // --------------------------------------------------------
+  // Vector Search
+  // --------------------------------------------------------
+
+  /** Store an embedding for a memory */
+  storeEmbedding(memoryId: string, embedding: number[]): void {
+    if (!this.vecEnabled) return;
+
+    // Convert to Float32Array buffer for sqlite-vec
+    const buf = new Float32Array(embedding).buffer;
+
+    // vec0 virtual tables don't support INSERT OR REPLACE
+    // Delete first, then insert
+    this.db.prepare('DELETE FROM vec_memories WHERE memory_id = ?').run(memoryId);
+    this.db.prepare(`
+      INSERT INTO vec_memories (memory_id, embedding)
+      VALUES (?, ?)
+    `).run(memoryId, Buffer.from(buf));
+  }
+
+  /** Find nearest neighbors by embedding vector */
+  searchByVector(embedding: number[], limit: number = 20): Array<{ memoryId: string; distance: number }> {
+    if (!this.vecEnabled) return [];
+
+    const buf = new Float32Array(embedding).buffer;
+
+    const rows = this.db.prepare(`
+      SELECT memory_id, distance
+      FROM vec_memories
+      WHERE embedding MATCH ?
+      ORDER BY distance
+      LIMIT ?
+    `).all(Buffer.from(buf), limit) as Array<{ memory_id: string; distance: number }>;
+
+    return rows.map(r => ({ memoryId: r.memory_id, distance: r.distance }));
+  }
+
+  /** Check if vector search is available */
+  hasVectorSearch(): boolean {
+    return this.vecEnabled;
+  }
+
+  // --------------------------------------------------------
   // Decay
   // --------------------------------------------------------
 
@@ -411,7 +480,7 @@ export class MemoryStore {
 
   exportAll(): { memories: Memory[]; edges: Edge[]; entities: Entity[] } {
     const memories = (this.db.prepare('SELECT * FROM memories').all() as MemoryRow[]).map(r => this.rowToMemory(r));
-    const edges = this.db.prepare('SELECT * FROM edges').all() as Edge[];
+    const edges = (this.db.prepare('SELECT * FROM edges').all() as EdgeRow[]).map(r => this.rowToEdge(r));
     const entities = (this.db.prepare('SELECT * FROM entities').all() as EntityRow[]).map(r => this.rowToEntity(r));
     return { memories, edges, entities };
   }
@@ -444,6 +513,17 @@ export class MemoryStore {
       entities: JSON.parse(row.entities),
       topics: JSON.parse(row.topics),
       visibility: row.visibility as Memory['visibility'],
+    };
+  }
+
+  private rowToEdge(row: EdgeRow): Edge {
+    return {
+      id: row.id,
+      sourceId: row.source_id,
+      targetId: row.target_id,
+      type: row.type as Edge['type'],
+      strength: row.strength,
+      createdAt: row.created_at,
     };
   }
 
@@ -492,6 +572,15 @@ interface MemoryRow {
   topics: string;
   visibility: string;
   embedding: Buffer | null;
+}
+
+interface EdgeRow {
+  id: string;
+  source_id: string;
+  target_id: string;
+  type: string;
+  strength: number;
+  created_at: string;
 }
 
 interface EntityRow {

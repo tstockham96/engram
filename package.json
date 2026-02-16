@@ -11,14 +11,26 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "bin": {
+    "engram": "dist/cli.js"
+  },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
-    "test": "vitest",
+    "test": "vitest run",
     "lint": "tsc --noEmit",
+    "cli": "tsx src/cli.ts",
     "prepublishOnly": "npm run build"
   },
-  "keywords": ["ai", "agents", "memory", "llm", "rag", "consolidation", "engram"],
+  "keywords": [
+    "ai",
+    "agents",
+    "memory",
+    "llm",
+    "rag",
+    "consolidation",
+    "engram"
+  ],
   "author": "Thomas Stockham",
   "license": "MIT",
   "repository": {
@@ -30,6 +42,7 @@
   },
   "dependencies": {
     "better-sqlite3": "^11.8.1",
+    "sqlite-vec": "^0.1.7-alpha.2",
     "uuid": "^11.1.0",
     "zod": "^3.24.1"
   },
