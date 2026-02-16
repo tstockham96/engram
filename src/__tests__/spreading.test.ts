@@ -214,27 +214,29 @@ describe('Spreading Activation', () => {
   });
 
   it('edge type weights affect propagation strength', async () => {
-    const root = vault.remember({ content: 'Root memory', entities: ['Root'], salience: 0.9 });
-    const support = vault.remember({ content: 'Supporting evidence for root', entities: ['Root'], salience: 0.5 });
-    const temporal = vault.remember({ content: 'Something that happened after root', entities: ['Root'], salience: 0.5 });
+    // Use distinct entities so only edge traversal differentiates the memories
+    const root = vault.remember({ content: 'Root memory about Nexus', entities: ['Nexus'], salience: 0.9 });
+    const support = vault.remember({ content: 'Supporting evidence for Nexus claim', entities: ['Evidence'], salience: 0.5 });
+    const temporal = vault.remember({ content: 'Something that happened after Nexus event', entities: ['Timeline'], salience: 0.5 });
 
     // 'supports' has weight 0.9, 'temporal_next' has weight 0.4
     vault.connect(root.id, support.id, 'supports', 0.8);
     vault.connect(root.id, temporal.id, 'temporal_next', 0.8);
 
     const results = await vault.recall({
-      context: 'Root',
-      entities: ['Root'],
+      context: 'Nexus',
+      entities: ['Nexus'],
       spread: true,
       spreadEntityHops: false, // Only use explicit edges
       limit: 20,
     });
 
-    // Both should be found, but supports should rank higher due to edge type weight
+    // Both should be found via edges, but supports should rank higher
     const ranking = results.map(m => m.id);
     const supportIdx = ranking.indexOf(support.id);
     const temporalIdx = ranking.indexOf(temporal.id);
 
+    // If both found, supports should outrank temporal_next
     if (supportIdx !== -1 && temporalIdx !== -1) {
       expect(supportIdx).toBeLessThan(temporalIdx);
     }
@@ -287,6 +289,157 @@ describe('Briefing', () => {
     const briefing = await vault.briefing('Python development');
 
     expect(briefing.summary).toContain('Context-relevant');
+  });
+});
+
+describe('Proactive Surfacing', () => {
+  let vault: Vault;
+
+  beforeEach(() => {
+    vault = makeVault();
+  });
+
+  afterEach(() => {
+    vault.close();
+    if (existsSync(TEST_DB)) unlinkSync(TEST_DB);
+  });
+
+  it('surfaces relevant memories based on context', async () => {
+    vault.remember({
+      content: 'Thomas has a meeting with the BambooHR analytics team tomorrow at 2pm',
+      type: 'episodic',
+      entities: ['Thomas', 'BambooHR'],
+      topics: ['meetings', 'analytics'],
+      salience: 0.7,
+      status: 'pending',
+    });
+
+    vault.remember({
+      content: 'The report builder redesign improved query performance by 3x',
+      type: 'semantic',
+      entities: ['BambooHR'],
+      topics: ['analytics', 'performance'],
+      salience: 0.6,
+    });
+
+    vault.remember({
+      content: 'Thomas likes pizza',
+      type: 'semantic',
+      entities: ['Thomas'],
+      topics: ['food'],
+      salience: 0.3,
+    });
+
+    // Wait a moment so access timestamps age slightly
+    const results = await vault.surface({
+      context: 'Preparing for the analytics team discussion',
+      activeEntities: ['BambooHR'],
+      activeTopics: ['analytics'],
+      minHoursSinceAccess: 0, // Override for test (memories were just created)
+    });
+
+    // Should surface analytics-related memories, NOT pizza
+    expect(results.length).toBeGreaterThan(0);
+    const contents = results.map(r => r.memory.content);
+    expect(contents.some(c => c.includes('analytics') || c.includes('report builder'))).toBe(true);
+    expect(contents.every(c => !c.includes('pizza'))).toBe(true); // Pizza is low salience
+  });
+
+  it('filters out already-seen memories', async () => {
+    const m1 = vault.remember({
+      content: 'Important fact A',
+      entities: ['Alpha'],
+      salience: 0.8,
+    });
+    vault.remember({
+      content: 'Important fact B about Alpha',
+      entities: ['Alpha'],
+      salience: 0.8,
+    });
+
+    const results = await vault.surface({
+      context: 'Working on Alpha project',
+      activeEntities: ['Alpha'],
+      seen: [m1.id],
+      minHoursSinceAccess: 0,
+    });
+
+    // m1 should be filtered out
+    expect(results.every(r => r.memory.id !== m1.id)).toBe(true);
+  });
+
+  it('returns empty when nothing is relevant', async () => {
+    vault.remember({
+      content: 'Completely unrelated quantum physics theorem',
+      entities: ['Heisenberg'],
+      topics: ['physics'],
+      salience: 0.5,
+    });
+
+    const results = await vault.surface({
+      context: 'Making dinner tonight',
+      activeEntities: ['Kitchen'],
+      activeTopics: ['cooking'],
+      minHoursSinceAccess: 0,
+      relevanceThreshold: 0.5,
+    });
+
+    // Nothing cooking-related exists, should return empty
+    expect(results.length).toBe(0);
+  });
+
+  it('prioritizes pending commitments', async () => {
+    vault.remember({
+      content: 'Need to send the Q4 report to the VP by Friday',
+      entities: ['Thomas'],
+      topics: ['work', 'reports'],
+      salience: 0.8,
+      status: 'pending',
+    });
+
+    vault.remember({
+      content: 'Last quarter revenue was up 12%',
+      type: 'semantic',
+      entities: ['Thomas'],
+      topics: ['work', 'revenue'],
+      salience: 0.6,
+    });
+
+    const results = await vault.surface({
+      context: 'Starting the work day',
+      activeEntities: ['Thomas'],
+      activeTopics: ['work'],
+      minHoursSinceAccess: 0,
+    });
+
+    // Pending commitment should rank high
+    const pendingIdx = results.findIndex(r => r.memory.status === 'pending');
+    if (results.length > 1 && pendingIdx !== -1) {
+      // Pending should be in top 2
+      expect(pendingIdx).toBeLessThan(2);
+    }
+  });
+
+  it('includes reason and activation path', async () => {
+    vault.remember({
+      content: 'Engram uses spreading activation for recall',
+      entities: ['Engram'],
+      topics: ['architecture'],
+      salience: 0.7,
+    });
+
+    const results = await vault.surface({
+      context: 'Working on the Engram project',
+      activeEntities: ['Engram'],
+      activeTopics: ['architecture'],
+      minHoursSinceAccess: 0,
+    });
+
+    if (results.length > 0) {
+      expect(results[0].reason).toBeTruthy();
+      expect(results[0].activationPath).toBeTruthy();
+      expect(typeof results[0].relevance).toBe('number');
+    }
   });
 });
 

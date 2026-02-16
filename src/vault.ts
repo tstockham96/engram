@@ -624,6 +624,256 @@ export class Vault {
   }
 
   // --------------------------------------------------------
+  // surface() — Proactive memory surfacing.
+  //
+  // The key insight from the manifesto: memories should be
+  // PUSHED when relevant, not just PULLED on demand.
+  //
+  // Unlike recall() which answers a question, surface() takes
+  // ambient context (what the agent is doing, what the user
+  // just said, what tool is running) and returns memories the
+  // agent didn't ask for but SHOULD know about right now.
+  //
+  // Returns empty array when nothing crosses the relevance
+  // threshold — silence is a valid response.
+  //
+  // Think of it like how a smell triggers a memory you weren't
+  // trying to recall.
+  // --------------------------------------------------------
+
+  async surface(input: {
+    context: string;
+    /** Currently active entities (people, projects in the conversation) */
+    activeEntities?: string[];
+    /** Currently active topics */
+    activeTopics?: string[];
+    /** Memory IDs the agent has already seen this session (don't re-surface) */
+    seen?: string[];
+    /** Minimum salience to surface (default: 0.4 — only important stuff) */
+    minSalience?: number;
+    /** Minimum hours since last accessed (default: 1 — don't repeat recent) */
+    minHoursSinceAccess?: number;
+    /** Maximum results (default: 3 — keep it focused) */
+    limit?: number;
+    /** Relevance threshold 0-1 (default: 0.3 — must be genuinely relevant) */
+    relevanceThreshold?: number;
+  }): Promise<Array<{
+    memory: Memory;
+    reason: string;          // Why this was surfaced
+    relevance: number;       // 0-1 relevance score
+    activationPath: string;  // How it was found (e.g. "entity:Thomas → edge:elaborates → ...")
+  }>> {
+    const {
+      context,
+      activeEntities = [],
+      activeTopics = [],
+      seen = [],
+      minSalience = 0.4,
+      minHoursSinceAccess = 1,
+      limit = 3,
+      relevanceThreshold = 0.3,
+    } = input;
+
+    const seenSet = new Set(seen);
+    const now = Date.now();
+    const minAccessAge = minHoursSinceAccess * 60 * 60 * 1000;
+
+    // Step 1: Run spreading activation to find contextually activated memories
+    // Use a wider net than normal recall — we want to find non-obvious connections
+    const candidates: Map<string, { memory: Memory; score: number }> = new Map();
+
+    // Seed from active entities
+    for (const entity of activeEntities) {
+      const memories = this.store.getByEntity(entity, 30);
+      for (const mem of memories) {
+        this.addCandidate(candidates, mem, 0.6);
+      }
+    }
+
+    // Seed from active topics
+    for (const topic of activeTopics) {
+      const memories = this.store.getByTopic(topic, 20);
+      for (const mem of memories) {
+        this.addCandidate(candidates, mem, 0.4);
+      }
+    }
+
+    // Seed from context keywords
+    this.keywordSearch(context, candidates);
+
+    // Seed from semantic search if available
+    if (this.embedder && this.store.hasVectorSearch()) {
+      try {
+        const queryEmbedding = await this.embedder.embed(context);
+        const vectorResults = this.store.searchByVector(queryEmbedding, 20);
+        for (const vr of vectorResults) {
+          const mem = this.store.getMemoryDirect(vr.memoryId);
+          if (mem) {
+            const score = Math.max(0, 1 - vr.distance);
+            this.addCandidate(candidates, mem, score * 0.7);
+          }
+        }
+      } catch (_) { /* fallback already covered by keyword search */ }
+    }
+
+    // Run spreading activation with wider parameters
+    if (candidates.size > 0) {
+      this.spreadActivation(candidates, {
+        maxHops: 3,       // Go deeper than normal recall
+        decay: 0.6,       // Decay slower — we want distant surprises
+        minActivation: 0.08, // Lower threshold — cast a wider net
+        entityHops: true,
+      });
+    }
+
+    // Step 2: Filter for proactive-worthy memories
+    const results: Array<{
+      memory: Memory;
+      reason: string;
+      relevance: number;
+      activationPath: string;
+    }> = [];
+
+    for (const [id, { memory, score }] of candidates) {
+      // Skip already-seen memories
+      if (seenSet.has(id)) continue;
+
+      // Skip low-salience memories (not important enough to proactively push)
+      if (memory.salience < minSalience) continue;
+
+      // Skip recently accessed memories (don't repeat yourself)
+      const lastAccessed = new Date(memory.lastAccessedAt).getTime();
+      if (now - lastAccessed < minAccessAge) continue;
+
+      // Skip archived/superseded
+      if (memory.status === 'archived' || memory.status === 'superseded') continue;
+
+      // Must clear relevance threshold
+      if (score < relevanceThreshold) continue;
+
+      // Determine WHY this is being surfaced
+      const reason = this.classifySurfaceReason(memory, context, activeEntities, activeTopics);
+      const activationPath = this.traceActivationPath(memory, activeEntities, activeTopics);
+
+      results.push({
+        memory,
+        reason,
+        relevance: Math.min(score, 1.0),
+        activationPath,
+      });
+    }
+
+    // Step 3: Rank by a composite score that favors:
+    //   - High relevance (from spreading activation)
+    //   - High salience (important memories)
+    //   - Pending commitments (things that need attention)
+    //   - Semantic type (facts and how-tos over raw episodes)
+    results.sort((a, b) => {
+      const scoreA = this.surfaceRankScore(a);
+      const scoreB = this.surfaceRankScore(b);
+      return scoreB - scoreA;
+    });
+
+    return results.slice(0, limit);
+  }
+
+  /** Classify why a memory is being proactively surfaced */
+  private classifySurfaceReason(
+    memory: Memory,
+    context: string,
+    activeEntities: string[],
+    activeTopics: string[],
+  ): string {
+    // Pending commitment
+    if (memory.status === 'pending') {
+      return `Pending commitment: "${memory.summary}"`;
+    }
+
+    // Entity connection
+    const sharedEntities = memory.entities.filter(e =>
+      activeEntities.some(ae => ae.toLowerCase() === e.toLowerCase())
+    );
+    if (sharedEntities.length > 0) {
+      return `Related to ${sharedEntities.join(', ')} in current context`;
+    }
+
+    // Topic overlap
+    const sharedTopics = memory.topics.filter(t =>
+      activeTopics.some(at => at.toLowerCase() === t.toLowerCase())
+    );
+    if (sharedTopics.length > 0) {
+      return `Relevant topic: ${sharedTopics.join(', ')}`;
+    }
+
+    // Procedural (how-to that might help)
+    if (memory.type === 'procedural') {
+      return `Relevant procedure: "${memory.summary}"`;
+    }
+
+    // Semantic (fact that adds context)
+    if (memory.type === 'semantic') {
+      return `Background knowledge that may be relevant`;
+    }
+
+    return 'Activated through memory graph cascade';
+  }
+
+  /** Trace how a memory was activated (simplified path description) */
+  private traceActivationPath(
+    memory: Memory,
+    activeEntities: string[],
+    activeTopics: string[],
+  ): string {
+    const parts: string[] = [];
+
+    // Check direct entity match
+    const entityMatch = memory.entities.filter(e =>
+      activeEntities.some(ae => ae.toLowerCase() === e.toLowerCase())
+    );
+    if (entityMatch.length > 0) {
+      parts.push(`entity:${entityMatch[0]}`);
+    }
+
+    // Check topic match
+    const topicMatch = memory.topics.filter(t =>
+      activeTopics.some(at => at.toLowerCase() === t.toLowerCase())
+    );
+    if (topicMatch.length > 0) {
+      parts.push(`topic:${topicMatch[0]}`);
+    }
+
+    // Check graph edges
+    const edges = this.store.getEdgesBidirectional(memory.id);
+    if (edges.length > 0) {
+      const edgeTypes = [...new Set(edges.map(e => e.type))];
+      parts.push(`graph:${edgeTypes.join(',')}`);
+    }
+
+    if (parts.length === 0) {
+      // Must have been found via keyword/semantic similarity
+      parts.push('semantic_similarity');
+    }
+
+    return parts.join(' → ');
+  }
+
+  /** Composite ranking score for proactive surfacing */
+  private surfaceRankScore(item: { memory: Memory; relevance: number }): number {
+    let score = item.relevance * 0.4;        // Relevance from activation
+    score += item.memory.salience * 0.3;      // Importance
+    score += item.memory.confidence * 0.1;    // Trust
+
+    // Bonus for pending commitments (things that need attention)
+    if (item.memory.status === 'pending') score += 0.15;
+
+    // Bonus for semantic/procedural (higher-value than raw episodes)
+    if (item.memory.type === 'semantic') score += 0.05;
+    if (item.memory.type === 'procedural') score += 0.08;
+
+    return score;
+  }
+
+  // --------------------------------------------------------
   // stats() — Memory statistics
   // --------------------------------------------------------
 

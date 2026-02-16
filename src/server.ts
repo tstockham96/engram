@@ -212,6 +212,27 @@ route('POST', '/v1/ingest', async (req, res, vault) => {
   json(res, 201, memory);
 });
 
+// POST /v1/surface — proactive memory surfacing (memories pushed, not pulled)
+route('POST', '/v1/surface', async (req, res, vault) => {
+  const body = JSON.parse(await readBody(req));
+  const { context, activeEntities, activeTopics, seen, minSalience, minHoursSinceAccess, limit, relevanceThreshold } = body;
+  if (!context || typeof context !== 'string') {
+    error(res, 400, 'context field is required (string)');
+    return;
+  }
+  const results = await vault.surface({
+    context,
+    activeEntities,
+    activeTopics,
+    seen,
+    minSalience,
+    minHoursSinceAccess,
+    limit,
+    relevanceThreshold,
+  });
+  json(res, 200, { surfaced: results, count: results.length });
+});
+
 // POST /v1/briefing — session briefing: structured context summary for session start
 route('POST', '/v1/briefing', async (req, res, vault) => {
   const body = JSON.parse(await readBody(req));

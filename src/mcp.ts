@@ -367,6 +367,65 @@ If nothing worth remembering: {"memories": []}`;
 );
 
 // ============================================================
+// Tool: surface
+// ============================================================
+
+server.tool(
+  'engram_surface',
+  'Proactive memory surfacing — send current context and get back memories you SHOULD know about right now. Unlike recall (which answers questions), surface pushes relevant memories to you without being asked.',
+  {
+    context: z.string().describe('What is happening right now — current conversation, task, or situation'),
+    activeEntities: z.array(z.string()).optional().describe('People, projects, tools currently active in conversation'),
+    activeTopics: z.array(z.string()).optional().describe('Topics currently being discussed'),
+    seen: z.array(z.string()).optional().describe('Memory IDs already seen this session (to avoid repeats)'),
+  },
+  async (args) => {
+    const results = await vault.surface({
+      context: args.context,
+      activeEntities: args.activeEntities,
+      activeTopics: args.activeTopics,
+      seen: args.seen,
+    });
+
+    if (results.length === 0) {
+      return { content: [{ type: 'text', text: 'No proactive memories to surface right now.' }] };
+    }
+
+    const formatted = results.map((r, i) =>
+      `[${i + 1}] (relevance: ${r.relevance.toFixed(2)}) ${r.memory.content}\n    Why: ${r.reason}\n    Path: ${r.activationPath}`
+    ).join('\n\n');
+
+    return {
+      content: [{
+        type: 'text',
+        text: `💡 ${results.length} memories surfaced:\n\n${formatted}`,
+      }],
+    };
+  },
+);
+
+// ============================================================
+// Tool: briefing
+// ============================================================
+
+server.tool(
+  'engram_briefing',
+  'Get a structured session briefing — key facts, pending commitments, recent activity, and contradictions. Use at session start instead of reading flat memory files.',
+  {
+    context: z.string().optional().describe('Optional context to focus the briefing on'),
+  },
+  async (args) => {
+    const briefing = await vault.briefing(args.context ?? '');
+    return {
+      content: [{
+        type: 'text',
+        text: JSON.stringify(briefing, null, 2),
+      }],
+    };
+  },
+);
+
+// ============================================================
 // Tool: entities
 // ============================================================
 
