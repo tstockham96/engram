@@ -100,7 +100,7 @@ route('POST', '/v1/memories', async (req, res, vault) => {
   json(res, 201, memory);
 });
 
-// GET /v1/memories/recall?context=...&entities=...&topics=...&types=...&limit=...
+// GET /v1/memories/recall?context=...&entities=...&topics=...&types=...&limit=...&spread=...
 route('GET', '/v1/memories/recall', async (req, res, vault) => {
   const url = new URL(req.url!, `http://${req.headers.host}`);
   const context = url.searchParams.get('context');
@@ -117,6 +117,16 @@ route('GET', '/v1/memories/recall', async (req, res, vault) => {
   if (types) input.types = types.split(',');
   const limit = url.searchParams.get('limit');
   if (limit) input.limit = parseInt(limit, 10);
+
+  // Spreading activation params
+  const spread = url.searchParams.get('spread');
+  if (spread !== null) input.spread = spread !== 'false' && spread !== '0';
+  const spreadHops = url.searchParams.get('spreadHops');
+  if (spreadHops) input.spreadHops = parseInt(spreadHops, 10);
+  const spreadDecay = url.searchParams.get('spreadDecay');
+  if (spreadDecay) input.spreadDecay = parseFloat(spreadDecay);
+  const spreadEntityHops = url.searchParams.get('spreadEntityHops');
+  if (spreadEntityHops !== null) input.spreadEntityHops = spreadEntityHops !== 'false' && spreadEntityHops !== '0';
 
   const memories = await vault.recall(input as any);
   json(res, 200, { memories, count: memories.length });
@@ -200,6 +210,32 @@ route('POST', '/v1/ingest', async (req, res, vault) => {
   // Simple mode: just remember() with auto-extraction (no LLM needed)
   const memory = vault.remember({ content: rawText });
   json(res, 201, memory);
+});
+
+// POST /v1/briefing — session briefing: structured context summary for session start
+route('POST', '/v1/briefing', async (req, res, vault) => {
+  const body = JSON.parse(await readBody(req));
+  const context = body.context ?? body.topic ?? '';
+  const limit = body.limit ?? 20;
+  const briefing = await vault.briefing(context, limit);
+  json(res, 200, briefing);
+});
+
+// GET /v1/briefing — session briefing with optional context
+route('GET', '/v1/briefing', async (req, res, vault) => {
+  const url = new URL(req.url!, `http://${req.headers.host}`);
+  const context = url.searchParams.get('context') ?? '';
+  const limit = parseInt(url.searchParams.get('limit') ?? '20', 10);
+  const briefing = await vault.briefing(context, limit);
+  json(res, 200, briefing);
+});
+
+// GET /v1/contradictions — list unresolved contradictions
+route('GET', '/v1/contradictions', (req, res, vault) => {
+  const url = new URL(req.url!, `http://${req.headers.host}`);
+  const limit = parseInt(url.searchParams.get('limit') ?? '50', 10);
+  const contradictions = vault.contradictions(limit);
+  json(res, 200, { contradictions, count: contradictions.length });
 });
 
 // GET /health — health check

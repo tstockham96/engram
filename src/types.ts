@@ -157,6 +157,13 @@ export const RecallInputSchema = z.object({
   minSalience: z.number().min(0).max(1).default(0),
   minConfidence: z.number().min(0).max(1).default(0),
   limit: z.number().int().min(1).max(100).default(20),
+
+  // Spreading activation parameters
+  spread: z.boolean().default(true),               // Enable spreading activation (default ON)
+  spreadHops: z.number().int().min(0).max(5).default(2),  // Max graph hops
+  spreadDecay: z.number().min(0).max(1).default(0.5),     // Activation decay per hop
+  spreadMinActivation: z.number().min(0).max(1).default(0.1), // Stop spreading below this
+  spreadEntityHops: z.boolean().default(true),     // Also spread via shared entities (not just edges)
 });
 export type RecallInput = z.input<typeof RecallInputSchema>;
 export type RecallParsed = z.output<typeof RecallInputSchema>;

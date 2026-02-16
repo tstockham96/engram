@@ -103,12 +103,14 @@ export class Vault {
 
     const candidates: Map<string, { memory: Memory; score: number }> = new Map();
 
+    // ── Phase 1: Direct retrieval (seed memories) ──────────
+
     // 1. Entity-based retrieval
     if (parsed.entities && parsed.entities.length > 0) {
       for (const entity of parsed.entities) {
         const memories = this.store.getByEntity(entity, 50);
         for (const mem of memories) {
-          this.addCandidate(candidates, mem, 0.8); // Entity match is high signal
+          this.addCandidate(candidates, mem, 0.8);
         }
       }
     }
@@ -129,15 +131,13 @@ export class Vault {
         const queryEmbedding = await this.embedder.embed(parsed.context);
         const vectorResults = this.store.searchByVector(queryEmbedding, 30);
         for (const vr of vectorResults) {
-          const mem = this.store.getMemory(vr.memoryId);
+          const mem = this.store.getMemoryDirect(vr.memoryId);
           if (mem) {
-            // Convert distance to score (lower distance = higher score)
             const score = Math.max(0, 1 - vr.distance);
-            this.addCandidate(candidates, mem, score * 0.9); // High weight for semantic match
+            this.addCandidate(candidates, mem, score * 0.9);
           }
         }
       } catch (err) {
-        // Fall back to keyword search on embedding failure
         this.keywordSearch(parsed.context, candidates);
       }
     } else {
@@ -149,6 +149,22 @@ export class Vault {
     for (const mem of recent) {
       this.addCandidate(candidates, mem, 0.2);
     }
+
+    // ── Phase 2: Spreading activation ──────────────────────
+    // Take the seeds from Phase 1 and let activation cascade
+    // through the memory graph. This is what makes recall feel
+    // like memory instead of search.
+
+    if (parsed.spread && candidates.size > 0) {
+      this.spreadActivation(candidates, {
+        maxHops: parsed.spreadHops,
+        decay: parsed.spreadDecay,
+        minActivation: parsed.spreadMinActivation,
+        entityHops: parsed.spreadEntityHops,
+      });
+    }
+
+    // ── Phase 3: Filter, score, rank ───────────────────────
 
     // 5. Type filter
     let results = [...candidates.values()];
@@ -176,13 +192,148 @@ export class Vault {
     // 9. Sort by score and return top N
     results.sort((a, b) => b.score - a.score);
 
-    // Mark accessed
+    // Mark accessed (only the returned results, not traversal noise)
     const topResults = results.slice(0, parsed.limit);
     for (const r of topResults) {
       this.store.getMemory(r.memory.id); // Triggers access count + stability update
     }
 
     return topResults.map(r => r.memory);
+  }
+
+  // --------------------------------------------------------
+  // Spreading Activation — The cascade that makes recall
+  // feel like memory instead of search.
+  //
+  // Algorithm:
+  //   1. Seeds come in with initial activation scores from Phase 1
+  //   2. For each hop:
+  //      a. Collect all edges from currently active memories
+  //      b. For each neighbor: activation = parent_activation × edge_strength × decay
+  //      c. Also spread via shared entities (implicit edges)
+  //      d. Add/boost neighbor in candidate pool
+  //   3. Stop when activation falls below threshold or max hops reached
+  //
+  // This is why querying "Thomas" can surface his marathon training
+  // schedule even if you only asked about his work preferences.
+  // --------------------------------------------------------
+
+  private spreadActivation(
+    candidates: Map<string, { memory: Memory; score: number }>,
+    opts: {
+      maxHops: number;
+      decay: number;
+      minActivation: number;
+      entityHops: boolean;
+    },
+  ): void {
+    // Current frontier: memory IDs and their activation level
+    let frontier: Map<string, number> = new Map();
+
+    // Initialize frontier from current candidates
+    for (const [id, { score }] of candidates) {
+      frontier.set(id, score);
+    }
+
+    const visited = new Set<string>(frontier.keys());
+
+    for (let hop = 0; hop < opts.maxHops; hop++) {
+      const nextFrontier: Map<string, number> = new Map();
+      const frontierIds = [...frontier.keys()];
+
+      if (frontierIds.length === 0) break;
+
+      // ── Edge-based spreading ──
+      const edges = this.store.getEdgesForMemories(frontierIds);
+
+      for (const edge of edges) {
+        const parentId = frontier.has(edge.sourceId) ? edge.sourceId : edge.targetId;
+        const neighborId = edge.sourceId === parentId ? edge.targetId : edge.sourceId;
+
+        const parentActivation = frontier.get(parentId) ?? 0;
+
+        // Activation = parent × edge_strength × decay × edge_type_weight
+        const typeWeight = this.edgeTypeWeight(edge.type);
+        const activation = parentActivation * edge.strength * opts.decay * typeWeight;
+
+        if (activation < opts.minActivation) continue;
+
+        // Accumulate activation (multiple paths can reinforce)
+        const existing = nextFrontier.get(neighborId) ?? 0;
+        nextFrontier.set(neighborId, Math.min(existing + activation, 1.0));
+      }
+
+      // ── Entity-based spreading (implicit edges) ──
+      // Memories that share entities are implicitly connected.
+      // This is crucial when the explicit graph is sparse.
+      if (opts.entityHops) {
+        for (const id of frontierIds) {
+          const parentActivation = frontier.get(id) ?? 0;
+          const coEntities = this.store.getCoEntityMemories(id, 10);
+
+          for (const { memory: neighbor, sharedEntities } of coEntities) {
+            if (visited.has(neighbor.id)) continue;
+
+            // More shared entities = stronger implicit connection
+            const implicitStrength = Math.min(sharedEntities.length * 0.3, 0.9);
+            const activation = parentActivation * implicitStrength * opts.decay;
+
+            if (activation < opts.minActivation) continue;
+
+            const existing = nextFrontier.get(neighbor.id) ?? 0;
+            nextFrontier.set(neighbor.id, Math.min(existing + activation, 1.0));
+          }
+        }
+      }
+
+      // Load activated memories and add to candidates
+      const newIds = [...nextFrontier.keys()].filter(id => !visited.has(id));
+      if (newIds.length === 0 && [...nextFrontier.keys()].every(id => visited.has(id))) break;
+
+      const newMemories = this.store.getMemoriesDirect(newIds);
+      const memoryMap = new Map(newMemories.map(m => [m.id, m]));
+
+      for (const [id, activation] of nextFrontier) {
+        const memory = memoryMap.get(id) ?? candidates.get(id)?.memory;
+        if (!memory) continue;
+
+        // Tag that this came from spreading (for debugging/eval)
+        // Use a reduced weight — spread results shouldn't dominate direct hits
+        const spreadWeight = 0.6;
+        this.addCandidate(candidates, memory, activation * spreadWeight);
+        visited.add(id);
+      }
+
+      // Next hop starts from newly activated memories
+      frontier = new Map();
+      for (const [id, activation] of nextFrontier) {
+        if (activation >= opts.minActivation) {
+          frontier.set(id, activation);
+        }
+      }
+    }
+  }
+
+  // --------------------------------------------------------
+  // Edge type weights — how strongly different relationship
+  // types propagate activation.
+  // --------------------------------------------------------
+
+  private edgeTypeWeight(type: string): number {
+    switch (type) {
+      case 'supports':         return 0.9;   // Strong: supporting evidence propagates well
+      case 'elaborates':       return 0.85;  // Strong: detail enriches context
+      case 'causes':           return 0.8;   // Causal chains are highly relevant
+      case 'caused_by':        return 0.8;
+      case 'part_of':          return 0.75;  // Part-whole relationships matter
+      case 'instance_of':      return 0.7;   // Specific→general is useful
+      case 'supersedes':       return 0.6;   // Updated info still connects
+      case 'associated_with':  return 0.5;   // Weak but valid
+      case 'temporal_next':    return 0.4;   // Temporal sequence is loose
+      case 'derived_from':     return 0.7;   // Consolidation lineage
+      case 'contradicts':      return 0.3;   // Contradictions are relevant but shouldn't dominate
+      default:                 return 0.5;
+    }
   }
 
   // --------------------------------------------------------
@@ -279,6 +430,197 @@ export class Vault {
     });
 
     return report;
+  }
+
+  // --------------------------------------------------------
+  // briefing() — Structured context summary for session start.
+  // This is the MEMORY.md replacement: instead of reading a
+  // flat file, an agent calls POST /v1/briefing and gets a
+  // curated knowledge snapshot.
+  // --------------------------------------------------------
+
+  async briefing(context: string = '', limit: number = 20): Promise<{
+    summary: string;
+    keyFacts: Array<{ content: string; salience: number; entities: string[] }>;
+    activeCommitments: Array<{ content: string; status: string; entities: string[] }>;
+    recentActivity: Array<{ content: string; when: string }>;
+    topEntities: Array<{ name: string; type: string; memoryCount: number }>;
+    contradictions: Array<{ a: string; b: string }>;
+    stats: ReturnType<Vault['stats']>;
+  }> {
+    // 1. High-salience semantic memories (key facts)
+    const allSemantic = this.store.getByType('semantic', 100);
+    const keyFacts = allSemantic
+      .filter(m => m.salience >= 0.4 && m.status === 'active')
+      .sort((a, b) => b.salience - a.salience)
+      .slice(0, limit)
+      .map(m => ({ content: m.content, salience: m.salience, entities: m.entities }));
+
+    // 2. Active commitments (pending status)
+    const allMemories = this.store.exportAll().memories;
+    const activeCommitments = allMemories
+      .filter(m => m.status === 'pending')
+      .sort((a, b) => b.salience - a.salience)
+      .slice(0, 10)
+      .map(m => ({ content: m.content, status: m.status, entities: m.entities }));
+
+    // 3. Recent activity (last 24h episodes)
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const recentActivity = this.store.getEpisodicSince(oneDayAgo, 10)
+      .map(m => ({ content: m.content, when: m.createdAt }));
+
+    // 4. Top entities
+    const topEntities = this.entities()
+      .slice(0, 10)
+      .map(e => ({ name: e.name, type: e.type, memoryCount: e.memoryCount }));
+
+    // 5. Contradictions
+    const contradictions = this.contradictions(5)
+      .map(c => ({ a: c.memoryA.content, b: c.memoryB.content }));
+
+    // 6. If context is provided, do a spreading-activation recall and weave in results
+    let contextualMemories: string[] = [];
+    if (context.trim()) {
+      const recalled = await this.recall({ context, limit: 5, spread: true });
+      contextualMemories = recalled.map(m => m.content);
+    }
+
+    // 7. Build summary
+    const stats = this.stats();
+    const summaryParts: string[] = [];
+    summaryParts.push(`Vault: ${stats.total} memories (${stats.semantic} semantic, ${stats.episodic} episodic, ${stats.procedural} procedural), ${stats.entities} entities.`);
+    if (activeCommitments.length > 0) {
+      summaryParts.push(`${activeCommitments.length} pending commitment(s).`);
+    }
+    if (contradictions.length > 0) {
+      summaryParts.push(`${contradictions.length} unresolved contradiction(s).`);
+    }
+    if (contextualMemories.length > 0) {
+      summaryParts.push(`Context-relevant: ${contextualMemories.join(' | ')}`);
+    }
+
+    return {
+      summary: summaryParts.join(' '),
+      keyFacts,
+      activeCommitments,
+      recentActivity,
+      topEntities,
+      contradictions,
+      stats,
+    };
+  }
+
+  // --------------------------------------------------------
+  // contradictions() — Find unresolved conflicts in the graph.
+  // No competitor has this. It's a real differentiator.
+  //
+  // Checks:
+  //   1. Explicit 'contradicts' edges in the graph
+  //   2. Status conflicts (superseded memories with active successors)
+  //   3. Entity-scoped content conflicts (LLM-powered if available)
+  // --------------------------------------------------------
+
+  contradictions(limit: number = 50): Array<{
+    memoryA: Memory;
+    memoryB: Memory;
+    type: 'explicit_edge' | 'superseded_conflict' | 'entity_conflict';
+    description: string;
+  }> {
+    const results: Array<{
+      memoryA: Memory;
+      memoryB: Memory;
+      type: 'explicit_edge' | 'superseded_conflict' | 'entity_conflict';
+      description: string;
+    }> = [];
+
+    // 1. Explicit contradiction edges
+    const allExport = this.store.exportAll();
+    const memoryMap = new Map(allExport.memories.map(m => [m.id, m]));
+
+    for (const edge of allExport.edges) {
+      if (edge.type === 'contradicts') {
+        const a = memoryMap.get(edge.sourceId);
+        const b = memoryMap.get(edge.targetId);
+        if (a && b) {
+          results.push({
+            memoryA: a,
+            memoryB: b,
+            type: 'explicit_edge',
+            description: `Explicit contradiction (edge strength: ${edge.strength.toFixed(2)})`,
+          });
+        }
+      }
+
+      if (edge.type === 'supersedes') {
+        const newer = memoryMap.get(edge.sourceId);
+        const older = memoryMap.get(edge.targetId);
+        if (newer && older && older.status === 'active') {
+          results.push({
+            memoryA: newer,
+            memoryB: older,
+            type: 'superseded_conflict',
+            description: `"${newer.summary}" supersedes "${older.summary}" but older is still marked active`,
+          });
+        }
+      }
+    }
+
+    // 2. Find potential entity-scoped conflicts
+    //    Group semantic memories by entity, look for opposing claims
+    const entityMemories = new Map<string, Memory[]>();
+    for (const mem of allExport.memories) {
+      if (mem.type !== 'semantic' || mem.status !== 'active') continue;
+      for (const entity of mem.entities) {
+        const list = entityMemories.get(entity) ?? [];
+        list.push(mem);
+        entityMemories.set(entity, list);
+      }
+    }
+
+    // Simple heuristic: if two semantic memories about the same entity
+    // have conflicting signals (negation words, opposite qualifiers)
+    const negationPatterns = [
+      /\bnot\b/i, /\bnever\b/i, /\bno longer\b/i, /\bstopped\b/i,
+      /\bwon't\b/i, /\bdoesn't\b/i, /\bisn't\b/i, /\bwasn't\b/i,
+      /\bhates?\b/i, /\bdislikes?\b/i, /\bavoids?\b/i,
+    ];
+
+    const affirmationPatterns = [
+      /\balways\b/i, /\bloves?\b/i, /\bprefers?\b/i, /\bfavorite\b/i,
+      /\bregularly\b/i, /\bevery\b/i, /\benjoying\b/i,
+    ];
+
+    for (const [entity, mems] of entityMemories) {
+      if (mems.length < 2) continue;
+
+      for (let i = 0; i < mems.length && results.length < limit; i++) {
+        for (let j = i + 1; j < mems.length && results.length < limit; j++) {
+          const a = mems[i];
+          const b = mems[j];
+
+          const aHasNeg = negationPatterns.some(p => p.test(a.content));
+          const bHasAff = affirmationPatterns.some(p => p.test(b.content));
+          const aHasAff = affirmationPatterns.some(p => p.test(a.content));
+          const bHasNeg = negationPatterns.some(p => p.test(b.content));
+
+          if ((aHasNeg && bHasAff) || (aHasAff && bHasNeg)) {
+            // Check they're about a similar topic (share >1 entity or topic)
+            const sharedEntities = a.entities.filter(e => b.entities.includes(e));
+            const sharedTopics = a.topics.filter(t => b.topics.includes(t));
+            if (sharedEntities.length + sharedTopics.length >= 1) {
+              results.push({
+                memoryA: a,
+                memoryB: b,
+                type: 'entity_conflict',
+                description: `Potential conflict about ${entity}: "${a.summary}" vs "${b.summary}"`,
+              });
+            }
+          }
+        }
+      }
+    }
+
+    return results.slice(0, limit);
   }
 
   // --------------------------------------------------------

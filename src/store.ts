@@ -202,6 +202,23 @@ export class MemoryStore {
     return this.rowToMemory(row);
   }
 
+  /** Read a memory without updating access stats (for graph traversal, activation spreading) */
+  getMemoryDirect(id: string): Memory | null {
+    const row = this.db.prepare('SELECT * FROM memories WHERE id = ?').get(id) as MemoryRow | undefined;
+    if (!row) return null;
+    return this.rowToMemory(row);
+  }
+
+  /** Get all memories by a list of IDs without updating access stats */
+  getMemoriesDirect(ids: string[]): Memory[] {
+    if (ids.length === 0) return [];
+    const placeholders = ids.map(() => '?').join(',');
+    const rows = this.db.prepare(
+      `SELECT * FROM memories WHERE id IN (${placeholders})`
+    ).all(...ids) as MemoryRow[];
+    return rows.map(r => this.rowToMemory(r));
+  }
+
   updateMemory(id: string, updates: Partial<Pick<Memory, 'content' | 'summary' | 'salience' | 'confidence' | 'entities' | 'topics'>>): void {
     const sets: string[] = [];
     const values: unknown[] = [];
@@ -329,6 +346,51 @@ export class MemoryStore {
       'SELECT * FROM edges WHERE target_id = ?'
     ).all(memoryId) as EdgeRow[];
     return rows.map(r => this.rowToEdge(r));
+  }
+
+  /** Get all edges connected to a memory (both directions) */
+  getEdgesBidirectional(memoryId: string): Edge[] {
+    const rows = this.db.prepare(
+      'SELECT * FROM edges WHERE source_id = ? OR target_id = ?'
+    ).all(memoryId, memoryId) as EdgeRow[];
+    return rows.map(r => this.rowToEdge(r));
+  }
+
+  /** Batch: get all edges for a set of memory IDs (both directions) */
+  getEdgesForMemories(memoryIds: string[]): Edge[] {
+    if (memoryIds.length === 0) return [];
+    const placeholders = memoryIds.map(() => '?').join(',');
+    const rows = this.db.prepare(
+      `SELECT * FROM edges WHERE source_id IN (${placeholders}) OR target_id IN (${placeholders})`
+    ).all(...memoryIds, ...memoryIds) as EdgeRow[];
+    return rows.map(r => this.rowToEdge(r));
+  }
+
+  /** Get memories that share entities with the given memory */
+  getCoEntityMemories(memoryId: string, limit: number = 20): Array<{ memory: Memory; sharedEntities: string[] }> {
+    const source = this.getMemoryDirect(memoryId);
+    if (!source || source.entities.length === 0) return [];
+
+    const results: Map<string, { memory: Memory; sharedEntities: string[] }> = new Map();
+    for (const entity of source.entities) {
+      const rows = this.db.prepare(
+        `SELECT * FROM memories WHERE id != ? AND entities LIKE ? ORDER BY salience DESC LIMIT ?`
+      ).all(memoryId, `%"${entity}"%`, limit) as MemoryRow[];
+
+      for (const row of rows) {
+        const mem = this.rowToMemory(row);
+        const existing = results.get(mem.id);
+        if (existing) {
+          existing.sharedEntities.push(entity);
+        } else {
+          results.set(mem.id, { memory: mem, sharedEntities: [entity] });
+        }
+      }
+    }
+
+    return [...results.values()]
+      .sort((a, b) => b.sharedEntities.length - a.sharedEntities.length)
+      .slice(0, limit);
   }
 
   getNeighbors(memoryId: string, depth: number = 1): Memory[] {
