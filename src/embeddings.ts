@@ -64,6 +64,72 @@ export class OpenAIEmbeddings implements EmbeddingProvider {
 }
 
 // ============================================================
+// Gemini Embeddings (free tier available)
+// ============================================================
+
+export class GeminiEmbeddings implements EmbeddingProvider {
+  private apiKey: string;
+  private model: string;
+  private dims: number;
+
+  constructor(apiKey: string, model: string = 'gemini-embedding-001', dims: number = 3072) {
+    this.apiKey = apiKey;
+    this.model = model;
+    this.dims = dims;
+  }
+
+  async embed(text: string): Promise<number[]> {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${this.model}:embedContent?key=${this.apiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: `models/${this.model}`,
+          content: { parts: [{ text }] },
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      const err = await response.text();
+      throw new Error(`Gemini Embeddings API error: ${response.status} ${err}`);
+    }
+
+    const data = await response.json() as { embedding: { values: number[] } };
+    return data.embedding.values;
+  }
+
+  async embedBatch(texts: string[]): Promise<number[][]> {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${this.model}:batchEmbedContents?key=${this.apiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          requests: texts.map(text => ({
+            model: `models/${this.model}`,
+            content: { parts: [{ text }] },
+          })),
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      const err = await response.text();
+      throw new Error(`Gemini Batch Embeddings API error: ${response.status} ${err}`);
+    }
+
+    const data = await response.json() as { embeddings: Array<{ values: number[] }> };
+    return data.embeddings.map(e => e.values);
+  }
+
+  dimensions(): number {
+    return this.dims;
+  }
+}
+
+// ============================================================
 // Local/Minimal Embeddings (for testing without API keys)
 // ============================================================
 

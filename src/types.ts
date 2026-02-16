@@ -184,7 +184,7 @@ export interface VaultConfig {
 
   /** LLM provider for consolidation and embeddings */
   llm?: {
-    provider: 'anthropic' | 'openai';
+    provider: 'anthropic' | 'openai' | 'gemini';
     apiKey: string;
     model?: string;            // Default: claude-3-5-haiku for consolidation
     embeddingModel?: string;   // Default: text-embedding-3-small

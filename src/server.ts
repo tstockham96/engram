@@ -1,5 +1,5 @@
 import { Vault } from './vault.js';
-import { OpenAIEmbeddings } from './embeddings.js';
+import { OpenAIEmbeddings, GeminiEmbeddings } from './embeddings.js';
 import type { EmbeddingProvider } from './embeddings.js';
 import type { VaultConfig } from './types.js';
 import { createServer } from 'node:http';
@@ -26,10 +26,11 @@ function getOrCreateVault(config: VaultConfig): Vault {
   if (!vault) {
     let embedder: EmbeddingProvider | undefined;
     if (config.llm) {
-      embedder = new OpenAIEmbeddings(
-        config.llm.apiKey,
-        config.llm.embeddingModel ?? 'text-embedding-3-small',
-      );
+      if (config.llm.provider === 'gemini') {
+        embedder = new GeminiEmbeddings(config.llm.apiKey, config.llm.embeddingModel ?? 'gemini-embedding-001');
+      } else {
+        embedder = new OpenAIEmbeddings(config.llm.apiKey, config.llm.embeddingModel ?? 'text-embedding-3-small');
+      }
     }
     vault = new Vault(config, embedder);
     vaultCache.set(key, vault);
@@ -180,6 +181,12 @@ route('POST', '/v1/export', (req, res, vault) => {
   json(res, 200, data);
 });
 
+// POST /v1/embeddings/backfill — compute embeddings for all memories
+route('POST', '/v1/embeddings/backfill', async (req, res, vault) => {
+  const count = await vault.backfillEmbeddings();
+  json(res, 200, { backfilled: count });
+});
+
 // POST /v1/ingest — auto-extract memories from raw conversation text
 route('POST', '/v1/ingest', async (req, res, vault) => {
   const body = JSON.parse(await readBody(req));
@@ -306,8 +313,8 @@ if (process.argv[1]?.endsWith('server.ts') || process.argv[1]?.endsWith('server.
   const port = parseInt(process.env.ENGRAM_PORT ?? '3800', 10);
   const host = process.env.ENGRAM_HOST ?? '127.0.0.1';
 
-  const llmProvider = process.env.ENGRAM_LLM_PROVIDER as 'anthropic' | 'openai' | undefined;
-  const llmApiKey = process.env.ENGRAM_LLM_API_KEY;
+  const llmProvider = process.env.ENGRAM_LLM_PROVIDER as 'anthropic' | 'openai' | 'gemini' | undefined;
+  const llmApiKey = process.env.ENGRAM_LLM_API_KEY ?? (llmProvider === 'gemini' ? process.env.GEMINI_API_KEY : undefined);
   const llmModel = process.env.ENGRAM_LLM_MODEL;
 
   const vaultConfig: VaultConfig = {
