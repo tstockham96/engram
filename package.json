@@ -21,6 +21,7 @@
     "lint": "tsc --noEmit",
     "cli": "tsx src/cli.ts",
     "serve": "tsx src/server.ts",
+    "mcp": "tsx src/mcp.ts",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -42,6 +43,7 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0",
     "better-sqlite3": "^11.8.1",
     "sqlite-vec": "^0.1.7-alpha.2",
     "uuid": "^11.1.0",
