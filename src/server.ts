@@ -348,14 +348,13 @@ export function createEngramServer(config: ServerConfig) {
         resolve();
       });
     }),
-    close: () => new Promise<void>((resolve) => {
-      // Close all vaults
-      for (const vault of vaultCache.values()) {
-        vault.close();
-      }
+    close: async () => {
+      // Flush and close all vaults (await pending embeddings)
+      const closePromises = [...vaultCache.values()].map(v => v.close());
+      await Promise.allSettled(closePromises);
       vaultCache.clear();
-      server.close(() => resolve());
-    }),
+      await new Promise<void>((resolve) => server.close(() => resolve()));
+    },
     server,
   };
 }

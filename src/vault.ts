@@ -13,6 +13,8 @@ export class Vault {
   private store: MemoryStore;
   private config: Required<Pick<VaultConfig, 'owner'>> & VaultConfig;
   private embedder: EmbeddingProvider | null = null;
+  /** Track all in-flight embedding computations so close() can await them */
+  private pendingEmbeddings: Set<Promise<void>> = new Set();
 
   constructor(config: VaultConfig, embedder?: EmbeddingProvider) {
     this.config = config;
@@ -53,11 +55,16 @@ export class Vault {
 
     const memory = this.store.createMemory(parsed);
 
-    // Queue embedding computation (non-blocking)
+    // Queue embedding computation (non-blocking but tracked)
     if (this.embedder) {
-      this.computeAndStoreEmbedding(memory.id, memory.content).catch(err => {
-        console.warn(`Failed to compute embedding for ${memory.id}:`, err);
-      });
+      const p = this.computeAndStoreEmbedding(memory.id, memory.content)
+        .catch(err => {
+          console.warn(`Failed to compute embedding for ${memory.id}:`, err);
+        })
+        .finally(() => {
+          this.pendingEmbeddings.delete(p);
+        });
+      this.pendingEmbeddings.add(p);
     }
 
     return memory;
@@ -898,11 +905,24 @@ export class Vault {
   }
 
   // --------------------------------------------------------
-  // close() — Clean shutdown
+  // close() — Clean shutdown. Awaits all pending embeddings
+  // before closing the database to prevent data loss.
   // --------------------------------------------------------
 
-  close(): void {
+  async close(): Promise<void> {
+    if (this.pendingEmbeddings.size > 0) {
+      await Promise.allSettled([...this.pendingEmbeddings]);
+    }
     this.store.close();
+  }
+
+  /** Flush all pending embedding computations without closing */
+  async flush(): Promise<number> {
+    const count = this.pendingEmbeddings.size;
+    if (count > 0) {
+      await Promise.allSettled([...this.pendingEmbeddings]);
+    }
+    return count;
   }
 
   // --------------------------------------------------------

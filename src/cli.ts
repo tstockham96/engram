@@ -217,7 +217,7 @@ async function runInit(values: Record<string, unknown>) {
   const dbPath = join(home, `.engram-${owner}.db`);
   const testVault = new Vault({ owner, dbPath });
   const stats = testVault.stats();
-  testVault.close();
+  await testVault.close();
   console.log(`  ${green('✓')} Vault created at ${dbPath} (${stats.total} memories)`);
 
   console.log(bold('\n  🎉 Setup complete!\n'));
@@ -420,7 +420,7 @@ async function main() {
         process.exit(1);
     }
   } finally {
-    vault.close();
+    await vault.close();
   }
 }
 
@@ -439,7 +439,7 @@ async function repl(vault: Vault, jsonMode: boolean) {
     rl.question(cyan('engram> '), async (line) => {
       const trimmed = line.trim();
       if (!trimmed) { prompt(); return; }
-      if (trimmed === 'quit' || trimmed === 'exit') { rl.close(); vault.close(); return; }
+      if (trimmed === 'quit' || trimmed === 'exit') { rl.close(); await vault.close(); return; }
 
       const [cmd, ...rest] = trimmed.split(/\s+/);
       const text = rest.join(' ');
