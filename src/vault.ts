@@ -110,29 +110,33 @@ export class Vault {
 
     const candidates: Map<string, { memory: Memory; score: number }> = new Map();
 
+    // ── Phase 0: Auto-extract entities and topics from query ──
+    // If the caller didn't provide explicit entities/topics,
+    // extract them from the context string so entity/topic
+    // retrieval actually fires. This is the same extraction
+    // that remember() uses.
+
+    if ((!parsed.entities || parsed.entities.length === 0) ||
+        (!parsed.topics || parsed.topics.length === 0)) {
+      const extracted = extract(parsed.context);
+      if (!parsed.entities || parsed.entities.length === 0) {
+        parsed.entities = extracted.entities;
+      }
+      if (!parsed.topics || parsed.topics.length === 0) {
+        parsed.topics = extracted.topics;
+      }
+    }
+
     // ── Phase 1: Direct retrieval (seed memories) ──────────
 
-    // 1. Entity-based retrieval
-    if (parsed.entities && parsed.entities.length > 0) {
-      for (const entity of parsed.entities) {
-        const memories = this.store.getByEntity(entity, 50);
-        for (const mem of memories) {
-          this.addCandidate(candidates, mem, 0.8);
-        }
-      }
-    }
+    // ── Phase 1 Strategy ──
+    // Vector search is the primary retrieval signal — it finds
+    // what's semantically relevant to the query. Entity/topic
+    // matching acts as a secondary boost, not a primary retriever,
+    // because common entities (e.g. "Thomas" in 100+ memories)
+    // flood the candidate pool with noise if scored too high.
 
-    // 2. Topic-based retrieval
-    if (parsed.topics && parsed.topics.length > 0) {
-      for (const topic of parsed.topics) {
-        const memories = this.store.getByTopic(topic, 30);
-        for (const mem of memories) {
-          this.addCandidate(candidates, mem, 0.5);
-        }
-      }
-    }
-
-    // 3. Semantic search via embeddings (or fall back to keyword search)
+    // 1. Semantic search via embeddings (PRIMARY — highest signal)
     if (this.embedder && this.store.hasVectorSearch()) {
       try {
         const queryEmbedding = await this.embedder.embed(parsed.context);
@@ -140,21 +144,54 @@ export class Vault {
         for (const vr of vectorResults) {
           const mem = this.store.getMemoryDirect(vr.memoryId);
           if (mem) {
-            const score = Math.max(0, 1 - vr.distance);
-            this.addCandidate(candidates, mem, score * 0.9);
+            // Use cosine similarity (1 - distance) as primary score
+            const similarity = Math.max(0, 1 - vr.distance);
+            this.addCandidate(candidates, mem, similarity);
           }
         }
       } catch (err) {
-        this.keywordSearch(parsed.context, candidates);
+        // Vector search failed — keyword search becomes primary
+        this.keywordSearch(parsed.context, candidates, 0.4);
       }
     } else {
-      this.keywordSearch(parsed.context, candidates);
+      // No embeddings available — keyword is primary
+      this.keywordSearch(parsed.context, candidates, 0.4);
     }
 
-    // 4. Recent memories (always include some recency)
-    const recent = this.store.getRecent(10);
+    // 1b. Keyword search (ALWAYS runs as supplementary signal)
+    // Catches exact term matches that embeddings might miss —
+    // e.g. "competitors" in a query matching "competitors" in content.
+    this.keywordSearch(parsed.context, candidates, 0.2);
+
+    // 2. Entity-based retrieval (SECONDARY — boost, not flood)
+    if (parsed.entities && parsed.entities.length > 0) {
+      for (const entity of parsed.entities) {
+        const memories = this.store.getByEntity(entity, 10);
+        // Low base score — entity match alone isn't enough.
+        // But addCandidate() is additive, so memories ALSO found
+        // by vector search get a nice boost from entity overlap.
+        const entityScore = memories.length <= 3 ? 0.25 : 0.1;
+        for (const mem of memories) {
+          this.addCandidate(candidates, mem, entityScore);
+        }
+      }
+    }
+
+    // 3. Topic-based retrieval (SECONDARY)
+    if (parsed.topics && parsed.topics.length > 0) {
+      for (const topic of parsed.topics) {
+        const memories = this.store.getByTopic(topic, 10);
+        const topicScore = memories.length <= 3 ? 0.2 : 0.08;
+        for (const mem of memories) {
+          this.addCandidate(candidates, mem, topicScore);
+        }
+      }
+    }
+
+    // 4. Recent memories (light recency signal)
+    const recent = this.store.getRecent(5);
     for (const mem of recent) {
-      this.addCandidate(candidates, mem, 0.2);
+      this.addCandidate(candidates, mem, 0.05);
     }
 
     // ── Phase 2: Spreading activation ──────────────────────
@@ -192,8 +229,11 @@ export class Vault {
     }
 
     // 8. Score with salience and stability weighting
+    // Cap stability influence to prevent runaway feedback loops
+    // where frequently-accessed memories dominate all recall.
     for (const r of results) {
-      r.score = r.score * (0.5 + r.memory.salience * 0.3 + r.memory.stability * 0.2);
+      const cappedStability = Math.min(r.memory.stability, 2.0); // Cap at 2.0
+      r.score = r.score * (0.6 + r.memory.salience * 0.3 + cappedStability * 0.1);
     }
 
     // 9. Sort by score and return top N
@@ -1187,12 +1227,13 @@ Be conservative with confidence scores. Only extract what's clearly supported by
   private keywordSearch(
     context: string,
     candidates: Map<string, { memory: Memory; score: number }>,
+    baseScore: number = 0.3,
   ): void {
     const keywords = this.extractKeywords(context);
     for (const keyword of keywords.slice(0, 5)) {
-      const memories = this.store.search(keyword, 20);
+      const memories = this.store.search(keyword, 10);
       for (const mem of memories) {
-        this.addCandidate(candidates, mem, 0.3);
+        this.addCandidate(candidates, mem, baseScore);
       }
     }
   }
