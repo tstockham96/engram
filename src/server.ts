@@ -435,7 +435,7 @@ route('GET', '/health', (req, res) => {
 // ============================================================
 
 export function createEngramServer(config: ServerConfig) {
-  const port = config.port ?? 3800;
+  const preferredPort = config.port ?? 3800;
   const host = config.host ?? '127.0.0.1';
 
   // Optional auth token for single-tenant mode (set ENGRAM_AUTH_TOKEN to enable)
@@ -523,8 +523,20 @@ export function createEngramServer(config: ServerConfig) {
 
   return {
     listen: () => new Promise<void>((resolve) => {
-      server.listen(port, host, () => {
-        console.log(`🧠 Engram API server listening on http://${host}:${port}`);
+      server.on('error', (err: NodeJS.ErrnoException) => {
+        if (err.code === 'EADDRINUSE' && preferredPort === 3800) {
+          // Auto-pick a free port
+          server.listen(0, host, () => {
+            const addr = server.address() as import('net').AddressInfo;
+            console.log(`🧠 Engram API server listening on http://${host}:${addr.port}`);
+            console.log(`   (port 3800 was in use, auto-selected ${addr.port})`);
+            resolve();
+          });
+        }
+      });
+      server.listen(preferredPort, host, () => {
+        const addr = server.address() as import('net').AddressInfo;
+        console.log(`🧠 Engram API server listening on http://${host}:${addr.port}`);
         resolve();
       });
     }),
