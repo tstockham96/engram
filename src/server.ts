@@ -523,17 +523,6 @@ export function createEngramServer(config: ServerConfig) {
 
   return {
     listen: () => new Promise<void>((resolve) => {
-      server.on('error', (err: NodeJS.ErrnoException) => {
-        if (err.code === 'EADDRINUSE' && preferredPort === 3800) {
-          // Auto-pick a free port
-          server.listen(0, host, () => {
-            const addr = server.address() as import('net').AddressInfo;
-            console.log(`🧠 Engram API server listening on http://${host}:${addr.port}`);
-            console.log(`   (port 3800 was in use, auto-selected ${addr.port})`);
-            resolve();
-          });
-        }
-      });
       server.listen(preferredPort, host, () => {
         const addr = server.address() as import('net').AddressInfo;
         console.log(`🧠 Engram API server listening on http://${host}:${addr.port}`);
@@ -558,7 +547,7 @@ export function createEngramServer(config: ServerConfig) {
 if (process.argv[1]?.endsWith('server.ts') || process.argv[1]?.endsWith('server.js')) {
   const owner = process.env.ENGRAM_OWNER ?? 'default';
   const dbPath = process.env.ENGRAM_DB_PATH;
-  const port = parseInt(process.env.ENGRAM_PORT ?? '3800', 10);
+  const port = parseInt(process.env.ENGRAM_PORT ?? '0', 10);
   const host = process.env.ENGRAM_HOST ?? '127.0.0.1';
 
   const llmProvider = process.env.ENGRAM_LLM_PROVIDER as 'anthropic' | 'openai' | 'gemini' | undefined;
