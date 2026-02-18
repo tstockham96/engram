@@ -251,6 +251,81 @@ route('GET', '/v1/briefing', async (req, res, vault) => {
   json(res, 200, briefing);
 });
 
+// POST /v1/shadow/compare — compare Engram briefing vs a memory file
+// Shadow mode: run Engram alongside existing memory, see what each catches
+route('POST', '/v1/shadow/compare', async (req, res, vault) => {
+  const body = JSON.parse(await readBody(req));
+  const memoryFileContent = body.memoryFile ?? '';
+  const context = body.context ?? '';
+  const limit = body.limit ?? 20;
+
+  if (!memoryFileContent) {
+    return error(res, 400, 'memoryFile is required (paste your CLAUDE.md / MEMORY.md content)');
+  }
+
+  // Get Engram briefing
+  const briefing = await vault.briefing(context, limit);
+
+  // Collect all surfaced items from briefing sections
+  const surfacedItems: string[] = [
+    ...briefing.keyFacts.map((f: { content: string }) => f.content),
+    ...briefing.activeCommitments.map((c: { content: string }) => c.content),
+    ...briefing.recentActivity.map((a: { content: string }) => a.content),
+  ];
+
+  // Simple line-level analysis: what does Engram surface that the file doesn't mention?
+  const fileLower = memoryFileContent.toLowerCase();
+  const engramOnly: string[] = [];
+  const bothHave: string[] = [];
+
+  for (const item of surfacedItems) {
+    const keywords = item
+      .toLowerCase()
+      .split(/\s+/)
+      .filter((w: string) => w.length > 4)
+      .slice(0, 5);
+    const matchCount = keywords.filter((kw: string) => fileLower.includes(kw)).length;
+    const matchRatio = keywords.length > 0 ? matchCount / keywords.length : 0;
+
+    if (matchRatio < 0.4) {
+      engramOnly.push(item.slice(0, 150));
+    } else {
+      bothHave.push(item.slice(0, 150));
+    }
+  }
+
+  // Check what's in the file but Engram didn't surface
+  const fileLines = memoryFileContent
+    .split('\n')
+    .map((l: string) => l.replace(/^[\s\-*#>]+/, '').trim())
+    .filter((l: string) => l.length > 20);
+
+  const fileOnly: string[] = [];
+  const briefingText = surfacedItems.map((s: string) => s.toLowerCase()).join(' ');
+
+  for (const line of fileLines) {
+    const lineKeywords = line.toLowerCase().split(/\s+/).filter((w: string) => w.length > 4).slice(0, 5);
+    const matchCount = lineKeywords.filter((kw: string) => briefingText.includes(kw)).length;
+    const matchRatio = lineKeywords.length > 0 ? matchCount / lineKeywords.length : 0;
+    if (matchRatio < 0.3) {
+      fileOnly.push(line.slice(0, 150));
+    }
+  }
+
+  json(res, 200, {
+    summary: {
+      engramSurfaced: surfacedItems.length,
+      engramOnly: engramOnly.length,
+      fileOnly: fileOnly.length,
+      overlap: bothHave.length,
+    },
+    engramOnly: engramOnly.slice(0, 20),
+    fileOnly: fileOnly.slice(0, 20),
+    overlap: bothHave.slice(0, 10),
+    briefing: briefing.summary,
+  });
+});
+
 // GET /v1/contradictions — list unresolved contradictions
 route('GET', '/v1/contradictions', (req, res, vault) => {
   const url = new URL(req.url!, `http://${req.headers.host}`);
