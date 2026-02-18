@@ -24,7 +24,7 @@ import type { VaultConfig } from './types.js';
 
 const DATA_DIR = process.env.ENGRAM_DATA_DIR ?? '/data';
 const ADMIN_KEY = process.env.ENGRAM_ADMIN_KEY ?? '';
-const PORT = parseInt(process.env.ENGRAM_PORT ?? '3800', 10);
+const PORT = parseInt(process.env.PORT ?? process.env.ENGRAM_PORT ?? '3800', 10);
 const HOST = process.env.ENGRAM_HOST ?? '0.0.0.0';
 
 const LLM_PROVIDER = process.env.ENGRAM_LLM_PROVIDER as 'gemini' | 'openai' | undefined;
