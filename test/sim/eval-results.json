@@ -1,0 +1,2306 @@
+{
+  "generatedAt": "2026-02-17T16:24:29.439Z",
+  "totalQueries": 30,
+  "weeks": [
+    {
+      "week": 1,
+      "memoriesIngested": 6,
+      "totalMemoriesInVault": 7,
+      "consolidation": {
+        "episodesProcessed": 6,
+        "semanticCreated": 0,
+        "connectionsFormed": 8,
+        "entitiesDiscovered": 0
+      },
+      "aggregateScore": 0.609081289081289,
+      "scoreByCategory": {
+        "simple_recall": 1,
+        "cross_reference": 0.5097222222222222,
+        "temporal": 0.375,
+        "contradiction": 0.14285714285714285,
+        "entity_evolution": 0.5535353535353535
+      },
+      "scoreByDifficulty": {
+        "1": 1,
+        "2": 0.9444444444444445,
+        "3": 0.39166666666666666,
+        "4": 0.42557720057720055,
+        "5": 0.3333333333333333
+      },
+      "queryDetails": [
+        {
+          "queryId": "SR-01",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What is the name of the startup project Thomas is working on?",
+          "score": 1,
+          "keywordsFound": [
+            "Meridian"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 6,
+          "topMemoryPreview": "Human: I'm starting a new project called Meridian — it's a real-time collaboration tool for remote teams. Marcus and I a"
+        },
+        {
+          "queryId": "SR-02",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "Who is co-founding Meridian with Thomas?",
+          "score": 1,
+          "keywordsFound": [
+            "Marcus"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 6,
+          "topMemoryPreview": "Human: Had a call with our first potential customer — Elena Rodriguez from Distributed Labs. She runs a 40-person engine"
+        },
+        {
+          "queryId": "SR-03",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What tech stack is Meridian using?",
+          "score": 1,
+          "keywordsFound": [
+            "TypeScript",
+            "React",
+            "Go"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: I'm starting a new project called Meridian — it's a real-time collaboration tool for remote teams. Marcus and I a"
+        },
+        {
+          "queryId": "SR-04",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What is Meridian's key differentiator?",
+          "score": 1,
+          "keywordsFound": [
+            "async",
+            "first",
+            "async-first"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 6,
+          "topMemoryPreview": "Human: I'm starting a new project called Meridian — it's a real-time collaboration tool for remote teams. Marcus and I a"
+        },
+        {
+          "queryId": "SR-05",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What race is Thomas training for?",
+          "score": 1,
+          "keywordsFound": [
+            "Boulder",
+            "half marathon",
+            "half"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: I've been training for the Boulder Half Marathon in March. Running 4 days a week — currently at about 25 miles pe"
+        },
+        {
+          "queryId": "SR-06",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "Who is the advisor from Sequoia?",
+          "score": 1,
+          "keywordsFound": [
+            "Sarah",
+            "Chen",
+            "Sequoia"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 6,
+          "topMemoryPreview": "Human: Need to set up the Meridian dev environment. We're going with PostgreSQL for the main database and Redis for the "
+        },
+        {
+          "queryId": "SR-07",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "What piano piece is Thomas learning?",
+          "score": 1,
+          "keywordsFound": [
+            "Chopin",
+            "Nocturne",
+            "E-flat"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 6,
+          "topMemoryPreview": "Human: Learning piano — started lessons with Jake two months ago. Working on Chopin's Nocturne in E-flat (Op. 9, No. 2)."
+        },
+        {
+          "queryId": "SR-08",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "Who is the first potential pilot customer and what company are they from?",
+          "score": 1,
+          "keywordsFound": [
+            "Elena",
+            "Rodriguez",
+            "Distributed Labs"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: Had a call with our first potential customer — Elena Rodriguez from Distributed Labs. She runs a 40-person engine"
+        },
+        {
+          "queryId": "SR-09",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "What is Thomas's running goal time for the half marathon?",
+          "score": 1,
+          "keywordsFound": [
+            "1:45",
+            "sub-1:45"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: My sister Lena is coming to visit next weekend from Portland. She just got promoted to VP of Marketing at Nike. W"
+        },
+        {
+          "queryId": "SR-10",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "Where did Marcus work before Meridian?",
+          "score": 1,
+          "keywordsFound": [
+            "Google",
+            "Docs"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: Had a call with our first potential customer — Elena Rodriguez from Distributed Labs. She runs a 40-person engine"
+        },
+        {
+          "queryId": "CR-01",
+          "category": "cross_reference",
+          "difficulty": 2,
+          "question": "What CRDT library did Sarah recommend and did the team end up using it?",
+          "score": 0.6666666666666666,
+          "keywordsFound": [
+            "Y.js",
+            "Sarah"
+          ],
+          "keywordsMissed": [
+            "integrated"
+          ],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: Need to set up the Meridian dev environment. We're going with PostgreSQL for the main database and Redis for the "
+        },
+        {
+          "queryId": "CR-02",
+          "category": "cross_reference",
+          "difficulty": 3,
+          "question": "How did Thomas's sister Lena connect to the Meridian project?",
+          "score": 0.6,
+          "keywordsFound": [
+            "Lena",
+            "Nike",
+            "hike"
+          ],
+          "keywordsMissed": [
+            "demo",
+            "IT director"
+          ],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: My sister Lena is coming to visit next weekend from Portland. She just got promoted to VP of Marketing at Nike. W"
+        },
+        {
+          "queryId": "CR-03",
+          "category": "cross_reference",
+          "difficulty": 3,
+          "question": "What role did Sarah Chen play across the Meridian journey — advisor, technical, fundraising?",
+          "score": 0.5,
+          "keywordsFound": [
+            "Sarah",
+            "Sequoia",
+            "Y.js"
+          ],
+          "keywordsMissed": [
+            "Haiku",
+            "seed",
+            "invest"
+          ],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: Need to set up the Meridian dev environment. We're going with PostgreSQL for the main database and Redis for the "
+        },
+        {
+          "queryId": "CR-04",
+          "category": "cross_reference",
+          "difficulty": 3,
+          "question": "What did Elena's pilot team think of the context summaries, and what model powers them?",
+          "score": 0,
+          "keywordsFound": [
+            "context summar"
+          ],
+          "keywordsMissed": [
+            "game-changing",
+            "Haiku",
+            "killer feature"
+          ],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: Had a call with our first potential customer — Elena Rodriguez from Distributed Labs. She runs a 40-person engine"
+        },
+        {
+          "queryId": "CR-05",
+          "category": "cross_reference",
+          "difficulty": 4,
+          "question": "Connect the dots: how did the Nike opportunity arise and what technical requirements does it demand?",
+          "score": 0.625,
+          "keywordsFound": [
+            "Lena",
+            "Nike",
+            "sister",
+            "SSO",
+            "March"
+          ],
+          "keywordsMissed": [
+            "audit",
+            "enterprise",
+            "demo"
+          ],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: My sister Lena is coming to visit next weekend from Portland. She just got promoted to VP of Marketing at Nike. W"
+        },
+        {
+          "queryId": "CR-06",
+          "category": "cross_reference",
+          "difficulty": 4,
+          "question": "What is the relationship between Marcus, David Park, and Google?",
+          "score": 0.6666666666666666,
+          "keywordsFound": [
+            "Marcus",
+            "Google",
+            "Docs",
+            "backend"
+          ],
+          "keywordsMissed": [
+            "David Park",
+            "colleague"
+          ],
+          "memoriesReturned": 6,
+          "topMemoryPreview": "Human: I'm starting a new project called Meridian — it's a real-time collaboration tool for remote teams. Marcus and I a"
+        },
+        {
+          "queryId": "TP-01",
+          "category": "temporal",
+          "difficulty": 3,
+          "question": "How did the Meridian pilot customer count change over time — from first discussion to actual pilot?",
+          "score": 0.5,
+          "keywordsFound": [
+            "40",
+            "full"
+          ],
+          "keywordsMissed": [
+            "12",
+            "expand"
+          ],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: I'm starting a new project called Meridian — it's a real-time collaboration tool for remote teams. Marcus and I a"
+        },
+        {
+          "queryId": "TP-02",
+          "category": "temporal",
+          "difficulty": 3,
+          "question": "How did Thomas's weekly running mileage change across the 4 weeks?",
+          "score": 0.75,
+          "keywordsFound": [
+            "25",
+            "30",
+            "20"
+          ],
+          "keywordsMissed": [
+            "28"
+          ],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: I've been training for the Boulder Half Marathon in March. Running 4 days a week — currently at about 25 miles pe"
+        },
+        {
+          "queryId": "TP-03",
+          "category": "temporal",
+          "difficulty": 3,
+          "question": "How did the context summarizer performance improve over time?",
+          "score": 0,
+          "keywordsFound": [],
+          "keywordsMissed": [
+            "8 second",
+            "3 second",
+            "2 second",
+            "1 second",
+            "cache",
+            "Haiku",
+            "streaming"
+          ],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: I'm starting a new project called Meridian — it's a real-time collaboration tool for remote teams. Marcus and I a"
+        },
+        {
+          "queryId": "TP-04",
+          "category": "temporal",
+          "difficulty": 4,
+          "question": "What happened with Thomas's knee injury and how did it affect his training plan?",
+          "score": 0,
+          "keywordsFound": [
+            "pain"
+          ],
+          "keywordsMissed": [
+            "IT band",
+            "knee",
+            "3 days",
+            "pool running",
+            "20 miles",
+            "no pain",
+            "recovered"
+          ],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: I've been training for the Boulder Half Marathon in March. Running 4 days a week — currently at about 25 miles pe"
+        },
+        {
+          "queryId": "TP-05",
+          "category": "temporal",
+          "difficulty": 4,
+          "question": "Trace the Meridian fundraising journey from early advisor relationship to seed round offer.",
+          "score": 0.625,
+          "keywordsFound": [
+            "Sarah",
+            "Sequoia",
+            "advisor",
+            "pilot",
+            "Nike"
+          ],
+          "keywordsMissed": [
+            "$1.5M",
+            "$10M",
+            "seed"
+          ],
+          "memoriesReturned": 6,
+          "topMemoryPreview": "Human: Need to set up the Meridian dev environment. We're going with PostgreSQL for the main database and Redis for the "
+        },
+        {
+          "queryId": "CD-01",
+          "category": "contradiction",
+          "difficulty": 4,
+          "question": "Did Marcus want to rewrite the Meridian backend? What happened with that plan?",
+          "score": 0,
+          "keywordsFound": [
+            "Go",
+            "pilot"
+          ],
+          "keywordsMissed": [
+            "Rust",
+            "rewrite",
+            "agreed",
+            "apologized",
+            "optimize",
+            "don't need"
+          ],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: Had a call with our first potential customer — Elena Rodriguez from Distributed Labs. She runs a 40-person engine"
+        },
+        {
+          "queryId": "CD-02",
+          "category": "contradiction",
+          "difficulty": 4,
+          "question": "Did the pricing model for Meridian change? What was considered vs what was decided?",
+          "score": 0,
+          "keywordsFound": [
+            "$15",
+            "seat"
+          ],
+          "keywordsMissed": [
+            "usage-based",
+            "summary",
+            "sticking",
+            "$25",
+            "enterprise"
+          ],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: Need to set up the Meridian dev environment. We're going with PostgreSQL for the main database and Redis for the "
+        },
+        {
+          "queryId": "CD-03",
+          "category": "contradiction",
+          "difficulty": 4,
+          "question": "Did Thomas change his mind about running nutrition gels?",
+          "score": 0.5714285714285714,
+          "keywordsFound": [
+            "Maurten",
+            "Gu",
+            "switch",
+            "expensive"
+          ],
+          "keywordsMissed": [
+            "stomach",
+            "keep",
+            "worth"
+          ],
+          "memoriesReturned": 6,
+          "topMemoryPreview": "Human: I've been training for the Boulder Half Marathon in March. Running 4 days a week — currently at about 25 miles pe"
+        },
+        {
+          "queryId": "CD-04",
+          "category": "contradiction",
+          "difficulty": 5,
+          "question": "How did Marcus's opinion on Go vs Rust evolve from week 3 to week 4?",
+          "score": 0,
+          "keywordsFound": [
+            "Go"
+          ],
+          "keywordsMissed": [
+            "Rust",
+            "garbage collector",
+            "latency",
+            "rewrite",
+            "apologized",
+            "don't need",
+            "optimize",
+            "tuned"
+          ],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: I'm starting a new project called Meridian — it's a real-time collaboration tool for remote teams. Marcus and I a"
+        },
+        {
+          "queryId": "EE-01",
+          "category": "entity_evolution",
+          "difficulty": 4,
+          "question": "How did the Meridian project evolve from concept to funded startup across 4 weeks?",
+          "score": 0.7777777777777778,
+          "keywordsFound": [
+            "Meridian",
+            "async",
+            "pilot",
+            "Elena",
+            "Nike",
+            "Y.js",
+            "context summar"
+          ],
+          "keywordsMissed": [
+            "seed",
+            "$1.5M"
+          ],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: I'm starting a new project called Meridian — it's a real-time collaboration tool for remote teams. Marcus and I a"
+        },
+        {
+          "queryId": "EE-02",
+          "category": "entity_evolution",
+          "difficulty": 4,
+          "question": "How did Thomas's piano skills progress over the 4 weeks?",
+          "score": 0.4444444444444444,
+          "keywordsFound": [
+            "Chopin",
+            "Nocturne",
+            "left hand",
+            "Jake"
+          ],
+          "keywordsMissed": [
+            "40%",
+            "60%",
+            "Clair de Lune",
+            "Debussy",
+            "jazz"
+          ],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: Learning piano — started lessons with Jake two months ago. Working on Chopin's Nocturne in E-flat (Op. 9, No. 2)."
+        },
+        {
+          "queryId": "EE-03",
+          "category": "entity_evolution",
+          "difficulty": 4,
+          "question": "Describe Elena Rodriguez's relationship with Meridian from first contact to pilot expansion.",
+          "score": 0.5454545454545454,
+          "keywordsFound": [
+            "Elena",
+            "Distributed Labs",
+            "40",
+            "pilot",
+            "$15",
+            "context summar"
+          ],
+          "keywordsMissed": [
+            "12",
+            "Raj",
+            "Anna",
+            "expand",
+            "game-changing"
+          ],
+          "memoriesReturned": 6,
+          "topMemoryPreview": "Human: Had a call with our first potential customer — Elena Rodriguez from Distributed Labs. She runs a 40-person engine"
+        },
+        {
+          "queryId": "EE-04",
+          "category": "entity_evolution",
+          "difficulty": 5,
+          "question": "How did the Meridian product strategy shift — from 'Slack replacement' to 'async layer on top of existing tools'?",
+          "score": 0.3333333333333333,
+          "keywordsFound": [
+            "async",
+            "Slack",
+            "layer"
+          ],
+          "keywordsMissed": [
+            "complement",
+            "replace",
+            "on top",
+            "positioning",
+            "integration",
+            "lower friction"
+          ],
+          "memoriesReturned": 7,
+          "topMemoryPreview": "Human: I'm starting a new project called Meridian — it's a real-time collaboration tool for remote teams. Marcus and I a"
+        },
+        {
+          "queryId": "EE-05",
+          "category": "entity_evolution",
+          "difficulty": 5,
+          "question": "Who are all the people involved in the Meridian project and what are their roles?",
+          "score": 0.6666666666666666,
+          "keywordsFound": [
+            "Marcus",
+            "Sarah",
+            "Elena",
+            "Lena",
+            "co-found",
+            "advisor",
+            "customer",
+            "pilot"
+          ],
+          "keywordsMissed": [
+            "Raj",
+            "Anna",
+            "Omar",
+            "David Park"
+          ],
+          "memoriesReturned": 6,
+          "topMemoryPreview": "Human: Had a call with our first potential customer — Elena Rodriguez from Distributed Labs. She runs a 40-person engine"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "memoriesIngested": 5,
+      "totalMemoriesInVault": 13,
+      "consolidation": {
+        "episodesProcessed": 11,
+        "semanticCreated": 0,
+        "connectionsFormed": 21,
+        "entitiesDiscovered": 0
+      },
+      "aggregateScore": 0.7475108225108226,
+      "scoreByCategory": {
+        "simple_recall": 1,
+        "cross_reference": 0.7847222222222222,
+        "temporal": 0.5392857142857143,
+        "contradiction": 0.3214285714285714,
+        "entity_evolution": 0.746969696969697
+      },
+      "scoreByDifficulty": {
+        "1": 1,
+        "2": 1,
+        "3": 0.7063492063492064,
+        "4": 0.5826118326118326,
+        "5": 0.4537037037037037
+      },
+      "queryDetails": [
+        {
+          "queryId": "SR-01",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What is the name of the startup project Thomas is working on?",
+          "score": 1,
+          "keywordsFound": [
+            "Meridian"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 9,
+          "topMemoryPreview": "Human: I'm starting a new project called Meridian — it's a real-time collaboration tool for remote teams. Marcus and I a"
+        },
+        {
+          "queryId": "SR-02",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "Who is co-founding Meridian with Thomas?",
+          "score": 1,
+          "keywordsFound": [
+            "Marcus"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 9,
+          "topMemoryPreview": "Human: Had a call with our first potential customer — Elena Rodriguez from Distributed Labs. She runs a 40-person engine"
+        },
+        {
+          "queryId": "SR-03",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What tech stack is Meridian using?",
+          "score": 1,
+          "keywordsFound": [
+            "TypeScript",
+            "React",
+            "Go"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 11,
+          "topMemoryPreview": "Human: I'm starting a new project called Meridian — it's a real-time collaboration tool for remote teams. Marcus and I a"
+        },
+        {
+          "queryId": "SR-04",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What is Meridian's key differentiator?",
+          "score": 1,
+          "keywordsFound": [
+            "async",
+            "first",
+            "async-first"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 8,
+          "topMemoryPreview": "Human: I'm starting a new project called Meridian — it's a real-time collaboration tool for remote teams. Marcus and I a"
+        },
+        {
+          "queryId": "SR-05",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What race is Thomas training for?",
+          "score": 1,
+          "keywordsFound": [
+            "Boulder",
+            "half marathon",
+            "half"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 11,
+          "topMemoryPreview": "Human: I've been training for the Boulder Half Marathon in March. Running 4 days a week — currently at about 25 miles pe"
+        },
+        {
+          "queryId": "SR-06",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "Who is the advisor from Sequoia?",
+          "score": 1,
+          "keywordsFound": [
+            "Sarah",
+            "Chen",
+            "Sequoia"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 8,
+          "topMemoryPreview": "Human: Need to set up the Meridian dev environment. We're going with PostgreSQL for the main database and Redis for the "
+        },
+        {
+          "queryId": "SR-07",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "What piano piece is Thomas learning?",
+          "score": 1,
+          "keywordsFound": [
+            "Chopin",
+            "Nocturne",
+            "E-flat"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 9,
+          "topMemoryPreview": "Human: Learning piano — started lessons with Jake two months ago. Working on Chopin's Nocturne in E-flat (Op. 9, No. 2)."
+        },
+        {
+          "queryId": "SR-08",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "Who is the first potential pilot customer and what company are they from?",
+          "score": 1,
+          "keywordsFound": [
+            "Elena",
+            "Rodriguez",
+            "Distributed Labs"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 11,
+          "topMemoryPreview": "Human: Had a call with our first potential customer — Elena Rodriguez from Distributed Labs. She runs a 40-person engine"
+        },
+        {
+          "queryId": "SR-09",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "What is Thomas's running goal time for the half marathon?",
+          "score": 1,
+          "keywordsFound": [
+            "1:45",
+            "sub-1:45"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 11,
+          "topMemoryPreview": "Human: I've been training for the Boulder Half Marathon in March. Running 4 days a week — currently at about 25 miles pe"
+        },
+        {
+          "queryId": "SR-10",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "Where did Marcus work before Meridian?",
+          "score": 1,
+          "keywordsFound": [
+            "Google",
+            "Docs"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 11,
+          "topMemoryPreview": "Human: Had a call with our first potential customer — Elena Rodriguez from Distributed Labs. She runs a 40-person engine"
+        },
+        {
+          "queryId": "CR-01",
+          "category": "cross_reference",
+          "difficulty": 2,
+          "question": "What CRDT library did Sarah recommend and did the team end up using it?",
+          "score": 1,
+          "keywordsFound": [
+            "Y.js",
+            "Sarah",
+            "integrated"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 11,
+          "topMemoryPreview": "Human: Need to set up the Meridian dev environment. We're going with PostgreSQL for the main database and Redis for the "
+        },
+        {
+          "queryId": "CR-02",
+          "category": "cross_reference",
+          "difficulty": 3,
+          "question": "How did Thomas's sister Lena connect to the Meridian project?",
+          "score": 1,
+          "keywordsFound": [
+            "Lena",
+            "Nike",
+            "hike",
+            "demo",
+            "IT director"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 12,
+          "topMemoryPreview": "Human: My sister Lena is coming to visit next weekend from Portland. She just got promoted to VP of Marketing at Nike. W"
+        },
+        {
+          "queryId": "CR-03",
+          "category": "cross_reference",
+          "difficulty": 3,
+          "question": "What role did Sarah Chen play across the Meridian journey — advisor, technical, fundraising?",
+          "score": 0.6666666666666666,
+          "keywordsFound": [
+            "Sarah",
+            "Sequoia",
+            "Y.js",
+            "Haiku"
+          ],
+          "keywordsMissed": [
+            "seed",
+            "invest"
+          ],
+          "memoriesReturned": 10,
+          "topMemoryPreview": "Human: Need to set up the Meridian dev environment. We're going with PostgreSQL for the main database and Redis for the "
+        },
+        {
+          "queryId": "CR-04",
+          "category": "cross_reference",
+          "difficulty": 3,
+          "question": "What did Elena's pilot team think of the context summaries, and what model powers them?",
+          "score": 0.5,
+          "keywordsFound": [
+            "context summar",
+            "Haiku"
+          ],
+          "keywordsMissed": [
+            "game-changing",
+            "killer feature"
+          ],
+          "memoriesReturned": 12,
+          "topMemoryPreview": "Human: Had a call with our first potential customer — Elena Rodriguez from Distributed Labs. She runs a 40-person engine"
+        },
+        {
+          "queryId": "CR-05",
+          "category": "cross_reference",
+          "difficulty": 4,
+          "question": "Connect the dots: how did the Nike opportunity arise and what technical requirements does it demand?",
+          "score": 0.875,
+          "keywordsFound": [
+            "Lena",
+            "Nike",
+            "sister",
+            "SSO",
+            "enterprise",
+            "demo",
+            "March"
+          ],
+          "keywordsMissed": [
+            "audit"
+          ],
+          "memoriesReturned": 12,
+          "topMemoryPreview": "Human: My sister Lena is coming to visit next weekend from Portland. She just got promoted to VP of Marketing at Nike. W"
+        },
+        {
+          "queryId": "CR-06",
+          "category": "cross_reference",
+          "difficulty": 4,
+          "question": "What is the relationship between Marcus, David Park, and Google?",
+          "score": 0.6666666666666666,
+          "keywordsFound": [
+            "Marcus",
+            "Google",
+            "Docs",
+            "backend"
+          ],
+          "keywordsMissed": [
+            "David Park",
+            "colleague"
+          ],
+          "memoriesReturned": 8,
+          "topMemoryPreview": "Human: I'm starting a new project called Meridian — it's a real-time collaboration tool for remote teams. Marcus and I a"
+        },
+        {
+          "queryId": "TP-01",
+          "category": "temporal",
+          "difficulty": 3,
+          "question": "How did the Meridian pilot customer count change over time — from first discussion to actual pilot?",
+          "score": 0.75,
+          "keywordsFound": [
+            "40",
+            "12",
+            "full"
+          ],
+          "keywordsMissed": [
+            "expand"
+          ],
+          "memoriesReturned": 11,
+          "topMemoryPreview": "Human: Had a great hike with Lena at Royal Arch on Saturday. The views were incredible. She mentioned that Nike is looki"
+        },
+        {
+          "queryId": "TP-02",
+          "category": "temporal",
+          "difficulty": 3,
+          "question": "How did Thomas's weekly running mileage change across the 4 weeks?",
+          "score": 0.75,
+          "keywordsFound": [
+            "25",
+            "30",
+            "20"
+          ],
+          "keywordsMissed": [
+            "28"
+          ],
+          "memoriesReturned": 11,
+          "topMemoryPreview": "Human: I've been training for the Boulder Half Marathon in March. Running 4 days a week — currently at about 25 miles pe"
+        },
+        {
+          "queryId": "TP-03",
+          "category": "temporal",
+          "difficulty": 3,
+          "question": "How did the context summarizer performance improve over time?",
+          "score": 0.5714285714285714,
+          "keywordsFound": [
+            "8 second",
+            "2 second",
+            "cache",
+            "Haiku"
+          ],
+          "keywordsMissed": [
+            "3 second",
+            "1 second",
+            "streaming"
+          ],
+          "memoriesReturned": 11,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "TP-04",
+          "category": "temporal",
+          "difficulty": 4,
+          "question": "What happened with Thomas's knee injury and how did it affect his training plan?",
+          "score": 0,
+          "keywordsFound": [
+            "pain"
+          ],
+          "keywordsMissed": [
+            "IT band",
+            "knee",
+            "3 days",
+            "pool running",
+            "20 miles",
+            "no pain",
+            "recovered"
+          ],
+          "memoriesReturned": 12,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "TP-05",
+          "category": "temporal",
+          "difficulty": 4,
+          "question": "Trace the Meridian fundraising journey from early advisor relationship to seed round offer.",
+          "score": 0.625,
+          "keywordsFound": [
+            "Sarah",
+            "Sequoia",
+            "advisor",
+            "pilot",
+            "Nike"
+          ],
+          "keywordsMissed": [
+            "$1.5M",
+            "$10M",
+            "seed"
+          ],
+          "memoriesReturned": 10,
+          "topMemoryPreview": "Human: Had a great hike with Lena at Royal Arch on Saturday. The views were incredible. She mentioned that Nike is looki"
+        },
+        {
+          "queryId": "CD-01",
+          "category": "contradiction",
+          "difficulty": 4,
+          "question": "Did Marcus want to rewrite the Meridian backend? What happened with that plan?",
+          "score": 0,
+          "keywordsFound": [
+            "Go",
+            "pilot"
+          ],
+          "keywordsMissed": [
+            "Rust",
+            "rewrite",
+            "agreed",
+            "apologized",
+            "optimize",
+            "don't need"
+          ],
+          "memoriesReturned": 12,
+          "topMemoryPreview": "Human: Elena from Distributed Labs wants to schedule the pilot kickoff for Feb 15. She's adding two more people to the p"
+        },
+        {
+          "queryId": "CD-02",
+          "category": "contradiction",
+          "difficulty": 4,
+          "question": "Did the pricing model for Meridian change? What was considered vs what was decided?",
+          "score": 0.5714285714285714,
+          "keywordsFound": [
+            "$15",
+            "seat",
+            "summary",
+            "enterprise"
+          ],
+          "keywordsMissed": [
+            "usage-based",
+            "sticking",
+            "$25"
+          ],
+          "memoriesReturned": 12,
+          "topMemoryPreview": "Human: Need to set up the Meridian dev environment. We're going with PostgreSQL for the main database and Redis for the "
+        },
+        {
+          "queryId": "CD-03",
+          "category": "contradiction",
+          "difficulty": 4,
+          "question": "Did Thomas change his mind about running nutrition gels?",
+          "score": 0.7142857142857143,
+          "keywordsFound": [
+            "Maurten",
+            "Gu",
+            "switch",
+            "expensive",
+            "keep"
+          ],
+          "keywordsMissed": [
+            "stomach",
+            "worth"
+          ],
+          "memoriesReturned": 8,
+          "topMemoryPreview": "Human: I've been training for the Boulder Half Marathon in March. Running 4 days a week — currently at about 25 miles pe"
+        },
+        {
+          "queryId": "CD-04",
+          "category": "contradiction",
+          "difficulty": 5,
+          "question": "How did Marcus's opinion on Go vs Rust evolve from week 3 to week 4?",
+          "score": 0,
+          "keywordsFound": [
+            "Go"
+          ],
+          "keywordsMissed": [
+            "Rust",
+            "garbage collector",
+            "latency",
+            "rewrite",
+            "apologized",
+            "don't need",
+            "optimize",
+            "tuned"
+          ],
+          "memoriesReturned": 11,
+          "topMemoryPreview": "Human: I'm starting a new project called Meridian — it's a real-time collaboration tool for remote teams. Marcus and I a"
+        },
+        {
+          "queryId": "EE-01",
+          "category": "entity_evolution",
+          "difficulty": 4,
+          "question": "How did the Meridian project evolve from concept to funded startup across 4 weeks?",
+          "score": 0.7777777777777778,
+          "keywordsFound": [
+            "Meridian",
+            "async",
+            "pilot",
+            "Elena",
+            "Nike",
+            "Y.js",
+            "context summar"
+          ],
+          "keywordsMissed": [
+            "seed",
+            "$1.5M"
+          ],
+          "memoriesReturned": 11,
+          "topMemoryPreview": "Human: Had a great hike with Lena at Royal Arch on Saturday. The views were incredible. She mentioned that Nike is looki"
+        },
+        {
+          "queryId": "EE-02",
+          "category": "entity_evolution",
+          "difficulty": 4,
+          "question": "How did Thomas's piano skills progress over the 4 weeks?",
+          "score": 0.7777777777777778,
+          "keywordsFound": [
+            "Chopin",
+            "Nocturne",
+            "left hand",
+            "40%",
+            "Clair de Lune",
+            "Debussy",
+            "Jake"
+          ],
+          "keywordsMissed": [
+            "60%",
+            "jazz"
+          ],
+          "memoriesReturned": 12,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "EE-03",
+          "category": "entity_evolution",
+          "difficulty": 4,
+          "question": "Describe Elena Rodriguez's relationship with Meridian from first contact to pilot expansion.",
+          "score": 0.8181818181818182,
+          "keywordsFound": [
+            "Elena",
+            "Distributed Labs",
+            "40",
+            "12",
+            "pilot",
+            "$15",
+            "Raj",
+            "Anna",
+            "context summar"
+          ],
+          "keywordsMissed": [
+            "expand",
+            "game-changing"
+          ],
+          "memoriesReturned": 9,
+          "topMemoryPreview": "Human: Had a call with our first potential customer — Elena Rodriguez from Distributed Labs. She runs a 40-person engine"
+        },
+        {
+          "queryId": "EE-04",
+          "category": "entity_evolution",
+          "difficulty": 5,
+          "question": "How did the Meridian product strategy shift — from 'Slack replacement' to 'async layer on top of existing tools'?",
+          "score": 0.4444444444444444,
+          "keywordsFound": [
+            "async",
+            "Slack",
+            "layer",
+            "integration"
+          ],
+          "keywordsMissed": [
+            "complement",
+            "replace",
+            "on top",
+            "positioning",
+            "lower friction"
+          ],
+          "memoriesReturned": 12,
+          "topMemoryPreview": "Human: Had a great hike with Lena at Royal Arch on Saturday. The views were incredible. She mentioned that Nike is looki"
+        },
+        {
+          "queryId": "EE-05",
+          "category": "entity_evolution",
+          "difficulty": 5,
+          "question": "Who are all the people involved in the Meridian project and what are their roles?",
+          "score": 0.9166666666666666,
+          "keywordsFound": [
+            "Marcus",
+            "Sarah",
+            "Elena",
+            "Raj",
+            "Anna",
+            "Omar",
+            "Lena",
+            "co-found",
+            "advisor",
+            "customer",
+            "pilot"
+          ],
+          "keywordsMissed": [
+            "David Park"
+          ],
+          "memoriesReturned": 9,
+          "topMemoryPreview": "Human: Had a call with our first potential customer — Elena Rodriguez from Distributed Labs. She runs a 40-person engine"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "memoriesIngested": 6,
+      "totalMemoriesInVault": 20,
+      "consolidation": {
+        "episodesProcessed": 17,
+        "semanticCreated": 0,
+        "connectionsFormed": 46,
+        "entitiesDiscovered": 0
+      },
+      "aggregateScore": 0.8474446849446851,
+      "scoreByCategory": {
+        "simple_recall": 1,
+        "cross_reference": 0.8333333333333335,
+        "temporal": 0.8,
+        "contradiction": 0.644345238095238,
+        "entity_evolution": 0.7691919191919191
+      },
+      "scoreByDifficulty": {
+        "1": 1,
+        "2": 1,
+        "3": 0.8055555555555557,
+        "4": 0.7562229437229437,
+        "5": 0.6759259259259259
+      },
+      "queryDetails": [
+        {
+          "queryId": "SR-01",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What is the name of the startup project Thomas is working on?",
+          "score": 1,
+          "keywordsFound": [
+            "Meridian"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 14,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "SR-02",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "Who is co-founding Meridian with Thomas?",
+          "score": 1,
+          "keywordsFound": [
+            "Marcus"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 15,
+          "topMemoryPreview": "Human: Had a call with our first potential customer — Elena Rodriguez from Distributed Labs. She runs a 40-person engine"
+        },
+        {
+          "queryId": "SR-03",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What tech stack is Meridian using?",
+          "score": 1,
+          "keywordsFound": [
+            "TypeScript",
+            "React",
+            "Go"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 17,
+          "topMemoryPreview": "Human: I'm starting a new project called Meridian — it's a real-time collaboration tool for remote teams. Marcus and I a"
+        },
+        {
+          "queryId": "SR-04",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What is Meridian's key differentiator?",
+          "score": 1,
+          "keywordsFound": [
+            "async",
+            "first",
+            "async-first"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 12,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "SR-05",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What race is Thomas training for?",
+          "score": 1,
+          "keywordsFound": [
+            "Boulder",
+            "half marathon",
+            "half"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 15,
+          "topMemoryPreview": "Human: I've been training for the Boulder Half Marathon in March. Running 4 days a week — currently at about 25 miles pe"
+        },
+        {
+          "queryId": "SR-06",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "Who is the advisor from Sequoia?",
+          "score": 1,
+          "keywordsFound": [
+            "Sarah",
+            "Chen",
+            "Sequoia"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 11,
+          "topMemoryPreview": "Human: Need to set up the Meridian dev environment. We're going with PostgreSQL for the main database and Redis for the "
+        },
+        {
+          "queryId": "SR-07",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "What piano piece is Thomas learning?",
+          "score": 1,
+          "keywordsFound": [
+            "Chopin",
+            "Nocturne",
+            "E-flat"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 14,
+          "topMemoryPreview": "Human: Piano lesson today — Jake said I've made good progress on the Nocturne left hand. We're starting to combine hands"
+        },
+        {
+          "queryId": "SR-08",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "Who is the first potential pilot customer and what company are they from?",
+          "score": 1,
+          "keywordsFound": [
+            "Elena",
+            "Rodriguez",
+            "Distributed Labs"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 17,
+          "topMemoryPreview": "Human: Elena from Distributed Labs wants to schedule the pilot kickoff for Feb 15. She's adding two more people to the p"
+        },
+        {
+          "queryId": "SR-09",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "What is Thomas's running goal time for the half marathon?",
+          "score": 1,
+          "keywordsFound": [
+            "1:45",
+            "sub-1:45"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 15,
+          "topMemoryPreview": "Human: Running update: hit a new PR on my 10K — 45:12. That's about 7:17/mile pace. Feeling really strong. Coach Diana b"
+        },
+        {
+          "queryId": "SR-10",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "Where did Marcus work before Meridian?",
+          "score": 1,
+          "keywordsFound": [
+            "Google",
+            "Docs"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 17,
+          "topMemoryPreview": "Human: Elena from Distributed Labs wants to schedule the pilot kickoff for Feb 15. She's adding two more people to the p"
+        },
+        {
+          "queryId": "CR-01",
+          "category": "cross_reference",
+          "difficulty": 2,
+          "question": "What CRDT library did Sarah recommend and did the team end up using it?",
+          "score": 1,
+          "keywordsFound": [
+            "Y.js",
+            "Sarah",
+            "integrated"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 17,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "CR-02",
+          "category": "cross_reference",
+          "difficulty": 3,
+          "question": "How did Thomas's sister Lena connect to the Meridian project?",
+          "score": 1,
+          "keywordsFound": [
+            "Lena",
+            "Nike",
+            "hike",
+            "demo",
+            "IT director"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 18,
+          "topMemoryPreview": "Human: Had a great hike with Lena at Royal Arch on Saturday. The views were incredible. She mentioned that Nike is looki"
+        },
+        {
+          "queryId": "CR-03",
+          "category": "cross_reference",
+          "difficulty": 3,
+          "question": "What role did Sarah Chen play across the Meridian journey — advisor, technical, fundraising?",
+          "score": 0.8333333333333334,
+          "keywordsFound": [
+            "Sarah",
+            "Sequoia",
+            "Y.js",
+            "Haiku",
+            "invest"
+          ],
+          "keywordsMissed": [
+            "seed"
+          ],
+          "memoriesReturned": 16,
+          "topMemoryPreview": "Human: Need to set up the Meridian dev environment. We're going with PostgreSQL for the main database and Redis for the "
+        },
+        {
+          "queryId": "CR-04",
+          "category": "cross_reference",
+          "difficulty": 3,
+          "question": "What did Elena's pilot team think of the context summaries, and what model powers them?",
+          "score": 0.5,
+          "keywordsFound": [
+            "context summar",
+            "Haiku"
+          ],
+          "keywordsMissed": [
+            "game-changing",
+            "killer feature"
+          ],
+          "memoriesReturned": 18,
+          "topMemoryPreview": "Human: Elena from Distributed Labs wants to schedule the pilot kickoff for Feb 15. She's adding two more people to the p"
+        },
+        {
+          "queryId": "CR-05",
+          "category": "cross_reference",
+          "difficulty": 4,
+          "question": "Connect the dots: how did the Nike opportunity arise and what technical requirements does it demand?",
+          "score": 1,
+          "keywordsFound": [
+            "Lena",
+            "Nike",
+            "sister",
+            "SSO",
+            "audit",
+            "enterprise",
+            "demo",
+            "March"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 18,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "CR-06",
+          "category": "cross_reference",
+          "difficulty": 4,
+          "question": "What is the relationship between Marcus, David Park, and Google?",
+          "score": 0.6666666666666666,
+          "keywordsFound": [
+            "Marcus",
+            "Google",
+            "Docs",
+            "backend"
+          ],
+          "keywordsMissed": [
+            "David Park",
+            "colleague"
+          ],
+          "memoriesReturned": 15,
+          "topMemoryPreview": "Human: Lena called — Nike's IT director is interested in a demo of Meridian! They want to see it in early March. This co"
+        },
+        {
+          "queryId": "TP-01",
+          "category": "temporal",
+          "difficulty": 3,
+          "question": "How did the Meridian pilot customer count change over time — from first discussion to actual pilot?",
+          "score": 0.75,
+          "keywordsFound": [
+            "40",
+            "12",
+            "full"
+          ],
+          "keywordsMissed": [
+            "expand"
+          ],
+          "memoriesReturned": 17,
+          "topMemoryPreview": "Human: Lena called — Nike's IT director is interested in a demo of Meridian! They want to see it in early March. This co"
+        },
+        {
+          "queryId": "TP-02",
+          "category": "temporal",
+          "difficulty": 3,
+          "question": "How did Thomas's weekly running mileage change across the 4 weeks?",
+          "score": 0.75,
+          "keywordsFound": [
+            "25",
+            "30",
+            "20"
+          ],
+          "keywordsMissed": [
+            "28"
+          ],
+          "memoriesReturned": 15,
+          "topMemoryPreview": "Human: Running update: hit a new PR on my 10K — 45:12. That's about 7:17/mile pace. Feeling really strong. Coach Diana b"
+        },
+        {
+          "queryId": "TP-03",
+          "category": "temporal",
+          "difficulty": 3,
+          "question": "How did the context summarizer performance improve over time?",
+          "score": 1,
+          "keywordsFound": [
+            "8 second",
+            "3 second",
+            "2 second",
+            "1 second",
+            "cache",
+            "Haiku",
+            "streaming"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 17,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "TP-04",
+          "category": "temporal",
+          "difficulty": 4,
+          "question": "What happened with Thomas's knee injury and how did it affect his training plan?",
+          "score": 0.875,
+          "keywordsFound": [
+            "IT band",
+            "knee",
+            "pain",
+            "3 days",
+            "pool running",
+            "20 miles",
+            "no pain"
+          ],
+          "keywordsMissed": [
+            "recovered"
+          ],
+          "memoriesReturned": 17,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "TP-05",
+          "category": "temporal",
+          "difficulty": 4,
+          "question": "Trace the Meridian fundraising journey from early advisor relationship to seed round offer.",
+          "score": 0.625,
+          "keywordsFound": [
+            "Sarah",
+            "Sequoia",
+            "advisor",
+            "pilot",
+            "Nike"
+          ],
+          "keywordsMissed": [
+            "$1.5M",
+            "$10M",
+            "seed"
+          ],
+          "memoriesReturned": 16,
+          "topMemoryPreview": "Human: Lena called — Nike's IT director is interested in a demo of Meridian! They want to see it in early March. This co"
+        },
+        {
+          "queryId": "CD-01",
+          "category": "contradiction",
+          "difficulty": 4,
+          "question": "Did Marcus want to rewrite the Meridian backend? What happened with that plan?",
+          "score": 0.625,
+          "keywordsFound": [
+            "Rust",
+            "Go",
+            "rewrite",
+            "pilot",
+            "agreed"
+          ],
+          "keywordsMissed": [
+            "apologized",
+            "optimize",
+            "don't need"
+          ],
+          "memoriesReturned": 17,
+          "topMemoryPreview": "Human: Lena called — Nike's IT director is interested in a demo of Meridian! They want to see it in early March. This co"
+        },
+        {
+          "queryId": "CD-02",
+          "category": "contradiction",
+          "difficulty": 4,
+          "question": "Did the pricing model for Meridian change? What was considered vs what was decided?",
+          "score": 0.5714285714285714,
+          "keywordsFound": [
+            "$15",
+            "seat",
+            "summary",
+            "enterprise"
+          ],
+          "keywordsMissed": [
+            "usage-based",
+            "sticking",
+            "$25"
+          ],
+          "memoriesReturned": 17,
+          "topMemoryPreview": "Human: Need to set up the Meridian dev environment. We're going with PostgreSQL for the main database and Redis for the "
+        },
+        {
+          "queryId": "CD-03",
+          "category": "contradiction",
+          "difficulty": 4,
+          "question": "Did Thomas change his mind about running nutrition gels?",
+          "score": 0.7142857142857143,
+          "keywordsFound": [
+            "Maurten",
+            "Gu",
+            "switch",
+            "expensive",
+            "keep"
+          ],
+          "keywordsMissed": [
+            "stomach",
+            "worth"
+          ],
+          "memoriesReturned": 8,
+          "topMemoryPreview": "Human: I've been training for the Boulder Half Marathon in March. Running 4 days a week — currently at about 25 miles pe"
+        },
+        {
+          "queryId": "CD-04",
+          "category": "contradiction",
+          "difficulty": 5,
+          "question": "How did Marcus's opinion on Go vs Rust evolve from week 3 to week 4?",
+          "score": 0.6666666666666666,
+          "keywordsFound": [
+            "Go",
+            "Rust",
+            "garbage collector",
+            "latency",
+            "rewrite",
+            "tuned"
+          ],
+          "keywordsMissed": [
+            "apologized",
+            "don't need",
+            "optimize"
+          ],
+          "memoriesReturned": 16,
+          "topMemoryPreview": "Human: Lena called — Nike's IT director is interested in a demo of Meridian! They want to see it in early March. This co"
+        },
+        {
+          "queryId": "EE-01",
+          "category": "entity_evolution",
+          "difficulty": 4,
+          "question": "How did the Meridian project evolve from concept to funded startup across 4 weeks?",
+          "score": 0.7777777777777778,
+          "keywordsFound": [
+            "Meridian",
+            "async",
+            "pilot",
+            "Elena",
+            "Nike",
+            "Y.js",
+            "context summar"
+          ],
+          "keywordsMissed": [
+            "seed",
+            "$1.5M"
+          ],
+          "memoriesReturned": 16,
+          "topMemoryPreview": "Human: Lena called — Nike's IT director is interested in a demo of Meridian! They want to see it in early March. This co"
+        },
+        {
+          "queryId": "EE-02",
+          "category": "entity_evolution",
+          "difficulty": 4,
+          "question": "How did Thomas's piano skills progress over the 4 weeks?",
+          "score": 0.8888888888888888,
+          "keywordsFound": [
+            "Chopin",
+            "Nocturne",
+            "left hand",
+            "40%",
+            "60%",
+            "Clair de Lune",
+            "Debussy",
+            "Jake"
+          ],
+          "keywordsMissed": [
+            "jazz"
+          ],
+          "memoriesReturned": 17,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "EE-03",
+          "category": "entity_evolution",
+          "difficulty": 4,
+          "question": "Describe Elena Rodriguez's relationship with Meridian from first contact to pilot expansion.",
+          "score": 0.8181818181818182,
+          "keywordsFound": [
+            "Elena",
+            "Distributed Labs",
+            "40",
+            "12",
+            "pilot",
+            "$15",
+            "Raj",
+            "Anna",
+            "context summar"
+          ],
+          "keywordsMissed": [
+            "expand",
+            "game-changing"
+          ],
+          "memoriesReturned": 15,
+          "topMemoryPreview": "Human: Lena called — Nike's IT director is interested in a demo of Meridian! They want to see it in early March. This co"
+        },
+        {
+          "queryId": "EE-04",
+          "category": "entity_evolution",
+          "difficulty": 5,
+          "question": "How did the Meridian product strategy shift — from 'Slack replacement' to 'async layer on top of existing tools'?",
+          "score": 0.4444444444444444,
+          "keywordsFound": [
+            "async",
+            "Slack",
+            "layer",
+            "integration"
+          ],
+          "keywordsMissed": [
+            "complement",
+            "replace",
+            "on top",
+            "positioning",
+            "lower friction"
+          ],
+          "memoriesReturned": 18,
+          "topMemoryPreview": "Human: Lena called — Nike's IT director is interested in a demo of Meridian! They want to see it in early March. This co"
+        },
+        {
+          "queryId": "EE-05",
+          "category": "entity_evolution",
+          "difficulty": 5,
+          "question": "Who are all the people involved in the Meridian project and what are their roles?",
+          "score": 0.9166666666666666,
+          "keywordsFound": [
+            "Marcus",
+            "Sarah",
+            "Elena",
+            "Raj",
+            "Anna",
+            "Omar",
+            "Lena",
+            "co-found",
+            "advisor",
+            "customer",
+            "pilot"
+          ],
+          "keywordsMissed": [
+            "David Park"
+          ],
+          "memoriesReturned": 15,
+          "topMemoryPreview": "Human: Met with Omar from PixelForge that Sarah connected us with. His design agency is 25 people, mostly in Europe. He "
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "memoriesIngested": 7,
+      "totalMemoriesInVault": 28,
+      "consolidation": {
+        "episodesProcessed": 24,
+        "semanticCreated": 0,
+        "connectionsFormed": 91,
+        "entitiesDiscovered": 0
+      },
+      "aggregateScore": 0.9958333333333333,
+      "scoreByCategory": {
+        "simple_recall": 1,
+        "cross_reference": 1,
+        "temporal": 0.975,
+        "contradiction": 1,
+        "entity_evolution": 1
+      },
+      "scoreByDifficulty": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0.9875,
+        "5": 1
+      },
+      "queryDetails": [
+        {
+          "queryId": "SR-01",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What is the name of the startup project Thomas is working on?",
+          "score": 1,
+          "keywordsFound": [
+            "Meridian"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "SR-02",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "Who is co-founding Meridian with Thomas?",
+          "score": 1,
+          "keywordsFound": [
+            "Marcus"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 18,
+          "topMemoryPreview": "Human: Need to set up the Meridian dev environment. We're going with PostgreSQL for the main database and Redis for the "
+        },
+        {
+          "queryId": "SR-03",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What tech stack is Meridian using?",
+          "score": 1,
+          "keywordsFound": [
+            "TypeScript",
+            "React",
+            "Go"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Bad news — Marcus wants to switch the backend from Go to Rust. He says Go's garbage collector is causing latency "
+        },
+        {
+          "queryId": "SR-04",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What is Meridian's key differentiator?",
+          "score": 1,
+          "keywordsFound": [
+            "async",
+            "first",
+            "async-first"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 17,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "SR-05",
+          "category": "simple_recall",
+          "difficulty": 1,
+          "question": "What race is Thomas training for?",
+          "score": 1,
+          "keywordsFound": [
+            "Boulder",
+            "half marathon",
+            "half"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Knee is feeling better! Did a test 3-mile run today at easy pace — no pain. Diana says I can resume training but "
+        },
+        {
+          "queryId": "SR-06",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "Who is the advisor from Sequoia?",
+          "score": 1,
+          "keywordsFound": [
+            "Sarah",
+            "Chen",
+            "Sequoia"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 17,
+          "topMemoryPreview": "Human: Need to set up the Meridian dev environment. We're going with PostgreSQL for the main database and Redis for the "
+        },
+        {
+          "queryId": "SR-07",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "What piano piece is Thomas learning?",
+          "score": 1,
+          "keywordsFound": [
+            "Chopin",
+            "Nocturne",
+            "E-flat"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 19,
+          "topMemoryPreview": "Human: Piano lesson today — Jake said I've made good progress on the Nocturne left hand. We're starting to combine hands"
+        },
+        {
+          "queryId": "SR-08",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "Who is the first potential pilot customer and what company are they from?",
+          "score": 1,
+          "keywordsFound": [
+            "Elena",
+            "Rodriguez",
+            "Distributed Labs"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Lena called — Nike's IT director is interested in a demo of Meridian! They want to see it in early March. This co"
+        },
+        {
+          "queryId": "SR-09",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "What is Thomas's running goal time for the half marathon?",
+          "score": 1,
+          "keywordsFound": [
+            "1:45",
+            "sub-1:45"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Knee is feeling better! Did a test 3-mile run today at easy pace — no pain. Diana says I can resume training but "
+        },
+        {
+          "queryId": "SR-10",
+          "category": "simple_recall",
+          "difficulty": 2,
+          "question": "Where did Marcus work before Meridian?",
+          "score": 1,
+          "keywordsFound": [
+            "Google",
+            "Docs"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Lena called — Nike's IT director is interested in a demo of Meridian! They want to see it in early March. This co"
+        },
+        {
+          "queryId": "CR-01",
+          "category": "cross_reference",
+          "difficulty": 2,
+          "question": "What CRDT library did Sarah recommend and did the team end up using it?",
+          "score": 1,
+          "keywordsFound": [
+            "Y.js",
+            "Sarah",
+            "integrated"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "CR-02",
+          "category": "cross_reference",
+          "difficulty": 3,
+          "question": "How did Thomas's sister Lena connect to the Meridian project?",
+          "score": 1,
+          "keywordsFound": [
+            "Lena",
+            "Nike",
+            "hike",
+            "demo",
+            "IT director"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Lena called — Nike's IT director is interested in a demo of Meridian! They want to see it in early March. This co"
+        },
+        {
+          "queryId": "CR-03",
+          "category": "cross_reference",
+          "difficulty": 3,
+          "question": "What role did Sarah Chen play across the Meridian journey — advisor, technical, fundraising?",
+          "score": 1,
+          "keywordsFound": [
+            "Sarah",
+            "Sequoia",
+            "Y.js",
+            "Haiku",
+            "seed",
+            "invest"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Need to set up the Meridian dev environment. We're going with PostgreSQL for the main database and Redis for the "
+        },
+        {
+          "queryId": "CR-04",
+          "category": "cross_reference",
+          "difficulty": 3,
+          "question": "What did Elena's pilot team think of the context summaries, and what model powers them?",
+          "score": 1,
+          "keywordsFound": [
+            "context summar",
+            "game-changing",
+            "Haiku",
+            "killer feature"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Bad news — Marcus wants to switch the backend from Go to Rust. He says Go's garbage collector is causing latency "
+        },
+        {
+          "queryId": "CR-05",
+          "category": "cross_reference",
+          "difficulty": 4,
+          "question": "Connect the dots: how did the Nike opportunity arise and what technical requirements does it demand?",
+          "score": 1,
+          "keywordsFound": [
+            "Lena",
+            "Nike",
+            "sister",
+            "SSO",
+            "audit",
+            "enterprise",
+            "demo",
+            "March"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "CR-06",
+          "category": "cross_reference",
+          "difficulty": 4,
+          "question": "What is the relationship between Marcus, David Park, and Google?",
+          "score": 1,
+          "keywordsFound": [
+            "Marcus",
+            "Google",
+            "David Park",
+            "colleague",
+            "Docs",
+            "backend"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 18,
+          "topMemoryPreview": "Human: Big day — Sarah offered to lead our seed round! She wants to invest $1.5M at a $10M pre-money valuation. She said"
+        },
+        {
+          "queryId": "TP-01",
+          "category": "temporal",
+          "difficulty": 3,
+          "question": "How did the Meridian pilot customer count change over time — from first discussion to actual pilot?",
+          "score": 1,
+          "keywordsFound": [
+            "40",
+            "12",
+            "expand",
+            "full"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Marcus apologized for the Rust argument. He said I was right to prioritize the pilot. He's actually been really i"
+        },
+        {
+          "queryId": "TP-02",
+          "category": "temporal",
+          "difficulty": 3,
+          "question": "How did Thomas's weekly running mileage change across the 4 weeks?",
+          "score": 1,
+          "keywordsFound": [
+            "25",
+            "30",
+            "20",
+            "28"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Meridian pilot with Distributed Labs started today! Elena's team of 12 is onboarded. First impressions are positi"
+        },
+        {
+          "queryId": "TP-03",
+          "category": "temporal",
+          "difficulty": 3,
+          "question": "How did the context summarizer performance improve over time?",
+          "score": 1,
+          "keywordsFound": [
+            "8 second",
+            "3 second",
+            "2 second",
+            "1 second",
+            "cache",
+            "Haiku",
+            "streaming"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Meridian pilot with Distributed Labs started today! Elena's team of 12 is onboarded. First impressions are positi"
+        },
+        {
+          "queryId": "TP-04",
+          "category": "temporal",
+          "difficulty": 4,
+          "question": "What happened with Thomas's knee injury and how did it affect his training plan?",
+          "score": 0.875,
+          "keywordsFound": [
+            "IT band",
+            "knee",
+            "pain",
+            "3 days",
+            "pool running",
+            "20 miles",
+            "no pain"
+          ],
+          "keywordsMissed": [
+            "recovered"
+          ],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "TP-05",
+          "category": "temporal",
+          "difficulty": 4,
+          "question": "Trace the Meridian fundraising journey from early advisor relationship to seed round offer.",
+          "score": 1,
+          "keywordsFound": [
+            "Sarah",
+            "Sequoia",
+            "advisor",
+            "$1.5M",
+            "$10M",
+            "seed",
+            "pilot",
+            "Nike"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Lena called — Nike's IT director is interested in a demo of Meridian! They want to see it in early March. This co"
+        },
+        {
+          "queryId": "CD-01",
+          "category": "contradiction",
+          "difficulty": 4,
+          "question": "Did Marcus want to rewrite the Meridian backend? What happened with that plan?",
+          "score": 1,
+          "keywordsFound": [
+            "Rust",
+            "Go",
+            "rewrite",
+            "pilot",
+            "agreed",
+            "apologized",
+            "optimize",
+            "don't need"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Big day — Sarah offered to lead our seed round! She wants to invest $1.5M at a $10M pre-money valuation. She said"
+        },
+        {
+          "queryId": "CD-02",
+          "category": "contradiction",
+          "difficulty": 4,
+          "question": "Did the pricing model for Meridian change? What was considered vs what was decided?",
+          "score": 1,
+          "keywordsFound": [
+            "$15",
+            "seat",
+            "usage-based",
+            "summary",
+            "sticking",
+            "$25",
+            "enterprise"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Changed my mind on the pricing model. Instead of $15/seat/month, I'm thinking about usage-based pricing — charge "
+        },
+        {
+          "queryId": "CD-03",
+          "category": "contradiction",
+          "difficulty": 4,
+          "question": "Did Thomas change his mind about running nutrition gels?",
+          "score": 1,
+          "keywordsFound": [
+            "Maurten",
+            "Gu",
+            "switch",
+            "expensive",
+            "stomach",
+            "keep",
+            "worth"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 19,
+          "topMemoryPreview": "Human: Changed my mind on the pricing model. Instead of $15/seat/month, I'm thinking about usage-based pricing — charge "
+        },
+        {
+          "queryId": "CD-04",
+          "category": "contradiction",
+          "difficulty": 5,
+          "question": "How did Marcus's opinion on Go vs Rust evolve from week 3 to week 4?",
+          "score": 1,
+          "keywordsFound": [
+            "Go",
+            "Rust",
+            "garbage collector",
+            "latency",
+            "rewrite",
+            "apologized",
+            "don't need",
+            "optimize",
+            "tuned"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Marcus apologized for the Rust argument. He said I was right to prioritize the pilot. He's actually been really i"
+        },
+        {
+          "queryId": "EE-01",
+          "category": "entity_evolution",
+          "difficulty": 4,
+          "question": "How did the Meridian project evolve from concept to funded startup across 4 weeks?",
+          "score": 1,
+          "keywordsFound": [
+            "Meridian",
+            "async",
+            "pilot",
+            "Elena",
+            "Nike",
+            "seed",
+            "$1.5M",
+            "Y.js",
+            "context summar"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Meridian pilot with Distributed Labs started today! Elena's team of 12 is onboarded. First impressions are positi"
+        },
+        {
+          "queryId": "EE-02",
+          "category": "entity_evolution",
+          "difficulty": 4,
+          "question": "How did Thomas's piano skills progress over the 4 weeks?",
+          "score": 1,
+          "keywordsFound": [
+            "Chopin",
+            "Nocturne",
+            "left hand",
+            "40%",
+            "60%",
+            "Clair de Lune",
+            "Debussy",
+            "jazz",
+            "Jake"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Meridian update: Marcus finished the initial Go backend with WebSocket support. We integrated Y.js for the CRDT l"
+        },
+        {
+          "queryId": "EE-03",
+          "category": "entity_evolution",
+          "difficulty": 4,
+          "question": "Describe Elena Rodriguez's relationship with Meridian from first contact to pilot expansion.",
+          "score": 1,
+          "keywordsFound": [
+            "Elena",
+            "Distributed Labs",
+            "40",
+            "12",
+            "pilot",
+            "$15",
+            "Raj",
+            "Anna",
+            "context summar",
+            "expand",
+            "game-changing"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 18,
+          "topMemoryPreview": "Human: Meridian pilot with Distributed Labs started today! Elena's team of 12 is onboarded. First impressions are positi"
+        },
+        {
+          "queryId": "EE-04",
+          "category": "entity_evolution",
+          "difficulty": 5,
+          "question": "How did the Meridian product strategy shift — from 'Slack replacement' to 'async layer on top of existing tools'?",
+          "score": 1,
+          "keywordsFound": [
+            "async",
+            "Slack",
+            "complement",
+            "replace",
+            "on top",
+            "layer",
+            "positioning",
+            "integration",
+            "lower friction"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 20,
+          "topMemoryPreview": "Human: Meridian pilot with Distributed Labs started today! Elena's team of 12 is onboarded. First impressions are positi"
+        },
+        {
+          "queryId": "EE-05",
+          "category": "entity_evolution",
+          "difficulty": 5,
+          "question": "Who are all the people involved in the Meridian project and what are their roles?",
+          "score": 1,
+          "keywordsFound": [
+            "Marcus",
+            "Sarah",
+            "Elena",
+            "Raj",
+            "Anna",
+            "Omar",
+            "Lena",
+            "David Park",
+            "co-found",
+            "advisor",
+            "customer",
+            "pilot"
+          ],
+          "keywordsMissed": [],
+          "memoriesReturned": 19,
+          "topMemoryPreview": "Human: Met with Omar from PixelForge that Sarah connected us with. His design agency is 25 people, mostly in Europe. He "
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "weeklyScores": [
+      {
+        "week": 1,
+        "score": 0.609081289081289
+      },
+      {
+        "week": 2,
+        "score": 0.7475108225108226
+      },
+      {
+        "week": 3,
+        "score": 0.8474446849446851
+      },
+      {
+        "week": 4,
+        "score": 0.9958333333333333
+      }
+    ],
+    "finalScore": 0.9958333333333333,
+    "scoreTrend": 0.38675204425204435
+  }
+}

@@ -326,6 +326,96 @@ route('POST', '/v1/shadow/compare', async (req, res, vault) => {
   });
 });
 
+// POST /v1/ingest/realtime — Real-time memory extraction from conversation text
+// Send a message or conversation snippet, get memories extracted and stored instantly
+route('POST', '/v1/ingest/realtime', async (req, res, vault) => {
+  const body = JSON.parse(await readBody(req));
+  const text = body.text ?? '';
+  const geminiKey = process.env.GEMINI_API_KEY ?? process.env.ENGRAM_LLM_API_KEY;
+
+  if (!text) {
+    return error(res, 400, 'text is required');
+  }
+  if (!geminiKey) {
+    // Fallback: store as single memory using rule-based extraction
+    const { extract } = await import('./extract.js');
+    const extracted = extract(text);
+    const mem = await vault.remember({
+      content: text.slice(0, 500),
+      type: 'episodic',
+      entities: extracted.entities,
+      topics: extracted.topics,
+      salience: extracted.suggestedSalience,
+      source: { type: 'conversation' as const },
+    });
+    return json(res, 200, { created: 1, memories: [{ id: mem.id, content: mem.content }] });
+  }
+
+  // LLM-powered extraction
+  const prompt = `You are a memory extraction engine for an AI agent. Analyze this conversation segment and extract structured memories worth keeping long-term.
+
+CONVERSATION:
+${text}
+
+Extract memories that would be valuable to recall days or weeks from now. For each, provide:
+- content: A clear, standalone statement (should make sense without the conversation)
+- type: "episodic" (specific events), "semantic" (facts/preferences), or "procedural" (how-to/lessons)
+- entities: People, projects, tools, places mentioned
+- topics: Relevant topic tags
+- salience: 0.0-1.0 (how important for future recall?)
+- status: "active" (default), "pending" (if it's a commitment/plan not yet done)
+
+Be SELECTIVE. Only extract what matters. Skip small talk and trivial exchanges.
+
+Respond as JSON:
+{"memories": [{"content": "...", "type": "...", "entities": ["..."], "topics": ["..."], "salience": 0.0-1.0, "status": "active|pending"}]}`;
+
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 2048 },
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      return error(res, 502, `LLM extraction failed: ${response.status}`);
+    }
+
+    const data = await response.json() as any;
+    const llmText = data.candidates?.[0]?.content?.parts?.[0]?.text ?? '{}';
+    const parsed = JSON.parse(llmText);
+
+    const created: Array<{ id: string; content: string }> = [];
+    for (const mem of parsed.memories ?? []) {
+      if (mem.salience < 0.2) continue;
+      // Security: never store secrets
+      if (/(?:sk-|api[_-]?key|password|token|secret)[:\s=]+\S{10,}/i.test(mem.content)) continue;
+      if (/AIza[a-zA-Z0-9_-]{30,}/.test(mem.content)) continue;
+
+      const stored = await vault.remember({
+        content: mem.content,
+        type: mem.type ?? 'episodic',
+        entities: mem.entities ?? [],
+        topics: [...(mem.topics ?? []), 'realtime'],
+        salience: mem.salience ?? 0.5,
+        status: mem.status ?? 'active',
+        source: { type: 'conversation' as const },
+      });
+      created.push({ id: stored.id, content: stored.content });
+    }
+
+    json(res, 200, { created: created.length, memories: created });
+  } catch (err: any) {
+    error(res, 500, `Extraction error: ${err.message}`);
+  }
+});
+
 // GET /v1/contradictions — list unresolved contradictions
 route('GET', '/v1/contradictions', (req, res, vault) => {
   const url = new URL(req.url!, `http://${req.headers.host}`);
