@@ -248,6 +248,110 @@ async function ingestChunk(chunk: string, project: string): Promise<number> {
 }
 
 // ============================================================
+// Smart session summary extraction
+// ============================================================
+
+async function ingestSessionSummary(turns: ParsedTurn[], project: string): Promise<number> {
+  // Build a condensed transcript (cap at 6000 chars to save tokens)
+  let transcript = '';
+  for (const turn of turns) {
+    const prefix = turn.role === 'user' ? 'User' : 'Assistant';
+    const content = turn.content.slice(0, 500);
+    transcript += `${prefix}: ${content}\n`;
+    if (transcript.length > 6000) break;
+  }
+
+  const prompt = `You are a memory extraction engine. Analyze this Claude Code session and extract the 3-7 most important things worth remembering long-term.
+
+PROJECT: ${project}
+
+SESSION TRANSCRIPT:
+${transcript}
+
+Focus on:
+- Decisions made (architecture, tools, approaches chosen)
+- Facts learned about the user's preferences or workflow
+- Project-specific patterns or conventions
+- Problems solved and how
+- Commitments or next steps mentioned
+
+Skip: trivial commands, routine file edits, debugging noise, generic code generation.
+
+For each memory, provide:
+- content: A clear, standalone statement (should make sense weeks later without context)
+- type: "semantic" (facts/patterns), "episodic" (specific events/decisions), or "procedural" (how-to/lessons)
+- entities: People, projects, tools mentioned
+- topics: Relevant tags
+- salience: 0.3-1.0 (how important?)
+
+Respond as JSON:
+{"memories": [{"content": "...", "type": "...", "entities": ["..."], "topics": ["..."], "salience": 0.5}]}
+
+If the session is trivial (just fixing typos, running commands), respond: {"memories": []}`;
+
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 2048 },
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      if (response.status === 429) {
+        console.warn(`  Rate limited, waiting 15s...`);
+        await new Promise(r => setTimeout(r, 15000));
+        // Don't retry — will pick up on next cycle
+      } else {
+        console.error(`  Gemini API error: ${response.status}`);
+      }
+      return 0;
+    }
+
+    const data = await response.json() as any;
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text ?? '{}';
+    const parsed = JSON.parse(text);
+
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (ENGRAM_AUTH) headers['Authorization'] = ENGRAM_AUTH;
+
+    let created = 0;
+    for (const mem of parsed.memories ?? []) {
+      if (mem.salience < 0.2) continue;
+      // Security filter
+      if (/(?:sk-|api[_-]?key|password|token|secret)[:\s=]+\S{10,}/i.test(mem.content)) continue;
+      if (/AIza[a-zA-Z0-9_-]{30,}/.test(mem.content)) continue;
+
+      const res = await fetch(`${ENGRAM_API}/memories`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          content: mem.content,
+          type: mem.type ?? 'episodic',
+          entities: mem.entities ?? [],
+          topics: [...(mem.topics ?? []), 'claude-code', project.split('/').pop() ?? project],
+          salience: mem.salience ?? 0.5,
+          status: 'active',
+          source: { type: 'conversation' as const },
+        }),
+      });
+      if (res.ok) created++;
+    }
+
+    console.log(`  → ${created} memories (summary mode)`);
+    return created;
+  } catch (err) {
+    console.error('Session summary error:', err);
+    return 0;
+  }
+}
+
+// ============================================================
 // Main
 // ============================================================
 
@@ -271,6 +375,20 @@ async function run(): Promise<{ memoriesCreated: number; sessions: number }> {
     console.log(`Processing ${session.project} (${turns.length} new turns)...`);
     sessionsProcessed++;
 
+    // Smart mode: if we have Gemini, send the whole session as one summary request
+    // instead of chunking raw text. Much better signal-to-noise.
+    if (GEMINI_API_KEY && turns.length >= 3) {
+      const created = await ingestSessionSummary(turns, session.project);
+      totalCreated += created;
+
+      // Update state
+      const lastLine = turns[turns.length - 1].lineNumber + 1;
+      state.lastLine[session.path] = lastLine;
+      await new Promise(r => setTimeout(r, 5000)); // rate limit between sessions
+      continue;
+    }
+
+    // Fallback: chunk-based ingestion
     const chunks = chunkTurns(turns);
     for (let i = 0; i < chunks.length; i++) {
       const created = await ingestChunk(chunks[i], session.project);

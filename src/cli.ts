@@ -15,6 +15,10 @@ engram — Universal memory layer for AI agents
 Usage:
   engram init                        Set up Engram for Claude Code / Cursor / MCP clients
   engram mcp                         Start the MCP server (stdio transport)
+  engram shadow start                Start shadow mode (server + watcher, background)
+  engram shadow stop                 Stop shadow mode
+  engram shadow status               Check shadow mode status and memory count
+  engram shadow results              Compare Engram vs your CLAUDE.md
   engram remember <text>             Store a memory
   engram recall <context>            Retrieve relevant memories
   engram stats                       Show vault statistics
@@ -245,6 +249,264 @@ async function runInit(values: Record<string, unknown>) {
 // Commands
 // ============================================================
 
+// ============================================================
+// Shadow Mode
+// ============================================================
+
+const SHADOW_PID_DIR = path.join(process.env.HOME ?? '', '.config', 'engram');
+const SERVER_PID_FILE = path.join(SHADOW_PID_DIR, 'shadow-server.pid');
+const WATCHER_PID_FILE = path.join(SHADOW_PID_DIR, 'shadow-watcher.pid');
+
+async function runShadow(subcommand: string, values: Record<string, unknown>) {
+  const { existsSync, mkdirSync, readFileSync, writeFileSync, unlinkSync } = await import('fs');
+  const { execSync, spawn } = await import('child_process');
+  const { homedir } = await import('os');
+
+  mkdirSync(SHADOW_PID_DIR, { recursive: true });
+
+  const owner = (values.owner as string) || 'default';
+  const dbPath = path.join(homedir(), `.engram-${owner}.db`);
+  const geminiKey = process.env.GEMINI_API_KEY ?? '';
+
+  function isRunning(pidFile: string): boolean {
+    if (!existsSync(pidFile)) return false;
+    const pid = readFileSync(pidFile, 'utf-8').trim();
+    try { process.kill(parseInt(pid), 0); return true; } catch { unlinkSync(pidFile); return false; }
+  }
+
+  switch (subcommand) {
+    case 'start': {
+      if (isRunning(SERVER_PID_FILE)) {
+        console.log('Shadow mode is already running. Use `engram shadow status` to check.');
+        return;
+      }
+
+      console.log('🧠 Starting Engram shadow mode...\n');
+
+      // Start server
+      const distDir = path.resolve(path.dirname(new URL(import.meta.url).pathname), '.');
+      const serverPath = path.join(distDir, 'server.js');
+      const watcherPath = path.join(distDir, 'claude-watcher.js');
+
+      const serverEnv = {
+        ...process.env,
+        ENGRAM_OWNER: owner,
+        ENGRAM_DB_PATH: dbPath,
+        GEMINI_API_KEY: geminiKey,
+      };
+
+      const server = spawn('node', [serverPath], {
+        env: serverEnv,
+        detached: true,
+        stdio: ['ignore', 'pipe', 'pipe'],
+      });
+
+      // Capture the port from stdout
+      let serverPort = '';
+      server.stdout?.on('data', (data: Buffer) => {
+        const line = data.toString();
+        const match = line.match(/:(\d+)/);
+        if (match && !serverPort) {
+          serverPort = match[1];
+        }
+      });
+
+      server.unref();
+      writeFileSync(SERVER_PID_FILE, String(server.pid));
+
+      // Wait for server to start
+      await new Promise(r => setTimeout(r, 2000));
+
+      if (!serverPort) serverPort = '3800'; // fallback
+
+      console.log(`   ✓ Server running on port ${serverPort} (PID ${server.pid})`);
+      console.log(`   ✓ Database: ${dbPath}`);
+
+      // Start Claude Code watcher
+      const watcherEnv = {
+        ...process.env,
+        ENGRAM_API: `http://127.0.0.1:${serverPort}/v1`,
+        GEMINI_API_KEY: geminiKey,
+        ENGRAM_INGEST_INTERVAL_MS: '300000',
+      };
+
+      const watcher = spawn('node', [watcherPath, '--watch'], {
+        env: watcherEnv,
+        detached: true,
+        stdio: 'ignore',
+      });
+
+      watcher.unref();
+      writeFileSync(WATCHER_PID_FILE, String(watcher.pid));
+
+      console.log(`   ✓ Claude Code watcher running (PID ${watcher.pid})`);
+      console.log(`\n✅ Shadow mode active. Engram is silently learning from your sessions.`);
+      console.log(`   Run \`engram shadow status\` to check progress.`);
+      console.log(`   Run \`engram shadow results\` after a few days to see what Engram caught.`);
+      console.log(`   Run \`engram shadow stop\` to stop.\n`);
+      break;
+    }
+
+    case 'stop': {
+      let stopped = 0;
+      for (const pidFile of [WATCHER_PID_FILE, SERVER_PID_FILE]) {
+        if (existsSync(pidFile)) {
+          const pid = parseInt(readFileSync(pidFile, 'utf-8').trim());
+          try {
+            process.kill(pid, 'SIGTERM');
+            stopped++;
+            console.log(`Stopped PID ${pid}`);
+          } catch { /* already dead */ }
+          unlinkSync(pidFile);
+        }
+      }
+      if (stopped === 0) {
+        console.log('Shadow mode is not running.');
+      } else {
+        console.log('Shadow mode stopped.');
+      }
+      break;
+    }
+
+    case 'status': {
+      const serverRunning = isRunning(SERVER_PID_FILE);
+      const watcherRunning = isRunning(WATCHER_PID_FILE);
+
+      console.log(`\n🧠 Engram Shadow Mode Status\n`);
+      console.log(`   Server:  ${serverRunning ? '✓ running' : '✗ stopped'}`);
+      console.log(`   Watcher: ${watcherRunning ? '✓ running' : '✗ stopped'}`);
+      console.log(`   Database: ${dbPath}`);
+
+      // Try to get stats from the server
+      if (serverRunning) {
+        try {
+          const serverPid = readFileSync(SERVER_PID_FILE, 'utf-8').trim();
+          // We don't know the port, so try common ones
+          for (const port of ['3800']) {
+            try {
+              const res = await fetch(`http://127.0.0.1:${port}/v1/stats`);
+              if (res.ok) {
+                const stats = await res.json() as any;
+                console.log(`\n   📊 Vault Stats:`);
+                console.log(`      Total memories: ${stats.total}`);
+                console.log(`      Semantic: ${stats.semantic} | Episodic: ${stats.episodic} | Procedural: ${stats.procedural}`);
+                console.log(`      Entities: ${stats.entities}`);
+                break;
+              }
+            } catch { /* try next port */ }
+          }
+        } catch { /* can't reach server */ }
+      }
+
+      // Show vault stats directly from file
+      if (existsSync(dbPath)) {
+        const vault = new Vault({ owner, dbPath });
+        const stats = vault.stats();
+        console.log(`\n   📊 Vault Stats:`);
+        console.log(`      Total memories: ${stats.total}`);
+        console.log(`      Entities: ${stats.entities}`);
+        await vault.close();
+      } else {
+        console.log(`\n   No vault yet — memories will appear after your first Claude Code session.`);
+      }
+
+      console.log('');
+      break;
+    }
+
+    case 'results': {
+      // Find the user's CLAUDE.md
+      const claudeMdPaths = [
+        path.join(homedir(), '.claude', 'CLAUDE.md'),
+        path.join(process.cwd(), 'CLAUDE.md'),
+        path.join(process.cwd(), '.claude', 'CLAUDE.md'),
+      ];
+
+      let claudeMdContent = '';
+      let claudeMdPath = '';
+      for (const p of claudeMdPaths) {
+        if (existsSync(p)) {
+          claudeMdContent = readFileSync(p, 'utf-8');
+          claudeMdPath = p;
+          break;
+        }
+      }
+
+      if (!existsSync(dbPath)) {
+        console.log('\n❌ No Engram vault found. Start shadow mode first: `engram shadow start`\n');
+        return;
+      }
+
+      const vault = new Vault({ owner, dbPath });
+      const stats = vault.stats();
+
+      console.log(`\n🧠 Engram Shadow Mode Results\n`);
+      console.log(`   Vault: ${stats.total} memories, ${stats.entities} entities\n`);
+
+      if (stats.total < 10) {
+        console.log(`   ⚠️  Not enough memories yet. Keep using Claude Code for a few more sessions.`);
+        console.log(`   Engram needs at least 10-20 sessions to show meaningful results.\n`);
+        await vault.close();
+        return;
+      }
+
+      // Get Engram's briefing
+      const briefing = await vault.briefing('', 20);
+
+      console.log(`   📋 What Engram Knows (top items):`);
+      for (const fact of briefing.keyFacts.slice(0, 8)) {
+        console.log(`      • ${fact.content.slice(0, 100)}`);
+      }
+
+      if (claudeMdContent) {
+        console.log(`\n   📄 Your CLAUDE.md: ${claudeMdPath}`);
+        const fileLines = claudeMdContent.split('\n')
+          .map(l => l.replace(/^[\s\-*#>]+/, '').trim())
+          .filter(l => l.length > 20);
+        console.log(`      ${fileLines.length} meaningful lines\n`);
+
+        // Simple overlap analysis
+        const briefingText = briefing.keyFacts.map(f => f.content.toLowerCase()).join(' ');
+        const engramOnly: string[] = [];
+
+        for (const fact of briefing.keyFacts) {
+          const keywords = fact.content.toLowerCase().split(/\s+/).filter(w => w.length > 4).slice(0, 5);
+          const matchCount = keywords.filter(kw => claudeMdContent.toLowerCase().includes(kw)).length;
+          if (keywords.length > 0 && matchCount / keywords.length < 0.4) {
+            engramOnly.push(fact.content.slice(0, 120));
+          }
+        }
+
+        if (engramOnly.length > 0) {
+          console.log(`   🆕 Things Engram caught that your CLAUDE.md missed:`);
+          for (const item of engramOnly.slice(0, 10)) {
+            console.log(`      • ${item}`);
+          }
+        } else {
+          console.log(`   Your CLAUDE.md and Engram are well-aligned.`);
+        }
+      } else {
+        console.log(`   No CLAUDE.md found to compare against.`);
+      }
+
+      console.log('');
+      await vault.close();
+      break;
+    }
+
+    default:
+      console.log(`
+engram shadow — Test Engram alongside your existing memory
+
+Commands:
+  engram shadow start     Start shadow mode (server + watcher, runs in background)
+  engram shadow stop      Stop shadow mode
+  engram shadow status    Check how many memories Engram has collected
+  engram shadow results   Compare what Engram knows vs your CLAUDE.md
+`);
+  }
+}
+
 async function main() {
   const { values, positionals } = parseCliArgs();
 
@@ -266,6 +528,12 @@ async function main() {
     // Delegate to the MCP server entry point
     await import('./mcp.js');
     return; // MCP server runs until killed
+  }
+
+  if (command === 'shadow') {
+    const subcommand = positionals[1] ?? 'help';
+    await runShadow(subcommand, values);
+    return;
   }
 
   const vault = createVault(values);
