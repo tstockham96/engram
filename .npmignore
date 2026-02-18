@@ -1,0 +1,16 @@
+src/
+test/
+*.test.ts
+tsconfig.json
+.github/
+docs/
+*.db
+*.db-shm
+*.db-wal
+*.jsonl
+dogfood.ts
+eval-honest.ts
+fix-vault.ts
+ingest-projects.ts
+test-mcp-e2e.ts
+engram-*.db*

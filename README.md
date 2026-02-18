@@ -272,14 +272,15 @@ npx engram serve         # Start REST API server
 
 | Feature | Engram | Mem0 | Zep | Letta/MemGPT |
 |---------|--------|------|-----|-------------|
-| Memory graph | ✅ | ❌ | ❌ | ❌ |
-| Consolidation engine | ✅ | ❌ | ❌ | Partial |
-| Entity tracking | ✅ | ❌ | ✅ | ❌ |
+| Spreading activation | ✅ | ❌ | ❌ | ❌ |
+| LLM consolidation | ✅ | ❌ | ❌ | Partial |
+| Knowledge graph | ✅ | ✅ (graph memory) | ✅ | ❌ |
+| Entity tracking | ✅ | ✅ | ✅ | ❌ |
 | Memory decay | ✅ | ❌ | ❌ | ❌ |
 | REST API | ✅ | ✅ | ✅ | ✅ |
-| Local-first | ✅ | ❌ | ❌ | ✅ |
+| Local-first | ✅ | Cloud-default | Cloud-default | ✅ |
 | Language-agnostic | ✅ | Python-first | Python-first | Python-first |
-| Open Source (MIT) | ✅ | Partial | Partial | ✅ |
+| Source-available | ✅ | Partial | Partial | ✅ |
 
 ## Roadmap
 

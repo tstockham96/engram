@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Vault } from './vault.js';
 import { OpenAIEmbeddings, GeminiEmbeddings } from './embeddings.js';
 import type { EmbeddingProvider } from './embeddings.js';
@@ -437,9 +438,19 @@ export function createEngramServer(config: ServerConfig) {
   const port = config.port ?? 3800;
   const host = config.host ?? '127.0.0.1';
 
+  // Optional auth token for single-tenant mode (set ENGRAM_AUTH_TOKEN to enable)
+  const authToken = process.env.ENGRAM_AUTH_TOKEN;
+
   function resolveVault(req: import('node:http').IncomingMessage): Vault | null {
-    // Single-tenant mode: no auth needed
+    // Single-tenant mode
     if (config.defaultVault) {
+      // If auth token is set, enforce it
+      if (authToken) {
+        const authHeader = req.headers.authorization;
+        if (!authHeader?.startsWith('Bearer ') || authHeader.slice(7) !== authToken) {
+          return null;
+        }
+      }
       return getOrCreateVault(config.defaultVault);
     }
 
@@ -453,8 +464,12 @@ export function createEngramServer(config: ServerConfig) {
   }
 
   const server = createServer(async (req, res) => {
-    // CORS
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    // CORS — restrict to localhost by default, configurable via ENGRAM_CORS_ORIGIN
+    const allowedOrigin = process.env.ENGRAM_CORS_ORIGIN ?? 'http://localhost:*';
+    const requestOrigin = req.headers.origin ?? '';
+    if (allowedOrigin === '*' || requestOrigin.startsWith('http://localhost') || requestOrigin.startsWith('http://127.0.0.1')) {
+      res.setHeader('Access-Control-Allow-Origin', requestOrigin || 'http://localhost');
+    }
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 

@@ -1,5 +1,5 @@
 {
-  "name": "engram",
+  "name": "engram-sdk",
   "version": "0.1.0",
   "description": "Universal memory layer for AI agents. Remember, recall, consolidate.",
   "type": "module",
@@ -12,7 +12,8 @@
     }
   },
   "bin": {
-    "engram": "dist/cli.js"
+    "engram": "dist/cli.js",
+    "engram-serve": "dist/server.js"
   },
   "scripts": {
     "dev": "tsx watch src/index.ts",
@@ -34,7 +35,7 @@
     "engram"
   ],
   "author": "Thomas Stockham",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE.md",
   "repository": {
     "type": "git",
     "url": "https://github.com/tstockham96/engram"
