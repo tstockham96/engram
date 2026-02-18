@@ -1,0 +1,26 @@
+app = "engram-api"
+primary_region = "sjc"
+
+[build]
+  dockerfile = "../Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+  ENGRAM_HOST = "0.0.0.0"
+  ENGRAM_PORT = "3800"
+  ENGRAM_CORS_ORIGIN = "*"
+
+[http_service]
+  internal_port = 3800
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 1
+
+[mounts]
+  source = "engram_data"
+  destination = "/data"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
