@@ -264,7 +264,7 @@ npx engram serve         # Start REST API server
 └─────────────────────────────────────────────────┘
 ```
 
-**Local-first**: Everything runs on your machine. No cloud required. No data leaves your device unless you configure LLM consolidation.
+**Open source**: Fully MIT licensed. Memory is sensitive data — you should be able to see exactly what happens with it. Self-host, fork, contribute, or use the hosted API for production.
 
 **Portable**: Export your entire vault as JSON. Import it elsewhere. Your agent's memory belongs to you.
 
@@ -279,7 +279,7 @@ npx engram serve         # Start REST API server
 | REST API | ✅ | ✅ | ✅ | ✅ |
 | Local-first | ✅ | ❌ | ❌ | ✅ |
 | Language-agnostic | ✅ | Python-first | Python-first | Python-first |
-| Open source | ✅ | Partial | Partial | ✅ |
+| Open Source (MIT) | ✅ | Partial | Partial | ✅ |
 
 ## Roadmap
 
@@ -301,7 +301,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
 
-MIT
+MIT. See [LICENSE](LICENSE) for details.
 
 ---
 
