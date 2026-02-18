@@ -53,7 +53,7 @@ async function runEval() {
   let totalScore = 0;
 
   for (const q of EVAL_QUESTIONS) {
-    const recalled = await vault.recall({ context: q.query, limit: 3, spread: true });
+    const recalled = await vault.recall({ context: q.query, limit: 5, spread: true });
     const allContent = recalled.map(r => r.content).join(' ').toLowerCase();
 
     // Score: what fraction of expected keywords were found?

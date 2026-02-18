@@ -56,8 +56,13 @@ export class Vault {
     const memory = this.store.createMemory(parsed);
 
     // Queue embedding computation (non-blocking but tracked)
+    // Also checks for near-duplicates after embedding is computed.
     if (this.embedder) {
       const p = this.computeAndStoreEmbedding(memory.id, memory.content)
+        .then(() => {
+          // Dedup check: if a very similar memory already exists, merge instead of keeping both
+          this.dedup(memory);
+        })
         .catch(err => {
           console.warn(`Failed to compute embedding for ${memory.id}:`, err);
         })
@@ -68,6 +73,58 @@ export class Vault {
     }
 
     return memory;
+  }
+
+  /**
+   * Dedup: after storing a memory and its embedding, check if a near-identical
+   * memory already exists. If so, keep the better one (higher salience/confidence,
+   * or newer if semantic) and supersede the other.
+   *
+   * Threshold: cosine distance <= 0.08 (similarity >= 0.92) = near-duplicate.
+   * Only dedup within the same type (don't merge episodic into semantic).
+   */
+  private dedup(memory: Memory): void {
+    // Don't dedup consolidation outputs — they're intentional
+    if (memory.source?.type === 'consolidation') return;
+
+    try {
+      const similar = this.store.findSimilar(
+        this.store.getEmbedding(memory.id) ?? [],
+        0.08, // cosine distance threshold — very tight, ~92% similarity
+        5
+      );
+
+      for (const match of similar) {
+        if (match.memoryId === memory.id) continue; // skip self
+
+        const existing = this.store.getMemoryDirect(match.memoryId);
+        if (!existing) continue;
+        if (existing.status !== 'active') continue;
+        if (existing.type !== memory.type) continue; // only dedup same type
+
+        // We have a near-duplicate. Keep the one with higher salience,
+        // or if equal, keep the newer one (more up-to-date).
+        const keepNew = memory.salience >= existing.salience;
+        const supersededId = keepNew ? existing.id : memory.id;
+        const keptId = keepNew ? memory.id : existing.id;
+
+        this.store.updateStatus(supersededId, 'superseded');
+        // Create a supersedes edge so the graph tracks the lineage
+        this.store.createEdge(keptId, supersededId, 'supersedes', 0.8);
+
+        // Merge: boost the kept memory's salience slightly from the duplicate
+        const kept = this.store.getMemoryDirect(keptId);
+        if (kept && kept.salience < 1.0) {
+          this.store.updateMemory(keptId, {
+            salience: Math.min(1.0, kept.salience + 0.05),
+          });
+        }
+
+        break; // Only process one duplicate match
+      }
+    } catch {
+      // Dedup is best-effort; don't break remember() if it fails
+    }
   }
 
   /** Compute embedding and store it — can be awaited if needed */
@@ -140,7 +197,7 @@ export class Vault {
     if (this.embedder && this.store.hasVectorSearch()) {
       try {
         const queryEmbedding = await this.embedder.embed(parsed.context);
-        const vectorResults = this.store.searchByVector(queryEmbedding, 30);
+        const vectorResults = this.store.searchByVector(queryEmbedding, 50);
         for (const vr of vectorResults) {
           const mem = this.store.getMemoryDirect(vr.memoryId);
           if (mem) {
@@ -164,15 +221,18 @@ export class Vault {
     this.keywordSearch(parsed.context, candidates, 0.2);
 
     // 2. Entity-based retrieval (SECONDARY — boost, not flood)
+    // Pull more candidates for entity matches but weight by type:
+    // semantic memories are higher signal (consolidated knowledge)
+    // than raw episodic entries.
     if (parsed.entities && parsed.entities.length > 0) {
       for (const entity of parsed.entities) {
-        const memories = this.store.getByEntity(entity, 10);
-        // Low base score — entity match alone isn't enough.
-        // But addCandidate() is additive, so memories ALSO found
-        // by vector search get a nice boost from entity overlap.
-        const entityScore = memories.length <= 3 ? 0.25 : 0.1;
+        const memories = this.store.getByEntity(entity, 20);
         for (const mem of memories) {
-          this.addCandidate(candidates, mem, entityScore);
+          // Scale entity base score: fewer results = higher confidence each is relevant
+          const baseScore = memories.length <= 5 ? 0.25 : memories.length <= 15 ? 0.15 : 0.1;
+          // Semantic memories from entity match get a bonus — they're distilled facts
+          const typeBonus = mem.type === 'semantic' ? 0.1 : 0;
+          this.addCandidate(candidates, mem, baseScore + typeBonus);
         }
       }
     }
@@ -210,8 +270,12 @@ export class Vault {
 
     // ── Phase 3: Filter, score, rank ───────────────────────
 
-    // 5. Type filter
-    let results = [...candidates.values()];
+    // 5. Filter out superseded/archived memories first
+    let results = [...candidates.values()].filter(r =>
+      r.memory.status !== 'superseded' && r.memory.status !== 'archived'
+    );
+
+    // Type filter
     if (parsed.types && parsed.types.length > 0) {
       results = results.filter(r => parsed.types!.includes(r.memory.type));
     }
@@ -228,12 +292,29 @@ export class Vault {
       results = results.filter(r => r.memory.createdAt >= oneWeekAgo);
     }
 
-    // 8. Score with salience and stability weighting
-    // Cap stability influence to prevent runaway feedback loops
-    // where frequently-accessed memories dominate all recall.
+    // 8. Score with salience, stability, and type weighting
+    // Semantic memories with high stability are the "core knowledge" —
+    // they should outrank noisy episodic results when the vector
+    // similarity scores are close. Without this, basic factual queries
+    // like "What is Thomas's job?" get buried under episodic noise.
     for (const r of results) {
-      const cappedStability = Math.min(r.memory.stability, 2.0); // Cap at 2.0
-      r.score = r.score * (0.6 + r.memory.salience * 0.3 + cappedStability * 0.1);
+      const cappedStability = Math.min(r.memory.stability, 3.0);
+
+      // Base weight from salience and stability
+      const salienceBoost = r.memory.salience * 0.25;
+      const stabilityBoost = cappedStability * 0.1;
+
+      // Type bonus: consolidated semantic memories are higher-signal
+      // than raw episodic entries for factual queries
+      const typeBonus = r.memory.type === 'semantic' ? 0.1 : 0;
+
+      // Confidence bonus: high-confidence memories are more reliable
+      const confidenceBonus = r.memory.confidence * 0.05;
+
+      // Superseded/archived penalty: shouldn't appear in results
+      const statusPenalty = (r.memory.status === 'superseded' || r.memory.status === 'archived') ? 0.5 : 0;
+
+      r.score = r.score * (0.5 + salienceBoost + stabilityBoost + typeBonus + confidenceBonus) - statusPenalty;
     }
 
     // 9. Sort by score and return top N
@@ -1090,21 +1171,55 @@ Be conservative with confidence scores. Only extract what's clearly supported by
       let connectionsFormed = 0;
       const contradictionsFound = result.contradictions?.length ?? 0;
 
-      // Create semantic memories
+      // Create semantic memories (with dedup against existing semantics)
       for (const sem of result.semantic_memories ?? []) {
-        this.remember({
-          content: sem.content,
-          type: 'semantic',
-          confidence: sem.confidence ?? 0.7,
-          salience: sem.salience ?? 0.5,
-          entities: sem.entities ?? [],
-          topics: sem.topics ?? [],
-          source: {
-            type: 'consolidation',
-            evidence: episodes.map(e => e.id),
-          },
-        });
-        semanticCreated++;
+        // Check if a very similar semantic memory already exists
+        // If so, update it instead of creating a duplicate
+        let merged = false;
+        if (this.embedder && this.store.hasVectorSearch()) {
+          try {
+            const embedding = await this.embedder.embed(sem.content);
+            const similar = this.store.findSimilar(embedding, 0.15, 3); // slightly looser for consolidation
+            for (const match of similar) {
+              const existing = this.store.getMemoryDirect(match.memoryId);
+              if (existing && existing.type === 'semantic' && existing.status === 'active') {
+                // Update existing semantic memory: boost confidence & salience
+                this.store.updateMemory(existing.id, {
+                  confidence: Math.min(1.0, Math.max(existing.confidence, sem.confidence ?? 0.7) + 0.05),
+                  salience: Math.min(1.0, Math.max(existing.salience, sem.salience ?? 0.5)),
+                });
+                semanticUpdated++;
+                merged = true;
+                break;
+              }
+            }
+          } catch {
+            // Embedding failed — just create normally
+          }
+        }
+
+        if (!merged) {
+          this.remember({
+            content: sem.content,
+            type: 'semantic',
+            confidence: sem.confidence ?? 0.7,
+            salience: sem.salience ?? 0.5,
+            entities: sem.entities ?? [],
+            topics: sem.topics ?? [],
+            source: {
+              type: 'consolidation',
+              evidence: episodes.map(e => e.id),
+            },
+          });
+          semanticCreated++;
+        }
+      }
+
+      // Mark source episodes as superseded now that knowledge has been extracted
+      for (const ep of episodes) {
+        if (ep.status === 'active' && ep.type === 'episodic') {
+          this.store.updateStatus(ep.id, 'superseded');
+        }
       }
 
       // Upsert entities

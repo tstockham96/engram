@@ -238,6 +238,11 @@ export class MemoryStore {
     this.db.prepare(`UPDATE memories SET ${sets.join(', ')} WHERE id = ?`).run(...values);
   }
 
+  /** Update a memory's status (active, pending, fulfilled, superseded, archived) */
+  updateStatus(id: string, status: string): void {
+    this.db.prepare(`UPDATE memories SET status = ?, last_modified_at = datetime('now') WHERE id = ?`).run(status, id);
+  }
+
   deleteMemory(id: string): void {
     this.db.prepare('DELETE FROM memories WHERE id = ?').run(id);
   }
@@ -503,6 +508,28 @@ export class MemoryStore {
   /** Check if vector search is available */
   hasVectorSearch(): boolean {
     return this.vecEnabled;
+  }
+
+  /** Get the stored embedding for a memory (for dedup checks) */
+  getEmbedding(memoryId: string): number[] | null {
+    if (!this.vecEnabled) return null;
+    try {
+      const row = this.db.prepare('SELECT embedding FROM vec_memories WHERE memory_id = ?').get(memoryId) as { embedding: Buffer } | undefined;
+      if (!row) return null;
+      return Array.from(new Float32Array(row.embedding.buffer, row.embedding.byteOffset, row.embedding.byteLength / 4));
+    } catch {
+      return null;
+    }
+  }
+
+  /** Find memories with very high semantic similarity (for dedup) */
+  findSimilar(embedding: number[], threshold: number = 0.12, limit: number = 3): Array<{ memoryId: string; distance: number; similarity: number }> {
+    if (!this.vecEnabled) return [];
+    const results = this.searchByVector(embedding, limit);
+    // distance is cosine distance; similarity = 1 - distance
+    return results
+      .filter(r => r.distance <= threshold)
+      .map(r => ({ ...r, similarity: 1 - r.distance }));
   }
 
   // --------------------------------------------------------
