@@ -18,28 +18,32 @@ Engram is a protocol, not a plugin. It works with any agent, any framework, any 
 
 ## Quick Start
 
-### REST API (any language)
-
 ```bash
+# Clone and build
+git clone https://github.com/tstockham96/engram.git
+cd engram && npm install && npm run build
+
 # Start the server
-ENGRAM_OWNER=my-agent npx engram serve
+ENGRAM_OWNER=my-agent node dist/server.js
+# → Engram API listening on http://127.0.0.1:3800
 
 # Store a memory
 curl -X POST http://localhost:3800/v1/memories \
   -H 'Content-Type: application/json' \
-  -d '{"content": "User prefers dark mode and concise answers", "entities": ["User"], "topics": ["preferences"], "salience": 0.8}'
+  -d '{"content": "User prefers dark mode and concise answers"}'
 
 # Recall relevant memories
 curl http://localhost:3800/v1/memories/recall?context=user+preferences
 
-# Run consolidation
+# Run consolidation (distills episodes into knowledge)
 curl -X POST http://localhost:3800/v1/consolidate
 ```
 
 ### TypeScript SDK (native, no network overhead)
 
 ```bash
-npm install engram
+# From the cloned repo
+npm install
 ```
 
 ```typescript
