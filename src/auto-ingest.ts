@@ -230,6 +230,51 @@ If nothing worth remembering, respond: {"memories": []}`;
     );
 
     if (!response.ok) {
+      if (response.status === 429) {
+        // Rate limited — back off and retry once
+        console.warn(`Gemini rate limited, waiting 15s and retrying...`);
+        await new Promise(resolve => setTimeout(resolve, 15000));
+        const retry = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 2048 },
+            }),
+          },
+        );
+        if (!retry.ok) {
+          console.error(`Gemini API error after retry: ${retry.status}`);
+          return 0;
+        }
+        const retryData = await retry.json() as any;
+        const retryText = retryData.candidates?.[0]?.content?.parts?.[0]?.text ?? '{}';
+        const retryParsed = JSON.parse(retryText);
+        // Process retry results below
+        let created = 0;
+        for (const mem of retryParsed.memories ?? []) {
+          if (mem.salience < 0.2) continue;
+          if (/(?:sk-|api[_-]?key|password|token|secret)[:\s=]+\S{10,}/i.test(mem.content)) continue;
+          if (/AIza[a-zA-Z0-9_-]{30,}/.test(mem.content)) continue;
+          const res = await fetch(`${ENGRAM_API}/memories`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              content: mem.content,
+              type: mem.type ?? 'episodic',
+              entities: mem.entities ?? [],
+              topics: [...(mem.topics ?? []), 'auto-ingested'],
+              salience: mem.salience ?? 0.5,
+              status: mem.status ?? 'active',
+              source: { type: 'conversation' as const },
+            }),
+          });
+          if (res.ok) created++;
+        }
+        return created;
+      }
       console.error(`Gemini API error: ${response.status}`);
       return 0;
     }
@@ -298,9 +343,9 @@ async function ingestNewMessages(): Promise<IngestResult> {
     const created = await ingestChunk(chunks[i]);
     totalCreated += created;
     console.log(`  → ${created} memories extracted`);
-    // Rate limit: wait 2 seconds between chunks to avoid 429s
+    // Rate limit: wait between chunks to avoid 429s
     if (i < chunks.length - 1) {
-      await new Promise(r => setTimeout(r, 2000));
+      await new Promise(r => setTimeout(r, 5000));
     }
   }
 
@@ -324,17 +369,29 @@ async function ingestNewMessages(): Promise<IngestResult> {
 
 const isWatch = process.argv.includes('--watch');
 
+// Interval in ms — default 5 min, configurable via ENGRAM_INGEST_INTERVAL_MS
+const intervalMs = parseInt(process.env.ENGRAM_INGEST_INTERVAL_MS ?? '300000', 10);
+
 if (isWatch) {
-  console.log('🧠 Engram auto-ingest running in watch mode (every 30 min)...');
+  const mins = Math.round(intervalMs / 60000);
+  console.log(`🧠 Engram auto-ingest running in watch mode (every ${mins} min)...`);
+  let running = false;
   const run = async () => {
+    if (running) return; // skip if previous run still going
+    running = true;
     try {
-      await ingestNewMessages();
+      const result = await ingestNewMessages();
+      if (result && result.memoriesCreated > 0) {
+        console.log(`  ✓ ${result.memoriesCreated} memories from ${result.chunks} chunks at ${new Date().toLocaleTimeString()}`);
+      }
     } catch (err) {
       console.error('Ingest error:', err);
+    } finally {
+      running = false;
     }
   };
   run();
-  setInterval(run, 30 * 60 * 1000);
+  setInterval(run, intervalMs);
 } else {
   ingestNewMessages().catch(console.error);
 }
