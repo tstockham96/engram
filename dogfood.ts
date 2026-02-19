@@ -3,12 +3,13 @@
  * dogfood.ts — Engram dogfooding utilities
  * 
  * Usage:
- *   npx tsx dogfood.ts briefing          — Get session briefing (compare to MEMORY.md)
- *   npx tsx dogfood.ts remember "text"   — Store a memory from current session
+ *   npx tsx dogfood.ts briefing          — Get session briefing
+ *   npx tsx dogfood.ts remember "text"   — Store a memory
  *   npx tsx dogfood.ts recall "query"    — Test recall quality
- *   npx tsx dogfood.ts eval              — Run the daily eval suite
- *   npx tsx dogfood.ts token-compare     — Compare token usage: MEMORY.md vs Engram briefing
- *   npx tsx dogfood.ts log-session       — Log what Engram vs MEMORY.md provided this session
+ *   npx tsx dogfood.ts eval              — Run eval (LLM-as-judge)
+ *   npx tsx dogfood.ts eval --keyword    — Run eval (legacy keyword mode)
+ *   npx tsx dogfood.ts compare           — Head-to-head: Engram vs MEMORY.md
+ *   npx tsx dogfood.ts token-compare     — Compare token usage
  */
 
 import { Vault } from './src/vault.js';
@@ -27,61 +28,129 @@ function getVault() {
   return new Vault({ owner: 'jarvis', dbPath: DB_PATH }, embedder);
 }
 
-// ── Eval Questions with Expected Answers ──
-const EVAL_QUESTIONS: Array<{ query: string; expected: string[]; category: string }> = [
-  { query: "What is Thomas's job?", expected: ['Senior PM', 'BambooHR', 'Data & AI'], category: 'factual' },
-  { query: "What is Thomas training for?", expected: ['marathon', 'Salt Lake City', 'Utah Valley'], category: 'personal' },
-  { query: "Who are Engram's competitors?", expected: ['Mem0', 'Zep', 'Letta'], category: 'relational' },
-  { query: "How do I deploy the marketing site?", expected: ['vercel', '--prod', 'engram-site'], category: 'procedural' },
-  { query: "What is the MCP server?", expected: ['10 tools', 'stdio', 'engram_remember'], category: 'procedural' },
-  { query: "What side projects has Thomas built?", expected: ['Scout', 'MoltBet', 'Fathom'], category: 'factual' },
-  { query: "How does Thomas prefer to communicate?", expected: ['direct', 'no-fluff', 'no filler'], category: 'personal' },
-  { query: "What is Engram's business model?", expected: ['open-source', 'hosted', 'free tier'], category: 'factual' },
-  { query: "How does OpenClaw handle memory?", expected: ['MEMORY.md', 'markdown', 'system prompt'], category: 'factual' },
-  { query: "What is Thomas's email?", expected: ['tstockham96@gmail.com'], category: 'factual' },
-  { query: "What tech stack does Engram use?", expected: ['TypeScript', 'SQLite', 'Gemini'], category: 'factual' },
-  { query: "What are Engram's key differentiators?", expected: ['spreading activation', 'consolidation', 'proactive'], category: 'relational' },
-  { query: "How do I run Engram tests?", expected: ['vitest', 'npx'], category: 'procedural' },
-  { query: "What did we learn about recall quality?", expected: ['MEMORY.md', 'vector search', 'small scale'], category: 'insight' },
-  { query: "What is spreading activation?", expected: ['cascade', 'graph', 'hops', 'decay'], category: 'conceptual' },
+// ── Eval Questions ──
+// Diverse question types: factual, personal, relational, procedural, temporal, meta
+const EVAL_QUESTIONS: Array<{ query: string; category: string; description: string }> = [
+  // Factual
+  { query: "What is Thomas's job?", category: 'factual', description: 'Should know Senior PM at BambooHR, Data & AI' },
+  { query: "What is Thomas's email address?", category: 'factual', description: 'Should return tstockham96@gmail.com' },
+  { query: "What tech stack does Engram use?", category: 'factual', description: 'TypeScript, SQLite, Gemini embeddings' },
+  { query: "What is Engram's business model?", category: 'factual', description: 'Open source + hosted API, free tier + paid' },
+  
+  // Personal
+  { query: "What is Thomas training for?", category: 'personal', description: 'Marathon training — Salt Lake City, Utah Valley' },
+  { query: "How does Thomas prefer to communicate?", category: 'personal', description: 'Direct, no-fluff, skip pleasantries' },
+  { query: "What are Thomas's hobbies outside of work?", category: 'personal', description: 'Running, piano, lacrosse coaching, side projects' },
+  
+  // Relational
+  { query: "Who are Engram's competitors?", category: 'relational', description: 'Mem0, Zep, Letta — and what differentiates Engram' },
+  { query: "What is Engram's relationship with OpenClaw?", category: 'relational', description: 'Integration partner, memory layer for their platform' },
+  { query: "Who is Court and what do they do?", category: 'relational', description: 'Director PM at BambooHR, owns workflows/agent experiences' },
+  
+  // Procedural
+  { query: "How do I deploy the Engram marketing site?", category: 'procedural', description: 'Vercel deploy from engram-site directory' },
+  { query: "How does the auto-ingest pipeline work?", category: 'procedural', description: 'Watches OpenClaw JSONL, extracts via Gemini, stores memories' },
+  
+  // Temporal / state
+  { query: "What is Thomas's upcoming promotion about?", category: 'temporal', description: 'Group PM over reporting & insights at BambooHR' },
+  { query: "What is the current state of the Engram project?", category: 'temporal', description: 'SDK built, hosted API on Railway, dogfooding, pre-launch' },
+  
+  // Meta / insight
+  { query: "What problems has Engram had with recall quality?", category: 'meta', description: 'More memories = more noise, dedup needed, keyword eval too rigid' },
+  { query: "What makes Engram different from just using a vector database?", category: 'meta', description: 'Consolidation, knowledge graph, spreading activation, memory lifecycle' },
 ];
+
+// ── LLM-as-Judge ──
+
+async function callGemini(prompt: string): Promise<string> {
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { temperature: 0.1, maxOutputTokens: 500 },
+      }),
+    }
+  );
+  if (!response.ok) throw new Error(`Gemini API error: ${response.status}`);
+  const data = await response.json() as any;
+  return data.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
+}
+
+async function judgeRecall(query: string, description: string, results: string[]): Promise<{ score: number; reasoning: string }> {
+  const prompt = `You are evaluating an AI memory system's recall quality.
+
+QUESTION: "${query}"
+WHAT A GOOD ANSWER SHOULD INCLUDE: ${description}
+
+RECALLED MEMORIES (top 5 results from the memory system):
+${results.map((r, i) => `${i + 1}. ${r}`).join('\n')}
+
+Rate the recall quality on a scale of 0.0 to 1.0:
+- 1.0 = The recalled memories contain all the information needed to fully answer the question
+- 0.75 = Most of the key information is present, minor gaps
+- 0.5 = Some relevant information found, but significant gaps
+- 0.25 = Barely relevant, mostly noise
+- 0.0 = Nothing useful recalled
+
+Respond in this exact format (one line each):
+SCORE: <number>
+REASON: <one sentence>`;
+
+  try {
+    const response = await callGemini(prompt);
+    const scoreMatch = response.match(/SCORE:\s*([\d.]+)/);
+    const reasonMatch = response.match(/REASON:\s*(.+)/);
+    return {
+      score: scoreMatch ? parseFloat(scoreMatch[1]) : 0.5,
+      reasoning: reasonMatch ? reasonMatch[1].trim() : 'No reasoning provided',
+    };
+  } catch (err) {
+    return { score: 0.5, reasoning: `Judge error: ${err}` };
+  }
+}
+
+// ── Run Eval (LLM-as-judge) ──
 
 async function runEval() {
   const vault = getVault();
-  const results: Array<{ query: string; category: string; score: number; topResult: string }> = [];
-
+  const results: Array<{ query: string; category: string; score: number; reasoning: string }> = [];
   let totalScore = 0;
 
   for (const q of EVAL_QUESTIONS) {
     const recalled = await vault.recall({ context: q.query, limit: 5, spread: true });
-    const allContent = recalled.map(r => r.content).join(' ').toLowerCase();
+    const recallContents = recalled.map(r => r.content);
 
-    // Score: what fraction of expected keywords were found?
-    const found = q.expected.filter(kw => allContent.toLowerCase().includes(kw.toLowerCase()));
-    const score = found.length / q.expected.length;
-    totalScore += score;
+    // Rate-limit: small delay between judge calls
+    await new Promise(r => setTimeout(r, 500));
+    
+    const judgment = await judgeRecall(q.query, q.description, recallContents);
+    totalScore += judgment.score;
 
     results.push({
       query: q.query,
       category: q.category,
-      score,
-      topResult: recalled[0]?.content.substring(0, 80) ?? '(empty)',
+      score: judgment.score,
+      reasoning: judgment.reasoning,
     });
 
-    const icon = score >= 0.66 ? '✅' : score >= 0.33 ? '⚠️' : '❌';
-    console.log(`${icon} ${(score * 100).toFixed(0)}% | ${q.query}`);
-    if (score < 1) {
-      const missed = q.expected.filter(kw => !allContent.toLowerCase().includes(kw.toLowerCase()));
-      console.log(`      missed: ${missed.join(', ')}`);
+    const icon = judgment.score >= 0.75 ? '✅' : judgment.score >= 0.5 ? '⚠️' : '❌';
+    console.log(`${icon} ${(judgment.score * 100).toFixed(0)}% | ${q.query}`);
+    if (judgment.score < 1.0) {
+      console.log(`      ${judgment.reasoning}`);
     }
   }
 
   const avgScore = totalScore / EVAL_QUESTIONS.length;
-  console.log(`\n━━━ Overall: ${(avgScore * 100).toFixed(1)}% ━━━`);
+  console.log(`\n━━━ Overall: ${(avgScore * 100).toFixed(1)}% (LLM-as-judge) ━━━`);
+  console.log(`    ${EVAL_QUESTIONS.length} questions across ${[...new Set(EVAL_QUESTIONS.map(q => q.category))].length} categories`);
 
-  // Log to eval-log.jsonl for tracking over time
+  // Log
   const entry = {
     timestamp: new Date().toISOString(),
+    evalMode: 'llm-judge',
     overallScore: avgScore,
     memoryCount: vault.stats().total,
     results,
@@ -92,25 +161,142 @@ async function runEval() {
   await vault.close();
 }
 
+// ── Head-to-Head: Engram vs MEMORY.md ──
+
+async function compare() {
+  const vault = getVault();
+  const memoryMd = readFileSync(MEMORY_MD, 'utf8');
+
+  console.log('━━━ Head-to-Head: Engram vs MEMORY.md ━━━\n');
+
+  let engramWins = 0;
+  let memoryWins = 0;
+  let ties = 0;
+
+  for (const q of EVAL_QUESTIONS) {
+    const recalled = await vault.recall({ context: q.query, limit: 5, spread: true });
+    const engramContext = recalled.map(r => r.content).join('\n');
+
+    await new Promise(r => setTimeout(r, 500));
+
+    const prompt = `You are comparing two memory systems for an AI agent.
+
+QUESTION: "${q.query}"
+WHAT A GOOD ANSWER SHOULD INCLUDE: ${q.description}
+
+SYSTEM A — Engram (structured memory with recall):
+${engramContext || '(no results)'}
+
+SYSTEM B — MEMORY.md (flat curated markdown file):
+${memoryMd}
+
+Which system provides better information to answer the question?
+Consider: relevance, completeness, signal-to-noise ratio.
+
+Respond in this exact format:
+WINNER: A|B|TIE
+REASON: <one sentence explaining why>`;
+
+    try {
+      const response = await callGemini(prompt);
+      const winnerMatch = response.match(/WINNER:\s*(A|B|TIE)/i);
+      const reasonMatch = response.match(/REASON:\s*(.+)/);
+      const winner = winnerMatch ? winnerMatch[1].toUpperCase() : 'TIE';
+      const reason = reasonMatch ? reasonMatch[1].trim() : '';
+
+      if (winner === 'A') engramWins++;
+      else if (winner === 'B') memoryWins++;
+      else ties++;
+
+      const icon = winner === 'A' ? '🧠' : winner === 'B' ? '📄' : '🤝';
+      console.log(`${icon} ${winner === 'A' ? 'Engram' : winner === 'B' ? 'MEMORY.md' : 'Tie'} | ${q.query}`);
+      if (reason) console.log(`      ${reason}`);
+    } catch (err) {
+      ties++;
+      console.log(`⚠️ Error | ${q.query}: ${err}`);
+    }
+  }
+
+  console.log(`\n━━━ Results ━━━`);
+  console.log(`🧠 Engram wins:    ${engramWins}`);
+  console.log(`📄 MEMORY.md wins: ${memoryWins}`);
+  console.log(`🤝 Ties:           ${ties}`);
+  console.log(`Total questions:   ${EVAL_QUESTIONS.length}`);
+
+  const entry = {
+    timestamp: new Date().toISOString(),
+    evalMode: 'head-to-head',
+    engramWins,
+    memoryWins,
+    ties,
+    totalQuestions: EVAL_QUESTIONS.length,
+    memoryCount: vault.stats().total,
+  };
+  appendFileSync(EVAL_LOG, JSON.stringify(entry) + '\n');
+
+  await vault.close();
+}
+
+// ── Legacy keyword eval (kept for backwards compatibility) ──
+
+const KEYWORD_QUESTIONS: Array<{ query: string; expected: string[]; category: string }> = [
+  { query: "What is Thomas's job?", expected: ['Senior PM', 'BambooHR', 'Data & AI'], category: 'factual' },
+  { query: "What is Thomas training for?", expected: ['marathon', 'Salt Lake City', 'Utah Valley'], category: 'personal' },
+  { query: "Who are Engram's competitors?", expected: ['Mem0', 'Zep', 'Letta'], category: 'relational' },
+  { query: "What is Engram's business model?", expected: ['open-source', 'hosted', 'free tier'], category: 'factual' },
+  { query: "How does OpenClaw handle memory?", expected: ['MEMORY.md', 'markdown', 'system prompt'], category: 'factual' },
+  { query: "What is Thomas's email?", expected: ['tstockham96@gmail.com'], category: 'factual' },
+  { query: "What tech stack does Engram use?", expected: ['TypeScript', 'SQLite', 'Gemini'], category: 'factual' },
+  { query: "What are Engram's key differentiators?", expected: ['spreading activation', 'consolidation', 'proactive'], category: 'relational' },
+];
+
+async function runKeywordEval() {
+  const vault = getVault();
+  let totalScore = 0;
+
+  for (const q of KEYWORD_QUESTIONS) {
+    const recalled = await vault.recall({ context: q.query, limit: 5, spread: true });
+    const allContent = recalled.map(r => r.content).join(' ').toLowerCase();
+    const found = q.expected.filter(kw => allContent.toLowerCase().includes(kw.toLowerCase()));
+    const score = found.length / q.expected.length;
+    totalScore += score;
+
+    const icon = score >= 0.66 ? '✅' : score >= 0.33 ? '⚠️' : '❌';
+    console.log(`${icon} ${(score * 100).toFixed(0)}% | ${q.query}`);
+    if (score < 1) {
+      const missed = q.expected.filter(kw => !allContent.toLowerCase().includes(kw.toLowerCase()));
+      console.log(`      missed: ${missed.join(', ')}`);
+    }
+  }
+
+  const avgScore = totalScore / KEYWORD_QUESTIONS.length;
+  console.log(`\n━━━ Overall: ${(avgScore * 100).toFixed(1)}% (keyword) ━━━`);
+
+  const entry = {
+    timestamp: new Date().toISOString(),
+    evalMode: 'keyword',
+    overallScore: avgScore,
+    memoryCount: vault.stats().total,
+  };
+  appendFileSync(EVAL_LOG, JSON.stringify(entry) + '\n');
+  await vault.close();
+}
+
+// ── Other commands ──
+
 async function tokenCompare() {
   const vault = getVault();
-
-  // MEMORY.md token estimate
   const memoryMd = readFileSync(MEMORY_MD, 'utf8');
-  const memoryMdTokens = Math.ceil(memoryMd.length / 4); // rough estimate
+  const memoryMdTokens = Math.ceil(memoryMd.length / 4);
 
-  // Today's daily file
   const today = new Date().toISOString().split('T')[0];
   const dailyPath = join(homedir(), `.openclaw/workspace/memory/${today}.md`);
   let dailyTokens = 0;
   if (existsSync(dailyPath)) {
-    const daily = readFileSync(dailyPath, 'utf8');
-    dailyTokens = Math.ceil(daily.length / 4);
+    dailyTokens = Math.ceil(readFileSync(dailyPath, 'utf8').length / 4);
   }
 
   const currentSystemTokens = memoryMdTokens + dailyTokens;
-
-  // Engram briefing token estimate
   const briefing = await vault.briefing('', 10);
   const briefingText = JSON.stringify(briefing);
   const briefingTokens = Math.ceil(briefingText.length / 4);
@@ -131,19 +317,6 @@ async function tokenCompare() {
     const overhead = ((briefingTokens / currentSystemTokens - 1) * 100).toFixed(1);
     console.log(`📈 Engram uses ~${overhead}% MORE tokens (briefing is larger)`);
   }
-
-  console.log(`\nNote: Current system dumps ALL of MEMORY.md into every prompt.`);
-  console.log(`Engram briefing is targeted but may miss things MEMORY.md covers.`);
-
-  const entry = {
-    timestamp: new Date().toISOString(),
-    memoryMdTokens,
-    dailyTokens,
-    currentSystemTokens,
-    briefingTokens,
-    memoryCount: vault.stats().total,
-  };
-  appendFileSync(EVAL_LOG, JSON.stringify(entry) + '\n');
 
   await vault.close();
 }
@@ -170,7 +343,6 @@ async function briefing() {
       console.log(`  ⚠️ "${c.a.substring(0, 50)}" vs "${c.b.substring(0, 50)}"`);
     }
   }
-
   await vault.close();
 }
 
@@ -196,11 +368,15 @@ async function recall(query: string) {
 // ── CLI Router ──
 const [cmd, ...args] = process.argv.slice(2);
 switch (cmd) {
-  case 'eval': runEval().catch(console.error); break;
+  case 'eval':
+    if (args.includes('--keyword')) runKeywordEval().catch(console.error);
+    else runEval().catch(console.error);
+    break;
+  case 'compare': compare().catch(console.error); break;
   case 'token-compare': tokenCompare().catch(console.error); break;
   case 'briefing': briefing().catch(console.error); break;
   case 'remember': remember(args.join(' ')).catch(console.error); break;
   case 'recall': recall(args.join(' ')).catch(console.error); break;
   default:
-    console.log('Usage: npx tsx dogfood.ts <eval|token-compare|briefing|remember|recall> [args]');
+    console.log('Usage: npx tsx dogfood.ts <eval|eval --keyword|compare|token-compare|briefing|remember|recall> [args]');
 }
