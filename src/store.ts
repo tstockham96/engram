@@ -275,6 +275,14 @@ export class MemoryStore {
     return rows.map(r => this.rowToMemory(r));
   }
 
+  /** Get memories by status */
+  getByStatus(status: string, limit: number = 20): Memory[] {
+    const rows = this.db.prepare(
+      'SELECT * FROM memories WHERE status = ? ORDER BY salience DESC, created_at DESC LIMIT ?'
+    ).all(status, limit) as MemoryRow[];
+    return rows.map(r => this.rowToMemory(r));
+  }
+
   /** Get memories by type */
   getByType(type: string, limit: number = 20): Memory[] {
     const rows = this.db.prepare(

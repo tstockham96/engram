@@ -39,7 +39,8 @@ import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from '
 // ============================================================
 
 const owner = process.env.ENGRAM_OWNER ?? 'default';
-const dbPath = process.env.ENGRAM_DB_PATH ?? path.join(homedir(), `.engram-${owner}.db`);
+const engramDir = path.join(homedir(), '.engram');
+const dbPath = process.env.ENGRAM_DB_PATH ?? path.join(engramDir, `${owner}.db`);
 const geminiKey = process.env.GEMINI_API_KEY;
 const openaiKey = process.env.OPENAI_API_KEY;
 const anthropicKey = process.env.ANTHROPIC_API_KEY;

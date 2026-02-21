@@ -170,18 +170,90 @@ export class Vault {
     // ── Phase 0: Auto-extract entities and topics from query ──
     // If the caller didn't provide explicit entities/topics,
     // extract them from the context string so entity/topic
-    // retrieval actually fires. This is the same extraction
-    // that remember() uses.
+    // retrieval actually fires. Try LLM extraction first if available,
+    // then fall back to rule-based extraction.
 
     if ((!parsed.entities || parsed.entities.length === 0) ||
         (!parsed.topics || parsed.topics.length === 0)) {
-      const extracted = extract(parsed.context);
-      if (!parsed.entities || parsed.entities.length === 0) {
-        parsed.entities = extracted.entities;
+      
+      // Try LLM extraction if vault has LLM config
+      if (this.config.llm && (!parsed.entities || parsed.entities.length === 0) && (!parsed.topics || parsed.topics.length === 0)) {
+        try {
+          const llmExtracted = await this.extractWithLLM(parsed.context);
+          if (!parsed.entities || parsed.entities.length === 0) {
+            parsed.entities = llmExtracted.entities;
+          }
+          if (!parsed.topics || parsed.topics.length === 0) {
+            parsed.topics = llmExtracted.topics;
+          }
+        } catch (err) {
+          // LLM extraction failed — fall back to rule-based
+          console.warn('LLM extraction failed, falling back to rule-based:', err);
+          const extracted = extract(parsed.context);
+          if (!parsed.entities || parsed.entities.length === 0) {
+            parsed.entities = extracted.entities;
+          }
+          if (!parsed.topics || parsed.topics.length === 0) {
+            parsed.topics = extracted.topics;
+          }
+        }
+      } else {
+        // No LLM config or entities/topics already provided — use rule-based
+        const extracted = extract(parsed.context);
+        if (!parsed.entities || parsed.entities.length === 0) {
+          parsed.entities = extracted.entities;
+        }
+        if (!parsed.topics || parsed.topics.length === 0) {
+          parsed.topics = extracted.topics;
+        }
       }
-      if (!parsed.topics || parsed.topics.length === 0) {
-        parsed.topics = extracted.topics;
+    }
+
+    // ── Phase 0b: Aggregation detection ──
+    const aggregationPatterns = [
+      /\ball\b.*\b(commitments?|promises?|pending|outstanding)\b/i,
+      /\b(pending|outstanding|unfulfilled)\b.*\b(commitments?|promises?|tasks?)\b/i,
+      /\b(corrected|updated|changed|revised)\b/i,
+      /\bkey\s+(metrics?|numbers?|stats?|statistics?|KPIs?)\b/i,
+      /\bevery\b|\blist\s+(of|all)\b|\bcomplete\s+list\b/i,
+    ];
+    const isAggregation = aggregationPatterns.some(p => p.test(parsed.context));
+
+    if (isAggregation) {
+      const aggTopics = parsed.topics ?? [];
+      for (const topic of aggTopics) {
+        const topicMemories = this.store.getByTopic(topic, 50);
+        for (const mem of topicMemories) {
+          this.addCandidate(candidates, mem, 0.3);
+        }
       }
+      if (/commitment|pending|promise|outstanding|unfulfilled/i.test(parsed.context)) {
+        const pendingMemories = this.store.getByStatus('pending', 50);
+        for (const mem of pendingMemories) {
+          this.addCandidate(candidates, mem, 0.4);
+        }
+        const fulfilledMemories = this.store.getByStatus('fulfilled', 50);
+        for (const mem of fulfilledMemories) {
+          this.addCandidate(candidates, mem, 0.3);
+        }
+      }
+      if (/correct|update|change|revis|wrong/i.test(parsed.context)) {
+        const supersededMemories = this.store.getByStatus('superseded', 30);
+        for (const mem of supersededMemories) {
+          this.addCandidate(candidates, mem, 0.35);
+        }
+        const correctionMemories = this.store.getByTopic('correction', 30);
+        for (const mem of correctionMemories) {
+          this.addCandidate(candidates, mem, 0.35);
+        }
+      }
+      if (/metric|number|stat|KPI|measure/i.test(parsed.context)) {
+        const metricsMemories = this.store.getByTopic('metrics', 50);
+        for (const mem of metricsMemories) {
+          this.addCandidate(candidates, mem, 0.35);
+        }
+      }
+      parsed.limit = Math.max(parsed.limit, 30);
     }
 
     // ── Phase 1: Direct retrieval (seed memories) ──────────
@@ -271,8 +343,10 @@ export class Vault {
     // ── Phase 3: Filter, score, rank ───────────────────────
 
     // 5. Filter out superseded/archived memories first
+    const showSuperseded = isAggregation && /correct|update|change|revis/i.test(parsed.context);
     let results = [...candidates.values()].filter(r =>
-      r.memory.status !== 'superseded' && r.memory.status !== 'archived'
+      r.memory.status !== 'archived' &&
+      (r.memory.status !== 'superseded' || showSuperseded)
     );
 
     // Type filter
@@ -306,7 +380,7 @@ export class Vault {
 
       // Type bonus: consolidated semantic memories are higher-signal
       // than raw episodic entries for factual queries
-      const typeBonus = r.memory.type === 'semantic' ? 0.1 : 0;
+      const typeBonus = r.memory.type === 'semantic' ? 0.25 : 0;
 
       // Confidence bonus: high-confidence memories are more reliable
       const confidenceBonus = r.memory.confidence * 0.05;
@@ -1044,6 +1118,47 @@ export class Vault {
       await Promise.allSettled([...this.pendingEmbeddings]);
     }
     return count;
+  }
+
+  // --------------------------------------------------------
+  // extractWithLLM() — LLM-powered entity and topic extraction
+  // --------------------------------------------------------
+
+  private async extractWithLLM(context: string): Promise<{
+    entities: string[];
+    topics: string[];
+  }> {
+    if (!this.config.llm) {
+      throw new Error('No LLM config available for extraction');
+    }
+
+    const prompt = `Extract entities and topics from this text for memory retrieval.
+
+Text: "${context}"
+
+Extract:
+- ENTITIES: People, places, projects, companies, technologies, or specific things mentioned
+- TOPICS: General themes, categories, or subjects (use simple, consistent terms)
+
+Respond in this exact JSON format:
+{
+  "entities": ["entity1", "entity2", ...],
+  "topics": ["topic1", "topic2", ...]
+}
+
+Keep entities specific and topics general. Limit to 10 entities and 8 topics max.`;
+
+    try {
+      const response = await this.callLLM('gemini-2.0-flash', prompt, this.config.llm);
+      const result = JSON.parse(response);
+      
+      return {
+        entities: (result.entities || []).slice(0, 10),
+        topics: (result.topics || []).slice(0, 8),
+      };
+    } catch (err) {
+      throw new Error(`LLM extraction failed: ${err}`);
+    }
   }
 
   // --------------------------------------------------------

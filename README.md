@@ -16,59 +16,55 @@ Every AI agent framework bolts on memory as an afterthought — a flat file, a v
 
 Engram is a protocol, not a plugin. It works with any agent, any framework, any language.
 
-## Quick Start
+## Quick Start (60 seconds)
+
+### 1. Install & run
 
 ```bash
-# Clone and build
-git clone https://github.com/tstockham96/engram.git
-cd engram && npm install && npm run build
+npm install engram-sdk
+export GEMINI_API_KEY=your-key-here  # Get one free at ai.google.dev
+npx engram-serve
+# → Engram listening on http://localhost:3800
+```
 
-# Start the server
-ENGRAM_OWNER=my-agent node dist/server.js
-# → Engram API listening on http://127.0.0.1:3800
+That's it. Engram is running with vector search, auto-extraction, and consolidation.
 
+> **No Gemini key?** Engram works without one — you just won't get embeddings or LLM-powered features. Or use our [hosted API](https://engram-site.vercel.app) and skip setup entirely.
+
+### 2. Remember & recall
+
+```bash
 # Store a memory
 curl -X POST http://localhost:3800/v1/memories \
   -H 'Content-Type: application/json' \
   -d '{"content": "User prefers dark mode and concise answers"}'
 
 # Recall relevant memories
-curl http://localhost:3800/v1/memories/recall?context=user+preferences
+curl -X POST http://localhost:3800/v1/memories/recall \
+  -H 'Content-Type: application/json' \
+  -d '{"query": "user preferences", "context": "settings page"}'
 
-# Run consolidation (distills episodes into knowledge)
+# Consolidate (distill episodes into knowledge)
 curl -X POST http://localhost:3800/v1/consolidate
 ```
 
-### TypeScript SDK (native, no network overhead)
-
-```bash
-# From the cloned repo
-npm install
-```
+### TypeScript SDK
 
 ```typescript
-import { Vault } from 'engram';
+import { Vault } from 'engram-sdk';
 
-const vault = new Vault({
-  owner: 'my-agent',
-  agentId: 'assistant-v1',
-});
+const vault = new Vault();
 
-// Store memories
-vault.remember('User prefers dark mode and concise answers');
-vault.remember({
-  content: 'User is training for a marathon in April',
-  entities: ['User', 'marathon'],
-  topics: ['fitness', 'goals'],
-  salience: 0.8,
-});
+// Remember
+await vault.remember('User prefers dark mode and concise answers');
+await vault.remember('User is training for a marathon in April');
 
-// Recall relevant context
-const memories = await vault.recall('What are the user\'s preferences?');
+// Recall
+const memories = await vault.recall('What are the user preferences?');
+console.log(memories);
 
-// Consolidate episodes into knowledge
+// Consolidate
 await vault.consolidate();
-
 vault.close();
 ```
 

@@ -2,7 +2,9 @@
 
 import { Vault } from './vault.js';
 import type { VaultConfig } from './types.js';
+import { runEval } from './eval.js';
 import path from 'path';
+import { homedir } from 'os';
 import { parseArgs } from 'util';
 
 // ============================================================
@@ -27,10 +29,11 @@ Usage:
   engram consolidate                 Run memory consolidation
   engram forget <id> [--hard]        Forget a memory (soft or hard delete)
   engram search <query>              Full-text search
+  engram eval                        Health report & value assessment
   engram repl                        Interactive REPL mode
 
 Options:
-  --db <path>         Database file path (default: ./engram.db)
+  --db <path>         Database file path (default: ~/.engram/default.db)
   --owner <name>      Owner identifier (default: "default")
   --agent <id>        Agent ID for source tracking
   --json              Output as JSON
@@ -61,7 +64,7 @@ function parseCliArgs() {
 function createVault(values: Record<string, unknown>): Vault {
   const config: VaultConfig = {
     owner: (values.owner as string) || 'default',
-    dbPath: (values.db as string) || path.resolve('engram.db'),
+    dbPath: (values.db as string) || path.join(homedir(), '.engram', 'default.db'),
     agentId: (values.agent as string) || undefined,
   };
   return new Vault(config);
@@ -209,6 +212,29 @@ async function runInit(values: Record<string, unknown>) {
     console.log('  ' + JSON.stringify({ mcpServers: { engram: engramConfigPublished } }, null, 2).split('\n').join('\n  '));
   }
 
+  // 5b. Add Engram instructions to CLAUDE.md (if Claude Code detected)
+  if (hasClaudeDir) {
+    const claudeMdPath = join(home, '.claude', 'CLAUDE.md');
+    const engramBlock = `
+## Engram
+You have access to Engram memory tools via MCP. Use them:
+- At session start: call \`engram_briefing\` to load relevant context
+- When you learn something important: call \`engram_remember\`
+- When you need context from past sessions: call \`engram_recall\`
+- At the end of a work session: call \`engram_ingest\` with a summary of what was accomplished
+`;
+    let claudeMd = '';
+    if (existsSync(claudeMdPath)) {
+      claudeMd = readFileSync(claudeMdPath, 'utf-8');
+    }
+    if (!claudeMd.includes('## Engram')) {
+      writeFileSync(claudeMdPath, claudeMd + '\n' + engramBlock.trim() + '\n');
+      console.log(`  ${green('✓')} Added Engram instructions to ${claudeMdPath}`);
+    } else {
+      console.log(dim(`  ℹ CLAUDE.md already has Engram section, skipping`));
+    }
+  }
+
   // 6. Save Gemini key if provided
   if (geminiKey) {
     const configDir = join(home, '.config', 'engram');
@@ -218,7 +244,9 @@ async function runInit(values: Record<string, unknown>) {
   }
 
   // 7. Create initial vault to verify setup
-  const dbPath = join(home, `.engram-${owner}.db`);
+  const engramDir = join(home, '.engram');
+  mkdirSync(engramDir, { recursive: true });
+  const dbPath = join(engramDir, `${owner}.db`);
   const testVault = new Vault({ owner, dbPath });
   const stats = testVault.stats();
   await testVault.close();
@@ -265,7 +293,9 @@ async function runShadow(subcommand: string, values: Record<string, unknown>) {
   mkdirSync(SHADOW_PID_DIR, { recursive: true });
 
   const owner = (values.owner as string) || 'default';
-  const dbPath = path.join(homedir(), `.engram-${owner}.db`);
+  const engramDir = path.join(homedir(), '.engram');
+  mkdirSync(engramDir, { recursive: true });
+  const dbPath = path.join(engramDir, `${owner}.db`);
   const geminiKey = process.env.GEMINI_API_KEY ?? '';
 
   function isRunning(pidFile: string): boolean {
@@ -533,6 +563,11 @@ async function main() {
   if (command === 'shadow') {
     const subcommand = positionals[1] ?? 'help';
     await runShadow(subcommand, values);
+    return;
+  }
+
+  if (command === 'eval') {
+    await runEval(values);
     return;
   }
 
