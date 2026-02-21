@@ -1,0 +1,782 @@
+[
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q0",
+    "question": "Who did Maria have dinner with on May 3, 2023?",
+    "groundTruth": "her mother",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Based on the provided memories, there is no information about who Maria had dinner with on May 3, 2023. The memories mention her having dinner with friends from the gym and making dinner with her mom, but no specific dates are given for these events.",
+        "score": 0,
+        "recallTime": 617,
+        "tokensUsed": 810,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "On May 3, 2023, Maria had dinner with her mom.",
+        "score": 1,
+        "tokensUsed": 27566
+      },
+      "memoryMd": {
+        "answer": "I'm sorry, but the provided memory summary does not contain information about who Maria had dinner with on May 3, 2023. The summary does not include specific dates for social events.",
+        "score": 0,
+        "tokensUsed": 1574
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q1",
+    "question": "When did Maria donate her car?",
+    "groundTruth": "21 December 2022",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Maria donated her old car to a homeless shelter \"yesterday\" relative to the time she told John about it.",
+        "score": 0.3,
+        "recallTime": 426,
+        "tokensUsed": 813,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Maria donated her car on **December 21, 2022**.",
+        "score": 1,
+        "tokensUsed": 27562
+      },
+      "memoryMd": {
+        "answer": "The memory summary does not contain any information about Maria donating her car. It only mentions that she was involved in a car accident.",
+        "score": 0.75,
+        "tokensUsed": 1559
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q2",
+    "question": "What martial arts has John done?",
+    "groundTruth": "Kickboxing, Taekwondo",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, John states that the place he goes to offers \"kickboxing.\" However, he does not explicitly state that he has personally done kickboxing or any other specific martial art. He mentions doing weight training.",
+        "score": 0.35,
+        "recallTime": 398,
+        "tokensUsed": 733,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, John has done **kickboxing** and **taekwondo**.",
+        "score": 1,
+        "tokensUsed": 27570
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, there is no information indicating that John has done any martial arts.",
+        "score": 0,
+        "tokensUsed": 1550
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q3",
+    "question": "What type of volunteering have John and Maria both done?",
+    "groundTruth": "Volunteering at a homeless shelter",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories provided, John and Maria have both engaged in **community service** or **helping others in the community**.\n\nWhile their specific volunteer activities differ (Maria volunteers at homeless and dog shelters, John mentors students, fundraises for a fire truck, and organizes donation drives), the overarching type of volunteering they both participate in is dedicated to making a positive impact and supporting those in need within their community.",
+        "score": 0.35,
+        "recallTime": 300,
+        "tokensUsed": 901,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "John and Maria have both engaged in the following types of volunteering:\n\n1.  **Homeless Shelter Support:** Both John and Maria have volunteered at homeless shelters, often involving the distribution of food and supplies.\n    *   Maria frequently volunteers at a homeless shelter, serving meals, organizing events, working the front desk, and providing general support.\n    *   John, with his online service group, went to a homeless shelter to give out food and supplies.\n2.  **Charity Runs:** Both have participated in or organized 5K charity runs.\n    *   Maria participated in a 5K charity run for a homeless shelter.\n    *   John organized a 5K charity run to help veterans and their families.\n3.  **Supporting Children/Education:** Both have volunteered in ways that directly support children or educational initiatives.\n    *   Maria volunteered at a shelter during an event for kids.\n    *   John organized a toy drive for kids in need, volunteered at a career fair at a local school, and mentors students at a local school.",
+        "score": 1,
+        "tokensUsed": 27815
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, John and Maria have not both done the same *type* of volunteering.\n\n*   **John** has volunteered as a mentor for a local school, is part of the fire-fighting brigade, and has organized projects and a charity run to support military veterans and their families.\n*   **Maria** volunteers at a homeless shelter, where she has given talks, planned fundraisers, and received a medal for her work.",
+        "score": 0,
+        "tokensUsed": 1636
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q4",
+    "question": "When did John join the online support group?",
+    "groundTruth": "The week before 1 January 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "John joined the service-focused online group \"last week\" relative to his conversation with Maria where he mentioned it.",
+        "score": 0,
+        "recallTime": 280,
+        "tokensUsed": 850,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "John joined the service-focused online group in the last week of December 2022. He mentioned joining \"last week\" on January 1, 2023.",
+        "score": 1,
+        "tokensUsed": 27587
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain any information about John joining an online support group.",
+        "score": 0,
+        "tokensUsed": 1554
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q5",
+    "question": "When did Maria go to the beach?",
+    "groundTruth": "December 2022",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Maria went to the beach \"last month.\"",
+        "score": 0.85,
+        "recallTime": 279,
+        "tokensUsed": 760,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Maria went to the beach in **December 2022**.\n\nShe shared a photo of a sunset over the ocean on January 1, 2023, and stated, \"I took it at the beach last month.\"",
+        "score": 1,
+        "tokensUsed": 27591
+      },
+      "memoryMd": {
+        "answer": "The memory summary does not state when Maria went to the beach. It only mentions that Maria took a solo trip to Spain.",
+        "score": 0,
+        "tokensUsed": 1554
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q6",
+    "question": "Where has Maria made friends?",
+    "groundTruth": "homeless shelter, gym, church",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Maria has made friends at:\n*   Church\n*   The gym",
+        "score": 0.75,
+        "recallTime": 314,
+        "tokensUsed": 676,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Maria has made friends in the following places:\n\n1.  **At the homeless shelter:** On January 9, 2023, she mentioned becoming \"friends with one of my fellow volunteers.\" She later referred to the people at the shelter as \"like family\" on April 10, 2023, indicating strong connections.\n2.  **At her church:** On June 12, 2023, she mentioned going camping with \"some friends from church,\" and this was reinforced by later mentions of picnics, hikes, and community work with her church friends.",
+        "score": 0.8,
+        "tokensUsed": 27673
+      },
+      "memoryMd": {
+        "answer": "Maria has made friends with:\n\n*   **John:** Her close friend.\n*   **Residents at the homeless shelter:** She has developed meaningful relationships with residents like Jean, David, Laura, and Cindy while volunteering there.",
+        "score": 0,
+        "tokensUsed": 1580
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q7",
+    "question": "What items des John mention having as a child?",
+    "groundTruth": "A doll, a film camera",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "John mentions having a **doll** as a child.",
+        "score": 0.75,
+        "recallTime": 268,
+        "tokensUsed": 739,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "John mentions having the following items as a child:\n*   A film camera\n*   A doll",
+        "score": 1,
+        "tokensUsed": 27575
+      },
+      "memoryMd": {
+        "answer": "The memory summary does not mention any specific items John had as a child.",
+        "score": 0.2,
+        "tokensUsed": 1547
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q8",
+    "question": "What might John's financial status be?",
+    "groundTruth": "Middle-class or wealthy",
+    "category": 3,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, John appears to be **financially comfortable or well-off**.\n\nThis is strongly suggested by his statement: \"My kids have so much and others don't. We really need to do something about it.\" This indicates he is able to provide abundantly for his children.\n\nAdditionally, he has a \"work setup\" and manages to \"balance everything,\" implying a stable professional life. His active involvement in charitable causes, fundraising, and offering help to others further supports the idea that he is not struggling financially and has resources (time, effort, or money) to contribute.",
+        "score": 0.95,
+        "recallTime": 273,
+        "tokensUsed": 620,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "John's financial status has fluctuated throughout the conversation:\n\n*   **Initially (late 2022 - early 2023):** He appears to be employed, as he mentions being \"busy with work.\" He can afford a family road trip and kickboxing classes. However, he experiences financial strain from unexpected events, such as his car breaking down, which puts a \"strain on my wallet\" and causes \"money problems.\" He also mentions being \"stressed out\" after failing a military aptitude test, suggesting he was seeking a stable career path.\n*   **Mid-period (April - early August 2023):** His financial situation significantly improves. He graduates with a university degree and gets a promotion at work to \"assistant manager,\" which he sees as a \"stepping stone for bigger things.\" This indicates increased income and career stability. He continues to engage in leisure activities like yoga classes and family trips.\n*   **Most Recently (August 2023 onwards):** He experiences a major financial setback when he \"lost my job at the mechanical engineering company\" because \"they tanked.\" This has been \"really rough\" and caused \"tough times.\" He is actively looking for new employment in the tech industry and \"may have found a job,\" indicating a period of unemployment and financial uncertainty, but with potential prospects for re-employment. He is also volunteering as a mentor and with the fire-fighting brigade, which are unpaid roles.\n\nIn summary, John is not independently wealthy, as unexpected expenses and job loss significantly impact him. He has experienced periods of stable employment and career progression, but also moments of financial vulnerability and uncertainty. He is proactive in seeking new opportunities and contributing to his community, even during challenging times.",
+        "score": 0.95,
+        "tokensUsed": 27996
+      },
+      "memoryMd": {
+        "answer": "John's financial status appears to be in a state of flux or uncertainty. He recently lost his job at the mechanical engineering company. Prior to that, he had received a promotion to assistant manager, suggesting a period of stability and potentially increased income. Currently, he is looking into opportunities in the tech industry, which implies he may be unemployed or in a transitional period financially.",
+        "score": 0.85,
+        "tokensUsed": 1629
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q9",
+    "question": "Who gave Maria's family money when she was younger and her family was going through tough times?",
+    "groundTruth": "Her aunt",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Maria's auntie gave her family outside help when she was younger and they were going through tough times.",
+        "score": 0.95,
+        "recallTime": 282,
+        "tokensUsed": 785,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Maria's aunt (or auntie) gave her family money when she was younger and they were going through tough times.",
+        "score": 1,
+        "tokensUsed": 27594
+      },
+      "memoryMd": {
+        "answer": "Based on the provided memory summary, there is no information about who gave Maria's family money when she was younger and her family was going through tough times.",
+        "score": 0,
+        "tokensUsed": 1582
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q10",
+    "question": "When did Maria meet Jean?",
+    "groundTruth": "February 24, 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Maria met Jean **yesterday** while volunteering.",
+        "score": 0.75,
+        "recallTime": 255,
+        "tokensUsed": 883,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Maria met Jean on **February 24, 2023**.",
+        "score": 1,
+        "tokensUsed": 27559
+      },
+      "memoryMd": {
+        "answer": "Maria met Jean while volunteering at a homeless shelter. The memory summary does not specify an exact date or time.",
+        "score": 0,
+        "tokensUsed": 1552
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q11",
+    "question": "What people has Maria met and helped while volunteering?",
+    "groundTruth": "David, Jean, Cindy, Laura",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Maria has met and helped the following people while volunteering:\n\n*   **Shelter residents:** She helped them by providing food and beds, and organized a meal for them. She saw their smiles when they received these necessities.\n*   **Kids at the shelter:** She volunteered during an event for kids and played with them.\n*   **Someone special at the shelter:** This individual had been sad for months but laughed when Maria was playing with the kids.",
+        "score": 0.8,
+        "recallTime": 294,
+        "tokensUsed": 1014,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Maria has met and helped the following people while volunteering:\n\n*   **Specific Individuals:**\n    *   A little girl (around 8) at the homeless shelter.\n    *   David, whom she met at a charity event and linked with an organization for housing and support.\n    *   Jean, an optimistic and resilient woman she met while volunteering at a homeless shelter.\n    *   Laura, a shelter resident who wrote a letter of gratitude.\n    *   Cindy, a shelter resident who wrote a heartfelt note of gratitude.\n    *   Shadow, a puppy she adopted from a shelter, implying she helped other rescue dogs there.\n\n*   **Groups:**\n    *   Homeless shelter residents (generally, by serving meals, providing comfort, organizing events, and working at the front desk).\n    *   Kids at the homeless shelter (generally, by playing with them and organizing events for them).\n    *   Fellow volunteers at the homeless shelter.\n    *   People in need (generally, through charity events and food donations).\n    *   Participants in a 5K charity run for a homeless shelter.\n    *   Rescue dogs/pups at a local dog shelter.\n    *   A family struggling on the streets, which inspired her to start volunteering.\n    *   Friends from church, with whom she did community work.",
+        "score": 0,
+        "tokensUsed": 27868
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Maria has met and helped the following people while volunteering:\n\n*   **Jean:** A resilient woman Maria met while volunteering at a homeless shelter.\n*   **David:** A homeless individual Maria connected with and helped find resources.\n*   **Laura:** A shelter resident who wrote a thank you letter.\n*   **Cindy:** A resident at the shelter who wrote a heartfelt note.",
+        "score": 1,
+        "tokensUsed": 1630
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q12",
+    "question": "What test has John taken multiple times?",
+    "groundTruth": "The military aptitude test",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "John has taken the **military aptitude test** multiple times.",
+        "score": 1,
+        "recallTime": 265,
+        "tokensUsed": 764,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "John has taken the military aptitude test multiple times. He initially failed it and later retook it with great results.",
+        "score": 0.95,
+        "tokensUsed": 27583
+      },
+      "memoryMd": {
+        "answer": "John has taken the military aptitude test multiple times. He failed it once but retook it with great results.",
+        "score": 0.95,
+        "tokensUsed": 1554
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q13",
+    "question": "When did Maria's grandmother pass away?",
+    "groundTruth": "The week before 6 March 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Maria's grandmother passed away **last week**.",
+        "score": 0.8,
+        "recallTime": 260,
+        "tokensUsed": 800,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Maria's grandmother passed away **last week** from the conversation date of **March 6, 2023**.",
+        "score": 0.95,
+        "tokensUsed": 27576
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain any information about Maria's grandmother or her passing.",
+        "score": 0.8,
+        "tokensUsed": 1552
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q14",
+    "question": "Would John be considered a patriotic person?",
+    "groundTruth": "Yes",
+    "category": 3,
+    "results": {
+      "engram": {
+        "answer": "Yes, John would be considered a patriotic person.\n\nHe explicitly states:\n*   \"I've always had a great respect for our military and wanted to show my support.\"\n*   \"Showing them how to respect and appreciate those who served our country is important.\"\n*   \"They've given so much and deserve our backing. I want to help make their lives better.\"\n*   \"I'm really passionate about making sure veterans are supported and valued in our community.\"\n*   He feels \"drawn to serving my country in this way,\" and refers to it as his \"true calling.\"\n\nThese statements demonstrate a strong sense of devotion, respect, and desire to support his country and its service members.",
+        "score": 0.95,
+        "recallTime": 283,
+        "tokensUsed": 869,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Yes, John would definitely be considered a patriotic person.\n\nHere's why:\n\n*   **Explicit Desire to Serve:** John explicitly states his strong urge to \"serve my country and community\" on multiple occasions (e.g., 5 Feb 2023).\n*   **Respect and Support for the Military and Veterans:**\n    *   He expresses a desire to \"serve my country\" after retaking an aptitude test (6 Mar 2023), implying a connection to military service.\n    *   He is consistently passionate about veterans and their rights, organizing projects, a 5K charity run, and participating in marching events to show his appreciation and support (20 May 2023, 3 July 2023, 9 Aug 2023).\n    *   He asks family and friends to be advocates for the military (3 Aug 2023).\n    *   He visits a veteran's hospital and is inspired by their resilience (17 July 2023).\n    *   He mentions a bond in the fire brigade that he hasn't felt \"since my time in the military\" (31 July 2023), strongly suggesting he has prior military service.\n*   **Teaching Patriotism to His Children:** He takes his children to a military memorial to teach them to \"respect and appreciate those who served our country\" (3 Aug 2023), and shares a photo of his son holding a flag in a cemetery.\n*   **Commitment to Community Improvement:** His dedication to local politics, improving education and infrastructure, and joining the fire-fighting brigade are all actions aimed at making his community a better place, which is a core component of patriotism.\n*   **Symbolic Representation:** He shares photos that include national symbols like a flag (6 Mar 2023, 3 July 2023).",
+        "score": 0.98,
+        "tokensUsed": 27955
+      },
+      "memoryMd": {
+        "answer": "Yes, John would be considered a patriotic person based on the memory summary.\n\nHere's why:\n*   **Political Aspirations:** He is an \"aspiring politician focused on improving education and infrastructure\" in his community, actively networking and considering running for office. This shows a commitment to civic duty and national/local betterment.\n*   **Support for Veterans:** He is \"involved in a project to support military veterans, including a petition\" and \"organized a 5K charity run to help veterans and their families.\" Supporting those who served the country is a strong indicator of patriotism.\n*   **Community Involvement:** He is \"volunteering as a mentor for a local school\" and \"now part of the fire-fighting brigade,\" demonstrating a dedication to serving his community.\n*   **Past Military Interest:** He \"has a past interest in joining the military\" and even \"failed the military aptitude test, but retook it with great results,\" indicating a willingness to serve his country directly.\n*   **Motivation:** He is \"driven by a desire to help his community and make a positive impact on the lives of others,\" and \"wants to improve his old neighborhood, West County.\"",
+        "score": 1,
+        "tokensUsed": 1823
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q15",
+    "question": "What writing classes has Maria taken?",
+    "groundTruth": "Poetry, creative writing",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Maria has taken a creative writing class and a poetry class.",
+        "score": 1,
+        "recallTime": 247,
+        "tokensUsed": 734,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Maria has taken the following writing classes:\n\n*   A creative writing class (mentioned on February 25, 2023)\n*   A poetry class (mentioned on April 2, 2023)",
+        "score": 1,
+        "tokensUsed": 27598
+      },
+      "memoryMd": {
+        "answer": "Maria has taken a creative writing class and a poetry class.",
+        "score": 1,
+        "tokensUsed": 1541
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q16",
+    "question": "When did John get his degree?",
+    "groundTruth": "The week before 2 April 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "John graduated last week.",
+        "score": 0.85,
+        "recallTime": 262,
+        "tokensUsed": 688,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "John graduated last week, relative to the conversation on April 2, 2023. This means he graduated sometime between March 26 and April 1, 2023.",
+        "score": 1,
+        "tokensUsed": 27586
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain information about when John got his degree.",
+        "score": 0.7,
+        "tokensUsed": 1546
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q17",
+    "question": "What might John's degree be in?",
+    "groundTruth": "Political science, Public administration, Public affairs",
+    "category": 3,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, John's degree might be in:\n\n*   **Public policy, political science, public administration, or a related social science field** given his interest in policymaking, improving education and infrastructure, getting into local politics, and making a positive impact on the community.\n*   However, he also mentions potentially finding a job at a tech company that needs his **mechanical skills** for their hardware team, which suggests his degree could also be in **mechanical engineering or a similar technical field**.",
+        "score": 0.95,
+        "recallTime": 259,
+        "tokensUsed": 696,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation on April 2, 2023, John states, \"I'm considering going into policymaking because of my degree and my passion for making a positive impact.\" He also mentions his interest in \"improving education and infrastructure.\"\n\nTherefore, John's degree is likely in a field related to **policymaking, political science, public administration, or a similar field focused on community development and governance.**",
+        "score": 0.9,
+        "tokensUsed": 27657
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, John lost his job at a **mechanical engineering company**. This suggests his degree might be in **mechanical engineering** or a related field.",
+        "score": 0,
+        "tokensUsed": 1568
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q18",
+    "question": "Who did John go to yoga with?",
+    "groundTruth": "Rob",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the provided memories, there is no information indicating that John went to yoga with anyone. He mentions going to a yoga studio often and taking a beginner yoga class, but he does not state that he went with Maria or anyone else.",
+        "score": 0.2,
+        "recallTime": 261,
+        "tokensUsed": 769,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "John went to yoga with his colleague, Rob.",
+        "score": 0.95,
+        "tokensUsed": 27561
+      },
+      "memoryMd": {
+        "answer": "John's colleague, Rob, invited him to a yoga class.",
+        "score": 0.95,
+        "tokensUsed": 1537
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q19",
+    "question": "What damages have happened to John's car?",
+    "groundTruth": "Broken windshield, Car broke down",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "John's car \"broke down\" on his way to work. No further specific details about the nature of the damage are provided.",
+        "score": 0.75,
+        "recallTime": 461,
+        "tokensUsed": 764,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "John's car experienced two separate incidents of damage:\n1.  On January 9, 2023, his car had a broken windshield.\n2.  On April 10, 2023, his car broke down, though the specific nature of the breakdown was not mentioned, only that it caused \"car trouble\" and was \"putting a strain on his wallet\" for repairs.",
+        "score": 0,
+        "tokensUsed": 27630
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, there is no information about any damages that have happened to John's car. The only car accident mentioned is Maria's.",
+        "score": 0.2,
+        "tokensUsed": 1564
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q20",
+    "question": "When did John take a road trip to the Pacific Northwest?",
+    "groundTruth": "2022",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "John took a road trip to the Pacific Northwest \"yesterday.\"",
+        "score": 0.5,
+        "recallTime": 327,
+        "tokensUsed": 812,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "John took a road trip to the Pacific Northwest in **2022**. He mentioned it on April 10, 2023, stating it was \"last year.\"",
+        "score": 1,
+        "tokensUsed": 27588
+      },
+      "memoryMd": {
+        "answer": "The memory summary does not contain any information about John taking a road trip to the Pacific Northwest. It mentions he is planning a trip to the East Coast, but no past trip to the Pacific Northwest.",
+        "score": 0,
+        "tokensUsed": 1582
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q21",
+    "question": "What areas of the U.S. has John been to or is planning to go to?",
+    "groundTruth": "Pacific northwest, east coast",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, John has been to the **Pacific Northwest** and is planning a trip to the **East Coast**.",
+        "score": 1,
+        "recallTime": 255,
+        "tokensUsed": 707,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "John has been to or is planning to go to the following areas of the U.S.:\n\n*   **Pacific Northwest:** He went on a family road trip there.\n*   **East Coast:** He is planning a trip there.\n*   **West County:** This is his old area that he wants to improve, and where a flood recently occurred.\n*   **California:** He had a special vacation there.",
+        "score": 0,
+        "tokensUsed": 27645
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, John has been to his old neighborhood, **West County**, and is planning a trip to the **East Coast**.",
+        "score": 0.75,
+        "tokensUsed": 1566
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q22",
+    "question": "When did John go to a convention with colleagues?",
+    "groundTruth": "March 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "John went to a convention with his colleagues **last month**.",
+        "score": 0.7,
+        "recallTime": 302,
+        "tokensUsed": 699,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "John went to a convention with his colleagues last month, which would be in **March 2023**. This was mentioned on April 18, 2023.",
+        "score": 1,
+        "tokensUsed": 27588
+      },
+      "memoryMd": {
+        "answer": "The memory summary does not contain any information about John going to a convention with colleagues.",
+        "score": 0,
+        "tokensUsed": 1555
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q23",
+    "question": "What desserts has Maria made?",
+    "groundTruth": "Banana split sundae, Peach cobbler",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Maria has made:\n* Peach cobbler",
+        "score": 0.85,
+        "recallTime": 257,
+        "tokensUsed": 811,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Maria has made:\n*   Peach cobbler\n*   Cakes",
+        "score": 0.6,
+        "tokensUsed": 27561
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, there is no information about Maria making any desserts.",
+        "score": 0.4,
+        "tokensUsed": 1546
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q24",
+    "question": "When did John start boot camp with his family?",
+    "groundTruth": "April.2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "John started going to boot camps with his family last month.",
+        "score": 0.75,
+        "recallTime": 309,
+        "tokensUsed": 812,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "John started boot camp with his family in April 2023.",
+        "score": 1,
+        "tokensUsed": 27568
+      },
+      "memoryMd": {
+        "answer": "The memory summary does not contain any information about John starting boot camp with his family. It mentions his past interest in joining the military and that he retook a military aptitude test with great results, but it does not state that he started boot camp.",
+        "score": 0.85,
+        "tokensUsed": 1595
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q25",
+    "question": "What European countries has Maria been to?",
+    "groundTruth": "Spain, England",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Maria has been to:\n*   **United Kingdom** (specifically London)",
+        "score": 0.75,
+        "recallTime": 259,
+        "tokensUsed": 705,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Maria has been to the following European countries:\n\n*   **England** (specifically London)\n*   **Spain**",
+        "score": 0.95,
+        "tokensUsed": 27586
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Maria has been to **Spain**.",
+        "score": 0.75,
+        "tokensUsed": 1542
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q26",
+    "question": "What has Maria done to feel closer to her faith?",
+    "groundTruth": "Join a local church, buy a cross necklace",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Maria has done the following to feel closer to her faith:\n\n*   She joined a nearby church.\n*   She bought a cross necklace.",
+        "score": 1,
+        "recallTime": 260,
+        "tokensUsed": 873,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Maria has done two things to feel closer to her faith:\n\n1.  She bought a cross necklace (on April 10, 2023).\n2.  She joined a nearby church (on May 6, 2023).",
+        "score": 1,
+        "tokensUsed": 27601
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Maria has joined a nearby church.",
+        "score": 0.85,
+        "tokensUsed": 1545
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q27",
+    "question": "When did John have a party with veterans?",
+    "groundTruth": "The Friday before 20 May 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "The memories state that John had a party with veterans, but they do not specify when it occurred.",
+        "score": 0.15,
+        "recallTime": 288,
+        "tokensUsed": 828,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "John had a party with veterans on **May 19, 2023**. He mentioned it on May 20, 2023, stating it happened \"last Friday.\"",
+        "score": 1,
+        "tokensUsed": 27583
+      },
+      "memoryMd": {
+        "answer": "The memory summary does not contain information about John having a party with veterans. It mentions he is involved in a project to support military veterans and organized a 5K charity run to help veterans and their families.",
+        "score": 0,
+        "tokensUsed": 1584
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q28",
+    "question": "What causes does John feel passionate about supporting?",
+    "groundTruth": "Veterans, schools, infrastructure",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, John feels passionate about supporting the following causes:\n\n*   **Fire safety/fire department:** Implied by the donation that helped get a brand new fire truck.\n*   **Providing basic necessities:** He helped raise canned food, toiletries, and clothes for those in need.\n*   **Improving education and education reform** in the community.\n*   **Improving infrastructure and infrastructure development** in the community.\n*   **Supporting and valuing veterans and their rights** in the community, and showing appreciation for the military.",
+        "score": 1,
+        "recallTime": 273,
+        "tokensUsed": 1010,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "John feels passionate about supporting the following causes:\n\n*   **Improving Education:** He is passionate about improving education in his community, advocating for proper funding and resources for schools, especially for children, and helping kids overcome a lack of resources (e.g., through career fairs and mentoring).\n*   **Infrastructure Development:** He is passionate about improving infrastructure in his community, including roadways, and ensuring stable services for everyone, especially after witnessing the negative impacts of crumbling infrastructure and natural disasters like floods. He also wants to fight for better housing and living conditions.\n*   **Supporting Military Veterans and Service Members:** He has a great respect for the military and veterans, advocating for their rights, showing appreciation for their sacrifices, raising funds and awareness for them and their families (e.",
+        "score": 0.95,
+        "tokensUsed": 27784
+      },
+      "memoryMd": {
+        "answer": "John feels passionate about supporting:\n\n*   **Improving education** in his community.\n*   **Improving infrastructure** in his community.\n*   **Supporting military veterans** and their families.\n*   **Community safety and service**, as shown by his involvement in the fire-fighting brigade.\n*   **General community improvement**, particularly in his old neighborhood, West County.",
+        "score": 0.95,
+        "tokensUsed": 1626
+      }
+    }
+  },
+  {
+    "conversationId": "conv-41",
+    "questionId": "conv-41-q29",
+    "question": "What events is Maria planning for the homeless shelter funraiser?",
+    "groundTruth": "Chili cook-off, ring-toss tournament",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Maria is planning a **ring-toss tournament** for the homeless shelter's fundraiser. She is also generally busy getting ready for a fundraiser next week.",
+        "score": 0.7,
+        "recallTime": 301,
+        "tokensUsed": 980,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Maria is planning a **ring-toss tournament** and a **chili cook-off** for the homeless shelter's fundraiser. She also asked John to help spread the word about the chili cook-off and find volunteers for the event.",
+        "score": 0.9,
+        "tokensUsed": 27612
+      },
+      "memoryMd": {
+        "answer": "Maria is planning a ring-toss tournament for the homeless shelter's fundraiser.",
+        "score": 0.75,
+        "tokensUsed": 1553
+      }
+    }
+  }
+]

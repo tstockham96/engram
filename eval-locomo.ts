@@ -94,7 +94,7 @@ function sleep(ms: number) { return new Promise(r => setTimeout(r, ms)); }
 /**
  * Call Gemini API with rate limiting
  */
-async function callGemini(prompt: string, jsonMode = false, model = 'gemini-2.0-flash'): Promise<string> {
+async function callGemini(prompt: string, jsonMode = false, model = 'gemini-2.5-flash'): Promise<string> {
   const MAX_RETRIES = 5;
   
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {

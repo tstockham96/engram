@@ -582,6 +582,12 @@ async function main() {
     return;
   }
 
+  if (command === 'hosted') {
+    const { startServer } = await import('./hosted.js');
+    startServer();
+    return;
+  }
+
   if (command === 'eval') {
     await runEval(values);
     return;

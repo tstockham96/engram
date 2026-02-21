@@ -13,7 +13,8 @@
   },
   "bin": {
     "engram": "dist/cli.js",
-    "engram-serve": "dist/server.js"
+    "engram-serve": "dist/server.js",
+    "engram-hosted": "dist/hosted.js"
   },
   "scripts": {
     "dev": "tsx watch src/index.ts",
