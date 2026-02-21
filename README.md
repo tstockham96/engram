@@ -1,313 +1,330 @@
 # 🧠 Engram
 
-**Universal memory protocol for AI agents.**
+**Universal memory layer for AI agents**
 
-AI agents have amnesia. Every session starts blank. Engram fixes this — a memory protocol with a REST API, knowledge graph, and consolidation engine that turns raw episodes into structured knowledge. Think of it as giving your agent a hippocampus.
+[![npm version](https://img.shields.io/npm/v/engram-sdk)](https://www.npmjs.com/package/engram-sdk)
+[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![GitHub stars](https://img.shields.io/github/stars/tstockham96/engram)](https://github.com/tstockham96/engram)
 
-## Why
+Engram gives AI agents knowledge graphs, consolidation, and spreading activation. Not storage. Understanding.
 
-Every AI agent framework bolts on memory as an afterthought — a flat file, a vector DB, maybe a conversation log. None of them solve the real problem:
+---
 
-- **Amnesia**: Agents forget everything between sessions
-- **No consolidation**: Raw episodes pile up, never distilled into knowledge
-- **No relationships**: Memories exist in isolation, no graph of connections
-- **No decay**: Everything is equally important forever
-- **No portability**: Memory locked into one framework
+## Quick Start
 
-Engram is a protocol, not a plugin. It works with any agent, any framework, any language.
-
-## Quick Start (60 seconds)
-
-### 1. Install & run
+### MCP Setup (recommended — Claude Code / Cursor)
 
 ```bash
-npm install engram-sdk
-export GEMINI_API_KEY=your-key-here  # Get one free at ai.google.dev
-npx engram-serve
-# → Engram listening on http://localhost:3800
+npm install -g engram-sdk
+engram init
 ```
 
-That's it. Engram is running with vector search, auto-extraction, and consolidation.
+That's it. 10 memory tools available via MCP.
 
-> **No Gemini key?** Engram works without one — you just won't get embeddings or LLM-powered features. Or use our [hosted API](https://engram-site.vercel.app) and skip setup entirely.
-
-### 2. Remember & recall
+### REST API (non-Node environments)
 
 ```bash
-# Store a memory
+npm install -g engram-sdk
+export GEMINI_API_KEY=your-key-here
+npx engram-serve
+```
+
+Server starts on `http://127.0.0.1:3800`.
+
+---
+
+## Why Engram
+
+| | Traditional memory | Engram |
+|---|---|---|
+| **Storage** | Flat vectors or files | Knowledge graph with typed edges |
+| **Maintenance** | Manual curation | Sleep-cycle consolidation (LLM-powered) |
+| **Retrieval** | You ask, it answers | Spreading activation surfaces context you didn't ask for |
+
+**Benchmarks (LOCOMO):**
+
+- **79.6%** accuracy (vs 66.9% Mem0, 74.5% manual memory files)
+- **44% fewer tokens** than manual memory files (776 vs 1,373 per query)
+
+---
+
+## MCP Tools Reference
+
+| Tool | Description |
+|------|-------------|
+| `engram_remember` | Store a memory. Auto-extracts entities and topics. |
+| `engram_recall` | Recall relevant memories via semantic search. |
+| `engram_briefing` | Structured session briefing — key facts, pending commitments, recent activity. |
+| `engram_consolidate` | Run consolidation — distills episodes into semantic knowledge, discovers entities, finds contradictions. |
+| `engram_surface` | Proactive memory surfacing — pushes relevant memories based on current context. |
+| `engram_connect` | Create a relationship between two memories in the knowledge graph. |
+| `engram_forget` | Forget a memory (soft or hard delete). |
+| `engram_entities` | List all tracked entities with memory counts. |
+| `engram_stats` | Vault statistics — memory counts by type, entity count, etc. |
+| `engram_ingest` | Auto-ingest conversation transcripts or raw text into structured memories. |
+
+---
+
+## REST API Reference
+
+All endpoints return JSON. Base URL: `http://127.0.0.1:3800`
+
+### `POST /v1/memories` — Store a memory
+
+```bash
 curl -X POST http://localhost:3800/v1/memories \
-  -H 'Content-Type: application/json' \
-  -d '{"content": "User prefers dark mode and concise answers"}'
+  -H "Content-Type: application/json" \
+  -d '{"content": "User prefers TypeScript over JavaScript", "type": "semantic"}'
+```
 
-# Recall relevant memories
+```json
+{
+  "id": "m_abc123",
+  "content": "User prefers TypeScript over JavaScript",
+  "type": "semantic",
+  "entities": ["TypeScript", "JavaScript"],
+  "topics": ["programming", "preferences"],
+  "salience": 0.7,
+  "createdAt": "2025-01-15T10:30:00.000Z"
+}
+```
+
+### `GET /v1/memories/recall` — Recall memories
+
+```bash
+curl "http://localhost:3800/v1/memories/recall?context=language+preferences&limit=5"
+```
+
+Query parameters: `context` (required), `entities`, `topics`, `types`, `limit`, `spread`, `spreadHops`, `spreadDecay`, `spreadEntityHops`
+
+```json
+{
+  "memories": [
+    {
+      "id": "m_abc123",
+      "content": "User prefers TypeScript over JavaScript",
+      "type": "semantic",
+      "salience": 0.7
+    }
+  ],
+  "count": 1
+}
+```
+
+### `POST /v1/memories/recall` — Recall (complex query)
+
+```bash
 curl -X POST http://localhost:3800/v1/memories/recall \
-  -H 'Content-Type: application/json' \
-  -d '{"query": "user preferences", "context": "settings page"}'
+  -H "Content-Type: application/json" \
+  -d '{"context": "project setup", "entities": ["React"], "limit": 10, "spread": true}'
+```
 
-# Consolidate (distill episodes into knowledge)
+Response: same shape as GET recall.
+
+### `DELETE /v1/memories/:id` — Forget a memory
+
+```bash
+curl -X DELETE "http://localhost:3800/v1/memories/m_abc123?hard=true"
+```
+
+```json
+{ "deleted": "m_abc123", "hard": true }
+```
+
+### `GET /v1/memories/:id/neighbors` — Graph neighbors
+
+```bash
+curl "http://localhost:3800/v1/memories/m_abc123/neighbors?depth=2"
+```
+
+```json
+{
+  "memories": [ ... ],
+  "count": 3
+}
+```
+
+### `POST /v1/consolidate` — Run consolidation
+
+```bash
 curl -X POST http://localhost:3800/v1/consolidate
 ```
 
-### TypeScript SDK
+```json
+{
+  "consolidated": 5,
+  "entitiesDiscovered": 3,
+  "contradictions": 1,
+  "connectionsFormed": 7
+}
+```
+
+### `GET /v1/briefing` — Session briefing
+
+```bash
+curl "http://localhost:3800/v1/briefing?context=morning+standup&limit=10"
+```
+
+```json
+{
+  "summary": "...",
+  "keyFacts": [{ "content": "...", "salience": 0.9 }],
+  "activeCommitments": [{ "content": "...", "status": "pending" }],
+  "recentActivity": [{ "content": "..." }]
+}
+```
+
+Also available as `POST /v1/briefing` with JSON body.
+
+### `GET /v1/stats` — Vault statistics
+
+```bash
+curl http://localhost:3800/v1/stats
+```
+
+```json
+{
+  "total": 142,
+  "byType": { "episodic": 89, "semantic": 41, "procedural": 12 },
+  "entities": 27,
+  "edges": 63
+}
+```
+
+### `GET /v1/entities` — List entities
+
+```bash
+curl http://localhost:3800/v1/entities
+```
+
+```json
+{
+  "entities": [
+    { "name": "TypeScript", "count": 12 },
+    { "name": "React", "count": 8 }
+  ],
+  "count": 27
+}
+```
+
+### `GET /health` — Health check
+
+```bash
+curl http://localhost:3800/health
+```
+
+```json
+{ "status": "ok", "version": "0.1.0", "timestamp": "2025-01-15T10:30:00.000Z" }
+```
+
+---
+
+## TypeScript SDK
 
 ```typescript
 import { Vault } from 'engram-sdk';
 
-const vault = new Vault();
+const vault = new Vault({ owner: 'my-agent' });
 
-// Remember
-await vault.remember('User prefers dark mode and concise answers');
-await vault.remember('User is training for a marathon in April');
-
-// Recall
-const memories = await vault.recall('What are the user preferences?');
-console.log(memories);
-
-// Consolidate
+await vault.remember('User prefers TypeScript');
+const memories = await vault.recall('language preferences');
 await vault.consolidate();
-vault.close();
 ```
 
-### Python (via REST API)
+---
 
-```python
-import requests
+## CLI Reference
 
-API = "http://localhost:3800/v1"
-
-# Store a memory
-requests.post(f"{API}/memories", json={
-    "content": "User prefers dark mode and concise answers",
-    "entities": ["User"],
-    "topics": ["preferences"],
-    "salience": 0.8,
-})
-
-# Recall
-memories = requests.get(f"{API}/memories/recall", params={"context": "user preferences"}).json()
+```
+engram init                        Set up Engram for Claude Code / Cursor / MCP clients
+engram mcp                         Start the MCP server (stdio transport)
+engram remember <text>             Store a memory
+engram recall <context>            Retrieve relevant memories
+engram consolidate                 Run memory consolidation
+engram stats                       Show vault statistics
+engram entities                    List known entities
+engram forget <id> [--hard]        Forget a memory (soft or hard delete)
+engram search <query>              Full-text search
+engram export                      Export entire vault as JSON
+engram eval                        Health report & value assessment
+engram repl                        Interactive REPL mode
+engram shadow start                Start shadow mode (server + watcher, background)
+engram shadow stop                 Stop shadow mode
+engram shadow status               Check shadow mode status
+engram shadow results              Compare Engram vs your CLAUDE.md
 ```
 
-Python SDK coming soon. The REST API works with any language — no SDK required.
+**Options:**
 
-## REST API Reference
+```
+--db <path>         Database file path (default: ~/.engram/default.db)
+--owner <name>      Owner identifier (default: "default")
+--agent <id>        Agent ID for source tracking
+--json              Output as JSON
+--help              Show help
+```
 
-Start the server:
+---
+
+## Configuration
+
+### Gemini API Key
+
+Required for embeddings, consolidation, and LLM-powered extraction:
 
 ```bash
-# Environment variables
-ENGRAM_OWNER=my-agent        # Vault owner ID (required)
-ENGRAM_DB_PATH=./my.db       # Database path (optional)
-ENGRAM_PORT=3800             # Port (default: 3800)
-ENGRAM_HOST=127.0.0.1        # Host (default: 127.0.0.1)
-ENGRAM_LLM_PROVIDER=anthropic # LLM for consolidation (optional)
-ENGRAM_LLM_API_KEY=sk-...    # LLM API key (optional)
-
-npx engram serve
-# or
-npm run serve
+export GEMINI_API_KEY=your-key-here
 ```
 
-### Endpoints
+### Database Location
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `POST` | `/v1/memories` | Store a memory |
-| `GET` | `/v1/memories/recall?context=...` | Recall memories (simple) |
-| `POST` | `/v1/memories/recall` | Recall memories (complex query) |
-| `DELETE` | `/v1/memories/:id` | Forget a memory |
-| `GET` | `/v1/memories/:id/neighbors` | Graph traversal |
-| `POST` | `/v1/connections` | Connect two memories |
-| `POST` | `/v1/consolidate` | Run consolidation engine |
-| `GET` | `/v1/entities` | List tracked entities |
-| `GET` | `/v1/stats` | Vault statistics |
-| `POST` | `/v1/export` | Export full vault as JSON |
-| `GET` | `/health` | Health check |
-
-### POST /v1/memories
-
-```json
-{
-  "content": "User prefers TypeScript over JavaScript",
-  "type": "episodic",           // episodic | semantic | procedural
-  "entities": ["User", "TypeScript", "JavaScript"],
-  "topics": ["preferences", "engineering"],
-  "salience": 0.8,              // 0-1, importance
-  "confidence": 0.9,            // 0-1, certainty
-  "visibility": "owner_agents"  // private | owner_agents | shared | public
-}
-```
-
-### GET /v1/memories/recall
-
-Query params: `context` (required), `entities`, `topics`, `types`, `limit`
-
-### POST /v1/memories/recall
-
-```json
-{
-  "context": "project status",
-  "entities": ["Engram"],
-  "topics": ["engineering"],
-  "types": ["semantic"],
-  "minSalience": 0.5,
-  "limit": 10
-}
-```
-
-### POST /v1/connections
-
-```json
-{
-  "sourceId": "memory-uuid-1",
-  "targetId": "memory-uuid-2",
-  "type": "supports",           // supports | contradicts | elaborates | supersedes | causes | caused_by | ...
-  "strength": 0.7
-}
-```
-
-## Core Concepts
-
-### Memory Types
-
-| Type | What | Example |
-|------|------|---------|
-| **Episodic** | Events, conversations, observations | "User asked about React performance" |
-| **Semantic** | Facts, knowledge, patterns | "User prefers TypeScript over JavaScript" |
-| **Procedural** | How-to knowledge, workflows | "To deploy: run tests → build → push to main" |
-
-### The Memory Lifecycle
-
-```
-Episode → Remember → Store → Recall → Consolidate → Knowledge
-                                           ↓
-                                    Decay / Archive
-```
-
-1. **Remember**: Raw episodes go in with metadata (entities, topics, salience)
-2. **Recall**: Hybrid retrieval — entity matching, topic matching, semantic search, recency
-3. **Consolidate**: The "sleep cycle" — episodes get distilled into semantic memories, entities get discovered, connections form, contradictions surface
-4. **Decay**: Memories naturally fade unless reinforced by access. High-salience memories resist decay.
-
-### Memory Graph
-
-Memories aren't flat — they're a graph. Edges connect related memories:
-
-- `supports` / `contradicts` — agreement or conflict
-- `elaborates` — adds detail
-- `supersedes` — replaces outdated info
-- `causes` / `caused_by` — causal chains
-- `temporal_next` — sequential events
-- `derived_from` — consolidation lineage
-
-### Entities
-
-Engram automatically tracks entities (people, places, projects, concepts) across memories. Entity frequency and co-occurrence drive importance scores and recall relevance.
-
-## LLM-Powered Consolidation
-
-For the full consolidation experience, configure an LLM:
-
-```typescript
-const vault = new Vault({
-  owner: 'my-agent',
-  llm: {
-    provider: 'anthropic',
-    apiKey: process.env.ANTHROPIC_API_KEY!,
-    model: 'claude-3-5-haiku-20241022',
-  },
-});
-```
-
-Or via environment variables with the REST API:
+Engram stores data in `~/.engram/` by default. Override with:
 
 ```bash
-ENGRAM_LLM_PROVIDER=anthropic ENGRAM_LLM_API_KEY=sk-... npx engram serve
+export ENGRAM_DB_PATH=/path/to/engram.db
 ```
 
-The LLM analyzes episodes and extracts:
-- **Semantic memories**: General facts and patterns
-- **Entities**: People, places, projects with properties
-- **Contradictions**: Conflicting information
-- **Connections**: How episodes relate to each other
+### Environment Variables
 
-## CLI
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `GEMINI_API_KEY` | Gemini API key for embeddings & consolidation | — |
+| `ENGRAM_LLM_PROVIDER` | LLM provider: `gemini`, `openai`, `anthropic` | `gemini` |
+| `ENGRAM_LLM_API_KEY` | LLM API key (falls back to `GEMINI_API_KEY` for gemini) | — |
+| `ENGRAM_LLM_MODEL` | LLM model name | provider default |
+| `ENGRAM_DB_PATH` | SQLite database path | `~/.engram/default.db` |
+| `ENGRAM_OWNER` | Vault owner name | `default` |
+| `ENGRAM_HOST` | Server bind address | `127.0.0.1` |
+| `PORT` | Server port | `3800` |
+| `ENGRAM_AUTH_TOKEN` | Bearer token for API auth | — |
+| `ENGRAM_CORS_ORIGIN` | CORS allowed origin | localhost only |
+| `ENGRAM_TELEMETRY` | Set to `off` to disable telemetry | on |
 
-```bash
-npx engram remember "User prefers React over Vue"
-npx engram recall "frontend preferences"
-npx engram stats
-npx engram entities
-npx engram consolidate
-npx engram export > backup.json
-npx engram repl          # Interactive mode
-npx engram serve         # Start REST API server
-```
+---
 
-## Architecture
+## Benchmarks
 
-```
-┌─────────────────────────────────────────────────┐
-│                  REST API Server                  │
-│  POST /v1/memories · GET /v1/memories/recall · …  │
-├─────────────────────────────────────────────────┤
-│                    Vault API                      │
-│  remember() · recall() · consolidate() · forget() │
-├─────────────────────────────────────────────────┤
-│               Retrieval Engine                    │
-│  Entity match · Topic match · Vector search · FTS │
-├─────────────────────────────────────────────────┤
-│            Consolidation Engine                   │
-│  Rule-based │ LLM-powered (Anthropic/OpenAI)      │
-├─────────────────────────────────────────────────┤
-│              SQLite Storage Layer                  │
-│  Memories · Edges · Entities · Embeddings          │
-└─────────────────────────────────────────────────┘
-```
+| System | LOCOMO Score | Tokens/Query |
+|--------|-------------|--------------|
+| **Engram** | **79.6%** | **776** |
+| Mem0 | 66.9% | — |
+| Manual files | 74.5% | 1,373 |
+| Full Context | 86.2% | 22,976 |
 
-**Open source**: Fully MIT licensed. Memory is sensitive data — you should be able to see exactly what happens with it. Self-host, fork, contribute, or use the hosted API for production.
+[Full research methodology →](https://www.engram.fyi/#/research)
 
-**Portable**: Export your entire vault as JSON. Import it elsewhere. Your agent's memory belongs to you.
-
-## Comparison
-
-| Feature | Engram | Mem0 | Zep | Letta/MemGPT |
-|---------|--------|------|-----|-------------|
-| Spreading activation | ✅ | ❌ | ❌ | ❌ |
-| LLM consolidation | ✅ | ❌ | ❌ | Partial |
-| Knowledge graph | ✅ | ✅ (graph memory) | ✅ | ❌ |
-| Entity tracking | ✅ | ✅ | ✅ | ❌ |
-| Memory decay | ✅ | ❌ | ❌ | ❌ |
-| REST API | ✅ | ✅ | ✅ | ✅ |
-| Local-first | ✅ | Cloud-default | Cloud-default | ✅ |
-| Language-agnostic | ✅ | Python-first | Python-first | Python-first |
-| Source-available | ✅ | Partial | Partial | ✅ |
-
-## Roadmap
-
-- [x] TypeScript SDK
-- [x] REST API server
-- [x] sqlite-vec vector search
-- [x] LLM-powered consolidation
-- [x] CLI with REPL
-- [ ] Hosted service (api.engram.ai)
-- [ ] Python SDK
-- [ ] Framework integrations (OpenClaw, LangChain, CrewAI)
-- [ ] Protocol spec (open standard)
-- [ ] Multi-agent vault sharing
-- [ ] Conflict resolution across agents
+---
 
 ## Telemetry
 
-Engram collects anonymous usage telemetry to help improve the project. This includes:
+Engram collects lightweight, anonymous usage data:
 
-- A random anonymous ID (not tied to any personal information)
-- Event type (server start, init, daily heartbeat)
-- Engram version, platform, architecture, Node.js version
-- Vault stats (memory count, entity count — **no memory content is ever sent**)
+- Random anonymous ID (UUID, not tied to personal info)
+- Event type (`server_start`, `init`, `daily_heartbeat`)
+- Version, platform, architecture, Node.js version
+- Vault stats (memory count, entity count — **no content**)
 
-**No personal data, memory content, or identifiable information is collected.**
-
-To opt out, set either environment variable:
+**Opt out:**
 
 ```bash
 export ENGRAM_TELEMETRY=off
@@ -315,14 +332,19 @@ export ENGRAM_TELEMETRY=off
 export DO_NOT_TRACK=1
 ```
 
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-## License
-
-MIT. See [LICENSE](LICENSE) for details.
+All telemetry is fire-and-forget — never blocks, never throws, fails silently with a 2-second timeout.
 
 ---
 
-*Built by [Thomas Stockham](https://tstockham.com). Engram is the memory layer the AI agent ecosystem is missing.*
+## License
+
+[AGPL-3.0-or-later](https://www.gnu.org/licenses/agpl-3.0)
+
+---
+
+## Links
+
+- 🌐 [Website](https://www.engram.fyi)
+- 📊 [Research](https://www.engram.fyi/#/research)
+- 📦 [npm](https://www.npmjs.com/package/engram-sdk)
+- 💻 [GitHub](https://github.com/tstockham96/engram)
