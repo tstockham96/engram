@@ -141,9 +141,13 @@ async function runInit(values: Record<string, unknown>) {
     geminiKey = readFileSync(geminiKeyPath, 'utf-8').trim();
   }
   if (!geminiKey) {
-    console.log(dim('\n  Gemini API key enables embeddings + consolidation (free tier available).'));
-    console.log(dim('  Get one at: https://aistudio.google.com/apikey\n'));
-    geminiKey = (await ask('  Gemini API key (optional, press Enter to skip): ')).trim();
+    console.log(yellow('\n  ⚡ Gemini API key required for semantic search & consolidation.'));
+    console.log('     Without it, Engram stores memories but can\'t find them intelligently.\n');
+    console.log(dim('     Get a free key at: ') + cyan('https://aistudio.google.com/apikey') + '\n');
+    geminiKey = (await ask('  Gemini API key: ')).trim();
+    if (!geminiKey) {
+      console.log(dim('  ℹ Skipped — you can add it later via GEMINI_API_KEY env var or re-run engram init'));
+    }
   } else {
     console.log(`  ${green('✓')} Gemini API key found`);
   }
@@ -168,8 +172,14 @@ async function runInit(values: Record<string, unknown>) {
     },
   };
 
+  // Display config with masked API key
+  const displayConfig = JSON.parse(JSON.stringify({ engram: engramConfigPublished }));
+  if (displayConfig.engram?.env?.GEMINI_API_KEY) {
+    const key = displayConfig.engram.env.GEMINI_API_KEY as string;
+    displayConfig.engram.env.GEMINI_API_KEY = key.slice(0, 6) + '...' + key.slice(-4);
+  }
   console.log('\n' + bold('  MCP Server Configuration:\n'));
-  console.log(dim('  ' + JSON.stringify({ engram: engramConfigPublished }, null, 2).split('\n').join('\n  ')));
+  console.log(dim('  ' + JSON.stringify(displayConfig, null, 2).split('\n').join('\n  ')));
 
   // 5. Write config to detected tools
   const targets: string[] = [];
