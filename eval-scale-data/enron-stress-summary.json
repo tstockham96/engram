@@ -1,0 +1,97 @@
+{
+  "timestamp": "2026-02-20T23:22:54.454Z",
+  "trials": 5,
+  "totalQueries": 100,
+  "totalEmailsProcessed": 14059,
+  "recall": {
+    "stats": {
+      "engram": {
+        "mean": 0.7500000000000001,
+        "min": 0.6,
+        "max": 0.8625,
+        "stddev": 0.0918558653543692
+      },
+      "openclaw": {
+        "mean": 0.175,
+        "min": 0.1125,
+        "max": 0.325,
+        "stddev": 0.07786205751198719
+      },
+      "claudeCode": {
+        "mean": 0.0725,
+        "min": 0.0375,
+        "max": 0.1125,
+        "stddev": 0.02893959225697557
+      }
+    },
+    "wins": {
+      "engram": 87,
+      "openclaw": 4,
+      "claudeCode": 1
+    }
+  },
+  "tokenCost": {
+    "stats": {
+      "engram": {
+        "mean": 4008.4,
+        "min": 3658,
+        "max": 4179,
+        "stddev": 193.47309890524832
+      },
+      "openclaw": {
+        "mean": 1621.4,
+        "min": 1501,
+        "max": 1703,
+        "stddev": 95.15166840365964
+      },
+      "claudeCode": {
+        "mean": 1445,
+        "min": 1334,
+        "max": 1541,
+        "stddev": 89.25245094673872
+      }
+    },
+    "avgSavings": {
+      "engramVsClaudeCode": -179.0305143006383,
+      "engramVsOpenclaw": -148.48004187695398
+    }
+  },
+  "intelligence": {
+    "stats": {
+      "contradictions": {
+        "mean": 0,
+        "min": 0,
+        "max": 0,
+        "stddev": 0
+      },
+      "entities": {
+        "mean": 9968.2,
+        "min": 4712,
+        "max": 30444,
+        "stddev": 10238.193754759674
+      },
+      "activeMemories": {
+        "mean": 2702.6,
+        "min": 988,
+        "max": 9556,
+        "stddev": 3426.7000802521366
+      }
+    }
+  },
+  "surprise": {
+    "stats": {
+      "engram": {
+        "mean": 0.5549999999999999,
+        "min": 0.45,
+        "max": 0.625,
+        "stddev": 0.06204836822995427
+      },
+      "markdown": {
+        "mean": 0.4,
+        "min": 0.375,
+        "max": 0.475,
+        "stddev": 0.03872983346207416
+      }
+    }
+  }
+}

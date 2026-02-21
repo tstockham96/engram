@@ -1,0 +1,268 @@
+{
+  "run_id": 4,
+  "dataset": "ShopCore Commerce",
+  "industry": "e-commerce",
+  "memories_count": 650,
+  "overall_score": 0.65625,
+  "category_scores": {
+    "factual": 0.6875,
+    "relational": 0.625,
+    "procedural": 0.5,
+    "status": 0.375,
+    "temporal": 0.625,
+    "people": 0.875,
+    "meta": 0.875
+  },
+  "detailed_results": [
+    {
+      "query": "What is ShopCore Commerce?",
+      "category": "factual",
+      "description": "Should describe Headless e-commerce platform for D2C brands in e-commerce",
+      "recalled_memories": [
+        "ShopCore Commerce operates in the e-commerce industry. Key differentiator: Headless e-commerce platform for D2C brands. Competes by focusing on product quality and customer experience.",
+        "ShopCore Commerce's product development approach: customer-driven, iterative releases every 2 weeks, strong emphasis on reliability and security. The team values craftsmanship over speed.",
+        "Key ShopCore Commerce metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Commerce Engine drives 60% of new signups.",
+        "ShopCore Commerce's strategy has evolved significantly. Started as a pure e-commerce tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Brandon Wu drove this shift after customer discovery calls in month 3.",
+        "ShopCore Commerce culture: remote-first, async communication preferred, weekly all-hands, monthly team retrospectives. Brandon Wu is very transparent about company finances and strategy with the whole team. No politics tolerance."
+      ],
+      "score": 0.75,
+      "reasoning": "The first memory contains the core definition of ShopCore Commerce as a headless e-commerce platform for D2C brands. While the other memories provide context, the initial memory is the most relevant and complete."
+    },
+    {
+      "query": "Who is Brandon Wu?",
+      "category": "factual",
+      "description": "Should identify Brandon Wu as Co-Founder at ShopCore Commerce",
+      "recalled_memories": [
+        "Brandon Wu is the Co-Founder at ShopCore Commerce. Key traits: growth mindset, conversion optimization, merchant success.",
+        "Coffee chat with Brandon Wu. Discussed technical interests and learning. Need to follow up on their feedback.  conversion optimization really shows in how they think.",
+        "What makes ShopCore Commerce successful: strong engineering culture, deep domain expertise in e-commerce, willingness to say no to features that don't align with vision, and a CEO (Brandon Wu) who understands both the technical and business sides.",
+        "ShopCore Commerce's strategy has evolved significantly. Started as a pure e-commerce tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Brandon Wu drove this shift after customer discovery calls in month 3.",
+        "Had a 1:1 with Brandon Wu about Recommendation AI priorities for next quarter. Brandon Wu thinks we need to improve user experience. I pushed back on timeline. They are growth mindset as always."
+      ],
+      "score": 1,
+      "reasoning": "The top result directly answers the question with the correct title and company. The other results further reinforce this information."
+    },
+    {
+      "query": "What is Commerce Engine?",
+      "category": "factual",
+      "description": "Should describe Headless commerce API with real-time inventory",
+      "recalled_memories": [
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter."
+      ],
+      "score": 0,
+      "reasoning": "The recalled memories only mention a \"Commerce Engine milestone\" and provide no description of what Commerce Engine is. They are completely irrelevant to the question."
+    },
+    {
+      "query": "What industry is ShopCore Commerce in?",
+      "category": "factual",
+      "description": "Should identify e-commerce industry",
+      "recalled_memories": [
+        "ShopCore Commerce operates in the e-commerce industry. Key differentiator: Headless e-commerce platform for D2C brands. Competes by focusing on product quality and customer experience.",
+        "What makes ShopCore Commerce successful: strong engineering culture, deep domain expertise in e-commerce, willingness to say no to features that don't align with vision, and a CEO (Brandon Wu) who understands both the technical and business sides.",
+        "ShopCore Commerce culture: remote-first, async communication preferred, weekly all-hands, monthly team retrospectives. Brandon Wu is very transparent about company finances and strategy with the whole team. No politics tolerance.",
+        "ShopCore Commerce's strategy has evolved significantly. Started as a pure e-commerce tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Brandon Wu drove this shift after customer discovery calls in month 3.",
+        "Key ShopCore Commerce metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Commerce Engine drives 60% of new signups."
+      ],
+      "score": 1,
+      "reasoning": "The first recalled memory directly and accurately answers the question."
+    },
+    {
+      "query": "How do Brandon Wu and Marcus Johnson work together?",
+      "category": "relational",
+      "description": "Should show collaboration patterns between CEO and engineer",
+      "recalled_memories": [
+        "Brandon Wu is the Co-Founder at ShopCore Commerce. Key traits: growth mindset, conversion optimization, merchant success.",
+        "Decision: Switching from manual process to new platform. Marcus Johnson will handle the migration.",
+        "Decision: Switching from manual process to new platform. Marcus Johnson will handle the migration.",
+        "Decision: Switching from manual process to new platform. Marcus Johnson will handle the migration.",
+        "Marcus Johnson is the Infrastructure Engineer at ShopCore Commerce. Key traits: CDN optimization, edge computing, global deployment."
+      ],
+      "score": 0.5,
+      "reasoning": "The system identifies both individuals and their roles, and that Marcus Johnson is handling a migration. However, it doesn't explicitly show collaboration patterns or the relationship between the CEO and engineer. The repeated memory is also a negative."
+    },
+    {
+      "query": "What projects is Marcus Johnson working on?",
+      "category": "relational",
+      "description": "Should list projects involving Marcus Johnson",
+      "recalled_memories": [
+        "Decision: Switching from manual process to new platform. Marcus Johnson will handle the migration.",
+        "Decision: Switching from manual process to new platform. Marcus Johnson will handle the migration.",
+        "Decision: Switching from manual process to new platform. Marcus Johnson will handle the migration.",
+        "Marcus Johnson is the Infrastructure Engineer at ShopCore Commerce. Key traits: CDN optimization, edge computing, global deployment.",
+        "Quick sync with Marcus Johnson about team hiring needs. They flagged potential issues with technical approach. Action: they will share analysis."
+      ],
+      "score": 0.75,
+      "reasoning": "The system correctly identifies Marcus Johnson's involvement in the platform migration project and his role as Infrastructure Engineer. It also recalls a sync about hiring needs. While it doesn't explicitly list all projects, it provides enough context to understand his current responsibilities and a specific project he's leading."
+    },
+    {
+      "query": "How does ShopCore Commerce approach product development?",
+      "category": "procedural",
+      "description": "Should describe development process and methodology",
+      "recalled_memories": [
+        "ShopCore Commerce's product development approach: customer-driven, iterative releases every 2 weeks, strong emphasis on reliability and security. The team values craftsmanship over speed.",
+        "ShopCore Commerce operates in the e-commerce industry. Key differentiator: Headless e-commerce platform for D2C brands. Competes by focusing on product quality and customer experience.",
+        "ShopCore Commerce's competitive landscape: 3 main competitors, all bigger and better-funded. We win on product quality and customer support. Lost a deal to a competitor last quarter on pricing — decided to compete on value, not price. Jennifer Park (investor) agrees with this strategy.",
+        "What makes ShopCore Commerce successful: strong engineering culture, deep domain expertise in e-commerce, willingness to say no to features that don't align with vision, and a CEO (Brandon Wu) who understands both the technical and business sides.",
+        "Jackson Moore is the Product Manager at ShopCore Commerce. Key traits: merchant-centric, checkout optimization, mobile commerce."
+      ],
+      "score": 0.75,
+      "reasoning": "Memory 1 directly answers the question. Memory 4 provides supporting information about the engineering culture. The other memories are less relevant but not entirely noise."
+    },
+    {
+      "query": "What is the team structure at ShopCore Commerce?",
+      "category": "procedural",
+      "description": "Should list key roles and team organization",
+      "recalled_memories": [
+        "ShopCore Commerce culture: remote-first, async communication preferred, weekly all-hands, monthly team retrospectives. Brandon Wu is very transparent about company finances and strategy with the whole team. No politics tolerance.",
+        "Key ShopCore Commerce metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Commerce Engine drives 60% of new signups.",
+        "ShopCore Commerce operates in the e-commerce industry. Key differentiator: Headless e-commerce platform for D2C brands. Competes by focusing on product quality and customer experience.",
+        "What makes ShopCore Commerce successful: strong engineering culture, deep domain expertise in e-commerce, willingness to say no to features that don't align with vision, and a CEO (Brandon Wu) who understands both the technical and business sides.",
+        "ShopCore Commerce's product development approach: customer-driven, iterative releases every 2 weeks, strong emphasis on reliability and security. The team values craftsmanship over speed."
+      ],
+      "score": 0.25,
+      "reasoning": "The recalled memories provide general information about ShopCore Commerce but fail to address the specific question about team structure. While mentioning team size growth, it doesn't detail roles or organization."
+    },
+    {
+      "query": "What are the pending commitments at ShopCore Commerce?",
+      "category": "status",
+      "description": "Should list unfulfilled commitments and promises",
+      "recalled_memories": [
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "ShopCore Commerce operates in the e-commerce industry. Key differentiator: Headless e-commerce platform for D2C brands. Competes by focusing on product quality and customer experience.",
+        "Key ShopCore Commerce metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Commerce Engine drives 60% of new signups.",
+        "ShopCore Commerce culture: remote-first, async communication preferred, weekly all-hands, monthly team retrospectives. Brandon Wu is very transparent about company finances and strategy with the whole team. No politics tolerance.",
+        "Promised Marcus Johnson resource allocation by Friday.",
+        "ShopCore Commerce's product development approach: customer-driven, iterative releases every 2 weeks, strong emphasis on reliability and security. The team values craftsmanship over speed.",
+        "Promised Marcus Johnson resource allocation by Friday.",
+        "Promised Marcus Johnson resource allocation by Friday.",
+        "What makes ShopCore Commerce successful: strong engineering culture, deep domain expertise in e-commerce, willingness to say no to features that don't align with vision, and a CEO (Brandon Wu) who understands both the technical and business sides.",
+        "ShopCore Commerce's strategy has evolved significantly. Started as a pure e-commerce tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Brandon Wu drove this shift after customer discovery calls in month 3.",
+        "ShopCore Commerce's competitive landscape: 3 main competitors, all bigger and better-funded. We win on product quality and customer support. Lost a deal to a competitor last quarter on pricing — decided to compete on value, not price. Jennifer Park (investor) agrees with this strategy.",
+        "Promised Marcus Johnson resource allocation by Friday.",
+        "Samantha Reid is the Technical Lead at ShopCore Commerce. Key traits: microservices architecture, event sourcing, performance scaling.",
+        "Promised Marcus Johnson resource allocation by Friday.",
+        "Promised Marcus Johnson resource allocation by Friday.",
+        "Promised Marcus Johnson resource allocation by Friday.",
+        "Promised Marcus Johnson resource allocation by Friday.",
+        "Marcus Johnson is the Infrastructure Engineer at ShopCore Commerce. Key traits: CDN optimization, edge computing, global deployment.",
+        "Promised Marcus Johnson resource allocation by Friday.",
+        "Megan O'Connor is the Marketing Engineer at ShopCore Commerce. Key traits: martech integrations, attribution modeling, growth analytics.",
+        "Promised Marcus Johnson resource allocation by Friday.",
+        "Promised Marcus Johnson resource allocation by Friday.",
+        "Committed to weekly 1:1s with stakeholders."
+      ],
+      "score": 0.5,
+      "reasoning": "The system recalls some relevant information about commitments, but it's heavily skewed towards the Commerce Engine milestone and resource allocation for Marcus Johnson. It misses other potential commitments and doesn't provide a comprehensive overview. The repetition of the same commitments also indicates a lack of diversity in the recalled memories."
+    },
+    {
+      "query": "What is the current status of Commerce Engine?",
+      "category": "status",
+      "description": "Should provide latest project status updates",
+      "recalled_memories": [
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter."
+      ],
+      "score": 0.25,
+      "reasoning": "The recalled memories only state a commitment to a future milestone, but provide no information on the current status. This is barely relevant to the question."
+    },
+    {
+      "query": "What decisions were made about Commerce Engine recently?",
+      "category": "temporal",
+      "description": "Should show recent decisions related to the main project",
+      "recalled_memories": [
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter.",
+        "Committed to delivering Commerce Engine milestone by next quarter."
+      ],
+      "score": 0.5,
+      "reasoning": "The system recalls a relevant decision about the Commerce Engine, but it's the same decision repeated five times. This indicates a lack of diversity and potentially a problem with the memory system's ability to differentiate and prioritize information. While the information is relevant, the redundancy and lack of other decisions significantly impact the recall quality."
+    },
+    {
+      "query": "How has ShopCore Commerce's strategy evolved?",
+      "category": "temporal",
+      "description": "Should show strategic changes over time",
+      "recalled_memories": [
+        "ShopCore Commerce's strategy has evolved significantly. Started as a pure e-commerce tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Brandon Wu drove this shift after customer discovery calls in month 3.",
+        "ShopCore Commerce operates in the e-commerce industry. Key differentiator: Headless e-commerce platform for D2C brands. Competes by focusing on product quality and customer experience.",
+        "ShopCore Commerce's product development approach: customer-driven, iterative releases every 2 weeks, strong emphasis on reliability and security. The team values craftsmanship over speed.",
+        "Key ShopCore Commerce metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Commerce Engine drives 60% of new signups.",
+        "What makes ShopCore Commerce successful: strong engineering culture, deep domain expertise in e-commerce, willingness to say no to features that don't align with vision, and a CEO (Brandon Wu) who understands both the technical and business sides."
+      ],
+      "score": 0.75,
+      "reasoning": "The top memory directly addresses the question of strategic evolution. While the other memories provide context, they don't directly contribute to understanding the changes in strategy over time. The first memory provides the core information, but more details on the specific stages of evolution would improve the recall."
+    },
+    {
+      "query": "What are Brandon Wu's key traits and working style?",
+      "category": "people",
+      "description": "Should describe growth mindset, conversion optimization, merchant success",
+      "recalled_memories": [
+        "Brandon Wu is the Co-Founder at ShopCore Commerce. Key traits: growth mindset, conversion optimization, merchant success.",
+        "What makes ShopCore Commerce successful: strong engineering culture, deep domain expertise in e-commerce, willingness to say no to features that don't align with vision, and a CEO (Brandon Wu) who understands both the technical and business sides.",
+        "ShopCore Commerce culture: remote-first, async communication preferred, weekly all-hands, monthly team retrospectives. Brandon Wu is very transparent about company finances and strategy with the whole team. No politics tolerance.",
+        "Coffee chat with Brandon Wu. Discussed technical interests and learning. Need to follow up on their feedback.  conversion optimization really shows in how they think.",
+        "Had a 1:1 with Brandon Wu about Recommendation AI priorities for next quarter. Brandon Wu thinks we need to improve user experience. I pushed back on timeline. They are growth mindset as always."
+      ],
+      "score": 1,
+      "reasoning": "All key traits (growth mindset, conversion optimization, merchant success) are explicitly mentioned in the first memory and supported by other memories."
+    },
+    {
+      "query": "Who are the key people at ShopCore Commerce?",
+      "category": "people",
+      "description": "Should list main team members and roles",
+      "recalled_memories": [
+        "ShopCore Commerce operates in the e-commerce industry. Key differentiator: Headless e-commerce platform for D2C brands. Competes by focusing on product quality and customer experience.",
+        "Key ShopCore Commerce metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Commerce Engine drives 60% of new signups.",
+        "Megan O'Connor is the Marketing Engineer at ShopCore Commerce. Key traits: martech integrations, attribution modeling, growth analytics.",
+        "Marcus Johnson is the Infrastructure Engineer at ShopCore Commerce. Key traits: CDN optimization, edge computing, global deployment.",
+        "Samantha Reid is the Technical Lead at ShopCore Commerce. Key traits: microservices architecture, event sourcing, performance scaling."
+      ],
+      "score": 0.75,
+      "reasoning": "The system identifies several key people and their roles, but it doesn't provide a comprehensive list of the main team members. It's missing potentially important roles like CEO, CFO, or Head of Sales."
+    },
+    {
+      "query": "What challenges has ShopCore Commerce faced?",
+      "category": "meta",
+      "description": "Should identify problems, setbacks, or difficulties",
+      "recalled_memories": [
+        "ShopCore Commerce's biggest challenges: scaling infrastructure to handle growth, hiring senior engineers in a competitive market, balancing feature requests from enterprise clients with platform simplicity, and maintaining velocity as the team grows.",
+        "ShopCore Commerce operates in the e-commerce industry. Key differentiator: Headless e-commerce platform for D2C brands. Competes by focusing on product quality and customer experience.",
+        "ShopCore Commerce's strategy has evolved significantly. Started as a pure e-commerce tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Brandon Wu drove this shift after customer discovery calls in month 3.",
+        "Key ShopCore Commerce metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Commerce Engine drives 60% of new signups.",
+        "What makes ShopCore Commerce successful: strong engineering culture, deep domain expertise in e-commerce, willingness to say no to features that don't align with vision, and a CEO (Brandon Wu) who understands both the technical and business sides."
+      ],
+      "score": 0.75,
+      "reasoning": "The first memory directly addresses the question, listing several key challenges. The other memories provide context but don't directly answer the question, though the churn rate improvement in memory 4 could be interpreted as overcoming a past challenge."
+    },
+    {
+      "query": "What makes ShopCore Commerce successful in e-commerce?",
+      "category": "meta",
+      "description": "Should highlight competitive advantages and strengths",
+      "recalled_memories": [
+        "What makes ShopCore Commerce successful: strong engineering culture, deep domain expertise in e-commerce, willingness to say no to features that don't align with vision, and a CEO (Brandon Wu) who understands both the technical and business sides.",
+        "ShopCore Commerce operates in the e-commerce industry. Key differentiator: Headless e-commerce platform for D2C brands. Competes by focusing on product quality and customer experience.",
+        "Key ShopCore Commerce metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Commerce Engine drives 60% of new signups.",
+        "ShopCore Commerce's strategy has evolved significantly. Started as a pure e-commerce tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Brandon Wu drove this shift after customer discovery calls in month 3.",
+        "ShopCore Commerce's product development approach: customer-driven, iterative releases every 2 weeks, strong emphasis on reliability and security. The team values craftsmanship over speed."
+      ],
+      "score": 1,
+      "reasoning": "The recalled memories perfectly address the question by highlighting ShopCore Commerce's strengths: strong engineering culture, domain expertise, a clear vision, a technically savvy CEO, a headless platform differentiator, focus on product quality and customer experience, and a customer-driven product development approach."
+    }
+  ],
+  "timestamp": "2026-02-20T20:38:48.329Z"
+}

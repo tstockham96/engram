@@ -1,0 +1,268 @@
+{
+  "run_id": 2,
+  "dataset": "PayFlex Solutions",
+  "industry": "fintech",
+  "memories_count": 650,
+  "overall_score": 0.671875,
+  "category_scores": {
+    "factual": 0.8125,
+    "relational": 0.5,
+    "procedural": 0.5,
+    "status": 0.5,
+    "temporal": 0.75,
+    "people": 0.625,
+    "meta": 0.875
+  },
+  "detailed_results": [
+    {
+      "query": "What is PayFlex Solutions?",
+      "category": "factual",
+      "description": "Should describe Digital payment processing for small businesses in fintech",
+      "recalled_memories": [
+        "PayFlex Solutions is a fintech company. Digital payment processing for small businesses. Founded to solve real problems in the fintech space.",
+        "PayFlex Solutions strategy: focus on fintech vertical, land-and-expand model, invest heavily in developer experience. Goal is to become the default choice for fintech teams.",
+        "PayFlex Solutions operates in the fintech industry. Key differentiator: Digital payment processing for small businesses. Competes by focusing on product quality and customer experience.",
+        "Key PayFlex Solutions metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. FlexPay Core drives 60% of new signups.",
+        "PayFlex Solutions culture: remote-first, async communication preferred, weekly all-hands, monthly team retrospectives. Victoria Chang is very transparent about company finances and strategy with the whole team. No politics tolerance."
+      ],
+      "score": 1,
+      "reasoning": "The top result perfectly matches the expected answer, and the subsequent results provide further relevant details."
+    },
+    {
+      "query": "Who is Victoria Chang?",
+      "category": "factual",
+      "description": "Should identify Victoria Chang as Founder at PayFlex Solutions",
+      "recalled_memories": [
+        "Victoria Chang is the Founder at PayFlex Solutions. Key traits: fintech veteran, compliance-focused, regulatory expert.",
+        "PayFlex Solutions's strategy has evolved significantly. Started as a pure fintech tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Victoria Chang drove this shift after customer discovery calls in month 3.",
+        "What makes PayFlex Solutions successful: strong engineering culture, deep domain expertise in fintech, willingness to say no to features that don't align with vision, and a CEO (Victoria Chang) who understands both the technical and business sides.",
+        "PayFlex Solutions culture: remote-first, async communication preferred, weekly all-hands, monthly team retrospectives. Victoria Chang is very transparent about company finances and strategy with the whole team. No politics tolerance.",
+        "Had a 1:1 with Victoria Chang about API Gateway priorities for next quarter. Victoria Chang thinks we need to focus on security. I pushed back on timeline. They are fintech veteran as always."
+      ],
+      "score": 1,
+      "reasoning": "The first recalled memory perfectly identifies Victoria Chang as the Founder at PayFlex Solutions."
+    },
+    {
+      "query": "What is FlexPay Core?",
+      "category": "factual",
+      "description": "Should describe Core payment processing engine with multi-currency support",
+      "recalled_memories": [
+        "Key PayFlex Solutions metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. FlexPay Core drives 60% of new signups.",
+        "Had a 1:1 with Tyler Brooks about FlexPay Core priorities for next quarter. Tyler Brooks thinks we need to improve user experience. I pushed back on timeline. They are partnership builder as always.",
+        "Had a 1:1 with Fatima Al-Zahra about FlexPay Core priorities for next quarter. Fatima Al-Zahra thinks we need to scale infrastructure. I asked for a detailed proposal. They are regulatory navigator as always.",
+        "Had a 1:1 with Michael Torres about FlexPay Core priorities for next quarter. Michael Torres thinks we need to add enterprise features. I agree completely. They are payment industry expert as always.",
+        "Had a 1:1 with Kevin O'Brien about FlexPay Core priorities for next quarter. Kevin O'Brien thinks we need to scale infrastructure. I agree completely. They are problem solver as always."
+      ],
+      "score": 0.25,
+      "reasoning": "While \"FlexPay Core\" is mentioned, none of the recalled memories describe what it *is*. They only discuss its impact on signups and priorities for its future development."
+    },
+    {
+      "query": "What industry is PayFlex Solutions in?",
+      "category": "factual",
+      "description": "Should identify fintech industry",
+      "recalled_memories": [
+        "PayFlex Solutions operates in the fintech industry. Key differentiator: Digital payment processing for small businesses. Competes by focusing on product quality and customer experience.",
+        "PayFlex Solutions is a fintech company. Digital payment processing for small businesses. Founded to solve real problems in the fintech space.",
+        "PayFlex Solutions strategy: focus on fintech vertical, land-and-expand model, invest heavily in developer experience. Goal is to become the default choice for fintech teams.",
+        "Key PayFlex Solutions metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. FlexPay Core drives 60% of new signups.",
+        "PayFlex Solutions culture: remote-first, async communication preferred, weekly all-hands, monthly team retrospectives. Victoria Chang is very transparent about company finances and strategy with the whole team. No politics tolerance."
+      ],
+      "score": 1,
+      "reasoning": "The top 3 recalled memories all explicitly state that PayFlex Solutions operates in the fintech industry."
+    },
+    {
+      "query": "How do Victoria Chang and Raj Patel work together?",
+      "category": "relational",
+      "description": "Should show collaboration patterns between CEO and engineer",
+      "recalled_memories": [
+        "Raj Patel is the Head of Engineering at PayFlex Solutions. Key traits: distributed systems guru, consensus algorithms, go language.",
+        "Victoria Chang is the Founder at PayFlex Solutions. Key traits: fintech veteran, compliance-focused, regulatory expert.",
+        "Coffee chat with Raj Patel. Discussed team dynamics and collaboration. They seemed stressed about timeline.  consensus algorithms really shows in how they think.",
+        "weekly standup meeting. Attendees: Victoria Chang, Raj Patel. Discussed hiring needs and team scaling plans. No major blockers.",
+        "leadership team meeting. Attendees: Victoria Chang, Raj Patel, Lars Anderson. Reviewed competitive landscape and market positioning. Action items assigned."
+      ],
+      "score": 0.75,
+      "reasoning": "The recalled memories provide relevant information about Victoria Chang and Raj Patel's roles and interactions, including their collaboration in meetings and a coffee chat. It highlights their respective expertise and hints at collaboration challenges (\"stressed about timeline\"). However, it doesn't explicitly detail the *patterns* of their collaboration, such as specific decision-making processes or how their different expertise areas contribute to joint projects."
+    },
+    {
+      "query": "What projects is Raj Patel working on?",
+      "category": "relational",
+      "description": "Should list projects involving Raj Patel",
+      "recalled_memories": [
+        "Raj Patel is the Head of Engineering at PayFlex Solutions. Key traits: distributed systems guru, consensus algorithms, go language.",
+        "Had a 1:1 with Raj Patel about API Gateway priorities for next quarter. Raj Patel thinks we need to scale infrastructure. I asked for a detailed proposal. They are distributed systems guru as always.",
+        "Coffee chat with Raj Patel. Discussed team dynamics and collaboration. They seemed stressed about timeline.  consensus algorithms really shows in how they think.",
+        "Had a 1:1 with Raj Patel about Fraud Shield priorities for next quarter. Raj Patel thinks we need to improve user experience. I suggested we discuss with the team. They are distributed systems guru as always.",
+        "Coffee chat with Raj Patel. Discussed their career growth plans. Good to understand their priorities.  consensus algorithms really shows in how they think."
+      ],
+      "score": 0.25,
+      "reasoning": "The recalled memories mention Raj Patel and some topics he discussed, but they don't list the specific projects he's working on. They only hint at areas like API Gateway and Fraud Shield."
+    },
+    {
+      "query": "How does PayFlex Solutions approach product development?",
+      "category": "procedural",
+      "description": "Should describe development process and methodology",
+      "recalled_memories": [
+        "PayFlex Solutions's product development approach: customer-driven, iterative releases every 2 weeks, strong emphasis on reliability and security. The team values craftsmanship over speed.",
+        "PayFlex Solutions operates in the fintech industry. Key differentiator: Digital payment processing for small businesses. Competes by focusing on product quality and customer experience.",
+        "PayFlex Solutions strategy: focus on fintech vertical, land-and-expand model, invest heavily in developer experience. Goal is to become the default choice for fintech teams.",
+        "What makes PayFlex Solutions successful: strong engineering culture, deep domain expertise in fintech, willingness to say no to features that don't align with vision, and a CEO (Victoria Chang) who understands both the technical and business sides.",
+        "PayFlex Solutions is a fintech company. Digital payment processing for small businesses. Founded to solve real problems in the fintech space."
+      ],
+      "score": 0.75,
+      "reasoning": "Memory 1 directly answers the question. Other memories provide supporting context about the company's values and strategy, but are not directly about the development process itself. There are minor gaps in the description of the development process."
+    },
+    {
+      "query": "What is the team structure at PayFlex Solutions?",
+      "category": "procedural",
+      "description": "Should list key roles and team organization",
+      "recalled_memories": [
+        "PayFlex Solutions's biggest challenges: scaling infrastructure to handle growth, hiring senior engineers in a competitive market, balancing feature requests from enterprise clients with platform simplicity, and maintaining velocity as the team grows.",
+        "PayFlex Solutions strategy: focus on fintech vertical, land-and-expand model, invest heavily in developer experience. Goal is to become the default choice for fintech teams.",
+        "PayFlex Solutions culture: remote-first, async communication preferred, weekly all-hands, monthly team retrospectives. Victoria Chang is very transparent about company finances and strategy with the whole team. No politics tolerance.",
+        "Key PayFlex Solutions metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. FlexPay Core drives 60% of new signups.",
+        "PayFlex Solutions is a fintech company. Digital payment processing for small businesses. Founded to solve real problems in the fintech space."
+      ],
+      "score": 0.25,
+      "reasoning": "While the recalled memories mention team size and growth, they don't address the team structure or key roles within PayFlex Solutions. The information is barely relevant to the question."
+    },
+    {
+      "query": "What are the pending commitments at PayFlex Solutions?",
+      "category": "status",
+      "description": "Should list unfulfilled commitments and promises",
+      "recalled_memories": [
+        "PayFlex Solutions strategy: focus on fintech vertical, land-and-expand model, invest heavily in developer experience. Goal is to become the default choice for fintech teams.",
+        "Key PayFlex Solutions metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. FlexPay Core drives 60% of new signups.",
+        "PayFlex Solutions is a fintech company. Digital payment processing for small businesses. Founded to solve real problems in the fintech space.",
+        "PayFlex Solutions's biggest challenges: scaling infrastructure to handle growth, hiring senior engineers in a competitive market, balancing feature requests from enterprise clients with platform simplicity, and maintaining velocity as the team grows.",
+        "PayFlex Solutions culture: remote-first, async communication preferred, weekly all-hands, monthly team retrospectives. Victoria Chang is very transparent about company finances and strategy with the whole team. No politics tolerance.",
+        "PayFlex Solutions operates in the fintech industry. Key differentiator: Digital payment processing for small businesses. Competes by focusing on product quality and customer experience.",
+        "PayFlex Solutions's product development approach: customer-driven, iterative releases every 2 weeks, strong emphasis on reliability and security. The team values craftsmanship over speed.",
+        "PayFlex Solutions's strategy has evolved significantly. Started as a pure fintech tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Victoria Chang drove this shift after customer discovery calls in month 3.",
+        "What makes PayFlex Solutions successful: strong engineering culture, deep domain expertise in fintech, willingness to say no to features that don't align with vision, and a CEO (Victoria Chang) who understands both the technical and business sides.",
+        "Kevin O'Brien is the Customer Support at PayFlex Solutions. Key traits: problem solver, payment troubleshooter, merchant advocate.",
+        "Committed to delivering Compliance Suite feature by next quarter.",
+        "Committed to delivering Compliance Suite feature by next quarter.",
+        "Committed to delivering Compliance Suite feature by next quarter.",
+        "Committed to delivering Compliance Suite feature by next quarter.",
+        "Committed to delivering Compliance Suite feature by next quarter.",
+        "Committed to delivering Compliance Suite feature by next quarter.",
+        "Committed to delivering Compliance Suite feature by next quarter.",
+        "Committed to delivering Compliance Suite feature by next quarter.",
+        "Committed to weekly 1:1s with customers.",
+        "Committed to weekly 1:1s with customers.",
+        "Committed to weekly 1:1s with customers.",
+        "Promised Lisa Zhou timeline update by end of sprint.",
+        "Promised Lisa Zhou timeline update by end of sprint.",
+        "Committed to weekly 1:1s with customers.",
+        "Promised Lisa Zhou timeline update by end of sprint.",
+        "Promised Lisa Zhou timeline update by end of sprint.",
+        "Promised Lisa Zhou timeline update by end of sprint.",
+        "Committed to weekly 1:1s with customers.",
+        "Promised Lisa Zhou timeline update by end of sprint.",
+        "Committed to weekly 1:1s with customers."
+      ],
+      "score": 0.5,
+      "reasoning": "While the system recalls information about commitments (Compliance Suite, 1:1s, Lisa Zhou update), it doesn't prioritize or summarize them effectively. The top results are irrelevant to the query, burying the relevant information further down."
+    },
+    {
+      "query": "What is the current status of FlexPay Core?",
+      "category": "status",
+      "description": "Should provide latest project status updates",
+      "recalled_memories": [
+        "Key PayFlex Solutions metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. FlexPay Core drives 60% of new signups.",
+        "Had a 1:1 with Tyler Brooks about FlexPay Core priorities for next quarter. Tyler Brooks thinks we need to improve user experience. I pushed back on timeline. They are partnership builder as always.",
+        "Had a 1:1 with Fatima Al-Zahra about FlexPay Core priorities for next quarter. Fatima Al-Zahra thinks we need to scale infrastructure. I asked for a detailed proposal. They are regulatory navigator as always.",
+        "Had a 1:1 with Michael Torres about FlexPay Core priorities for next quarter. Michael Torres thinks we need to add enterprise features. I agree completely. They are payment industry expert as always.",
+        "Had a 1:1 with Aisha Johnson about FlexPay Core priorities for next quarter. Aisha Johnson thinks we need to optimize performance. I asked for a detailed proposal. They are database optimization as always."
+      ],
+      "score": 0.5,
+      "reasoning": "The recalled memories provide some relevant information about FlexPay Core, particularly regarding priorities for the next quarter and its impact on new signups. However, it lacks a direct project status update, which is the core of the question. The memories focus more on individual perspectives and future plans rather than the current state of the project."
+    },
+    {
+      "query": "What decisions were made about FlexPay Core recently?",
+      "category": "temporal",
+      "description": "Should show recent decisions related to the main project",
+      "recalled_memories": [
+        "Key PayFlex Solutions metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. FlexPay Core drives 60% of new signups.",
+        "Had a 1:1 with Tyler Brooks about FlexPay Core priorities for next quarter. Tyler Brooks thinks we need to improve user experience. I pushed back on timeline. They are partnership builder as always.",
+        "Had a 1:1 with Fatima Al-Zahra about FlexPay Core priorities for next quarter. Fatima Al-Zahra thinks we need to scale infrastructure. I asked for a detailed proposal. They are regulatory navigator as always.",
+        "Had a 1:1 with Michael Torres about FlexPay Core priorities for next quarter. Michael Torres thinks we need to add enterprise features. I agree completely. They are payment industry expert as always.",
+        "Had a 1:1 with Aisha Johnson about FlexPay Core priorities for next quarter. Aisha Johnson thinks we need to optimize performance. I asked for a detailed proposal. They are database optimization as always."
+      ],
+      "score": 0.75,
+      "reasoning": "The recalled memories are relevant to the question, focusing on FlexPay Core priorities. They highlight different perspectives on what needs to be done with the project. However, they don't explicitly state \"decisions\" that were *made*, but rather ongoing discussions and proposed priorities. This is a minor gap."
+    },
+    {
+      "query": "How has PayFlex Solutions's strategy evolved?",
+      "category": "temporal",
+      "description": "Should show strategic changes over time",
+      "recalled_memories": [
+        "PayFlex Solutions's strategy has evolved significantly. Started as a pure fintech tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Victoria Chang drove this shift after customer discovery calls in month 3.",
+        "PayFlex Solutions strategy: focus on fintech vertical, land-and-expand model, invest heavily in developer experience. Goal is to become the default choice for fintech teams.",
+        "PayFlex Solutions's biggest challenges: scaling infrastructure to handle growth, hiring senior engineers in a competitive market, balancing feature requests from enterprise clients with platform simplicity, and maintaining velocity as the team grows.",
+        "Key PayFlex Solutions metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. FlexPay Core drives 60% of new signups.",
+        "PayFlex Solutions operates in the fintech industry. Key differentiator: Digital payment processing for small businesses. Competes by focusing on product quality and customer experience."
+      ],
+      "score": 0.75,
+      "reasoning": "The first memory is highly relevant and provides a good overview of the strategic evolution. The second memory adds detail about the current strategy. The other memories are less relevant but provide some context. There are minor gaps in the historical details."
+    },
+    {
+      "query": "What are Victoria Chang's key traits and working style?",
+      "category": "people",
+      "description": "Should describe fintech veteran, compliance-focused, regulatory expert",
+      "recalled_memories": [
+        "Victoria Chang is the Founder at PayFlex Solutions. Key traits: fintech veteran, compliance-focused, regulatory expert.",
+        "What makes PayFlex Solutions successful: strong engineering culture, deep domain expertise in fintech, willingness to say no to features that don't align with vision, and a CEO (Victoria Chang) who understands both the technical and business sides.",
+        "PayFlex Solutions culture: remote-first, async communication preferred, weekly all-hands, monthly team retrospectives. Victoria Chang is very transparent about company finances and strategy with the whole team. No politics tolerance.",
+        "Coffee chat with Victoria Chang. Discussed team dynamics and collaboration. They seemed stressed about timeline.  compliance-focused really shows in how they think.",
+        "Had a 1:1 with Victoria Chang about API Gateway priorities for next quarter. Victoria Chang thinks we need to focus on security. I pushed back on timeline. They are fintech veteran as always."
+      ],
+      "score": 1,
+      "reasoning": "The first memory perfectly answers the question, and the other memories provide supporting context."
+    },
+    {
+      "query": "Who are the key people at PayFlex Solutions?",
+      "category": "people",
+      "description": "Should list main team members and roles",
+      "recalled_memories": [
+        "Key PayFlex Solutions metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. FlexPay Core drives 60% of new signups.",
+        "PayFlex Solutions operates in the fintech industry. Key differentiator: Digital payment processing for small businesses. Competes by focusing on product quality and customer experience.",
+        "Kevin O'Brien is the Customer Support at PayFlex Solutions. Key traits: problem solver, payment troubleshooter, merchant advocate.",
+        "PayFlex Solutions is a fintech company. Digital payment processing for small businesses. Founded to solve real problems in the fintech space.",
+        "PayFlex Solutions strategy: focus on fintech vertical, land-and-expand model, invest heavily in developer experience. Goal is to become the default choice for fintech teams."
+      ],
+      "score": 0.25,
+      "reasoning": "Only one result (#3) mentions a specific person, but it's just one individual and doesn't provide a comprehensive overview of key personnel. The other results focus on metrics, industry, and strategy, which are not directly relevant to identifying key people."
+    },
+    {
+      "query": "What challenges has PayFlex Solutions faced?",
+      "category": "meta",
+      "description": "Should identify problems, setbacks, or difficulties",
+      "recalled_memories": [
+        "PayFlex Solutions's biggest challenges: scaling infrastructure to handle growth, hiring senior engineers in a competitive market, balancing feature requests from enterprise clients with platform simplicity, and maintaining velocity as the team grows.",
+        "PayFlex Solutions is a fintech company. Digital payment processing for small businesses. Founded to solve real problems in the fintech space.",
+        "PayFlex Solutions strategy: focus on fintech vertical, land-and-expand model, invest heavily in developer experience. Goal is to become the default choice for fintech teams.",
+        "PayFlex Solutions operates in the fintech industry. Key differentiator: Digital payment processing for small businesses. Competes by focusing on product quality and customer experience.",
+        "Key PayFlex Solutions metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. FlexPay Core drives 60% of new signups."
+      ],
+      "score": 1,
+      "reasoning": "The first recalled memory directly and comprehensively answers the question about PayFlex Solutions' challenges."
+    },
+    {
+      "query": "What makes PayFlex Solutions successful in fintech?",
+      "category": "meta",
+      "description": "Should highlight competitive advantages and strengths",
+      "recalled_memories": [
+        "PayFlex Solutions strategy: focus on fintech vertical, land-and-expand model, invest heavily in developer experience. Goal is to become the default choice for fintech teams.",
+        "PayFlex Solutions operates in the fintech industry. Key differentiator: Digital payment processing for small businesses. Competes by focusing on product quality and customer experience.",
+        "PayFlex Solutions is a fintech company. Digital payment processing for small businesses. Founded to solve real problems in the fintech space.",
+        "What makes PayFlex Solutions successful: strong engineering culture, deep domain expertise in fintech, willingness to say no to features that don't align with vision, and a CEO (Victoria Chang) who understands both the technical and business sides.",
+        "PayFlex Solutions's strategy has evolved significantly. Started as a pure fintech tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Victoria Chang drove this shift after customer discovery calls in month 3."
+      ],
+      "score": 0.75,
+      "reasoning": "The recalled memories contain most of the key information regarding PayFlex's success factors, including its focus on the fintech vertical, product quality, customer experience, engineering culture, domain expertise, and strategic evolution. However, it could be improved by explicitly mentioning specific competitive advantages like pricing or market share, if available."
+    }
+  ],
+  "timestamp": "2026-02-20T20:36:30.364Z"
+}

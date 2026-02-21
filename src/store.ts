@@ -1,6 +1,8 @@
 import Database from 'better-sqlite3';
 import { v4 as uuid } from 'uuid';
 import * as sqliteVec from 'sqlite-vec';
+import { mkdirSync } from 'fs';
+import { dirname } from 'path';
 import type { Memory, Edge, Entity, RememberParsed } from './types.js';
 
 // ============================================================
@@ -13,6 +15,8 @@ export class MemoryStore {
   private embeddingDimensions: number = 0;
 
   constructor(dbPath: string, embeddingDimensions?: number) {
+    // Auto-create parent directory if it doesn't exist
+    mkdirSync(dirname(dbPath), { recursive: true });
     this.db = new Database(dbPath);
     this.db.pragma('journal_mode = WAL');
     this.db.pragma('foreign_keys = ON');

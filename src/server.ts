@@ -545,6 +545,32 @@ export function createEngramServer(config: ServerConfig) {
 // ============================================================
 
 if (process.argv[1]?.endsWith('server.ts') || process.argv[1]?.endsWith('server.js')) {
+  // --help flag
+  if (process.argv.includes('--help') || process.argv.includes('-h')) {
+    console.log(`
+engram-serve — Engram REST API server
+
+Usage:
+  npx engram-serve [--help]
+
+Environment Variables:
+  PORT                 Server port (default: 0 = random available port)
+  ENGRAM_HOST          Bind address (default: 127.0.0.1)
+  ENGRAM_OWNER         Vault owner name (default: "default")
+  ENGRAM_DB_PATH       SQLite database path (default: engram-<owner>.db)
+  ENGRAM_AUTH_TOKEN    Optional Bearer token for API authentication
+  ENGRAM_CORS_ORIGIN   CORS allowed origin (default: localhost only)
+  GEMINI_API_KEY       Gemini API key for embeddings & consolidation
+  ENGRAM_LLM_PROVIDER  LLM provider: gemini | openai | anthropic
+  ENGRAM_LLM_API_KEY   LLM API key (falls back to GEMINI_API_KEY for gemini)
+  ENGRAM_LLM_MODEL     LLM model name
+
+Example:
+  PORT=3800 ENGRAM_OWNER=my-agent GEMINI_API_KEY=... npx engram-serve
+`);
+    process.exit(0);
+  }
+
   const owner = process.env.ENGRAM_OWNER ?? 'default';
   const dbPath = process.env.ENGRAM_DB_PATH;
   const port = parseInt(process.env.ENGRAM_PORT ?? '0', 10);
@@ -569,7 +595,15 @@ if (process.argv[1]?.endsWith('server.ts') || process.argv[1]?.endsWith('server.
     defaultVault: vaultConfig,
   });
 
-  srv.listen().then(() => {
+  srv.listen().then(async () => {
+    // Send telemetry ping after server starts
+    try {
+      const { trackEvent } = await import('./telemetry.js');
+      const v = getOrCreateVault(vaultConfig);
+      const stats = v.stats();
+      trackEvent('server_start', { memories: stats.total, entities: stats.entities });
+    } catch { /* ignore */ }
+
     console.log(`Vault owner: ${owner}`);
     console.log(`Database: ${dbPath ?? `engram-${owner}.db`}`);
     if (llmProvider) console.log(`LLM: ${llmProvider} (${llmModel ?? 'default'})`);

@@ -1,0 +1,368 @@
+{
+  "timestamp": "2026-02-20T21:03:20.537Z",
+  "emailCount": 1000,
+  "memoryCount": 1000,
+  "mdSizeBytes": 7647,
+  "recall": {
+    "queries": [
+      {
+        "query": "Who is Hunter Williams?",
+        "category": "people",
+        "engramScore": 0,
+        "openclawScore": 0.5,
+        "claudeCodeScore": 1,
+        "engramReason": "None of the recalled results provide any information about Hunter Williams being a contact person at Grande Communications or the address to send the service agreement.",
+        "openclawReason": "The results indicate the system has identified key people, but it doesn't provide specific details about Hunter Williams' role or connection to Grande Communications and the service agreement.",
+        "claudeCodeReason": "The provided memory document explicitly states that Hunter Williams is the contact person at Grande Communications, located at 401 Carlson Circle, San Marcos Texas, 78666, to whom the executed service agreement should be sent, perfectly answering the question."
+      },
+      {
+        "query": "What is the status of the Grande Communications Service Agreement?",
+        "category": "projects",
+        "engramScore": 0.75,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0.5,
+        "engramReason": "Result 1 contains most of the key information, mentioning the Grande Communications Service Agreement, Exhibit C, and the need for execution, but it doesn't explicitly state to send it to Hunter Williams.",
+        "openclawReason": "The recalled results mention the Grande Communications Service Agreement but fail to provide any details about its status or required actions, only noting uncertainty and a need to fill in property legal descriptions.",
+        "claudeCodeReason": "The recalled result provides context about the memory system itself but doesn't contain any specific information about the Grande Communications Service Agreement, only indicating that the system processes business emails."
+      },
+      {
+        "query": "What was decided regarding the SME review of Knowledge System Topics?",
+        "category": "decisions",
+        "engramScore": 0.5,
+        "openclawScore": 0.75,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 mentions \"SME Review\" but doesn't provide the specific details about Phillip receiving the SME's name for topic sign-off, indicating some relevance but missing key information.",
+        "openclawReason": "The search results contain the key information about sending the SME name for topic reviews, but it doesn't explicitly mention Phillip.",
+        "claudeCodeReason": "The recalled result does not contain any information about SME review of Knowledge System Topics."
+      },
+      {
+        "query": "How do Phillip and Keith work together on Bishops Corner?",
+        "category": "relationships",
+        "engramScore": 0.75,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0.5,
+        "engramReason": "The first email directly mentions Phillip and Keith's involvement with the first draw request for Bishops Corner, L.P., and the need to decide how to handle the funds, covering the key elements of the desired answer.",
+        "openclawReason": "The recalled results mention Phillip but fail to provide any information about Keith or their collaboration on Bishops Corner, only noting that Bishops Corner is not understood.",
+        "claudeCodeReason": "The provided memory document doesn't mention Phillip, Keith, or Bishops Corner specifically, but the general description of the document as containing information about projects, decisions, and relationships within business emails suggests some relevance, albeit with significant gaps."
+      },
+      {
+        "query": "When will the Enron deal at Elba Island go into effect?",
+        "category": "timeline",
+        "engramScore": 0.5,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 mentions the Enron deal at Elba Island and discussions with El Paso, which is relevant, but it doesn't specify the date the deal goes into effect.",
+        "openclawReason": "The recalled results do not mention the Enron deal at Elba Island or the potential dates of October 1st, 2001 or January 1st, 2002, making them completely irrelevant to the question.",
+        "claudeCodeReason": "The provided memory content is a general description of the AI's knowledge base and doesn't contain any specific information about the Enron deal at Elba Island or its effective date."
+      },
+      {
+        "query": "What are the steps for re-establishing ENA's account with Paribas?",
+        "category": "procedural",
+        "engramScore": 0.75,
+        "openclawScore": 0.75,
+        "claudeCodeScore": 0.75,
+        "engramReason": "The first result directly addresses the question, mentioning ENA's desire to re-establish its account with Paribas to sell NYMEX natural gas futures contracts, but it doesn't include the steps needed to re-establish the account.",
+        "openclawReason": "The memory system recalls that ENA wants to re-establish its account with Paribas to sell NYMEX natural gas futures contracts, but it doesn't mention the need to advise Brian on the steps required.",
+        "claudeCodeReason": "The recalled result indicates awareness of Enron North America Corp. (ENA) and its business context, suggesting it could potentially contain information about re-establishing accounts, but it doesn't provide the specific steps or Paribas details."
+      },
+      {
+        "query": "Who is Lucy?",
+        "category": "people",
+        "engramScore": 0.75,
+        "openclawScore": 0.5,
+        "claudeCodeScore": 0,
+        "engramReason": "The results mention Lucy's involvement with managing tenants and ensuring vehicles are in running order with valid stickers, but it doesn't explicitly state that this is her role.",
+        "openclawReason": "The recalled results identify Lucy as an apartment manager, but miss the details about her involvement with tenants and vehicle maintenance.",
+        "claudeCodeReason": "The provided text describes the source of the information but contains no information about Lucy."
+      },
+      {
+        "query": "What is the goal of the Wednesday meeting with Phillip regarding storage?",
+        "category": "projects",
+        "engramScore": 1,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0.75,
+        "engramReason": "Result 2 directly answers the question by stating the goal of the Wednesday meeting with Phillip is to discuss the expert path for the storage problem and ask him specific questions.",
+        "openclawReason": "The results mention Phillip and meetings, but fail to provide any specific information about the Wednesday meeting's goal regarding storage or the expert path.",
+        "claudeCodeReason": "The recalled result provides context about the AI's memory and data source, but it doesn't directly answer the question about the meeting's goal, although the context is helpful."
+      },
+      {
+        "query": "Why are prices so high in California?",
+        "category": "decisions",
+        "engramScore": 0.75,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 directly addresses the question by mentioning Phillip's reluctance to comment on California's high prices, which is the key information needed.",
+        "openclawReason": "The recalled results are completely irrelevant to the question about California prices and Phillip's commentary.",
+        "claudeCodeReason": "The recalled result is a general description of the memory system itself and doesn't contain any information related to the question about California prices or Phillip's commentary."
+      },
+      {
+        "query": "What is Phillip's role in improving the position and p&l reporting for the west desk?",
+        "category": "relationships",
+        "engramScore": 0.5,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0.75,
+        "engramReason": "Result #2 mentions Will is working to improve the position and p&l reporting for the west desk, but it doesn't mention Phillip.",
+        "openclawReason": "The results mention Phillip's role as a manager or trader but do not mention his work with Will on improving position and P&L reporting for the west desk.",
+        "claudeCodeReason": "The recalled result mentions Phillip working on improving position and p&l reporting, but it doesn't explicitly mention Will's involvement, although it does allude to incomplete information."
+      },
+      {
+        "query": "When is the deadline for the UBS PaineWebber Private Equity Fund III?",
+        "category": "timeline",
+        "engramScore": 0.75,
+        "openclawScore": 0.5,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 directly addresses the question, mentioning the UBS PaineWebber Private Equity Fund III and the original December 17 closing date, and also indicates that the closing date has been extended.",
+        "openclawReason": "The results mention the UBS PaineWebber Private Equity Fund III, which is relevant, but it doesn't provide the deadline information or the extension detail.",
+        "claudeCodeReason": "The provided text is a general description of the memory system and does not contain any information about the UBS PaineWebber Private Equity Fund III deadline."
+      },
+      {
+        "query": "How does the Internet Banking system reset passwords?",
+        "category": "procedural",
+        "engramScore": 1,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "Result #1 directly answers the question by stating the password reset is the last six digits of the SSN or TIN of the primary account holder.",
+        "openclawReason": "The recalled results do not contain any information about how the Internet Banking system resets passwords, specifically mentioning the use of the last six digits of the SSN or TIN.",
+        "claudeCodeReason": "The recalled result is a general description of the memory system itself and doesn't contain any information about password reset procedures for internet banking systems."
+      },
+      {
+        "query": "Who is Jed?",
+        "category": "people",
+        "engramScore": 1,
+        "openclawScore": 0,
+        "claudeCodeScore": 0.75,
+        "engramReason": "The first email directly answers the question by stating that Jed has been contacted regarding a telephone interview to discuss trading opportunities at Enron.",
+        "openclawReason": "The provided memory search results do not mention Jed or anything related to a telephone interview or Enron trading opportunities.",
+        "claudeCodeReason": "The recalled result identifies Jed's involvement in a telephone interview concerning trading opportunities at Enron, capturing the core information."
+      },
+      {
+        "query": "What is the status of the EOL code update?",
+        "category": "projects",
+        "engramScore": 0.75,
+        "openclawScore": 0.5,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 directly addresses the question by mentioning the EOL code update, the specific workstation, and the need to consult with John about the timing, covering most of the key information.",
+        "openclawReason": "The recalled results mention \"EOL Code Update\" but state that the current status is unknown, and it doesn't mention John or the specific workstation.",
+        "claudeCodeReason": "The recalled result is a general description of the memory system itself and does not contain any information related to the EOL code update or John."
+      },
+      {
+        "query": "What was agreed regarding the Enron response to the Wallingford RFP?",
+        "category": "decisions",
+        "engramScore": 1,
+        "openclawScore": 0.5,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 directly answers the question by stating the proposal is indicative and confidential, and Enron would be pleased to discuss it further.",
+        "openclawReason": "The results mention an \"Indicative Enron Proposal for Wallingford\" which is partially relevant, but it lacks the details about the proposal being confidential and the offer to discuss it further.",
+        "claudeCodeReason": "The provided memory content is a general description of the system's capabilities and doesn't contain any information about the Enron response to the Wallingford RFP."
+      },
+      {
+        "query": "How do John Arnold and John Lavorato relate to increasing EOL liquidity in West Basis?",
+        "category": "relationships",
+        "engramScore": 0.75,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0.5,
+        "engramReason": "Result 2 directly addresses the question, mentioning John Arnold and John Lavorato in the context of increasing EOL liquidity in West Basis, and suggesting a meeting to discuss the importance of this.",
+        "openclawReason": "The recalled results mention EOL and John, but fail to connect them specifically to John Arnold and John Lavorato or the need to increase liquidity, making it barely relevant to the question.",
+        "claudeCodeReason": "The recalled result doesn't mention John Arnold or John Lavorato specifically, but it does touch on the topic of increasing liquidity, indicating some relevance."
+      },
+      {
+        "query": "When will the NYMEX be closed for the holidays?",
+        "category": "timeline",
+        "engramScore": 1,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0,
+        "engramReason": "The first recalled result directly answers the question by stating the NYMEX will be closed Monday December 24 and Tuesday December 25.",
+        "openclawReason": "The search results mention NYMEX holiday hours but do not provide the specific dates requested, making them barely relevant.",
+        "claudeCodeReason": "The recalled result does not contain any information about the NYMEX or holiday closures."
+      },
+      {
+        "query": "How does one get a discount on Bibi Magazine's New Year's Eve Party?",
+        "category": "procedural",
+        "engramScore": 1,
+        "openclawScore": 0,
+        "claudeCodeScore": 1,
+        "engramReason": "The first result perfectly answers the question by stating that mentioning \"PURE ENERGY\" saves $15 on Bibi Magazine's New Year's Eve Party.",
+        "openclawReason": "The provided results are completely irrelevant to the question about Bibi Magazine's New Year's Eve Party discount.",
+        "claudeCodeReason": "The recalled result directly answers the question by stating that mentioning PURE ENERGY when buying tickets saves $15."
+      },
+      {
+        "query": "Who is Justin K Rostant?",
+        "category": "people",
+        "engramScore": 1,
+        "openclawScore": 0.75,
+        "claudeCodeScore": 0.25,
+        "engramReason": "The results clearly indicate that Justin K Rostant has expense reports awaiting approval, which is the key information sought.",
+        "openclawReason": "The results identify Justin K Rostant as submitting expense reports, which is relevant, but doesn't explicitly state that they are awaiting approval.",
+        "claudeCodeReason": "The provided text describes the source of the information but doesn't contain any information about Justin K Rostant or expense reports."
+      },
+      {
+        "query": "What was decided about the new curve generation methodology?",
+        "category": "decisions",
+        "engramScore": 1,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 directly and completely answers the question, stating the change in curve generation methodology starting in Jan 2004 to better replicate seasonal fundamentals.",
+        "openclawReason": "The recalled results do not mention anything about curve generation methodology or the change starting in Jan 2004.",
+        "claudeCodeReason": "The recalled result is a general description of the memory system itself and does not contain any information about curve generation methodology or decisions related to it."
+      }
+    ],
+    "engramAvg": 0.775,
+    "openclawAvg": 0.3125,
+    "engramWins": 17,
+    "openclawWins": 2,
+    "ties": 1
+  },
+  "tokenCost": {
+    "openclawFullFile": 1912,
+    "openclawSearchResults": 220,
+    "openclawPerRequest": 2132,
+    "engramBriefing": 2888,
+    "engramAvgRecall": 2641,
+    "engramPerRequest": 5529,
+    "engramSavings": -159.33395872420263,
+    "scenarios": [
+      {
+        "label": "100 requests/day",
+        "requestsPerDay": 100,
+        "openclawCostPerMonth": 19.188,
+        "engramCostPerMonth": 49.760999999999996
+      },
+      {
+        "label": "1,000 requests/day",
+        "requestsPerDay": 1000,
+        "openclawCostPerMonth": 191.88,
+        "engramCostPerMonth": 497.61
+      },
+      {
+        "label": "10,000 requests/day",
+        "requestsPerDay": 10000,
+        "openclawCostPerMonth": 1918.8000000000002,
+        "engramCostPerMonth": 4976.1
+      }
+    ]
+  },
+  "intelligence": {
+    "contradictions": 0,
+    "entities": 4318,
+    "activeMemories": 984,
+    "proactiveSurface": 0
+  },
+  "surprise": {
+    "queries": [
+      {
+        "query": "What contracts are being executed?",
+        "engramSurpriseHits": 5,
+        "mdSurpriseHits": 4,
+        "totalSurprises": 5,
+        "engramFound": [
+          "property",
+          "legal description",
+          "Grande Communications",
+          "Hunter Williams",
+          "Bishops Corner"
+        ],
+        "mdFound": [
+          "property",
+          "legal description",
+          "Grande Communications",
+          "Bishops Corner"
+        ]
+      },
+      {
+        "query": "Who are the key business contacts?",
+        "engramSurpriseHits": 0,
+        "mdSurpriseHits": 0,
+        "totalSurprises": 6,
+        "engramFound": [],
+        "mdFound": []
+      },
+      {
+        "query": "What projects need immediate attention?",
+        "engramSurpriseHits": 5,
+        "mdSurpriseHits": 2,
+        "totalSurprises": 5,
+        "engramFound": [
+          "draw request",
+          "funds immediately",
+          "closing",
+          "contracts signed",
+          "as soon as possible"
+        ],
+        "mdFound": [
+          "draw request",
+          "closing"
+        ]
+      },
+      {
+        "query": "What are the coordination challenges?",
+        "engramSurpriseHits": 4,
+        "mdSurpriseHits": 0,
+        "totalSurprises": 5,
+        "engramFound": [
+          "checks",
+          "wire money",
+          "Federal Express",
+          "difficult"
+        ],
+        "mdFound": []
+      },
+      {
+        "query": "What legal processes are involved?",
+        "engramSurpriseHits": 4,
+        "mdSurpriseHits": 2,
+        "totalSurprises": 4,
+        "engramFound": [
+          "Non-Disturbance agreement",
+          "executed",
+          "Legal description",
+          "property"
+        ],
+        "mdFound": [
+          "Non-Disturbance agreement",
+          "property"
+        ]
+      },
+      {
+        "query": "Who has signing authority?",
+        "engramSurpriseHits": 3,
+        "mdSurpriseHits": 1,
+        "totalSurprises": 4,
+        "engramFound": [
+          "elect me",
+          "General Partner",
+          "sign all documents"
+        ],
+        "mdFound": [
+          "General Partner"
+        ]
+      },
+      {
+        "query": "What are the timing constraints?",
+        "engramSurpriseHits": 0,
+        "mdSurpriseHits": 0,
+        "totalSurprises": 4,
+        "engramFound": [],
+        "mdFound": []
+      },
+      {
+        "query": "What financial arrangements are being made?",
+        "engramSurpriseHits": 5,
+        "mdSurpriseHits": 1,
+        "totalSurprises": 5,
+        "engramFound": [
+          "first draw request",
+          "funds immediately",
+          "checks",
+          "Bishops Corner",
+          "wire money"
+        ],
+        "mdFound": [
+          "Bishops Corner"
+        ]
+      }
+    ],
+    "engramTotalHits": 26,
+    "mdTotalHits": 10,
+    "totalKeywords": 38
+  }
+}

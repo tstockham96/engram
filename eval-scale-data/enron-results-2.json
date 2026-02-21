@@ -1,0 +1,236 @@
+{
+  "runNumber": 2,
+  "timestamp": "2026-02-20T21:45:27.176Z",
+  "emailCount": 1000,
+  "memoryCount": 1000,
+  "mdSizeBytes": 5939,
+  "recall": {
+    "queries": [
+      {
+        "query": "Who is Denise LaGesse and what is her fax number?",
+        "category": "people",
+        "engramScore": 1,
+        "openclawScore": 0,
+        "claudeCodeScore": 0.25,
+        "engramReason": "Result 1 contains all the information requested in the question, including Denise LaGesse's fax number and her role in service list mailouts.",
+        "openclawReason": "The provided text does not mention Denise LaGesse or her fax number, making it completely irrelevant to the question.",
+        "claudeCodeReason": "The recalled result only mentions \"People I Keep Seeing\" and \"Key Contacts\" without providing any specific information about Denise LaGesse or her fax number."
+      },
+      {
+        "query": "What is the status of the TSH contract negotiations?",
+        "category": "projects",
+        "engramScore": 0.5,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 directly mentions the TSH contract and the desire to get the deal done quickly, which is somewhat relevant to the status of negotiations, but it lacks information about concerns or overall support.",
+        "openclawReason": "The recalled results acknowledge the existence of the TSH contract negotiations but provide no information about its status or any concerns related to timing or impact.",
+        "claudeCodeReason": "The recalled result provides no information about the TSH contract negotiations, focusing instead on the general nature of the memory system and key contacts."
+      },
+      {
+        "query": "What was agreed regarding the El Paso guaranty increase?",
+        "category": "decisions",
+        "engramScore": 1,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 2 directly answers the question by mentioning the El Paso guaranty increase request, the addition of Southern Natural Gas Company, and the increase amount of $2.5MM to $5.0MM.",
+        "openclawReason": "The recalled results mention \"Guaranty\" and \"Gerald\" in connection with it, but fail to provide any specific details about the El Paso guaranty increase, making it barely relevant.",
+        "claudeCodeReason": "The recalled result is a general description of the memory system and doesn't contain any information about the El Paso guaranty."
+      },
+      {
+        "query": "How do Liz and Greg work together on Enron Principal Investments organizational memos?",
+        "category": "relationships",
+        "engramScore": 1,
+        "openclawScore": 0.5,
+        "claudeCodeScore": 0.25,
+        "engramReason": "Result 3 directly answers the question by stating Liz should ask Greg to review and approve the memo before distribution.",
+        "openclawReason": "The recalled results identify Greg's role as reviewing and approving memos, but it doesn't mention Liz's role or the process of her asking Greg for approval before distribution.",
+        "claudeCodeReason": "The recalled result mentions Liz and Greg as key contacts but doesn't provide any information about their collaboration on Enron Principal Investments organizational memos."
+      },
+      {
+        "query": "When is Cliff's resignation press release scheduled to be issued?",
+        "category": "timeline",
+        "engramScore": 1,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "Result #1 directly and completely answers the question, stating the press release is scheduled for tomorrow after the internal memo distribution.",
+        "openclawReason": "The recalled results do not contain any information about Cliff's resignation or a press release schedule.",
+        "claudeCodeReason": "The provided text discusses the email archive and key contacts but does not contain any information about Cliff's resignation or a press release."
+      },
+      {
+        "query": "What are the steps for processing outstanding invoices in iPayit?",
+        "category": "procedural",
+        "engramScore": 0.25,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0.25,
+        "engramReason": "The results mention iPayit and outstanding invoices, but do not provide any steps on how to process them.",
+        "openclawReason": "The recalled results mention invoices and financial matters, but do not provide any specific steps for processing them in iPayit, making them barely relevant to the question.",
+        "claudeCodeReason": "The recalled result is a general description of the email archive processing and doesn't provide any specific steps for processing invoices in iPayit."
+      },
+      {
+        "query": "Who is Alexander Sheers and what is his role regarding the MLMG shares?",
+        "category": "people",
+        "engramScore": 0.25,
+        "openclawScore": 0,
+        "claudeCodeScore": 0.25,
+        "engramReason": "While the first result mentions MLMG shares and Bear Stearns, it doesn't identify Alexander Sheers or his role, making it only barely relevant.",
+        "openclawReason": "The provided text does not mention Alexander Sheers, MLMG shares, or Bear Stearns, making it completely irrelevant to the question.",
+        "claudeCodeReason": "The recalled result identifies key contacts but doesn't mention Alexander Sheers or his role regarding the MLMG shares."
+      },
+      {
+        "query": "What was decided about the location of the ENW Staff Meeting on 2/22/01?",
+        "category": "decisions",
+        "engramScore": 1,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0,
+        "engramReason": "Result #1 directly answers the question by stating the location was changed for that week only.",
+        "openclawReason": "While the results mention meetings and scheduling/location changes, they don't provide any specific information about the ENW Staff Meeting on 2/22/01.",
+        "claudeCodeReason": "The recalled result is a general description of the memory system and doesn't contain any information about the specific meeting or its location."
+      },
+      {
+        "query": "What is the objective of the industrial plan?",
+        "category": "projects",
+        "engramScore": 0.75,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 directly answers the question, providing the objective of the industrial plan, although it is slightly cut off.",
+        "openclawReason": "The recalled results provide general summaries of email content but do not contain any information about an \"industrial plan\" or its objective.",
+        "claudeCodeReason": "The recalled result provides general information about the memory system itself and key contacts, but it doesn't address the specific question about the objective of the industrial plan."
+      },
+      {
+        "query": "How does the ERMS model discount financial contracts?",
+        "category": "procedural",
+        "engramScore": 1,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "The first recalled result directly answers the question, stating that the ERMS model is discounting financial contracts improperly by an extra 50 days on average.",
+        "openclawReason": "The recalled results do not mention anything about how the ERMS model discounts financial contracts or any improper discounting.",
+        "claudeCodeReason": "The recalled result does not contain any information about the ERMS model or financial contracts."
+      },
+      {
+        "query": "When will Terry Thorn retire?",
+        "category": "timeline",
+        "engramScore": 1,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "The first result directly answers the question with the exact retirement date of Terry Thorn.",
+        "openclawReason": "The recalled results provide no information about Terry Thorn's retirement date, focusing instead on other people, business topics, and general observations from email analysis.",
+        "claudeCodeReason": "The recalled result does not contain any information about Terry Thorn's retirement date."
+      },
+      {
+        "query": "Who is Katherine Chisley and what is her role during the maternity leave?",
+        "category": "people",
+        "engramScore": 1,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 directly answers the question by stating Katherine Chisley will be covering for Mark Pickering and the sender of the email during the maternity leave.",
+        "openclawReason": "The recalled results do not mention Katherine Chisley or her role during the maternity leave.",
+        "claudeCodeReason": "The recalled result does not mention Katherine Chisley or her role during the maternity leave."
+      },
+      {
+        "query": "What is the status of the Cameron Parish pipeline?",
+        "category": "projects",
+        "engramScore": 0.75,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0,
+        "engramReason": "Result #1 contains the key information that the Cameron Parish no longer needs the ROA to the pipeline, implying abandonment procedures are being considered.",
+        "openclawReason": "The recalled results mention Cameron Parish in connection to a person and gas trading/transportation, but do not provide any information about the status of the pipeline itself.",
+        "claudeCodeReason": "The recalled result provides general information about the email archive and key contacts, but it doesn't mention anything about the Cameron Parish pipeline or its status."
+      },
+      {
+        "query": "What is Portrac and what does it do?",
+        "category": "projects",
+        "engramScore": 0.75,
+        "openclawScore": 0.75,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 directly answers the question by stating Portrac is a tool used for pulling together an asset list, which aligns with the expected answer.",
+        "openclawReason": "The results identify Portrac as something that was demoed, implying it's a tool, and Lynn is associated with it, providing some context.",
+        "claudeCodeReason": "The recalled result provides general information about the memory system itself and the data it was trained on, but it doesn't mention \"Portrac\" or its function."
+      },
+      {
+        "query": "What happened with the Schultz Gas Processing Plant?",
+        "category": "timeline",
+        "engramScore": 0.75,
+        "openclawScore": 0.5,
+        "claudeCodeScore": 0,
+        "engramReason": "The first result directly answers the question by stating the Schultz Gas Processing Plant was permanently shut down on February 29, 2000, but it's cut off, so it's not a perfect answer.",
+        "openclawReason": "The results mention the Schultz facility but don't provide the key information about its shutdown date, only mentioning continued operation until uneconomical.",
+        "claudeCodeReason": "The provided text discusses the email archive and key contacts but contains no information about the Schultz Gas Processing Plant."
+      },
+      {
+        "query": "Who is Glen Darden and what is his relationship to the email sender?",
+        "category": "people",
+        "engramScore": 1,
+        "openclawScore": 0,
+        "claudeCodeScore": 0.25,
+        "engramReason": "Result #1 contains all the information needed to answer the question, including Glen Darden's position and his relationship to the email sender.",
+        "openclawReason": "The provided text does not mention Glen Darden or Quicksilver Resources, Inc., and therefore provides no relevant information to answer the question.",
+        "claudeCodeReason": "The provided text only mentions \"Key Contacts\" without providing any specific information about Glen Darden or his relationship to the email sender."
+      },
+      {
+        "query": "What was agreed regarding the use of ISDA for physical and financial deals?",
+        "category": "decisions",
+        "engramScore": 0,
+        "openclawScore": 0,
+        "claudeCodeScore": 0.25,
+        "engramReason": "None of the recalled results address the question of using ISDA for physical and financial deals as a long-range plan.",
+        "openclawReason": "The recalled results do not mention ISDA or agreements related to physical and financial deals, making them completely irrelevant to the question.",
+        "claudeCodeReason": "The recalled result mentions the processing of emails but doesn't contain any information about ISDA or the specifics of physical and financial deals."
+      },
+      {
+        "query": "How do Jeff and Laura work together on the Gas Portfolio?",
+        "category": "relationships",
+        "engramScore": 0.75,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0.5,
+        "engramReason": "Result 4 directly answers the question by stating Jeff and Laura received the Gas Bench Portfolio and can request more information, which is the core of the expected answer.",
+        "openclawReason": "While Jeff is mentioned, there's no information about Laura or the Gas Portfolio specifically, making the response barely relevant to the question.",
+        "claudeCodeReason": "The recalled result mentions Jeff and Laura in the context of key contacts, but doesn't provide the specific information about their work on the Gas Portfolio."
+      },
+      {
+        "query": "What is the procedure for downloading simulation curves?",
+        "category": "procedural",
+        "engramScore": 1,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 contains all the information needed to answer the question, including the time, date, and specific instructions.",
+        "openclawReason": "The provided text snippets do not contain any information about downloading simulation curves or the associated procedures and deadlines.",
+        "claudeCodeReason": "The recalled result is completely irrelevant as it discusses email archive knowledge and key contacts, not the procedure for downloading simulation curves."
+      },
+      {
+        "query": "What is the purpose of the meeting regarding Master Netting Agreements?",
+        "category": "projects",
+        "engramScore": 0.75,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0,
+        "engramReason": "Result #5 directly addresses the meeting's purpose, mentioning the discussion of master netting agreements and preparation, but it misses the detail about soliciting additional help.",
+        "openclawReason": "The recalled results mention \"Contract Negotiations\" and \"Legal Matters,\" which are tangentially related to master netting agreements, but it doesn't provide any specific information about the purpose of a meeting regarding them.",
+        "claudeCodeReason": "The recalled result provides general information about the memory system itself and key contacts, but it doesn't address the specific purpose of the meeting regarding Master Netting Agreements."
+      }
+    ],
+    "engramAvg": 0.775,
+    "openclawAvg": 0.175,
+    "claudeCodeAvg": 0.1,
+    "engramWins": 16,
+    "openclawWins": 0,
+    "claudeCodeWins": 1,
+    "ties": 3
+  },
+  "tokenCost": {
+    "claudeCodePerRequest": 1485,
+    "openclawPerRequest": 1692,
+    "engramPerRequest": 4179,
+    "engramVsClaudeSavings": -181.41414141414143,
+    "engramVsOpenclawSavings": -146.98581560283688
+  },
+  "intelligence": {
+    "contradictions": 0,
+    "entities": 4712,
+    "activeMemories": 988,
+    "proactiveSurface": 0
+  },
+  "surprise": {
+    "engramTotalHits": 23,
+    "mdTotalHits": 15,
+    "totalKeywords": 40
+  }
+}

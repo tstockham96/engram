@@ -296,6 +296,25 @@ npx engram serve         # Start REST API server
 - [ ] Multi-agent vault sharing
 - [ ] Conflict resolution across agents
 
+## Telemetry
+
+Engram collects anonymous usage telemetry to help improve the project. This includes:
+
+- A random anonymous ID (not tied to any personal information)
+- Event type (server start, init, daily heartbeat)
+- Engram version, platform, architecture, Node.js version
+- Vault stats (memory count, entity count — **no memory content is ever sent**)
+
+**No personal data, memory content, or identifiable information is collected.**
+
+To opt out, set either environment variable:
+
+```bash
+export ENGRAM_TELEMETRY=off
+# or
+export DO_NOT_TRACK=1
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.

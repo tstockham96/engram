@@ -1,0 +1,236 @@
+{
+  "runNumber": 1,
+  "timestamp": "2026-02-20T21:34:24.369Z",
+  "emailCount": 1000,
+  "memoryCount": 1000,
+  "mdSizeBytes": 5334,
+  "recall": {
+    "queries": [
+      {
+        "query": "Who is Bob Superty and what was he asking for?",
+        "category": "people",
+        "engramScore": 0.75,
+        "openclawScore": 0,
+        "claudeCodeScore": 0.25,
+        "engramReason": "The results identify Bob Superty and his request for a survey on contingency plans for remote work, but it doesn't explicitly state his full name in one place.",
+        "openclawReason": "The provided text does not mention Bob Superty or anything about a survey on contingency plans for remote work.",
+        "claudeCodeReason": "The recalled result mentions \"People I Keep Seeing\" which could potentially lead to identifying Bob Superty, but it doesn't provide any actual information about him or his request, making it barely relevant."
+      },
+      {
+        "query": "What is the purpose of the JavaWebStart group 'MarketingDashboard'?",
+        "category": "projects",
+        "engramScore": 0.5,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 directly mentions the 'MarketingDashboard' group within JavaWebStart, suggesting it grants access to something, but it doesn't explain the purpose or function of the dashboard itself.",
+        "openclawReason": "The recalled results mention \"JavaWebStart profile update\" but provide no information about the \"MarketingDashboard\" group, making it barely relevant to the question.",
+        "claudeCodeReason": "The recalled result is a general description of the email archive processing and doesn't mention JavaWebStart or the 'MarketingDashboard' group."
+      },
+      {
+        "query": "What was the decision regarding the letter to John Pope?",
+        "category": "decisions",
+        "engramScore": 0.75,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0,
+        "engramReason": "Result #1 contains the key information about the letter to John Pope, including who sent it (Dick Ingersoll) and when (tomorrow), but it doesn't explicitly state the final decision, only the action taken.",
+        "openclawReason": "The recalled results acknowledge the existence of a \"Letter to John Pope\" but state that the current status is unknown, failing to provide any details about the decision made regarding it.",
+        "claudeCodeReason": "The provided text contains no information about a letter to John Pope or any related decisions."
+      },
+      {
+        "query": "How do Enron and TVA relate in the context of the letter to John Pope?",
+        "category": "relationships",
+        "engramScore": 0.75,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0,
+        "engramReason": "The results indicate that Dick Ingersoll was responsible for sending a letter to John Pope to TVA, suggesting a relationship between Enron and TVA through this communication, but it doesn't fully explain the nature of their relationship.",
+        "openclawReason": "The recalled results mention a \"Letter to John Pope\" but provide no information about Enron, TVA, or Dick Ingersoll, making it barely relevant to the question.",
+        "claudeCodeReason": "The provided text doesn't mention Enron, TVA, John Pope, or Dick Ingersoll, making it completely irrelevant to the question."
+      },
+      {
+        "query": "When is the Alaska Pipeline meeting scheduled?",
+        "category": "timeline",
+        "engramScore": 1,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 2 provides the exact date, time, location, and attendees for the Alaska Pipeline meeting, perfectly answering the question.",
+        "openclawReason": "The results mention \"Pipeline Operations\" and \"Meetings\" but provide no specific details about the Alaska Pipeline meeting's date, time, location, or attendees.",
+        "claudeCodeReason": "The recalled result provides general information about the email archive processing but does not contain any specific details about the Alaska Pipeline meeting."
+      },
+      {
+        "query": "What is the procedure for getting access to Lotus Organizer?",
+        "category": "procedural",
+        "engramScore": 0.25,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "While some emails mention Lotus Notes and access rights, none of them describe the specific procedure for granting Denise access to Janet's Lotus Organizer.",
+        "openclawReason": "The recalled results do not contain any information about Lotus Organizer or how to grant access to it.",
+        "claudeCodeReason": "The recalled result provides general information about the email archive processing and key contacts, but it doesn't contain any information about Lotus Organizer or granting access to it."
+      },
+      {
+        "query": "What is the current exposure for New Power as of COB 10/02/01?",
+        "category": "projects",
+        "engramScore": 1,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 directly answers the question by stating the net exposure for New Power after collateral as of COB 10/02/01 is $36.6MM.",
+        "openclawReason": "The recalled results do not contain any information about New Power's exposure or financial data as of the specified date.",
+        "claudeCodeReason": "This result provides no information about New Power's exposure or any financial data."
+      },
+      {
+        "query": "Who is Greg Penman and what information did he need?",
+        "category": "people",
+        "engramScore": 0.75,
+        "openclawScore": 0,
+        "claudeCodeScore": 0.25,
+        "engramReason": "Result 1 directly answers the question by identifying Greg Penman and his need for information on LM 6000's, although it doesn't fully detail the specific information he needed.",
+        "openclawReason": "The provided text does not mention Greg Penman or any information he needed, making it completely irrelevant to the question.",
+        "claudeCodeReason": "The recalled result mentions \"People I Keep Seeing\" which could potentially lead to information about Greg Penman, but it doesn't provide any specific details about him or his request for information on LM 6000's."
+      },
+      {
+        "query": "What was agreed upon regarding the target producer list for the insurance product?",
+        "category": "decisions",
+        "engramScore": 0.75,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 directly addresses the question, indicating a follow-up on the agreement regarding the target producer list for the insurance product, making it highly relevant.",
+        "openclawReason": "The recalled results do not contain any information about the target producer list for the insurance product, focusing instead on unrelated topics like meetings, contracts, and legal issues.",
+        "claudeCodeReason": "The provided text is a header for a memory system and does not contain any information about the target producer list for the insurance product."
+      },
+      {
+        "query": "How does the proposal address the 'dangling chads' issue with AEP?",
+        "category": "projects",
+        "engramScore": 0.75,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 directly addresses the question, mentioning a proposal to resolve the \"dangling chads\" issue with AEP and a value analysis, although it doesn't detail the specific approach or benefits for Enron.",
+        "openclawReason": "The recalled results do not mention \"dangling chads\" or how the proposal addresses any issues with AEP.",
+        "claudeCodeReason": "The provided text is a general description of the memory system and the data it contains, but it doesn't mention anything about the \"dangling chads\" issue or AEP."
+      },
+      {
+        "query": "What is the process for getting access to the financial trading agreement database?",
+        "category": "procedural",
+        "engramScore": 0.75,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 7 directly addresses the question by mentioning access to the financial trading agreement database and the limitations on who can access it, implying a process exists.",
+        "openclawReason": "The recalled results mention the \"Financial trading agreement database access\" but only to say its current status is unknown, offering no information on the process for gaining access.",
+        "claudeCodeReason": "The recalled result describes the memory system itself and key contacts, but provides no information about accessing the financial trading agreement database."
+      },
+      {
+        "query": "What is the subject of the meeting between Michelle Lokay and Paul Y'Barbo?",
+        "category": "projects",
+        "engramScore": 0.25,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "While result #1 mentions Michelle Lokay and a meeting, it doesn't specify the subject, making it only barely relevant.",
+        "openclawReason": "The recalled results do not contain any information about a meeting between Michelle Lokay and Paul Y'Barbo, or even mention those names.",
+        "claudeCodeReason": "The provided text is a general overview of the memory system and doesn't contain any specific information about the meeting between Michelle Lokay and Paul Y'Barbo."
+      },
+      {
+        "query": "When will Line SM-123 be taken out of service and why?",
+        "category": "timeline",
+        "engramScore": 0.5,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 mentions Line SM-123 and the reason for activity occurring under it, but does not specify the outage period.",
+        "openclawReason": "The recalled results do not contain any information about Line SM-123 or its service status, making them completely irrelevant to the question.",
+        "claudeCodeReason": "The recalled result is a general index of the memory system and does not contain any information about Line SM-123 or its service status."
+      },
+      {
+        "query": "What is the relationship between ENA Upstream and GTC regarding payment dates?",
+        "category": "relationships",
+        "engramScore": 0.75,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 directly answers the question by explaining that GTC with keep whole provisions determine the payment date for Wellhead purchases from ENA Upstream, with the date being either the last day or the 25th of the month following delivery, decided on a deal-by-deal basis.",
+        "openclawReason": "The recalled results provide no information about the relationship between ENA Upstream and GTC regarding payment dates, focusing instead on general topics like contracts, bankruptcy, and pipeline operations.",
+        "claudeCodeReason": "The recalled result provides general information about the memory system and key contacts, but it doesn't mention ENA Upstream, GTC, or payment dates."
+      },
+      {
+        "query": "What is the status of the US Visa application?",
+        "category": "projects",
+        "engramScore": 0.75,
+        "openclawScore": 0.25,
+        "claudeCodeScore": 0.25,
+        "engramReason": "Result 1 directly addresses the visa status and mentions a related issue with relocation services, making it highly relevant, while result 4 also mentions a Brazilian visa, adding some supporting information.",
+        "openclawReason": "The recalled results do not directly address the US Visa application status, only providing general information about processed emails and active topics.",
+        "claudeCodeReason": "The recalled result mentions email processing and key contacts but doesn't provide any specific information about visa applications or relocation services."
+      },
+      {
+        "query": "What was decided regarding the East Power contracts?",
+        "category": "decisions",
+        "engramScore": 0.75,
+        "openclawScore": 0.5,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 3 directly addresses the question by mentioning a meeting to decide which East Power contracts will continue, indicating the topic was discussed and decisions were made.",
+        "openclawReason": "The results acknowledge the review of East Power contracts but don't provide any details about the decisions made, indicating some relevance but significant gaps in the information provided.",
+        "claudeCodeReason": "This result provides no information about East Power contracts or any decisions related to them."
+      },
+      {
+        "query": "Who is Judy Thorne and what is her role in contract review?",
+        "category": "people",
+        "engramScore": 0.75,
+        "openclawScore": 0,
+        "claudeCodeScore": 0.25,
+        "engramReason": "The results identify Judy Thorne and her role in submitting contracts for review and approval, but do not explicitly state her specific role within the company.",
+        "openclawReason": "The recalled results do not mention Judy Thorne at all, making them completely irrelevant to the question.",
+        "claudeCodeReason": "The recalled result mentions \"People I Keep Seeing\" which might lead to information about Judy Thorne, but it doesn't provide any specific details about her or her role in contract review, making it barely relevant."
+      },
+      {
+        "query": "What is the purpose of Ken's meeting with Tom DeLay?",
+        "category": "projects",
+        "engramScore": 0.75,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "The first result provides the key information: Ken is meeting with Tom DeLay to discuss RMIC (Republican Majority Issues Committee), though it doesn't explicitly state the purpose of the meeting beyond the topic.",
+        "openclawReason": "The recalled results do not mention Tom DeLay or the purpose of any meeting involving Ken Lay.",
+        "claudeCodeReason": "The provided text does not contain any information about Ken's meeting with Tom DeLay or its purpose."
+      },
+      {
+        "query": "When are the reorientation sessions being offered and what topics are covered?",
+        "category": "timeline",
+        "engramScore": 0.75,
+        "openclawScore": 0.5,
+        "claudeCodeScore": 0.25,
+        "engramReason": "Result 1 directly answers the question by stating the purpose and agenda of the reorientation sessions, while the other results are irrelevant.",
+        "openclawReason": "The recalled results mention \"reorientation sessions\" in the context of Enron's bankruptcy, but it doesn't provide specific details about the purpose or agenda of those sessions, only that they are related to legal overviews.",
+        "claudeCodeReason": "The recalled result provides general information about the email archive but doesn't contain any specific details about reorientation sessions, making it barely relevant to the question."
+      },
+      {
+        "query": "How do the trading partners contribute to the ENA Offsite 2000 presentations?",
+        "category": "relationships",
+        "engramScore": 0.75,
+        "openclawScore": 0,
+        "claudeCodeScore": 0,
+        "engramReason": "Result 1 directly addresses the question by mentioning the coordination with trading partners for the ENA Offsite 2000 presentations, although it doesn't provide specifics on their contributions.",
+        "openclawReason": "The recalled results do not mention anything about the ENA Offsite 2000 presentations or the role of trading partners in them.",
+        "claudeCodeReason": "The recalled result is a general description of the memory system and doesn't contain any information about trading partners or the ENA Offsite 2000 presentations."
+      }
+    ],
+    "engramAvg": 0.7,
+    "openclawAvg": 0.125,
+    "claudeCodeAvg": 0.0625,
+    "engramWins": 20,
+    "openclawWins": 0,
+    "claudeCodeWins": 0,
+    "ties": 0
+  },
+  "tokenCost": {
+    "claudeCodePerRequest": 1334,
+    "openclawPerRequest": 1501,
+    "engramPerRequest": 4101,
+    "engramVsClaudeSavings": -207.42128935532236,
+    "engramVsOpenclawSavings": -173.217854763491
+  },
+  "intelligence": {
+    "contradictions": 0,
+    "entities": 4873,
+    "activeMemories": 989,
+    "proactiveSurface": 0
+  },
+  "surprise": {
+    "engramTotalHits": 21,
+    "mdTotalHits": 16,
+    "totalKeywords": 40
+  }
+}

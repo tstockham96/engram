@@ -1,0 +1,268 @@
+{
+  "run_id": 5,
+  "dataset": "CodeFlow DevTools",
+  "industry": "developer tools",
+  "memories_count": 650,
+  "overall_score": 0.671875,
+  "category_scores": {
+    "factual": 0.8125,
+    "relational": 0.5,
+    "procedural": 0.5,
+    "status": 0.75,
+    "temporal": 0.375,
+    "people": 0.75,
+    "meta": 0.875
+  },
+  "detailed_results": [
+    {
+      "query": "What is CodeFlow DevTools?",
+      "category": "factual",
+      "description": "Should describe CI/CD platform with integrated code quality and security scanning in developer tools",
+      "recalled_memories": [
+        "CodeFlow DevTools is a developer tools company. CI/CD platform with integrated code quality and security scanning. Founded to solve real problems in the developer tools space.",
+        "CodeFlow DevTools operates in the developer tools industry. Key differentiator: CI/CD platform with integrated code quality and security scanning. Competes by focusing on product quality and customer experience.",
+        "CodeFlow DevTools's product development approach: customer-driven, iterative releases every 2 weeks, strong emphasis on reliability and security. The team values craftsmanship over speed.",
+        "Key CodeFlow DevTools metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Build Pipeline drives 60% of new signups.",
+        "CodeFlow DevTools's strategy has evolved significantly. Started as a pure developer tools tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Jordan Martinez drove this shift after customer discovery calls in month 3."
+      ],
+      "score": 1,
+      "reasoning": "The first memory perfectly describes CodeFlow DevTools as a CI/CD platform with integrated code quality and security scanning in developer tools."
+    },
+    {
+      "query": "Who is Jordan Martinez?",
+      "category": "factual",
+      "description": "Should identify Jordan Martinez as Founder at CodeFlow DevTools",
+      "recalled_memories": [
+        "Jordan Martinez is the Founder at CodeFlow DevTools. Key traits: developer empathy, productivity focused, open source advocate.",
+        "CodeFlow DevTools's strategy has evolved significantly. Started as a pure developer tools tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Jordan Martinez drove this shift after customer discovery calls in month 3.",
+        "What makes CodeFlow DevTools successful: strong engineering culture, deep domain expertise in developer tools, willingness to say no to features that don't align with vision, and a CEO (Jordan Martinez) who understands both the technical and business sides.",
+        "CodeFlow DevTools culture: remote-first, async communication preferred, weekly all-hands, monthly team retrospectives. Jordan Martinez is very transparent about company finances and strategy with the whole team. No politics tolerance.",
+        "Quick sync with Jordan Martinez about team hiring needs. They raised concerns about the current timeline. Action: we scheduled a deep-dive."
+      ],
+      "score": 1,
+      "reasoning": "The top result directly answers the question, identifying Jordan Martinez as the Founder at CodeFlow DevTools."
+    },
+    {
+      "query": "What is Build Pipeline?",
+      "category": "factual",
+      "description": "Should describe Intelligent CI/CD with smart caching and parallelization",
+      "recalled_memories": [
+        "Had a 1:1 with Cameron Lee about Build Pipeline priorities for next quarter. Cameron Lee thinks we need to add enterprise features. I suggested we discuss with the team. They are CI/CD troubleshooting as always.",
+        "Key CodeFlow DevTools metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Build Pipeline drives 60% of new signups.",
+        "Had a 1:1 with Morgan Davis about Build Pipeline priorities for next quarter. Morgan Davis thinks we need to optimize performance. I asked for a detailed proposal. They are community building as always.",
+        "Had a 1:1 with Alex Petersen about Build Pipeline priorities for next quarter. Alex Petersen thinks we need to improve user experience. I agree completely. They are distributed systems as always.",
+        "Had a 1:1 with Avery Thompson about Build Pipeline priorities for next quarter. Avery Thompson thinks we need to add enterprise features. I asked for a detailed proposal. They are code analysis as always."
+      ],
+      "score": 0.25,
+      "reasoning": "The recalled memories mention \"Build Pipeline\" but don't describe what it *is*, only priorities and opinions about it. There's no mention of CI/CD, caching, or parallelization."
+    },
+    {
+      "query": "What industry is CodeFlow DevTools in?",
+      "category": "factual",
+      "description": "Should identify developer tools industry",
+      "recalled_memories": [
+        "CodeFlow DevTools operates in the developer tools industry. Key differentiator: CI/CD platform with integrated code quality and security scanning. Competes by focusing on product quality and customer experience.",
+        "CodeFlow DevTools is a developer tools company. CI/CD platform with integrated code quality and security scanning. Founded to solve real problems in the developer tools space.",
+        "CodeFlow DevTools's product development approach: customer-driven, iterative releases every 2 weeks, strong emphasis on reliability and security. The team values craftsmanship over speed.",
+        "Key CodeFlow DevTools metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Build Pipeline drives 60% of new signups.",
+        "What makes CodeFlow DevTools successful: strong engineering culture, deep domain expertise in developer tools, willingness to say no to features that don't align with vision, and a CEO (Jordan Martinez) who understands both the technical and business sides."
+      ],
+      "score": 1,
+      "reasoning": "The top two recalled memories directly and accurately answer the question."
+    },
+    {
+      "query": "How do Jordan Martinez and Alex Petersen work together?",
+      "category": "relational",
+      "description": "Should show collaboration patterns between CEO and engineer",
+      "recalled_memories": [
+        "Jordan Martinez is the Founder at CodeFlow DevTools. Key traits: developer empathy, productivity focused, open source advocate.",
+        "Alex Petersen is the Principal Engineer at CodeFlow DevTools. Key traits: distributed systems, container orchestration, observability expert.",
+        "1:1 meetings meeting. Attendees: Alex Petersen, Jordan Martinez. Discussed roadmap priorities and resource allocation. No major blockers.",
+        "weekly standup meeting. Attendees: Jordan Martinez, Alex Petersen. Addressed team concerns and process improvements. No major blockers.",
+        "Coffee chat with Alex Petersen. Discussed work-life balance concerns. Good to understand their priorities.  container orchestration really shows in how they think."
+      ],
+      "score": 0.75,
+      "reasoning": "The recalled memories provide relevant information about Jordan and Alex's roles and interactions, including meetings where they discussed roadmap priorities and team concerns. It also highlights Alex's expertise and Jordan's focus. However, it doesn't explicitly detail the *patterns* of their collaboration beyond these meetings."
+    },
+    {
+      "query": "What projects is Alex Petersen working on?",
+      "category": "relational",
+      "description": "Should list projects involving Alex Petersen",
+      "recalled_memories": [
+        "Alex Petersen is the Principal Engineer at CodeFlow DevTools. Key traits: distributed systems, container orchestration, observability expert.",
+        "Had a 1:1 with Alex Petersen about Dev Insights priorities for next quarter. Alex Petersen thinks we need to optimize performance. I pushed back on timeline. They are distributed systems as always.",
+        "Coffee chat with Alex Petersen. Discussed work-life balance concerns. Good to understand their priorities.  container orchestration really shows in how they think.",
+        "Alex Petersen mentioned in standup that they need help with technical decision. The team will help out. Blocking release.",
+        "Quick sync with Alex Petersen about team hiring needs. They were excited about customer adoption. Action: they will share analysis."
+      ],
+      "score": 0.25,
+      "reasoning": "The memories mention Alex Petersen and some of their responsibilities and concerns, but none of them explicitly list the projects Alex is working on."
+    },
+    {
+      "query": "How does CodeFlow DevTools approach product development?",
+      "category": "procedural",
+      "description": "Should describe development process and methodology",
+      "recalled_memories": [
+        "CodeFlow DevTools's product development approach: customer-driven, iterative releases every 2 weeks, strong emphasis on reliability and security. The team values craftsmanship over speed.",
+        "CodeFlow DevTools operates in the developer tools industry. Key differentiator: CI/CD platform with integrated code quality and security scanning. Competes by focusing on product quality and customer experience.",
+        "CodeFlow DevTools is a developer tools company. CI/CD platform with integrated code quality and security scanning. Founded to solve real problems in the developer tools space.",
+        "What makes CodeFlow DevTools successful: strong engineering culture, deep domain expertise in developer tools, willingness to say no to features that don't align with vision, and a CEO (Jordan Martinez) who understands both the technical and business sides.",
+        "CodeFlow DevTools's strategy has evolved significantly. Started as a pure developer tools tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Jordan Martinez drove this shift after customer discovery calls in month 3."
+      ],
+      "score": 0.75,
+      "reasoning": "Memory 1 directly answers the question, providing key information about the development process (customer-driven, iterative releases, reliability/security focus). The other memories provide context but are not directly relevant to the specific question about the development approach."
+    },
+    {
+      "query": "What is the team structure at CodeFlow DevTools?",
+      "category": "procedural",
+      "description": "Should list key roles and team organization",
+      "recalled_memories": [
+        "CodeFlow DevTools's biggest challenges: scaling infrastructure to handle growth, hiring senior engineers in a competitive market, balancing feature requests from enterprise clients with platform simplicity, and maintaining velocity as the team grows.",
+        "CodeFlow DevTools is a developer tools company. CI/CD platform with integrated code quality and security scanning. Founded to solve real problems in the developer tools space.",
+        "CodeFlow DevTools operates in the developer tools industry. Key differentiator: CI/CD platform with integrated code quality and security scanning. Competes by focusing on product quality and customer experience.",
+        "Key CodeFlow DevTools metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Build Pipeline drives 60% of new signups.",
+        "CodeFlow DevTools's product development approach: customer-driven, iterative releases every 2 weeks, strong emphasis on reliability and security. The team values craftsmanship over speed."
+      ],
+      "score": 0.25,
+      "reasoning": "While the recalled memories mention team size and growth, they don't address the team structure or key roles, which is the core of the question. The information is barely relevant."
+    },
+    {
+      "query": "What are the pending commitments at CodeFlow DevTools?",
+      "category": "status",
+      "description": "Should list unfulfilled commitments and promises",
+      "recalled_memories": [
+        "CodeFlow DevTools operates in the developer tools industry. Key differentiator: CI/CD platform with integrated code quality and security scanning. Competes by focusing on product quality and customer experience.",
+        "CodeFlow DevTools is a developer tools company. CI/CD platform with integrated code quality and security scanning. Founded to solve real problems in the developer tools space.",
+        "CodeFlow DevTools's product development approach: customer-driven, iterative releases every 2 weeks, strong emphasis on reliability and security. The team values craftsmanship over speed.",
+        "Key CodeFlow DevTools metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Build Pipeline drives 60% of new signups.",
+        "CodeFlow DevTools's biggest challenges: scaling infrastructure to handle growth, hiring senior engineers in a competitive market, balancing feature requests from enterprise clients with platform simplicity, and maintaining velocity as the team grows.",
+        "What makes CodeFlow DevTools successful: strong engineering culture, deep domain expertise in developer tools, willingness to say no to features that don't align with vision, and a CEO (Jordan Martinez) who understands both the technical and business sides.",
+        "CodeFlow DevTools's strategy has evolved significantly. Started as a pure developer tools tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Jordan Martinez drove this shift after customer discovery calls in month 3.",
+        "Jamie Kim is the Technical Writer at CodeFlow DevTools. Key traits: documentation, developer guides, API references.",
+        "Morgan Davis is the Developer Relations at CodeFlow DevTools. Key traits: community building, conference speaker, technical writing.",
+        "Alex Petersen is the Principal Engineer at CodeFlow DevTools. Key traits: distributed systems, container orchestration, observability expert.",
+        "Committed to delivering Deploy Engine enhancement by mid-year.",
+        "Promised Casey Chang implementation plan by end of sprint.",
+        "Committed to delivering Deploy Engine enhancement by mid-year.",
+        "Committed to delivering Deploy Engine enhancement by mid-year.",
+        "Promised Casey Chang implementation plan by end of sprint.",
+        "Committed to delivering Deploy Engine enhancement by mid-year.",
+        "Committed to delivering Deploy Engine enhancement by mid-year.",
+        "Committed to delivering Deploy Engine enhancement by mid-year.",
+        "Committed to delivering Deploy Engine enhancement by mid-year.",
+        "Committed to delivering Deploy Engine enhancement by mid-year.",
+        "Committed to delivering Deploy Engine enhancement by mid-year.",
+        "Committed to delivering Deploy Engine enhancement by mid-year.",
+        "Promised Casey Chang implementation plan by end of sprint.",
+        "Committed to delivering Deploy Engine enhancement by mid-year.",
+        "Committed to delivering Deploy Engine enhancement by mid-year.",
+        "Promised Casey Chang implementation plan by end of sprint.",
+        "Committed to sprint retrospectives with customers.",
+        "Committed to sprint retrospectives with customers.",
+        "Promised Casey Chang implementation plan by end of sprint.",
+        "Committed to sprint retrospectives with customers."
+      ],
+      "score": 0.75,
+      "reasoning": "The recall includes the key information about commitments to the Deploy Engine enhancement, Casey Chang's implementation plan, and sprint retrospectives with customers. However, it's repetitive and doesn't present the information in a concise, easily digestible format. It also doesn't prioritize the most recent or urgent commitments."
+    },
+    {
+      "query": "What is the current status of Build Pipeline?",
+      "category": "status",
+      "description": "Should provide latest project status updates",
+      "recalled_memories": [
+        "Key CodeFlow DevTools metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Build Pipeline drives 60% of new signups.",
+        "Had a 1:1 with Cameron Lee about Build Pipeline priorities for next quarter. Cameron Lee thinks we need to add enterprise features. I suggested we discuss with the team. They are CI/CD troubleshooting as always.",
+        "Had a 1:1 with Morgan Davis about Build Pipeline priorities for next quarter. Morgan Davis thinks we need to optimize performance. I asked for a detailed proposal. They are community building as always.",
+        "Had a 1:1 with Avery Thompson about Build Pipeline priorities for next quarter. Avery Thompson thinks we need to add enterprise features. I asked for a detailed proposal. They are code analysis as always.",
+        "Had a 1:1 with Alex Petersen about Build Pipeline priorities for next quarter. Alex Petersen thinks we need to improve user experience. I agree completely. They are distributed systems as always."
+      ],
+      "score": 0.75,
+      "reasoning": "The recalled memories provide some relevant information about the Build Pipeline, including its importance for new signups and ongoing discussions about its priorities and potential improvements. However, it lacks a direct, concise status update on the pipeline's current operational state (e.g., uptime, error rates, recent deployments)."
+    },
+    {
+      "query": "What decisions were made about Build Pipeline recently?",
+      "category": "temporal",
+      "description": "Should show recent decisions related to the main project",
+      "recalled_memories": [
+        "Had a 1:1 with Cameron Lee about Build Pipeline priorities for next quarter. Cameron Lee thinks we need to add enterprise features. I suggested we discuss with the team. They are CI/CD troubleshooting as always.",
+        "Key CodeFlow DevTools metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Build Pipeline drives 60% of new signups.",
+        "Had a 1:1 with Morgan Davis about Build Pipeline priorities for next quarter. Morgan Davis thinks we need to optimize performance. I asked for a detailed proposal. They are community building as always.",
+        "Had a 1:1 with Alex Petersen about Build Pipeline priorities for next quarter. Alex Petersen thinks we need to improve user experience. I agree completely. They are distributed systems as always.",
+        "Had a 1:1 with Avery Thompson about Build Pipeline priorities for next quarter. Avery Thompson thinks we need to add enterprise features. I asked for a detailed proposal. They are code analysis as always."
+      ],
+      "score": 0,
+      "reasoning": "Judge evaluation failed"
+    },
+    {
+      "query": "How has CodeFlow DevTools's strategy evolved?",
+      "category": "temporal",
+      "description": "Should show strategic changes over time",
+      "recalled_memories": [
+        "CodeFlow DevTools's strategy has evolved significantly. Started as a pure developer tools tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Jordan Martinez drove this shift after customer discovery calls in month 3.",
+        "CodeFlow DevTools operates in the developer tools industry. Key differentiator: CI/CD platform with integrated code quality and security scanning. Competes by focusing on product quality and customer experience.",
+        "CodeFlow DevTools's product development approach: customer-driven, iterative releases every 2 weeks, strong emphasis on reliability and security. The team values craftsmanship over speed.",
+        "Key CodeFlow DevTools metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Build Pipeline drives 60% of new signups.",
+        "CodeFlow DevTools is a developer tools company. CI/CD platform with integrated code quality and security scanning. Founded to solve real problems in the developer tools space."
+      ],
+      "score": 0.75,
+      "reasoning": "Memory 1 directly addresses the question, outlining the strategic evolution. The other memories provide context but don't directly answer the question about strategic changes over time."
+    },
+    {
+      "query": "What are Jordan Martinez's key traits and working style?",
+      "category": "people",
+      "description": "Should describe developer empathy, productivity focused, open source advocate",
+      "recalled_memories": [
+        "Jordan Martinez is the Founder at CodeFlow DevTools. Key traits: developer empathy, productivity focused, open source advocate.",
+        "CodeFlow DevTools culture: remote-first, async communication preferred, weekly all-hands, monthly team retrospectives. Jordan Martinez is very transparent about company finances and strategy with the whole team. No politics tolerance.",
+        "What makes CodeFlow DevTools successful: strong engineering culture, deep domain expertise in developer tools, willingness to say no to features that don't align with vision, and a CEO (Jordan Martinez) who understands both the technical and business sides.",
+        "Alex Petersen is the Principal Engineer at CodeFlow DevTools. Key traits: distributed systems, container orchestration, observability expert.",
+        "Jamie Kim is the Technical Writer at CodeFlow DevTools. Key traits: documentation, developer guides, API references."
+      ],
+      "score": 1,
+      "reasoning": "The top result directly and completely answers the question."
+    },
+    {
+      "query": "Who are the key people at CodeFlow DevTools?",
+      "category": "people",
+      "description": "Should list main team members and roles",
+      "recalled_memories": [
+        "Key CodeFlow DevTools metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Build Pipeline drives 60% of new signups.",
+        "CodeFlow DevTools operates in the developer tools industry. Key differentiator: CI/CD platform with integrated code quality and security scanning. Competes by focusing on product quality and customer experience.",
+        "CodeFlow DevTools is a developer tools company. CI/CD platform with integrated code quality and security scanning. Founded to solve real problems in the developer tools space.",
+        "Jamie Kim is the Technical Writer at CodeFlow DevTools. Key traits: documentation, developer guides, API references.",
+        "Morgan Davis is the Developer Relations at CodeFlow DevTools. Key traits: community building, conference speaker, technical writing."
+      ],
+      "score": 0.5,
+      "reasoning": "The system recalls two key people (Jamie Kim and Morgan Davis) and their roles, but misses other likely key personnel like the CEO, CTO, or lead engineers. The other memories are related to the company but don't directly answer the question."
+    },
+    {
+      "query": "What challenges has CodeFlow DevTools faced?",
+      "category": "meta",
+      "description": "Should identify problems, setbacks, or difficulties",
+      "recalled_memories": [
+        "CodeFlow DevTools's biggest challenges: scaling infrastructure to handle growth, hiring senior engineers in a competitive market, balancing feature requests from enterprise clients with platform simplicity, and maintaining velocity as the team grows.",
+        "CodeFlow DevTools operates in the developer tools industry. Key differentiator: CI/CD platform with integrated code quality and security scanning. Competes by focusing on product quality and customer experience.",
+        "CodeFlow DevTools is a developer tools company. CI/CD platform with integrated code quality and security scanning. Founded to solve real problems in the developer tools space.",
+        "Key CodeFlow DevTools metrics: MRR growing 15% month-over-month, churn rate at 3.2% (down from 5.1%), NPS score of 67, team size grew from 8 to 12 in 6 months. Build Pipeline drives 60% of new signups.",
+        "CodeFlow DevTools's strategy has evolved significantly. Started as a pure developer tools tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Jordan Martinez drove this shift after customer discovery calls in month 3."
+      ],
+      "score": 1,
+      "reasoning": "Memory 1 directly answers the question, identifying multiple challenges faced by CodeFlow DevTools. The other memories provide context but are not directly relevant to the question."
+    },
+    {
+      "query": "What makes CodeFlow DevTools successful in developer tools?",
+      "category": "meta",
+      "description": "Should highlight competitive advantages and strengths",
+      "recalled_memories": [
+        "CodeFlow DevTools operates in the developer tools industry. Key differentiator: CI/CD platform with integrated code quality and security scanning. Competes by focusing on product quality and customer experience.",
+        "CodeFlow DevTools is a developer tools company. CI/CD platform with integrated code quality and security scanning. Founded to solve real problems in the developer tools space.",
+        "What makes CodeFlow DevTools successful: strong engineering culture, deep domain expertise in developer tools, willingness to say no to features that don't align with vision, and a CEO (Jordan Martinez) who understands both the technical and business sides.",
+        "CodeFlow DevTools's strategy has evolved significantly. Started as a pure developer tools tool, pivoted to platform play after seeing demand for integrations. Now building an ecosystem with APIs and partner integrations. Jordan Martinez drove this shift after customer discovery calls in month 3.",
+        "Jamie Kim is the Technical Writer at CodeFlow DevTools. Key traits: documentation, developer guides, API references."
+      ],
+      "score": 0.75,
+      "reasoning": "The recalled memories contain key information about CodeFlow's CI/CD platform, integrated code quality/security scanning, strong engineering culture, and leadership. However, it lacks a comprehensive overview of all competitive advantages and strengths, leaving some gaps."
+    }
+  ],
+  "timestamp": "2026-02-20T20:39:54.915Z"
+}

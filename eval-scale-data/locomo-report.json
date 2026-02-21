@@ -1,0 +1,168 @@
+{
+  "timestamp": "2026-02-21T01:01:31.957Z",
+  "conversationsEvaluated": [
+    "conv-26",
+    "conv-30",
+    "conv-41"
+  ],
+  "totalQuestions": 385,
+  "engram": {
+    "overall": {
+      "score": 80.03896103896109,
+      "avgTokens": 804.9116883116883
+    },
+    "byCategory": {
+      "single-hop": {
+        "score": 77.97297297297303,
+        "avgTokens": 802.4594594594595,
+        "count": 74
+      },
+      "temporal": {
+        "score": 72.38888888888897,
+        "avgTokens": 790.0666666666667,
+        "count": 90
+      },
+      "open-domain": {
+        "score": 81.42857142857142,
+        "avgTokens": 856.0952380952381,
+        "count": 21
+      },
+      "multi-hop": {
+        "score": 84.0999999999998,
+        "avgTokens": 807.125,
+        "count": 200
+      }
+    }
+  },
+  "fullContext": {
+    "overall": {
+      "score": 86.35064935064935,
+      "avgTokens": 21165.901298701297
+    },
+    "byCategory": {
+      "single-hop": {
+        "score": 84.0540540540541,
+        "avgTokens": 21686.567567567567,
+        "count": 74
+      },
+      "temporal": {
+        "score": 83.05555555555556,
+        "avgTokens": 19889.433333333334,
+        "count": 90
+      },
+      "open-domain": {
+        "score": 85.71428571428571,
+        "avgTokens": 22503.809523809523,
+        "count": 21
+      },
+      "multi-hop": {
+        "score": 88.74999999999984,
+        "avgTokens": 21407.185,
+        "count": 200
+      }
+    }
+  },
+  "memoryMd": {
+    "overall": {
+      "score": 73.97402597402589,
+      "avgTokens": 1760.155844155844
+    },
+    "byCategory": {
+      "single-hop": {
+        "score": 74.52702702702709,
+        "avgTokens": 1805.445945945946,
+        "count": 74
+      },
+      "temporal": {
+        "score": 64.05555555555561,
+        "avgTokens": 1725.8111111111111,
+        "count": 90
+      },
+      "open-domain": {
+        "score": 73.80952380952378,
+        "avgTokens": 2059.5714285714284,
+        "count": 21
+      },
+      "multi-hop": {
+        "score": 78.24999999999979,
+        "avgTokens": 1727.415,
+        "count": 200
+      }
+    }
+  },
+  "mem0Published": {
+    "mem0": {
+      "overall": 66.88,
+      "singleHop": 67.13,
+      "temporal": 55.51,
+      "openDomain": 72.93,
+      "multiHop": 51.15,
+      "tokens": 1764
+    },
+    "mem0g": {
+      "overall": 68.44,
+      "singleHop": 65.72,
+      "temporal": 58.13,
+      "openDomain": 75.71,
+      "multiHop": 51,
+      "tokens": 3616
+    },
+    "fullContext": {
+      "overall": 72.9,
+      "tokens": 26031
+    },
+    "openai": {
+      "overall": 52.9,
+      "tokens": 4437
+    },
+    "zep": {
+      "overall": 65.99,
+      "tokens": 3911
+    },
+    "langMem": {
+      "overall": 58.1,
+      "tokens": 127
+    },
+    "aMem": {
+      "overall": 48.38,
+      "tokens": 2520
+    },
+    "bestRAG": {
+      "overall": 60.97
+    }
+  },
+  "comparison": {
+    "engramVsMem0_overall_relative": "+19.7%",
+    "engramVsMem0g_overall_relative": "+16.9%",
+    "engramVsOpenAI_overall_relative": "+51.3%",
+    "tokenSavingsVsFullContext": "96.2%",
+    "engramTokensVsMem0": "54.4% fewer",
+    "byCategory": {
+      "single-hop": {
+        "engram": "78.0",
+        "mem0": "67.1",
+        "delta": "+16.2%"
+      },
+      "temporal": {
+        "engram": "72.4",
+        "mem0": "55.5",
+        "delta": "+30.4%"
+      },
+      "open-domain": {
+        "engram": "81.4",
+        "mem0": "72.9",
+        "delta": "+11.7%"
+      },
+      "multi-hop": {
+        "engram": "84.1",
+        "mem0": "51.1",
+        "delta": "+64.4%"
+      }
+    }
+  },
+  "caveats": [
+    "Engram: 3/10 conversations; Mem0: 10/10 with 10 runs",
+    "Different LLMs: Engram=Gemini 2.0 Flash, Mem0=GPT-4o-mini",
+    "Scoring prompts may differ slightly"
+  ]
+}

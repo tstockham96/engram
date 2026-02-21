@@ -1,0 +1,358 @@
+{
+  "timestamp": "2026-02-20T19:00:05.952Z",
+  "memoryCount": 733,
+  "mdSizeBytes": 13260,
+  "mdChunks": 75,
+  "recall": {
+    "queries": [
+      {
+        "query": "What is the current status of Atlas Platform?",
+        "category": "factual",
+        "engramScore": 0.5,
+        "mdScore": 0.75,
+        "engramReason": "The recalled results mention aspects of v3 and GraphQL, but miss the v2.3 GA status, and the information is scattered and not presented as a cohesive status update.",
+        "mdReason": "The response mentions v2.3 and GraphQL, and the planned v3 rewrite, but it doesn't explicitly state that v2.3 is GA or that GraphQL is live."
+      },
+      {
+        "query": "How much did NovaTech raise in their Series B?",
+        "category": "factual",
+        "engramScore": 0,
+        "mdScore": 1,
+        "engramReason": "None of the recalled results contain any information about the Series B funding amount or related details.",
+        "mdReason": "The recalled results contain all the necessary information about the Series B raise, including the amount, valuation, lead investor, and board member addition."
+      },
+      {
+        "query": "Who is Kenji Tanaka and what does he work on?",
+        "category": "factual",
+        "engramScore": 0.75,
+        "mdScore": 1,
+        "engramReason": "The answer contains most of the key information, including Kenji's role, start date (implied), and work on anomaly detection for Beacon using STL decomposition, but it doesn't explicitly state the hiring date of September 2025.",
+        "mdReason": "The recalled results contain all the necessary information about Kenji Tanaka, including his role, start date, and contributions to anomaly detection using STL decomposition for Beacon."
+      },
+      {
+        "query": "What project management tool does the team use?",
+        "category": "factual",
+        "engramScore": 1,
+        "mdScore": 1,
+        "engramReason": "The top result contains all the necessary information about the switch to Linear from Jira and Carlos handling the migration.",
+        "mdReason": "The recalled results contain all the necessary information: the team uses Linear (switched from Jira) and Carlos handled the migration."
+      },
+      {
+        "query": "Who should I pair on the Atlas v3 architecture?",
+        "category": "relationship",
+        "engramScore": 1,
+        "mdScore": 0.75,
+        "engramReason": "The recalled result #2 directly answers the question with the ideal pairing of James and Wei and the reason why.",
+        "mdReason": "The results contain both James Wright and Wei Zhang and their relevant skills, but it doesn't explicitly state that they work well together."
+      },
+      {
+        "query": "What is the situation with Derek Kim?",
+        "category": "relationship",
+        "engramScore": 0.5,
+        "mdScore": 0.75,
+        "engramReason": "The recalled results mention Derek Kim being difficult, pushing for features, and scope creep, but misses the information about 2am emails, Lisa managing him, and him calming down.",
+        "mdReason": "The results contain most of the key information about Derek Kim, including his difficult integration, scope creep, 2am emails, calming down, and Lisa managing him, but it's spread across multiple entries rather than consolidated."
+      },
+      {
+        "query": "Is anyone at risk of leaving the company?",
+        "category": "relationship",
+        "engramScore": 1,
+        "mdScore": 0.75,
+        "engramReason": "The recalled results contain all the necessary information about Priya's potential departure, her interest in ML investment, and the Anthropic offer, along with the potential solution of a principal role.",
+        "mdReason": "The system recalled Priya's potential departure due to Anthropic and ML investment concerns, but missed the detail about discussing a principal role."
+      },
+      {
+        "query": "How is the relationship with Raj Patel?",
+        "category": "relationship",
+        "engramScore": 0.75,
+        "mdScore": 0.75,
+        "engramReason": "The response captures most of the key information, including Raj Patel's role as a board member, his analytical nature and tough questions, and his involvement in quarterly meetings, but it doesn't explicitly mention his good advice or connected customers.",
+        "mdReason": "The response captures most of the key information about Raj Patel's role as a board member, his analytical approach, the quarterly meetings, and customer connections, but it doesn't explicitly mention \"good advice\" although his pushing for a larger round could be interpreted as such."
+      },
+      {
+        "query": "What editor does the user prefer?",
+        "category": "preference",
+        "engramScore": 0.75,
+        "mdScore": 1,
+        "engramReason": "The answer is present in result #7, and result #5 provides related information about VS Code preference, but the full history of editor preference (VS Code -> Cursor -> Neovim) is not explicitly stated.",
+        "mdReason": "The recalled result contains the complete answer to the question, including the user's preference for Neovim and the progression of editors used."
+      },
+      {
+        "query": "What is the meeting schedule preference?",
+        "category": "preference",
+        "engramScore": 0.75,
+        "mdScore": 1,
+        "engramReason": "The response contains the key information about no meetings before 10am and no meetings on Fridays, but it doesn't explicitly state that mornings are generally OK, although it implies it.",
+        "mdReason": "The recalled results perfectly capture the meeting schedule preferences: no meetings before 10am, Friday afternoons sacred, and mornings OK."
+      },
+      {
+        "query": "Coffee or matcha?",
+        "category": "preference",
+        "engramScore": 1,
+        "mdScore": 1,
+        "engramReason": "The recalled results contain all the key information: preference for coffee, the matcha experiment, and the black coffee habit with timing.",
+        "mdReason": "The recalled results perfectly capture all the key information about the user's coffee preference, matcha experiment, and coffee consumption habits."
+      },
+      {
+        "query": "How has the Beacon Analytics project evolved?",
+        "category": "temporal",
+        "engramScore": 0.75,
+        "mdScore": 0.75,
+        "engramReason": "The response captures the internal decision, MVP, anomaly detection, and tuning, but misses the explicit versioning (v1, v2) and the false positive issue.",
+        "mdReason": "The response captures the evolution from anomaly detection v1 with high false positives to a tuned v2, the consideration of productizing, and the final decision to keep it internal, but it doesn't explicitly mention the MVP stage."
+      },
+      {
+        "query": "What happened with the CloudBase partnership over time?",
+        "category": "temporal",
+        "engramScore": 0.75,
+        "mdScore": 0.6,
+        "engramReason": "The recalled results provide most of the key information about the CloudBase partnership's evolution, including initial talks, scope creep, shipping the integration, relationship improvement, and renewal, but it misses the MOU stage.",
+        "mdReason": "The recalled results mention the partnership's current status, integration difficulties, scope changes, and eventual improvement, but it misses the initial talks and MOU stages, and the timeline is scattered across different entries."
+      },
+      {
+        "query": "Why did the team decide against microservices for Atlas v3?",
+        "category": "decision",
+        "engramScore": 1,
+        "mdScore": 1,
+        "engramReason": "Result #2 directly answers the question with the correct reasoning and attribution.",
+        "mdReason": "The recalled results contain the exact answer: Alex convinced the team to use a modular monolith instead of microservices for Atlas v3 due to lower operational complexity."
+      },
+      {
+        "query": "Why is Beacon not being productized?",
+        "category": "decision",
+        "engramScore": 1,
+        "mdScore": 0.75,
+        "engramReason": "The recalled results contain both reasons: the team convinced Tom it would split focus (result 1) and market analysis didn't support a standalone product (result 2).",
+        "mdReason": "The recalled results contain information about the team convincing Tom against productization and the decision to keep Beacon internal due to distraction, but lacks explicit mention of market analysis."
+      },
+      {
+        "query": "What are the key SQLite lessons learned?",
+        "category": "technical",
+        "engramScore": 1,
+        "mdScore": 1,
+        "engramReason": "The response contains both key lessons learned about SQLite: avoiding JSON columns for queryable data and the importance of WAL mode for concurrency.",
+        "mdReason": "The recalled results contain both key lessons learned about SQLite: WAL mode for concurrency and avoiding JSON columns for queryable data."
+      },
+      {
+        "query": "How was the anomaly detection false positive rate improved?",
+        "category": "technical",
+        "engramScore": 1,
+        "mdScore": 1,
+        "engramReason": "The first recalled result directly answers the question with all the necessary information, including the method (STL seasonal decomposition) and the improvement (12% to 3%).",
+        "mdReason": "The recalled results contain all the necessary information: Kenji added STL seasonal decomposition, which dropped the false positive rate from 12% to 3%."
+      },
+      {
+        "query": "What are all the pending commitments?",
+        "category": "commitment",
+        "engramScore": 0.75,
+        "mdScore": 0.75,
+        "engramReason": "The response contains most of the key information, including career ladder doc, v3 architecture doc, quarterly 1:1s, and webhook SDK (implied by the block), but misses the design audit and customer calls.",
+        "mdReason": "The recalled results contain most of the pending commitments, including the career ladder doc, v3 architecture doc, quarterly 1:1s, and design audit, but misses the webhook SDK open source and customer calls."
+      },
+      {
+        "query": "What information has been corrected or updated?",
+        "category": "correction",
+        "engramScore": 1,
+        "mdScore": 0.75,
+        "engramReason": "The recalled results contain all the information specified in the \"WHAT A GOOD ANSWER SHOULD INCLUDE\" section.",
+        "mdReason": "The response includes most of the key information, missing only the Acme Corp lost deal and the specific number of hires being corrected."
+      },
+      {
+        "query": "What are the key company metrics?",
+        "category": "metrics",
+        "engramScore": 0.5,
+        "mdScore": 0.75,
+        "engramReason": "The response includes churn rate, but misses other key metrics like NPS, SDK downloads, team size, OKR, and anomaly accuracy.",
+        "mdReason": "The response contains most of the key metrics (Churn, NPS, OKR, Anomaly Accuracy) and hints at SDK downloads and team size, but doesn't explicitly state the SDK download number or the exact team size."
+      }
+    ],
+    "engramAvg": 0.7875,
+    "mdAvg": 0.8550000000000001,
+    "engramWins": 5,
+    "mdWins": 7,
+    "ties": 8
+  },
+  "tokenCost": {
+    "mdPerRequest": 3315,
+    "engramBriefing": 1619,
+    "engramAvgRecall": 213,
+    "engramPerRequest": 1832,
+    "savingsPercent": 44.73604826546003,
+    "pricePerMToken": 3,
+    "scenarios": [
+      {
+        "label": "100 requests/day",
+        "requestsPerDay": 100,
+        "mdCostPerMonth": 29.835,
+        "engramCostPerMonth": 16.488
+      },
+      {
+        "label": "1,000 requests/day",
+        "requestsPerDay": 1000,
+        "mdCostPerMonth": 298.35,
+        "engramCostPerMonth": 164.88
+      },
+      {
+        "label": "10,000 requests/day",
+        "requestsPerDay": 10000,
+        "mdCostPerMonth": 2983.5,
+        "engramCostPerMonth": 1648.8000000000002
+      }
+    ]
+  },
+  "intelligence": {
+    "contradictions": 2,
+    "pendingCommitments": 0,
+    "fulfilledCommitments": 0,
+    "entities": 29,
+    "proactiveSurface": 3,
+    "mdCanDo": 0
+  },
+  "surprise": {
+    "queries": [
+      {
+        "query": "What is the current status of Atlas Platform?",
+        "engramSurpriseHits": 8,
+        "mdSurpriseHits": 1,
+        "totalSurprises": 11,
+        "engramFound": [
+          "Priya",
+          "Anthropic",
+          "ML pipeline",
+          "Wei",
+          "Kubernetes",
+          "migration",
+          "mid-March",
+          "James"
+        ],
+        "mdFound": [
+          "monolith"
+        ]
+      },
+      {
+        "query": "Prep me for my 1:1 with Sarah Liu",
+        "engramSurpriseHits": 6,
+        "mdSurpriseHits": 2,
+        "totalSurprises": 10,
+        "engramFound": [
+          "unrealistic",
+          "SRE",
+          "promotion",
+          "Director",
+          "board",
+          "staffing"
+        ],
+        "mdFound": [
+          "SRE",
+          "board"
+        ]
+      },
+      {
+        "query": "What is the CloudBase partnership status?",
+        "engramSurpriseHits": 9,
+        "mdSurpriseHits": 0,
+        "totalSurprises": 9,
+        "engramFound": [
+          "layoffs",
+          "confidential",
+          "Q1",
+          "contingency",
+          "Meridian",
+          "$200k",
+          "waiting",
+          "over my head",
+          "Tom sided"
+        ],
+        "mdFound": []
+      },
+      {
+        "query": "How is Beacon Analytics doing?",
+        "engramSurpriseHits": 9,
+        "mdSurpriseHits": 2,
+        "totalSurprises": 9,
+        "engramFound": [
+          "40%",
+          "AWS",
+          "compute budget",
+          "unit economics",
+          "timezone bug",
+          "two months",
+          "cohort",
+          "board",
+          "churn numbers"
+        ],
+        "mdFound": [
+          "cohort",
+          "board"
+        ]
+      },
+      {
+        "query": "What should I know about Raj Patel before the board meeting?",
+        "engramSurpriseHits": 5,
+        "mdSurpriseHits": 1,
+        "totalSurprises": 6,
+        "engramFound": [
+          "Acmetech",
+          "competitor",
+          "invested",
+          "recused",
+          "awkward"
+        ],
+        "mdFound": [
+          "competitor"
+        ]
+      },
+      {
+        "query": "Tell me about the competitive landscape",
+        "engramSurpriseHits": 7,
+        "mdSurpriseHits": 1,
+        "totalSurprises": 8,
+        "engramFound": [
+          "50% discounts",
+          "Zenith",
+          "price",
+          "product not price",
+          "Raj",
+          "Acmetech",
+          "invested"
+        ],
+        "mdFound": [
+          "Acmetech"
+        ]
+      },
+      {
+        "query": "How is Carlos Ruiz doing?",
+        "engramSurpriseHits": 1,
+        "mdSurpriseHits": 1,
+        "totalSurprises": 5,
+        "engramFound": [
+          "Maria"
+        ],
+        "mdFound": [
+          "Maria"
+        ]
+      },
+      {
+        "query": "What is Nina Okafor working on?",
+        "engramSurpriseHits": 4,
+        "mdSurpriseHits": 0,
+        "totalSurprises": 5,
+        "engramFound": [
+          "rejected",
+          "GopherCon",
+          "co-present",
+          "3 weeks"
+        ],
+        "mdFound": []
+      }
+    ],
+    "engramTotalHits": 49,
+    "mdTotalHits": 8,
+    "totalKeywords": 63,
+    "engramHitRate": 0.7777777777777778,
+    "mdHitRate": 0.12698412698412698,
+    "engramWins": 7,
+    "mdWins": 0,
+    "ties": 1
+  }
+}

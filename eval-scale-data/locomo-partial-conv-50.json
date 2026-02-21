@@ -1,0 +1,2602 @@
+[
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q0",
+    "question": "When did Calvin first travel to Tokyo?",
+    "groundTruth": "between 26 March and 20 April 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin has already been to Tokyo at least once before his upcoming trip. He mentions:\n\n*   Taking a picture in Tokyo \"last night.\"\n*   A picture taken in Tokyo \"during a concert.\"\n*   Having visited similar streets to a photo Dave shared.\n*   Being excited to explore Shinjuku and try the amazing food there again.\n\nTherefore, Calvin has been to Tokyo before.",
+        "score": 0.85,
+        "recallTime": 525,
+        "tokensUsed": 848,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin first traveled to Tokyo sometime between March 26th, 2023, and April 20th, 2023.",
+        "score": 1,
+        "tokensUsed": 24951
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary states that Calvin is *planning* a trip to Tokyo after his current tour with Frank Ocean ends. It does not mention any previous trips to Tokyo. Therefore, based on the information given, it is impossible to determine when Calvin first traveled to Tokyo.",
+        "score": 0.85,
+        "tokensUsed": 1209
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q1",
+    "question": "What items did Calvin buy in March 2023?",
+    "groundTruth": "mansion in Japan, luxury car Ferrari 488 GTB",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the provided memories, there is no information about items Calvin bought in March 2023. The memories mention a new car, but there is no date associated with the purchase.",
+        "score": 0.85,
+        "recallTime": 323,
+        "tokensUsed": 680,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Calvin bought a new mansion and a new car in March 2023.",
+        "score": 0.85,
+        "tokensUsed": 24950
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain information about items Calvin bought in March 2023. It only mentions that Calvin recently bought a new Ferrari.",
+        "score": 0.85,
+        "tokensUsed": 1179
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q2",
+    "question": "When did Dave see Aerosmith perform live?",
+    "groundTruth": "on the weekend before March 26, 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Dave saw Aerosmith perform live sometime before he showed Calvin a picture he took of them playing.",
+        "score": 0.85,
+        "recallTime": 303,
+        "tokensUsed": 871,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave saw Aerosmith perform live last weekend on 26 March, 2023.",
+        "score": 0.85,
+        "tokensUsed": 24946
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain information about Dave seeing Aerosmith perform live.",
+        "score": 1,
+        "tokensUsed": 1164
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q3",
+    "question": "Which bands has Dave enjoyed listening to?",
+    "groundTruth": "Aerosmith, The Fireworks",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave has enjoyed listening to:\n\n*   **Aerosmith**\n*   A rock band (implied by the logo he has and the fact that he joined them)\n*   Classic rock bands (generally)",
+        "score": 0.85,
+        "recallTime": 284,
+        "tokensUsed": 745,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Dave has enjoyed listening to:\n\n*   Aerosmith\n*   Pink Floyd\n*   Tupac\n*   Dr. Dre\n*   The Fireworks\n*   Classic Rock",
+        "score": 0.85,
+        "tokensUsed": 24966
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not explicitly list which bands Dave has enjoyed listening to. However, it does mention that Dave attended a music festival and enjoyed the energy of the crowd. It also mentions that Dave is jamming with his band.",
+        "score": 0.85,
+        "tokensUsed": 1202
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q4",
+    "question": "Which country do Calvin and Dave want to meet in?",
+    "groundTruth": "United States",
+    "category": 3,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin and Dave want to meet in Boston.",
+        "score": 0.85,
+        "recallTime": 311,
+        "tokensUsed": 593,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin and Dave want to meet in Boston, USA.",
+        "score": 0.85,
+        "tokensUsed": 24943
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Calvin and Dave are planning to meet up in **Boston**, which is in the United States.",
+        "score": 0.85,
+        "tokensUsed": 1170
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q5",
+    "question": "What are Dave's dreams?",
+    "groundTruth": "open a car maintenance shop, work on classic cars, build a custom car from scratch",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave's dreams include:\n\n*   **Learning auto engineering and working on building a custom car.**\n*   **Opening a shop.**\n*   **Working on classic cars.** He loves their design and engineering.\n*   **Going to Japan.** He's interested in the culture, music, food, and technology.\n*   **Seeing his favorite musical artists perform live.**",
+        "score": 0.85,
+        "recallTime": 233,
+        "tokensUsed": 770,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Dave's dreams include:\n\n*   Working on classic cars.\n*   Opening his own car maintenance shop (which he achieved).\n*   Learning auto engineering and building a custom car from scratch.\n*   Visiting Tokyo.\n*   Playing guitar in a rock band.",
+        "score": 0.85,
+        "tokensUsed": 24992
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary doesn't explicitly state Dave's \"dreams.\" However, based on his commitments, plans, and ongoing situations, we can infer some of his aspirations:\n\n*   **To share his passion for car restoration:** This is evident from his blog and his desire to show Calvin his garage and car projects.\n*   **To improve his photography skills:** He's actively taking photos and exploring his photography hobby.\n*   **To succeed with his band:** He's jamming with his band and created a logo for them, suggesting he's invested in their success.",
+        "score": 0.85,
+        "tokensUsed": 1274
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q6",
+    "question": "Which types of cars does Dave like the most?",
+    "groundTruth": "classic vintage cars",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave likes classic cars the most. He mentions being obsessed with them, finding them charming, and enjoying restoring them. He also appreciates the dedication people put into restoring them. While he works on various cars and enjoys modernizing classic muscle cars, his passion clearly lies with classic vehicles.",
+        "score": 0.85,
+        "recallTime": 269,
+        "tokensUsed": 1116,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Dave likes classic cars, vintage cars, muscle cars, and cars that he can restore and modify. He also likes cars with unique designs and engineering.",
+        "score": 0.85,
+        "tokensUsed": 24974
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Dave likes restoring cars, and he recently finished restoring a Ford Mustang. He also attended a car show and enjoyed seeing the cool machines. He also started a blog on car mods. This suggests he likes classic cars and is interested in car modifications.",
+        "score": 0.85,
+        "tokensUsed": 1212
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q7",
+    "question": "Does Dave's shop employ a lot of people?",
+    "groundTruth": "Yes",
+    "category": 3,
+    "results": {
+      "engram": {
+        "answer": "The provided memories do not contain any information about the number of people Dave employs at his shop. Therefore, it is impossible to determine if Dave's shop employs a lot of people.",
+        "score": 0,
+        "recallTime": 255,
+        "tokensUsed": 833,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "The conversation does not provide information about how many people Dave employs at his shop.",
+        "score": 0,
+        "tokensUsed": 24953
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain any information about Dave owning or working at a shop, nor does it mention anything about him employing people. It only mentions that he has a garage where he works on cars.",
+        "score": 0,
+        "tokensUsed": 1194
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q8",
+    "question": "When did Dave start his car maintenance shop?",
+    "groundTruth": "May 1, 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Dave opened his car maintenance shop last week.",
+        "score": 0.7,
+        "recallTime": 258,
+        "tokensUsed": 1000,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave opened his car shop last week on 16 May, 2023.",
+        "score": 0.85,
+        "tokensUsed": 24944
+      },
+      "memoryMd": {
+        "answer": "The provided text does not state when Dave started his car maintenance shop. It only mentions that he has a garage where he works on cars and that he started a blog on car mods.",
+        "score": 1,
+        "tokensUsed": 1185
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q9",
+    "question": "When did a mishap occur with Calvin's musical gear and favorite mic?",
+    "groundTruth": "On a week before 16 May, 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Calvin did not have a mishap with his musical gear and favorite mic. He had an incident where his place got flooded, but thankfully, he managed to save his music gear and favorite microphone.",
+        "score": 0.85,
+        "recallTime": 383,
+        "tokensUsed": 944,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "According to the conversation on **16 May, 2023**, Calvin mentioned, \"Hey Dave, not everything has been going smoothly. I had an incident last week where my place got flooded, but thankfully, I managed to save my music gear and favorite microphone.\"",
+        "score": 0.85,
+        "tokensUsed": 24999
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain any information about a mishap occurring with Calvin's musical gear or favorite mic.",
+        "score": 1,
+        "tokensUsed": 1179
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q10",
+    "question": "When did Calvin's place get flooded in Tokyo?",
+    "groundTruth": "On a week before 16 May, 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Calvin's place did not get flooded in Tokyo. His place got flooded last week, but it is not specified where he lives.",
+        "score": 0.85,
+        "recallTime": 365,
+        "tokensUsed": 990,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin's place got flooded last week, according to a conversation on **16 May, 2023**. The conversation also indicates that the flooding occurred in Tokyo.",
+        "score": 0.85,
+        "tokensUsed": 24970
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention Calvin's place getting flooded in Tokyo. It only mentions that Calvin has a house in Japan where he threw a party for his new album and that he is planning a trip to Tokyo after his tour.",
+        "score": 0.85,
+        "tokensUsed": 1199
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q11",
+    "question": "What mishaps has Calvin run into?",
+    "groundTruth": "flooding of his mansion, car accident",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin has run into the following mishaps:\n\n*   **Car accident:** He had a car accident the previous Friday.\n*   **Car trouble:** His car needed repairs after the accident, and he was dealing with insurance and the repair shop.\n*   **Flooding:** His place got flooded, although he managed to save his music gear.\n*   **Challenges with fame:** He mentions that fame has its own challenges and that it's been tough trying to balance everything.",
+        "score": 0.85,
+        "recallTime": 234,
+        "tokensUsed": 734,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin has run into the following mishaps:\n\n*   His place got flooded (16 May, 2023)\n*   He had a car accident (21 June, 2023)",
+        "score": 0.85,
+        "tokensUsed": 24959
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention any mishaps that Calvin has run into. It focuses on his successes, collaborations, and plans.",
+        "score": 0.85,
+        "tokensUsed": 1172
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q12",
+    "question": "When was Calvin's concert in Tokyo?",
+    "groundTruth": "last week of May 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin had multiple concerts in Tokyo. Here's a breakdown of when they occurred:\n\n*   **Past Concerts:** Calvin mentions a concert in Tokyo where the energy was \"nuts\" and felt like the whole city came out. He also mentions a show in Tokyo where everyone sang along to one of his songs, calling it a \"magical moment.\" He also mentions that he had an amazing experience touring with a well-known artist and ended with a show in Japan.\n*   **Recent Concert:** Calvin mentions touring with Frank Ocean last week and that Tokyo was unreal and the crowd was insane.\n*   **Upcoming Concert:** Calvin is super excited for his upcoming performance in Tokyo this month.\n\nTherefore, Calvin has had concerts in Tokyo in the past, recently, and has one coming up this month.",
+        "score": 0.85,
+        "recallTime": 283,
+        "tokensUsed": 1010,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin's concert in Tokyo was in May 2023.",
+        "score": 0.85,
+        "tokensUsed": 24939
+      },
+      "memoryMd": {
+        "answer": "The memory summary states that Calvin is *planning* a trip to Tokyo *after* his tour ends. It does not mention a concert in Tokyo. Therefore, the answer is:\n\nThere is no mention of a concert in Tokyo in the provided memory summary.",
+        "score": 0.85,
+        "tokensUsed": 1196
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q13",
+    "question": "Would Calvin enjoy performing at the Hollywood Bowl?",
+    "groundTruth": "Yes; because he enjoys the rush of performing onstage to large crowds",
+    "category": 3,
+    "results": {
+      "engram": {
+        "answer": "Based on Calvin's memories, it is highly likely that Calvin would enjoy performing at the Hollywood Bowl. Here's why:\n\n*   **Loves performing live:** Calvin repeatedly expresses his love for performing live, the energy of the crowd, and the connection he feels with the audience.\n*   **Dreams of big stages:** He describes performing on a big stage as a \"dream come true\" and mentions how the energy was incredible.\n*   **Enjoys connecting with the crowd:** He emphasizes the importance of connecting with the audience and how energizing it is.\n*   **Touring the world:** Calvin dreams of touring the world and performing for different people.\n*   **Frank Ocean:** Calvin is currently touring with Frank Ocean.\n\nThe Hollywood Bowl is a large, iconic venue known for its enthusiastic audiences and vibrant atmosphere. Given Calvin's passion for live performance and connecting with crowds, it aligns perfectly with what he enjoys and aspires to.",
+        "score": 0.85,
+        "recallTime": 253,
+        "tokensUsed": 1169,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, there is no explicit mention of Calvin's opinion on performing at the Hollywood Bowl. However, based on the information provided, it can be inferred that Calvin would likely enjoy performing at the Hollywood Bowl. Here's why:\n\n*   **He loves performing:** Calvin consistently expresses his love for performing and connecting with the crowd. He describes the feeling as \"unreal,\" \"amazing,\" and \"energizing.\"\n*   **He enjoys big stages and crowds:** Calvin has performed at large venues and festivals, such as in Tokyo, and has enjoyed the energy of the crowd. He even described performing on a big stage as a \"dream come true.\"\n*   **He appreciates iconic venues:** Calvin has expressed excitement about performing in Boston and visiting iconic locations.\n\nGiven these factors, it's reasonable to assume that Calvin would be excited and enjoy the opportunity to perform at the Hollywood Bowl, which is a famous and iconic venue known for its large stage and enthusiastic crowds.",
+        "score": 0.85,
+        "tokensUsed": 25184
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary doesn't explicitly state whether Calvin would enjoy performing at the Hollywood Bowl. However, based on the information available, we can infer the following:\n\n*   **Calvin is a musician who enjoys performing:** He is currently touring with Frank Ocean and has an upcoming performance in Boston.\n*   **Calvin values connecting with his fans:** This suggests he enjoys performing for an audience.\n*   **Calvin is open to collaborations:** His tour with Frank Ocean demonstrates this.\n\nGiven these points, it's **likely** that Calvin would enjoy performing at the Hollywood Bowl, as it's a famous and prestigious venue that would allow him to connect with a large audience. However, without direct information, this is an inference, not a definitive answer.",
+        "score": 0.85,
+        "tokensUsed": 1338
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q14",
+    "question": "When did Calvin meet with the creative team for his new album?",
+    "groundTruth": "8 June, 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Calvin met with the creative team for his new album yesterday.",
+        "score": 0.75,
+        "recallTime": 266,
+        "tokensUsed": 961,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin met with the creative team for his album on 8 June, 2023.",
+        "score": 1,
+        "tokensUsed": 24951
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain information about when Calvin met with the creative team for his new album. It only mentions that he released a new album.",
+        "score": 0.85,
+        "tokensUsed": 1187
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q15",
+    "question": "Why does Dave regularly visit parks?",
+    "groundTruth": "because it relaxes and calms him",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Dave regularly visits parks for the following reasons:\n\n*   **To relax and find peace:** He describes the parks as \"serene,\" \"peaceful,\" and \"calming.\" He enjoys being surrounded by nature.\n*   **To recharge:** He mentions that weekend walks in the park recharge him for the upcoming week.\n*   **To take photographs:** He has taken up photography and enjoys capturing the beauty of nature in the parks.\n*   **To spend time with friends:** He arranges regular walks in the park with friends.",
+        "score": 0.85,
+        "recallTime": 259,
+        "tokensUsed": 1011,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave regularly visits parks because they are beautiful and calming, and he enjoys taking walks there to recharge for the upcoming week. He also likes to hang out with friends at parks.",
+        "score": 0.85,
+        "tokensUsed": 24975
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Dave regularly visits parks because he has taken up photography and enjoys capturing the beauty of nature.",
+        "score": 0.1,
+        "tokensUsed": 1172
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q16",
+    "question": "When did Dave take a trip to mountainous regions?",
+    "groundTruth": "July 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Dave booked a trip to a mountainous region for next month.",
+        "score": 0.5,
+        "recallTime": 279,
+        "tokensUsed": 803,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave booked a trip to a mountainous region for next month on June 9, 2023.",
+        "score": 0.85,
+        "tokensUsed": 24950
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention Dave taking a trip to mountainous regions.",
+        "score": 0.85,
+        "tokensUsed": 1164
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q17",
+    "question": "When did Calvin have a car incident?",
+    "groundTruth": "on the Friday before 21 June, 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Calvin had a car accident last Friday.",
+        "score": 0.85,
+        "recallTime": 251,
+        "tokensUsed": 717,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin had a car incident on Friday, June 16, 2023.",
+        "score": 0.85,
+        "tokensUsed": 24941
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention Calvin having any car incidents. It only mentions that Calvin bought a new Ferrari.",
+        "score": 0.85,
+        "tokensUsed": 1171
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q18",
+    "question": "How many times has Calvin had to deal with insurance paperwork?",
+    "groundTruth": "two times",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin mentions dealing with insurance paperwork related to his car accident **one time**.",
+        "score": 0.85,
+        "recallTime": 240,
+        "tokensUsed": 869,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Calvin mentions dealing with insurance paperwork one time. This occurs after his car accident on 21 June, 2023.",
+        "score": 0.85,
+        "tokensUsed": 24970
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain any information about Calvin dealing with insurance paperwork.",
+        "score": 0.85,
+        "tokensUsed": 1172
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q19",
+    "question": "Which places or events has Calvin visited in Tokyo?",
+    "groundTruth": "music festival, car museum, Shibuya crossing, Shinjuku",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin has visited the following places/events in Tokyo:\n\n*   **Streets similar to those in Dave's photo:** Calvin mentions visiting similar streets to the one Dave shared.\n*   **Japanese garden:** Calvin took a picture in a Japanese garden.\n*   **Concert:** Calvin took a picture during a concert in Tokyo.\n*   **Shibuya Crossing:** Calvin mentions it's like Tokyo's Times Square.\n*   **Shinjuku:** Calvin was excited to explore Shinjuku.\n*   **Tokyo skyline:** Calvin took a picture of the Tokyo skyline.",
+        "score": 0.85,
+        "recallTime": 258,
+        "tokensUsed": 955,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Calvin has visited the following places or events in Tokyo:\n\n*   A music festival (where he met Frank Ocean)\n*   A music thingy (where he met talented artists and industry people)\n*   A concert (where he performed and the crowd was insane)\n*   A small town in Japan (with a view of the mountains)\n*   Shibuya Crossing\n*   Shinjuku",
+        "score": 0.85,
+        "tokensUsed": 25022
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Calvin has a house in Japan where he threw a party for his new album. The summary also mentions that Calvin is planning a trip to Tokyo after his tour ends. Therefore, Calvin has visited his house in Tokyo and threw a party there.",
+        "score": 0,
+        "tokensUsed": 1207
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q20",
+    "question": "Who inspired Dave's passion for car engineering?",
+    "groundTruth": "His Dad",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Dave's passion for car engineering was inspired by a combination of factors:\n\n*   **His experience fixing an old car in a neighbor's garage at age ten:** This was the initial spark that ignited his love for car engineering.\n*   **His dad taking him to his first car show when he was 10:** This experience \"wow-ed\" him and made him want to learn more about cars.\n*   **Classic cars:** He finds them charming and is inspired by the dedication people put into restoring them.",
+        "score": 0,
+        "recallTime": 239,
+        "tokensUsed": 1254,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave's passion for car engineering was inspired by his dad taking him to his first car show when he was 10 years old.",
+        "score": 1,
+        "tokensUsed": 24961
+      },
+      "memoryMd": {
+        "answer": "The provided text does not explicitly state who inspired Dave's passion for car engineering. It only mentions that he is a car enthusiast and automotive engineer who enjoys restoring cars and sharing his knowledge through his blog.",
+        "score": 0.85,
+        "tokensUsed": 1199
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q21",
+    "question": "Does Calvin wish to become more popular?",
+    "groundTruth": "Yes; he want's to grow his fanbase",
+    "category": 3,
+    "results": {
+      "engram": {
+        "answer": "Yes, Calvin wants to become more popular. He states his plan is to \"expand my brand worldwide and grow my fanbase\" and wants his \"music to reach more people and make an impact.\" This clearly indicates a desire for increased popularity and recognition.",
+        "score": 0.85,
+        "recallTime": 275,
+        "tokensUsed": 753,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Yes, Calvin expresses a desire to expand his fanbase and reach a global audience with his music. He mentions networking with other artists to build up his fan base, and he is excited about the potential that could lead to. He also mentions that he wants his music to reach more people and make an impact.",
+        "score": 0.85,
+        "tokensUsed": 25006
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not explicitly state that Calvin wishes to become more popular. However, it does mention that he values connecting with his fans and is touring with Frank Ocean, which could be interpreted as actions that would increase his popularity. But based solely on the information given, a definitive \"yes\" or \"no\" cannot be determined.",
+        "score": 0.85,
+        "tokensUsed": 1230
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q22",
+    "question": "Does Calvin want to expand his brand?",
+    "groundTruth": "yes",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Yes, Calvin wants to expand his brand worldwide. He mentions this explicitly as a goal.",
+        "score": 1,
+        "recallTime": 245,
+        "tokensUsed": 738,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Yes, Calvin has mentioned wanting to expand his brand multiple times in the conversation. For example, on March 23, 2023, he said he was excited to get a chance to expand. On August 3, 2023, he said his plan for now is to expand his brand worldwide and grow his fanbase.",
+        "score": 1,
+        "tokensUsed": 24996
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary doesn't explicitly state that Calvin wants to expand his brand. However, his actions suggest a desire for growth and wider reach:\n\n*   **Touring with Frank Ocean:** This collaboration exposes him to a larger audience.\n*   **Supporting young musicians:** This could be seen as building a network and potentially expanding his influence.\n*   **Releasing a new album:** This is a core activity for any musician seeking to grow their audience and recognition.\n*   **Having a house in Japan and throwing a party for his new album:** This suggests he is trying to expand his reach internationally.\n\nWhile not explicitly stated, these activities imply that Calvin is actively working to expand his reach and influence as a musician, which could be interpreted as expanding his \"brand.\"",
+        "score": 0.85,
+        "tokensUsed": 1340
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q23",
+    "question": "What is Dave's main passion?",
+    "groundTruth": "auto engineering",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave's main passion is fixing up cars and car engineering. He has been passionate about it since he was a child, and now it is his job. He finds it rewarding to transform something broken into something that runs smoothly and enjoys sharing his passion with others through his blog on car mods. He also enjoys photography, particularly capturing nature scenes, but his primary passion is clearly car restoration and engineering.",
+        "score": 0.85,
+        "recallTime": 242,
+        "tokensUsed": 1079,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave's main passion is working on cars, including car modification and restoration. He also enjoys photography and music.",
+        "score": 0.85,
+        "tokensUsed": 24957
+      },
+      "memoryMd": {
+        "answer": "Dave's main passion is restoring cars.",
+        "score": 0.85,
+        "tokensUsed": 1146
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q24",
+    "question": "Can Dave work with engines?",
+    "groundTruth": "yes",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Yes, based on the memories, Dave can definitely work with engines. He has been tinkering with engines since he was a child, learned about car engineering, does engine swaps, and has worked on engines of various cars, including a vintage Mustang and his neighbor's car.",
+        "score": 0.85,
+        "recallTime": 257,
+        "tokensUsed": 1102,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Yes, Dave can work with engines. The conversation contains multiple references to Dave working on cars, restoring them, and having his own car maintenance shop. He also mentions his passion for auto engineering and his experience working on cars with his dad.",
+        "score": 1,
+        "tokensUsed": 24991
+      },
+      "memoryMd": {
+        "answer": "Yes, Dave is an automotive engineer and enjoys restoring cars, implying he can work with engines. The memory summary also mentions he has a garage where he works on cars and enjoys bringing old cars back to life.",
+        "score": 1,
+        "tokensUsed": 1189
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q25",
+    "question": "When did Dave host a card-playing night with his friends?",
+    "groundTruth": "on the Friday before 22 August, 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Dave hosted a card-playing night with his friends last Friday.",
+        "score": 0.85,
+        "recallTime": 259,
+        "tokensUsed": 941,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave hosted a card-playing night with his friends last Friday on 22 August, 2023.",
+        "score": 0.85,
+        "tokensUsed": 24954
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention Dave hosting a card-playing night with his friends.",
+        "score": 0.85,
+        "tokensUsed": 1168
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q26",
+    "question": "When did Calvin record a podcast with his friends?",
+    "groundTruth": "21 August, 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Calvin recorded a podcast with his friends yesterday.",
+        "score": 0.85,
+        "recallTime": 319,
+        "tokensUsed": 806,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin recorded a podcast with his friends sometime before 22 August, 2023.",
+        "score": 0.85,
+        "tokensUsed": 24951
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain any information about Calvin recording a podcast with his friends.",
+        "score": 0.85,
+        "tokensUsed": 1170
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q27",
+    "question": "Which city was Calvin visiting in August 2023?",
+    "groundTruth": "Miami",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "The provided memories do not contain any dates. Therefore, it is impossible to determine which city Calvin was visiting in August 2023.",
+        "score": 0.85,
+        "recallTime": 246,
+        "tokensUsed": 749,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Calvin was in Tokyo in August 2023.",
+        "score": 0,
+        "tokensUsed": 24947
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention any specific cities Calvin was visiting in August 2023. It only mentions that Calvin is touring with Frank Ocean, planning a trip to Tokyo after the tour, and will be performing in Boston.",
+        "score": 0.85,
+        "tokensUsed": 1199
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q28",
+    "question": "What does Calvin do to relax?",
+    "groundTruth": "take long drives in his car, embrace nature, fixing cars",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin relaxes by:\n\n*   Having a relaxation room with a TV.\n*   Taking long drives in his car.\n*   Working on projects.\n*   Fixing cars.\n*   Trying out new sounds and pushing boundaries in music.\n*   Appreciating nature.\n*   Visiting Japanese gardens.",
+        "score": 0.85,
+        "recallTime": 325,
+        "tokensUsed": 782,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Calvin relaxes by:\n\n*   Taking long drives in his car.\n*   Embracing nature.\n*   Getting to know Japanese culture.\n*   Working on his music.\n*   Hanging out in his relaxation room with a TV.",
+        "score": 0.85,
+        "tokensUsed": 24981
+      },
+      "memoryMd": {
+        "answer": "Calvin has a separate room for relaxation with a TV.",
+        "score": 0,
+        "tokensUsed": 1150
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q29",
+    "question": "What are Dave's hobbies other than fixing cars?",
+    "groundTruth": "take a walk, go hiking, listen to favorite albums, live concerts, photography",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave's only other hobby is photography.",
+        "score": 0.85,
+        "recallTime": 308,
+        "tokensUsed": 1134,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Dave's hobbies other than fixing cars are:\n\n*   Photography\n*   Playing guitar in a rock band\n*   Attending concerts\n*   Hiking\n*   Exploring parks\n*   Playing cards with friends\n*   Blogging about car mods",
+        "score": 0.85,
+        "tokensUsed": 24989
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Dave's hobbies other than fixing cars are:\n\n*   Photography\n*   Jamming with his band\n*   Writing a blog about car mods",
+        "score": 0.85,
+        "tokensUsed": 1178
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q30",
+    "question": "What kind of music does Dave listen to?",
+    "groundTruth": "classic rock, Japanese music",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Dave listens to classic rock and vinyl.",
+        "score": 0.85,
+        "recallTime": 258,
+        "tokensUsed": 735,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave listens to classic rock.",
+        "score": 0.85,
+        "tokensUsed": 24937
+      },
+      "memoryMd": {
+        "answer": "The memory summary doesn't explicitly state what kind of music Dave listens to. However, it does mention that Dave is jamming with his band and created a logo for his rock band. Therefore, it can be inferred that Dave listens to and plays rock music.",
+        "score": 0.85,
+        "tokensUsed": 1202
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q31",
+    "question": "Where was Dave in the last two weeks of August 2023?",
+    "groundTruth": "San Francisco",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "The provided memories do not contain any information about Dave's location during the last two weeks of August 2023. The conversations are about nature, pictures, Calvin's musical journey, and general updates. There's no mention of Dave traveling or being in a specific place during that time.",
+        "score": 0.85,
+        "recallTime": 253,
+        "tokensUsed": 701,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Dave was in San Francisco in the last two weeks of August 2023. He mentions coming back from San Francisco with insights and knowledge on car modification on September 2, 2023.",
+        "score": 1,
+        "tokensUsed": 24983
+      },
+      "memoryMd": {
+        "answer": "The memory summary doesn't specify where Dave was in the last two weeks of August 2023. It only mentions that he attended a conference in Detroit, a music festival, and a car show at some point. There's no specific timeframe associated with these events.",
+        "score": 0.85,
+        "tokensUsed": 1206
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q32",
+    "question": "Where did Dave return from with new knowledge of different techniques of car restoration?",
+    "groundTruth": "San Francisco",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Dave returned from San Francisco with new knowledge of different techniques of car modification.",
+        "score": 0.9,
+        "recallTime": 253,
+        "tokensUsed": 855,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave returned from a car workshop in San Francisco with new knowledge of different techniques of car restoration.",
+        "score": 0.95,
+        "tokensUsed": 24970
+      },
+      "memoryMd": {
+        "answer": "Dave returned from a conference in Detroit with new knowledge of different techniques of car restoration.",
+        "score": 0,
+        "tokensUsed": 1178
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q33",
+    "question": "What was Dave doing in San Francisco?",
+    "groundTruth": "attending a car modification workshop",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Dave went to a car workshop in San Francisco to dive into the world of car restoration and learn about car modification.",
+        "score": 0.85,
+        "recallTime": 266,
+        "tokensUsed": 734,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave went to a car workshop in San Francisco to dive into the world of car restoration and see all the different techniques. He also came back from San Francisco with some great insights and knowledge on car modification that he wanted to share with Calvin.",
+        "score": 0.85,
+        "tokensUsed": 24993
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention Dave doing anything in San Francisco.",
+        "score": 0.85,
+        "tokensUsed": 1159
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q34",
+    "question": "When did Dave return from San Francisco?",
+    "groundTruth": "September 1, 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Dave returned from San Francisco sometime before he told Calvin \"Hey Calvin! Been a while, what's up? I'm tied up with car stuff lately, yesterday I came back from San Francsico with some great insights and knowledge on car modification that I want to share with you! Changing things around, and giving an old car a new life - so satisfying!\"",
+        "score": 0.1,
+        "recallTime": 254,
+        "tokensUsed": 879,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave returned from San Francisco sometime between September 2nd, 2023 and September 22nd, 2023. On September 2nd, 2023, Dave mentions he \"came back from San Francsico with some great insights and knowledge on car modification\".",
+        "score": 0.85,
+        "tokensUsed": 24986
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention Dave going to or returning from San Francisco.",
+        "score": 0.85,
+        "tokensUsed": 1162
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q35",
+    "question": "When did Calvin book flight tickets to Boston?",
+    "groundTruth": "last week of August 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Calvin booked a flight ticket to Boston last week.",
+        "score": 0.85,
+        "recallTime": 247,
+        "tokensUsed": 821,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin booked a flight ticket to Boston last week, as stated on 2 September, 2023.",
+        "score": 0.85,
+        "tokensUsed": 24952
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain information about Calvin booking flight tickets to Boston. It only mentions that Calvin is scheduled to perform in Boston and that Dave and Calvin are planning to meet up in Boston when Calvin is there.",
+        "score": 0.85,
+        "tokensUsed": 1203
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q36",
+    "question": "When was Calvin's album released?",
+    "groundTruth": "September 11, 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Calvin's album was released on the 11th.",
+        "score": 0.85,
+        "recallTime": 284,
+        "tokensUsed": 847,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin's album was released on the 11th of September, 2023.",
+        "score": 1,
+        "tokensUsed": 24943
+      },
+      "memoryMd": {
+        "answer": "The memory summary states: \"Calvin released his new album, which has been well-received.\" However, it does not specify *when* the album was released.",
+        "score": 0.85,
+        "tokensUsed": 1175
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q37",
+    "question": "Does Calvin love music tours?",
+    "groundTruth": "yes",
+    "category": 3,
+    "results": {
+      "engram": {
+        "answer": "Yes, based on the memories, Calvin loves music tours. He consistently expresses excitement and fulfillment from performing live, connecting with the crowd, and the energy he gets from touring. He describes the feeling as \"indescribable,\" \"an absolute high,\" and \"unreal.\" He also mentions dreaming of touring the world and connecting with different people through his music.",
+        "score": 0.85,
+        "recallTime": 719,
+        "tokensUsed": 1132,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Yes, Calvin loves music tours. He mentions several times how much he enjoys performing and connecting with the crowd during his tours. For example, on May 16, 2023, he says he is \"super excited\" for his upcoming performance in Tokyo. On May 31, 2023, he says touring with Frank Ocean was \"wild\" and that he \"felt so alive when performing.\" On June 21, 2023, he mentions that he hasn't been to the small town in Japan yet, but it's on his to-do list for after his tour with Frank Ocean ends. On October 19, 2023, he says that the tour has been great, the energy from the crowd is awesome, and jamming with Frank Ocean is a dream come true.",
+        "score": 0.85,
+        "tokensUsed": 25086
+      },
+      "memoryMd": {
+        "answer": "The memory summary indicates that Calvin is currently touring with Frank Ocean, suggesting he is actively participating in and likely enjoys music tours. There is also a mention of him having a strong connection with Frank Ocean on stage, which further implies a positive experience with touring. Therefore, based on the information provided, it can be inferred that Calvin loves music tours.",
+        "score": 1,
+        "tokensUsed": 1235
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q38",
+    "question": "When did Dave have a great jam session with his band?",
+    "groundTruth": "September 14, 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Dave had a great jam session with his band last night.",
+        "score": 0.75,
+        "recallTime": 253,
+        "tokensUsed": 841,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave had a great jam session with his band last night on 14 September, 2023.",
+        "score": 0.85,
+        "tokensUsed": 24952
+      },
+      "memoryMd": {
+        "answer": "According to the memory summary, Dave had a great time rehearsing with his band.",
+        "score": 0.85,
+        "tokensUsed": 1163
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q39",
+    "question": "Would Dave prefer working on a Dodge Charger or a Subaru Forester?",
+    "groundTruth": "Dodge Charger",
+    "category": 3,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave would likely prefer working on a Dodge Charger. He mentions working on a \"classic muscle car\" and giving it a \"modern twist,\" which aligns with the Dodge Charger. There's no mention of him working on or expressing interest in a Subaru Forester.",
+        "score": 0.85,
+        "recallTime": 325,
+        "tokensUsed": 970,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "This conversation does not contain enough information to answer the question. Dave expresses a general interest in cars, car modification, and car restoration, but he does not express a preference for working on a Dodge Charger or a Subaru Forester.",
+        "score": 0.85,
+        "tokensUsed": 24998
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Dave is a car enthusiast who enjoys restoring cars, and he recently finished restoring a Ford Mustang. The summary doesn't explicitly state a preference between a Dodge Charger and a Subaru Forester. However, given his interest in restoring cars and attending car shows, it's more likely he would prefer working on a Dodge Charger, which is a classic muscle car often associated with restoration projects and car shows, compared to a Subaru Forester.",
+        "score": 0.85,
+        "tokensUsed": 1266
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q40",
+    "question": "What was the artists Calvin used to listen to when he was a kid?",
+    "groundTruth": "Tupac and Dr. Dre",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the provided memories, Calvin used to listen to Tupac and Dr. Dre when he was younger.",
+        "score": 1,
+        "recallTime": 267,
+        "tokensUsed": 893,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "According to the conversation, Calvin used to rock a song by Tupac and Dr. Dre called \"California Love\" when he was a kid.",
+        "score": 1,
+        "tokensUsed": 24966
+      },
+      "memoryMd": {
+        "answer": "Calvin used to listen to Tupac and Dr. Dre with his dad.",
+        "score": 0.85,
+        "tokensUsed": 1160
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q41",
+    "question": "Which of their family member do Calvin and Dave have nostalgic memories about?",
+    "groundTruth": "Dad",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the provided memories, Dave has nostalgic memories about working on cars with his dad. There is no mention of Calvin having nostalgic memories about a family member.",
+        "score": 0.85,
+        "recallTime": 264,
+        "tokensUsed": 789,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave has nostalgic memories about working on cars with his dad. There is no mention of Calvin having nostalgic memories about a family member.",
+        "score": 0.85,
+        "tokensUsed": 24975
+      },
+      "memoryMd": {
+        "answer": "Based on the provided memory summary, Calvin has nostalgic memories about listening to a Tupac and Dr. Dre song with his dad. There is no mention of any family members for Dave.",
+        "score": 0.85,
+        "tokensUsed": 1193
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q42",
+    "question": "Based on the conversation, did Calvin and Dave have a meeting in Boston between August and November 2023? Answer in yes or no.",
+    "groundTruth": "No",
+    "category": 3,
+    "results": {
+      "engram": {
+        "answer": "no",
+        "score": 1,
+        "recallTime": 265,
+        "tokensUsed": 751,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "no",
+        "score": 1,
+        "tokensUsed": 24952
+      },
+      "memoryMd": {
+        "answer": "no",
+        "score": 1,
+        "tokensUsed": 1162
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q43",
+    "question": "Which city was Calvin at on October 3, 2023?",
+    "groundTruth": "Boston",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "The provided memories do not contain any dates. Therefore, it is impossible to determine which city Calvin was in on October 3, 2023.",
+        "score": 0.85,
+        "recallTime": 289,
+        "tokensUsed": 757,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Calvin was in Boston on October 3, 2023.",
+        "score": 1,
+        "tokensUsed": 24947
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain any information about Calvin's location on October 3, 2023. It only mentions that he is touring with Frank Ocean, planning a trip to Tokyo after the tour, and will be performing in Boston at some point.",
+        "score": 0.85,
+        "tokensUsed": 1202
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q44",
+    "question": "When did Calvin met with local artists in Boston?",
+    "groundTruth": "October 3, 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Calvin met with local artists in Boston yesterday.",
+        "score": 0.85,
+        "recallTime": 525,
+        "tokensUsed": 1023,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin met with some incredible artists in Boston yesterday on October 3, 2023.",
+        "score": 0.85,
+        "tokensUsed": 24952
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not explicitly state that Calvin met with local artists in Boston. However, it does mention that Calvin attended a fancy gala in Boston and met some interesting people. It also mentions that Calvin is scheduled to perform at an upcoming show in Boston. It is possible that Calvin met local artists at the gala or will meet them at the upcoming show, but the memory summary does not provide definitive information.",
+        "score": 0.85,
+        "tokensUsed": 1253
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q45",
+    "question": "What shared activities do Dave and Calvin have?",
+    "groundTruth": "Working on cars",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave and Calvin share the following activities:\n\n*   **Appreciation for serene spots/nature:** They both appreciate peaceful and beautiful locations, as evidenced by their comments on the park picture and the spot with the bench and pink flowers.\n*   **Photography:** Dave takes pictures and shares them with Calvin, and Calvin compliments the quality of Dave's photos.\n*   **Music:** Calvin is a musician, and Dave is supportive of his musical journey. They discuss Calvin's performances and collaborations.\n*   **Mutual Support and Inspiration:** They encourage each other in their respective pursuits.\n*   **Interest in Cars:** Calvin expresses interest in cars and making new models, and Dave has an interest in engineering cars.\n*   **Collaboration on Projects:** They have worked together on projects in the past.",
+        "score": 0.85,
+        "recallTime": 299,
+        "tokensUsed": 804,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, here are the shared activities that Dave and Calvin have:\n\n*   **Appreciation for Music:** Both Dave and Calvin enjoy music, attending concerts, and discussing their favorite artists and musical experiences.\n*   **Appreciation for Cars:** Both Dave and Calvin have an appreciation for cars. Dave enjoys working on cars and car modifications, while Calvin enjoys driving his sports car.\n*   **Photography:** Both Dave and Calvin enjoy taking photos and sharing them with each other.\n*   **Supporting Each Other's Passions:** They both actively support each other's passions and offer encouragement.\n*   **Visiting Boston:** Both Dave and Calvin have spent time in Boston and have discussed meeting up there.\n*   **Networking:** Both Dave and Calvin have attended networking events to meet new people in their respective fields.\n*   **Collaboration:** Both Dave and Calvin have collaborated with other artists in their respective fields.\n*   **Relaxing in Nature:** Both Dave and Calvin have discussed relaxing in nature and visiting parks.\n*   **Sharing Photos:** Both Dave and Calvin enjoy sharing photos of their experiences with each other.\n*   **Giving Advice:** Both Dave and Calvin have given each other advice on their respective fields.\n*   **Expressing Gratitude:** Both Dave and Calvin have expressed gratitude for each other's support.\n*   **Maintaining a Friendship:** Both Dave and Calvin have maintained a friendship over a long period of time.",
+        "score": 0.85,
+        "tokensUsed": 25302
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Dave and Calvin share the following activities:\n\n*   **Supporting each other's passions and careers:** They are both supportive of each other's endeavors and offer encouragement.\n*   **Planning to meet up in Boston:** They are planning to meet up when Calvin is in Boston for his performance.",
+        "score": 0,
+        "tokensUsed": 1222
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q46",
+    "question": "What is Dave's favorite activity?",
+    "groundTruth": "Restoring cars",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave's favorite activity is working on cars, especially classic cars. He is passionate about fixing them up, restoring them, and modifying them. He finds it rewarding and it gives him a sense of purpose.",
+        "score": 1,
+        "recallTime": 260,
+        "tokensUsed": 874,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Dave's favorite activity is working on cars, especially restoring them. He also enjoys photography, attending concerts, and spending time in nature.",
+        "score": 0.85,
+        "tokensUsed": 24972
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Dave's favorite activity is restoring cars. This is supported by the following:\n\n*   He is described as a \"car enthusiast and automotive engineer.\"\n*   He enjoys \"restoring cars.\"\n*   He recently finished restoring a Ford Mustang.\n*   He has a garage where he works on cars.\n*   He started a blog on car mods to share his passion.",
+        "score": 1,
+        "tokensUsed": 1228
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q47",
+    "question": "How many car shows has Dave attended?",
+    "groundTruth": "two",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave has attended at least **4** car shows.\n\n*   \"Last Friday I went to the car show.\"\n*   \"I attended this awesome event recently. It was like a car lover's paradise! They had so many classic cars on show...\"\n*   \"Last weekend I went to a car show. Classic cars are so charming...\"\n*   \"My dad took me to my first car show when I was 10...\"",
+        "score": 0,
+        "recallTime": 332,
+        "tokensUsed": 1065,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Dave mentions attending the following car shows:\n\n*   An awesome event recently that was like a car lover's paradise (March 23, 2023)\n*   A car show last weekend (April 20, 2023)\n*   A car show last Friday (October 8, 2023)\n\nTherefore, Dave has attended 3 car shows.",
+        "score": 0.85,
+        "tokensUsed": 25002
+      },
+      "memoryMd": {
+        "answer": "Dave attended one car show.",
+        "score": 0,
+        "tokensUsed": 1146
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q48",
+    "question": "What was Dave doing in the first weekend of October 2023?",
+    "groundTruth": "attending a car show",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Based on the provided memories, it is impossible to determine what Dave was doing in the first weekend of October 2023. The memories do not contain any specific dates.",
+        "score": 0.1,
+        "recallTime": 275,
+        "tokensUsed": 698,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "According to the conversation on DATE 3:15 pm on 8 October, 2023, Dave went to a car show on the previous Friday (which would have been the first Friday of October, October 6th, 2023).",
+        "score": 0.85,
+        "tokensUsed": 24980
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain information about what Dave was doing in the first weekend of October 2023.",
+        "score": 0.85,
+        "tokensUsed": 1174
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q49",
+    "question": "When Dave was a child, what did he and his father do in the garage?",
+    "groundTruth": "tinkering with car engines, restoration and refurbishing cars",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "When Dave was a child, he and his father would spend time in the garage tinkering with engines and working on cars together, including restoring an old car one summer.",
+        "score": 0.85,
+        "recallTime": 237,
+        "tokensUsed": 1005,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "When Dave was a child, he and his father spent hours in the garage tinkering with engines.",
+        "score": 0.85,
+        "tokensUsed": 24959
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain information about what Dave did with his father in the garage when he was a child. It only mentions that Dave currently has a garage where he works on cars.",
+        "score": 0.85,
+        "tokensUsed": 1197
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q50",
+    "question": "When did Calvin buy his second Ferrari?",
+    "groundTruth": "first week of October 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "The provided memories only mention Calvin buying *one* Ferrari. There is no mention of him buying a second one. Therefore, the answer is:\n\n**The memories do not indicate that Calvin bought a second Ferrari.**",
+        "score": 0.85,
+        "recallTime": 266,
+        "tokensUsed": 838,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Calvin mentions getting a new Ferrari on October 15, 2023.",
+        "score": 0.85,
+        "tokensUsed": 24951
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary states that Calvin recently bought a new Ferrari. It does not mention him buying a *second* Ferrari. Therefore, based on the information given, it is impossible to determine when Calvin bought his second Ferrari.",
+        "score": 0.85,
+        "tokensUsed": 1199
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q51",
+    "question": "When did Calvin and Frank Ocean start collaborating?",
+    "groundTruth": "August 2022",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Calvin and Frank Ocean started collaborating in August of last year.",
+        "score": 0.85,
+        "recallTime": 247,
+        "tokensUsed": 1004,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin and Frank Ocean started collaborating in August of last year (the conversation took place in October of the following year).",
+        "score": 0.85,
+        "tokensUsed": 24965
+      },
+      "memoryMd": {
+        "answer": "Calvin and Frank Ocean started collaborating after they met at a festival.",
+        "score": 0.2,
+        "tokensUsed": 1161
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q52",
+    "question": "When did Calvin plan on travelling to Tokyo the second time?",
+    "groundTruth": "November 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin planned on travelling to Tokyo next month after the tour ends.",
+        "score": 0.85,
+        "recallTime": 347,
+        "tokensUsed": 801,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin planned on going to Tokyo next month after the tour ends, which was mentioned on October 19, 2023.",
+        "score": 0.85,
+        "tokensUsed": 24961
+      },
+      "memoryMd": {
+        "answer": "The memory summary states that Calvin is planning a trip to Tokyo after his tour with Frank Ocean ends. It does not mention a second trip, so the information to answer the question is not available.",
+        "score": 0.85,
+        "tokensUsed": 1194
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q53",
+    "question": "Who supports Calvin in tough times?",
+    "groundTruth": "friends and team",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave and Calvin's friends and team support Calvin in tough times.",
+        "score": 0.85,
+        "recallTime": 250,
+        "tokensUsed": 686,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Dave and Calvin's friends and team support Calvin in tough times.",
+        "score": 0.85,
+        "tokensUsed": 24951
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, the following people support Calvin:\n\n*   **Dave:** He is supportive of Calvin's music career.\n*   **High School Friend:** He has been supportive of Calvin's music career since they were teenagers.\n\nThe memory summary doesn't explicitly state who supports Calvin in \"tough times,\" but it implies that Dave and his High School Friend are supportive in general, which would likely extend to tough times as well.",
+        "score": 0.85,
+        "tokensUsed": 1248
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q54",
+    "question": "What does help Calvin stay connected to the creative process?",
+    "groundTruth": "Calvin stays connected to the creative process by always staying up-to-date on world events and watching documentaries about artists.",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, the following helps Calvin stay connected to the creative process:\n\n*   **Notebook:** Calvin asks Dave if his notebook helps him stay connected to the creative process.\n*   **Staying up-to-date on world events:** Calvin mentions that staying connected and up-to-date on world events helps his music stand out by incorporating unique perspectives and connects him better with his fans.\n*   **Watching music videos, concerts, and documentaries:** Calvin watches music videos, concerts, and documentaries about artists and their creative process to learn more about the industry and gain inspiration.\n*   **Supporting young musicians:** Calvin supports young musicians from a music program, which inspires him.",
+        "score": 0.85,
+        "recallTime": 257,
+        "tokensUsed": 960,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "According to the conversation on November 2, 2023, writing lyrics and notes in a notebook helps Dave stay connected to the creative process. Calvin responds by saying that these help Dave stay focused when making music.",
+        "score": 0.85,
+        "tokensUsed": 24990
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Calvin stays connected to the creative process through:\n\n*   **Touring with Frank Ocean:** This collaboration likely sparks new ideas and influences.\n*   **Supporting young musicians:** Mentoring others can be a source of inspiration and fresh perspectives.\n*   **Working on new music and collaborations:** Actively creating and collaborating keeps him engaged.\n*   **His custom-made guitar:** The unique design and personal connection to the guitar likely inspires him.\n*   **His music studio:** Having a dedicated space for creation is essential.\n*   **His house in Japan:** This provides a change of scenery and cultural immersion.",
+        "score": 0.85,
+        "tokensUsed": 1311
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q55",
+    "question": "When did Calvin visit some of the sights in Boston with a former high school friend?",
+    "groundTruth": "October 24, 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Calvin visited some of the sights in Boston with a former high school friend the day before he told Dave about it. He said, \"Hey Dave! Long time no talk! I had a great time yesterday, and visited some sights in Boston with a high school friend. It was really fun and eye-opening.\"",
+        "score": 0.85,
+        "recallTime": 256,
+        "tokensUsed": 918,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin visited some of the sights in Boston with a former high school friend on October 24, 2023.",
+        "score": 1,
+        "tokensUsed": 24965
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain information about Calvin visiting sights in Boston with a former high school friend. It only mentions that Calvin is scheduled to perform in Boston and attended a gala there.",
+        "score": 1,
+        "tokensUsed": 1205
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q56",
+    "question": "Which cities did Dave travel to in 2023?",
+    "groundTruth": "San Francsico, Detroit",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the provided memories, there is no information about Dave traveling to any cities in 2023. The memories focus on conversations between Dave and Calvin, with Dave expressing interest in visiting Japan someday, but no mention of actual travel in 2023.",
+        "score": 0.85,
+        "recallTime": 253,
+        "tokensUsed": 691,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Dave traveled to the following cities in 2023:\n\n*   **Boston** (where he lives)\n*   **Detroit**\n*   **San Francisco**",
+        "score": 0.85,
+        "tokensUsed": 24965
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Dave traveled to **Boston** and **Detroit** in 2023.",
+        "score": 0.85,
+        "tokensUsed": 1160
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q57",
+    "question": "Which hobby did Dave pick up in October 2023?",
+    "groundTruth": "photography",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "The provided memories do not contain any dates. Therefore, it is impossible to determine which hobby Dave picked up in October 2023. However, based on the memories, Dave has the following hobbies:\n\n*   Fixing up things (especially cars)\n*   Photography\n*   Listening to classic rock",
+        "score": 0.85,
+        "recallTime": 254,
+        "tokensUsed": 971,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Dave picked up photography before October 29, 2023. The conversation on October 29, 2023, starts with Calvin asking Dave \"You? Anything new since we last spoke?\" and Dave responds with \"Hey Calvin! That's cool that you've been networking with other artists. Nice! I've been getting into photography recently.\"",
+        "score": 0.85,
+        "tokensUsed": 25015
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention any specific dates, including October 2023. Therefore, it's impossible to determine which hobby Dave picked up in October 2023 based on the information given.",
+        "score": 1,
+        "tokensUsed": 1192
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q58",
+    "question": "Which events in Dave's life inspired him to take up auto engineering?",
+    "groundTruth": "attending a car show with Dad, working on an old car in a neighbor's garage when he was young, spent a summer restoring an old car with Dad",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, the following events inspired Dave to take up auto engineering:\n\n*   **Finding and fixing an old car in a neighbor's garage at age ten:** This was the initial spark that ignited his love for car engineering.\n*   **His dad taking him to a car show when he was 10:** This experience \"wow-ed\" him and made him want to learn more about cars.\n*   **Working on cars with his dad as a kid:** He has fond memories of this time, especially one summer when they restored an old car together.",
+        "score": 0.85,
+        "recallTime": 256,
+        "tokensUsed": 1249,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, the following events inspired Dave to take up auto engineering:\n\n1.  His dad took him to his first car show when he was 10, and he was \"wow-ed\".\n2.  He found an old car in a neighbor's garage and asked if he could fix it. He enjoyed transforming it from broken-down to high-running, and that sense of accomplishment made him hooked.",
+        "score": 0.85,
+        "tokensUsed": 25027
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not explicitly state which events inspired Dave to take up auto engineering. It only mentions that he is a car enthusiast and automotive engineer.",
+        "score": 0.85,
+        "tokensUsed": 1192
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q59",
+    "question": "How many Ferraris does Calvin own?",
+    "groundTruth": "two",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin owns at least one Ferrari. He mentions getting \"a new Ferrari\" and refers to \"my car\" when talking about it. There's no indication he owns more than one.",
+        "score": 0.85,
+        "recallTime": 245,
+        "tokensUsed": 853,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Calvin owns two Ferraris. He mentions getting a new Ferrari on October 15, 2023, and also mentions taking his Ferrari for a service on August 3, 2023.",
+        "score": 1,
+        "tokensUsed": 24972
+      },
+      "memoryMd": {
+        "answer": "Calvin owns one Ferrari.",
+        "score": 0,
+        "tokensUsed": 1144
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q60",
+    "question": "What gifts has Calvin received from his artist friends?",
+    "groundTruth": "gold chain, custom-made guitar with an octopus on it",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin received a guitar from his artist friends and a reminder of why he keeps hustling as a musician from another artist.",
+        "score": 0.85,
+        "recallTime": 249,
+        "tokensUsed": 884,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin received a gold necklace with a diamond pendant from another artist as a gift.",
+        "score": 0.85,
+        "tokensUsed": 24955
+      },
+      "memoryMd": {
+        "answer": "Calvin has received a custom-made guitar from his Japanese artist friend.",
+        "score": 0.85,
+        "tokensUsed": 1162
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q61",
+    "question": "How long did Dave's work on the Ford Mustang take?",
+    "groundTruth": "nearly two months",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Dave mentions finding the Ford Mustang last week and spending ages restoring it.",
+        "score": 0.1,
+        "recallTime": 259,
+        "tokensUsed": 1024,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave mentions working on the Ford Mustang in the conversation on October 4, 2023. He says he found it in a junkyard and was working on restoring it.\n\nIn the conversation on October 23, 2023, Dave shares a photo of a red car parked in a field with other cars and says, \"Hey Calvin, check out this photo! I put in a lot of work restoring it, but the result is awesome. It's so satisfying to bring an old car back to life.\"\n\nTherefore, it took Dave approximately 19 days to restore the Ford Mustang.",
+        "score": 0.85,
+        "tokensUsed": 25056
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary states that Dave recently finished restoring a Ford Mustang, but it doesn't specify how long the restoration took.",
+        "score": 0.85,
+        "tokensUsed": 1178
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q62",
+    "question": "How long was the car modification workshop in San Francisco?",
+    "groundTruth": "two weeks",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "The provided memories do not state how long the car modification workshop in San Francisco was.",
+        "score": 1,
+        "recallTime": 255,
+        "tokensUsed": 1037,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "The conversation does not state how long the car modification workshop in San Francisco was.",
+        "score": 1,
+        "tokensUsed": 24958
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention a car modification workshop in San Francisco. Therefore, I cannot answer the question.",
+        "score": 0.85,
+        "tokensUsed": 1177
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q63",
+    "question": "What style of guitars does Calvin own?",
+    "groundTruth": "custom-made yellow guitar with an octopus on it, shiny purple guitar",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin owns at least one guitar with a unique and special design that he got customized with a shiny finish.",
+        "score": 0.85,
+        "recallTime": 256,
+        "tokensUsed": 777,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Calvin owns a custom-made guitar with an octopus on it and a guitar with a shiny finish. The style of the guitars is not mentioned.",
+        "score": 0.85,
+        "tokensUsed": 24969
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Calvin owns a custom-made guitar with an octopus design and a shiny purple finish. The summary does not mention any other guitars that Calvin owns.",
+        "score": 0.85,
+        "tokensUsed": 1183
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q64",
+    "question": "What activities has Dave participated in with his friends?",
+    "groundTruth": "weekly visits to local parks, countryside roadtrip, celebration of the opening of his car maintenance shop, card-playing nights",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave has participated in the following activities with his friends:\n\n*   **Walking in the park:** He arranged regular walks with friends.\n*   **Card night:** He had a card night with friends.\n*   **Road trip:** He went on a road trip with friends.\n*   **Hanging out at parks:** He mentioned hanging out with friends at parks.\n*   **Rock band:** He joined a rock band and practices with them.",
+        "score": 0.85,
+        "recallTime": 253,
+        "tokensUsed": 838,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Dave has participated in the following activities with his friends:\n\n*   Attended a car lover's event.\n*   Spent time at a beautiful park.\n*   Went to a music festival in Boston.\n*   Invited friends over to celebrate the opening of his car shop.\n*   Arranged regular walks together in the park.\n*   Went on a road trip.\n*   Had a card night.\n*   Went to a car show.",
+        "score": 0.85,
+        "tokensUsed": 25032
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Dave has participated in the following activities with his friends:\n\n*   **Jamming with his band:** This implies he's interacting with bandmates, who are likely his friends.\n*   **Attending a music festival:** While not explicitly stated he went *with* friends, it's a common social activity.\n*   **Planning to show Calvin his garage and car projects:** Dave is planning to show Calvin his garage and car projects when Calvin is in Boston.",
+        "score": 0.85,
+        "tokensUsed": 1261
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q65",
+    "question": "When did Dave take a photo of a Boston clock tower?",
+    "groundTruth": "September 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Dave took a photo of a Boston clock tower at sunset.",
+        "score": 0.25,
+        "recallTime": 253,
+        "tokensUsed": 912,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave took a photo of a Boston clock tower last month, according to their conversation on October 29, 2023.",
+        "score": 0.85,
+        "tokensUsed": 24959
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain information about Dave taking a photo of a Boston clock tower.",
+        "score": 0.85,
+        "tokensUsed": 1169
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q66",
+    "question": "Do all of Dave's car restoration projects go smoothly?",
+    "groundTruth": "No",
+    "category": 1,
+    "results": {
+      "engram": {
+        "answer": "No, not all of Dave's car restoration projects go smoothly. He mentions having a \"tough time\" with his vintage Mustang project, hearing a \"weird noise\" after thinking he had fixed the engine, and feeling \"disappointed\" after putting so much work in.",
+        "score": 1,
+        "recallTime": 316,
+        "tokensUsed": 1012,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "No, not all of Dave's car restoration projects go smoothly. On Date: 8:57 pm on 22 September, 2023, Dave mentions having a tough time with his car project, specifically with the engine of a vintage Mustang. He thought he had fixed it, but heard a weird noise when he started it up, expressing his disappointment.",
+        "score": 0.85,
+        "tokensUsed": 25011
+      },
+      "memoryMd": {
+        "answer": "The memory summary doesn't explicitly state whether all of Dave's car restoration projects go smoothly. It only mentions that he is passionate about restoring cars and enjoys the satisfaction of bringing old cars back to life.",
+        "score": 0.1,
+        "tokensUsed": 1200
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q67",
+    "question": "Where was Calvin located in the last week of October 2023?",
+    "groundTruth": "Tokyo",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Based on the provided memories, it's impossible to definitively determine Calvin's location in the last week of October 2023. Here's why:\n\n*   **No Dates:** The memories lack specific dates. We only know relative timeframes like \"last week\" or \"next month.\"\n*   **Multiple Locations:** Calvin mentions being in or going to Japan and Boston. We don't know the exact timing of these trips.\n*   **Future Plans:** Some statements are about future plans (\"I'm gonna be in Japan for a few months then off to Boston!\").\n\nTherefore, we can't pinpoint his location to the last week of October 2023.",
+        "score": 0.85,
+        "recallTime": 274,
+        "tokensUsed": 877,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Calvin was in Boston in the last week of October 2023. He mentions visiting some sights in Boston with a high school friend on October 25th, and on October 29th, Dave shares a photo of Boston.",
+        "score": 0,
+        "tokensUsed": 24989
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary doesn't specify the exact dates of any events. Therefore, it's impossible to determine Calvin's location in the last week of October 2023 based solely on this information. The summary only mentions that he is currently touring with Frank Ocean and planning a trip to Tokyo after the tour.",
+        "score": 0.85,
+        "tokensUsed": 1223
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q68",
+    "question": "When did Dave find the car he repaired and started sharing in his blog?",
+    "groundTruth": "last week of October 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave found the car he restored and started sharing in his blog \"last week.\"",
+        "score": 0.85,
+        "recallTime": 265,
+        "tokensUsed": 950,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave found the car he repaired and started sharing in his blog last week.",
+        "score": 0.85,
+        "tokensUsed": 24956
+      },
+      "memoryMd": {
+        "answer": "The provided text doesn't specify *when* Dave found the car he restored and started sharing on his blog. It only mentions that he is restoring cars, sharing his knowledge through his blog, and recently finished restoring a Ford Mustang.",
+        "score": 0.85,
+        "tokensUsed": 1206
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q69",
+    "question": "When did Dave buy a vintage camera?",
+    "groundTruth": "November 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Dave bought a new vintage camera this month.",
+        "score": 0.85,
+        "recallTime": 314,
+        "tokensUsed": 780,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "According to the conversation on DATE 10:54 am on 17 November, 2023, Dave bought a new vintage camera this month.",
+        "score": 0.85,
+        "tokensUsed": 24957
+      },
+      "memoryMd": {
+        "answer": "According to the memory summary, Dave bought a vintage camera to capture special moments.",
+        "score": 0.1,
+        "tokensUsed": 1161
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q70",
+    "question": "When did Calvin attend a gala in Boston?",
+    "groundTruth": "November 16, 2023",
+    "category": 2,
+    "results": {
+      "engram": {
+        "answer": "Calvin attended a fancy gala in Boston yesterday.",
+        "score": 0.75,
+        "recallTime": 264,
+        "tokensUsed": 848,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin attended a gala in Boston on November 17, 2023.",
+        "score": 0.85,
+        "tokensUsed": 24943
+      },
+      "memoryMd": {
+        "answer": "Calvin attended a fancy gala in Boston.",
+        "score": 0.5,
+        "tokensUsed": 1149
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q71",
+    "question": "How long did Calvin plan to stay in Japan?",
+    "groundTruth": "A few months",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin plans to stay in Japan for a few months.",
+        "score": 1,
+        "recallTime": 280,
+        "tokensUsed": 803,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin planned to stay in Japan for a few months.",
+        "score": 1,
+        "tokensUsed": 24942
+      },
+      "memoryMd": {
+        "answer": "The memory summary states that Calvin is planning a trip to Tokyo after the tour ends, but it **does not specify how long he plans to stay.**",
+        "score": 0.85,
+        "tokensUsed": 1175
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q72",
+    "question": "Which band was Dave's favorite at the music festival in April 2023?",
+    "groundTruth": "Aerosmith",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave's favorite band at the music festival was Aerosmith. He specifically mentions that if he had to pick a favorite, it would definitely be Aerosmith and that their performance was incredible. He also shares a picture he took of them playing. The memories do not specify that the music festival was in April 2023.",
+        "score": 0.85,
+        "recallTime": 273,
+        "tokensUsed": 1053,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave's favorite band at the music festival in April 2023 was Aerosmith.",
+        "score": 1,
+        "tokensUsed": 24954
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention Dave's favorite band at the music festival, nor does it specify that the music festival occurred in April 2023. It only states that Dave attended a music festival and enjoyed the energy of the crowd.",
+        "score": 1,
+        "tokensUsed": 1207
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q73",
+    "question": "Where did Calvin attend a music festival in April 2023?",
+    "groundTruth": "Tokyo",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Based on the provided memories, there is no mention of Calvin attending a music festival in April 2023. The memories mention a festival in Tokyo, but there is no date associated with it.",
+        "score": 0.85,
+        "recallTime": 272,
+        "tokensUsed": 960,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin attended a music festival in Tokyo in April 2023.",
+        "score": 1,
+        "tokensUsed": 24947
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain information about Calvin attending a music festival in April 2023.",
+        "score": 1,
+        "tokensUsed": 1171
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q74",
+    "question": "What advice did Calvin receive from the producer at the music festival?",
+    "groundTruth": "to stay true to himself and sound unique",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "The memories provided do not mention a music festival. However, Calvin did receive advice from a producer. The producer advised Calvin to stay true to himself and sound unique.",
+        "score": 0.85,
+        "recallTime": 249,
+        "tokensUsed": 892,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "The producer gave Calvin some advice to stay true to himself and sound unique.",
+        "score": 1,
+        "tokensUsed": 24957
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain information about advice Calvin received from a producer at a music festival. It only mentions that Calvin met Frank Ocean at a festival and decided to collaborate.",
+        "score": 1,
+        "tokensUsed": 1200
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q75",
+    "question": "What is Dave's new business venture as of 1 May, 2023?",
+    "groundTruth": "Car maintenance shop",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave's new business venture is a car maintenance shop. He mentions opening it, sharing photos of it, and inviting friends to celebrate. He also mentions teaming up with a local garage and getting picked for a car mod workshop. There is no date mentioned in the memories, so it is impossible to know if this is his business venture as of 1 May, 2023.",
+        "score": 0.85,
+        "recallTime": 265,
+        "tokensUsed": 916,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "As of 1 May, 2023, Dave's new business venture is that he finally opened his own car maintenance shop.",
+        "score": 1,
+        "tokensUsed": 24959
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention any new business venture for Dave as of May 1, 2023. It only mentions that Dave started a blog on car mods to share his passion with others.",
+        "score": 0.85,
+        "tokensUsed": 1189
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q76",
+    "question": "What type of cars does Dave work on at his shop?",
+    "groundTruth": "all kinds of cars, from regular maintenance to full restorations of classic cars",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Dave works on all kinds of cars at his shop, from regular maintenance to full restorations of classic cars. He also works on classic muscle cars, doing engine swaps and suspension modifications, and learning about body modifications to give them a modern twist.",
+        "score": 1,
+        "recallTime": 259,
+        "tokensUsed": 1083,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave works on all kinds of cars at his shop - from regular maintenance to full restorations of classic cars.",
+        "score": 1,
+        "tokensUsed": 24959
+      },
+      "memoryMd": {
+        "answer": "Dave works on restoring cars at his garage. He recently finished restoring a Ford Mustang.",
+        "score": 0.85,
+        "tokensUsed": 1164
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q77",
+    "question": "What did Calvin receive as a gift from another artist?",
+    "groundTruth": "a gold necklace with a diamond pendant",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Calvin received a reminder of why he keeps hustling as a musician as a gift from another artist.",
+        "score": 0,
+        "recallTime": 241,
+        "tokensUsed": 790,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin received a gold necklace with a diamond pendant as a gift from another artist.",
+        "score": 1,
+        "tokensUsed": 24954
+      },
+      "memoryMd": {
+        "answer": "Calvin received a custom-made guitar from his Japanese artist friend.",
+        "score": 0,
+        "tokensUsed": 1160
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q78",
+    "question": "What was the necklace Calvin received meant to remind him of?",
+    "groundTruth": "why he keeps hustling as a musician",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "The necklace Calvin received was meant to remind him of why he keeps hustling as a musician.",
+        "score": 1,
+        "recallTime": 248,
+        "tokensUsed": 764,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "The necklace Calvin received was meant to remind him of why he keeps hustling as a musician.",
+        "score": 1,
+        "tokensUsed": 24958
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention Calvin receiving a necklace.",
+        "score": 0.85,
+        "tokensUsed": 1163
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q79",
+    "question": "What does Dave do when he feels his creativity is frozen?",
+    "groundTruth": "immerse himself in something he loves",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "When Dave feels his creativity is frozen, he immerses himself in something he loves, like concerts or his favorite albums. He also suggests taking a break from music and exploring other things, and having fun while doing it.",
+        "score": 0.85,
+        "recallTime": 247,
+        "tokensUsed": 953,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "According to the conversation on DATE: 4:15 pm on 20 April, 2023, Dave said, \"Last weekend I went to a car show. Classic cars are so charming and the dedication people put into restoring them is amazing. That's why I'm so into auto engineering.\"\n\nAccording to the conversation on DATE: 3:13 pm on 3 May, 2023, Calvin said, \"On the other hand, I'm stuck with my music at the moment, like my creativity's frozen or something. Any tips?\" Dave responded, \"If I'm having trouble coming up with ideas, I usually immerse myself in something I love, like concerts or my favorite albums. Doing that usually helps to jumpstart my inspiration. Maybe try taking a break from music and explore other things. Plus, have some fun while you're at it!\"",
+        "score": 1,
+        "tokensUsed": 25118
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not explicitly state what Dave does when he feels his creativity is frozen. However, it does mention that Dave is involved in several creative activities: restoring cars, photography, jamming with his band, and writing a blog. It's possible he switches between these activities to overcome creative blocks, but the summary doesn't confirm this.",
+        "score": 0.85,
+        "tokensUsed": 1238
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q80",
+    "question": "How does Calvin plan to jumpstart his inspiration?",
+    "groundTruth": "explore other things and have some fun",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin plans to jumpstart his inspiration by:\n\n*   Exploring the city (Boston).\n*   Trying out different local cuisines.\n*   Collaborating with musicians in the area.\n*   Supporting young musicians from a music program.",
+        "score": 0.85,
+        "recallTime": 251,
+        "tokensUsed": 858,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "According to the conversation on May 3, 2023, Calvin plans to jumpstart his inspiration by taking a break from music and exploring other things. He also plans to have some fun while he's at it.",
+        "score": 1,
+        "tokensUsed": 24980
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary doesn't explicitly state how Calvin plans to jumpstart his inspiration. However, it does mention several things that could contribute to his inspiration:\n\n*   **Touring with Frank Ocean:** This collaboration and exposure to new audiences could spark creativity.\n*   **Planning a trip to Tokyo:** Travel and experiencing a new culture can be very inspiring.\n*   **Supporting young musicians:** Mentoring others can often lead to new perspectives and ideas.\n*   **Working on new music and collaborations:** Actively creating and working with others is a direct way to foster inspiration.\n*   **Relaxation Room:** Calvin has a separate room for relaxation with a TV.\n\nWhile none of these are explicitly stated as a way to jumpstart his inspiration, they are all things that could contribute to it.",
+        "score": 0.85,
+        "tokensUsed": 1348
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q81",
+    "question": "What did Calvin manage to save during the flood incident?",
+    "groundTruth": "music gear and favorite microphone",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Calvin managed to save his music gear and favorite microphone during the flood.",
+        "score": 1,
+        "recallTime": 255,
+        "tokensUsed": 750,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin managed to save his music gear and favorite microphone during the flood incident.",
+        "score": 1,
+        "tokensUsed": 24956
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention any flood incident. Therefore, Calvin didn't save anything during a flood.",
+        "score": 0.85,
+        "tokensUsed": 1174
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q82",
+    "question": "What did Dave open in May 2023?",
+    "groundTruth": "a car shop",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "The provided memories do not contain any dates. Therefore, it is impossible to determine if Dave opened his car shop in May 2023. However, the memories do indicate that Dave opened a car maintenance shop.",
+        "score": 0.85,
+        "recallTime": 244,
+        "tokensUsed": 765,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "In May 2023, Dave opened his own car maintenance shop.",
+        "score": 0.95,
+        "tokensUsed": 24941
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention anything about Dave opening anything in May 2023. It only mentions that Dave started a blog on car mods to share his passion with others.",
+        "score": 0.85,
+        "tokensUsed": 1183
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q83",
+    "question": "What gives Dave a sense of achievement and purpose?",
+    "groundTruth": "Fixing up things",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave gets a sense of achievement and purpose from:\n\n*   **Fixing and restoring things, especially cars:** He enjoys transforming something broken or old into something functional and beautiful. This includes the process of fixing, refurbishing, and giving things a \"second chance\" or \"new life.\"\n*   **Seeing the positive impact of his work:** He feels good knowing he's helping people by keeping their cars in good condition and seeing their relief when their car is fixed.\n*   **The feeling of accomplishment:** He experiences a sense of fulfillment, pride, and satisfaction from the small successes and the hard work paying off.\n*   **His passion for car engineering:** He has loved working on cars since he was a child.",
+        "score": 0.85,
+        "recallTime": 279,
+        "tokensUsed": 1096,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "According to the conversation, Dave gets a sense of achievement and purpose from:\n\n*   Fixing cars and seeing them turn out better.\n*   Making a difference in someone's life when he fixes their car.\n*   Transforming something that's not working into something that runs smoothly, like giving it a second chance.\n*   Restoring classic cars and bringing them back to life.\n*   Sharing his passion for car mods through his blog and inspiring others.\n*   Capturing and appreciating the beauty of nature through photography.\n*   Customizing a work of art on wheels.\n*   Helping people keep their cars in good condition.\n*   Working on cars with his dad.\n*   Making people happy.\n*   Transforming something old and beat-up into something beautiful.\n*   Seeing the potential come to life.\n*   Making a custom car.\n*   Learning auto engineering.\n*   Building a custom car from scratch.\n*   Working on cars.\n*   Restoring an old car.\n*   Working on cars with his dad.\n*   Refurbishing cars.\n*   Working on cars.\n*   Making a difference when he fixes someone's car.\n*   Fixing up things.\n*   Seeing it turn out better.\n*   Making a difference.\n*   Fixing someone's car.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.\n*   Being their superhero.\n*   Making a difference.\n*   Seeing their relief.\n*   Making a difference in someone's life.\n*   Bringing joy to others.\n*   Fixing cars.\n*   Making a real difference in someone's life.",
+        "score": 0.85,
+        "tokensUsed": 28457
+      },
+      "memoryMd": {
+        "answer": "Dave gets a sense of achievement and purpose from restoring cars and bringing old cars back to life. He also enjoys sharing his knowledge through his blog.",
+        "score": 0.85,
+        "tokensUsed": 1181
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q84",
+    "question": "What fuels Calvin's soul?",
+    "groundTruth": "Performing live",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, performing live and connecting with the crowd fuels Calvin's soul.",
+        "score": 0.85,
+        "recallTime": 265,
+        "tokensUsed": 569,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Performing live always fuels Calvin's soul. He loves the rush and connection with the crowd, and the feeling is indescribable.",
+        "score": 1,
+        "tokensUsed": 24957
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, what fuels Calvin's soul is:\n\n*   Staying true to himself.\n*   Connecting with his fans.\n*   His love for art and the sea (represented by his custom guitar).\n*   Creating music.\n*   Supporting young musicians.",
+        "score": 0.85,
+        "tokensUsed": 1195
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q85",
+    "question": "What is Dave doing to relax on weekends?",
+    "groundTruth": "exploring parks",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave is exploring parks on the weekends to relax.",
+        "score": 0.85,
+        "recallTime": 252,
+        "tokensUsed": 862,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave enjoys exploring parks on the weekends to relax and recharge. He also likes taking walks on the weekends, which he finds magical and recharges him for the upcoming week.",
+        "score": 0.85,
+        "tokensUsed": 24973
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Dave relaxes on weekends by jamming with his band, restoring cars in his garage, taking photos, and attending music festivals.",
+        "score": 0,
+        "tokensUsed": 1178
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q86",
+    "question": "What sports activity is Calvin planning to try after the tour with Frank Ocean?",
+    "groundTruth": "Skiing",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "The provided memories do not contain any information about Calvin planning to try a sports activity after the tour with Frank Ocean.",
+        "score": 1,
+        "recallTime": 312,
+        "tokensUsed": 940,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Calvin is planning to try skiing after his tour with Frank Ocean ends.",
+        "score": 1,
+        "tokensUsed": 24964
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not mention any sports activity that Calvin is planning to try. It only mentions that he is planning a trip to Tokyo after the tour ends.",
+        "score": 0.85,
+        "tokensUsed": 1192
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q87",
+    "question": "What was Calvin excited to do after getting his car fixed on 7 July, 2023?",
+    "groundTruth": "get back on the road",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin was excited to drive his car again after getting it fixed. He mentions this sentiment multiple times after discussing the car repairs. There is no mention of a specific date.",
+        "score": 0.85,
+        "recallTime": 355,
+        "tokensUsed": 832,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "On 7 July, 2023, Calvin was excited to cruise around in his car after it was fixed.",
+        "score": 0.85,
+        "tokensUsed": 24959
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain any information about Calvin getting his car fixed on 7 July, 2023, or what he was excited to do afterward.",
+        "score": 1,
+        "tokensUsed": 1186
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q88",
+    "question": "What did Calvin and his friends arrange for in the park?",
+    "groundTruth": "regular walks together",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "The provided memories state that Dave arranged with friends for regular walks together in the park. There is no mention of Calvin arranging anything in the park.",
+        "score": 1,
+        "recallTime": 344,
+        "tokensUsed": 766,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin and his friends did not arrange anything in the park. Dave arranged with his friends for regular walks together in the park.",
+        "score": 0.85,
+        "tokensUsed": 24966
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain information about Calvin and his friends arranging anything in a park.",
+        "score": 0.85,
+        "tokensUsed": 1172
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q89",
+    "question": "What kind of music has Calvin been creating lately?",
+    "groundTruth": "experimenting with different genres",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin has been:\n\n*   Experimenting with different genres.\n*   Pushing himself out of his comfort zone.\n*   Adding electronic elements to his songs to give them a fresh vibe.\n*   Digging deeper into his music to capture the feelings of people's struggles.\n*   Making a beat for a young artist.",
+        "score": 0.85,
+        "recallTime": 265,
+        "tokensUsed": 929,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin has been experimenting with different genres lately, pushing himself out of his comfort zone. He is adding electronic elements to his songs to give them a fresh vibe.",
+        "score": 0.85,
+        "tokensUsed": 24976
+      },
+      "memoryMd": {
+        "answer": "The memory summary doesn't explicitly state the *kind* of music Calvin is creating lately, but it does imply that he is actively working on new music and collaborations.",
+        "score": 0.85,
+        "tokensUsed": 1185
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q90",
+    "question": "How does Calvin describe his process of adding electronic elements to his songs?",
+    "groundTruth": "gives them a fresh vibe",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Calvin describes adding electronic elements to his songs as giving them a fresh vibe. He says it's been an exciting process of self-discovery and growth.",
+        "score": 0.85,
+        "recallTime": 269,
+        "tokensUsed": 1010,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin describes adding electronic elements to his songs as an exciting process of self-discovery and growth.",
+        "score": 0.1,
+        "tokensUsed": 24967
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain information about how Calvin describes his process of adding electronic elements to his songs.",
+        "score": 0.85,
+        "tokensUsed": 1184
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q91",
+    "question": "What car brand does Calvin own that he is proud of?",
+    "groundTruth": "Ferrari",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Calvin owns a Ferrari. He mentions his trip to the Ferrari dealership and refers to his own car as a \"beauty\" that reminds him of his hard work and dedication.",
+        "score": 1,
+        "recallTime": 256,
+        "tokensUsed": 836,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin owns a Ferrari that he is proud of.",
+        "score": 1,
+        "tokensUsed": 24943
+      },
+      "memoryMd": {
+        "answer": "Calvin recently bought a new Ferrari.",
+        "score": 1,
+        "tokensUsed": 1152
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q92",
+    "question": "What is Calvin's biggest current goal?",
+    "groundTruth": "expand his brand worldwide and grow his fanbase",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Calvin's biggest current goal is to expand his brand worldwide and grow his fanbase, aiming for his music to reach more people and make an impact. He also wants to work with artists from around the globe and challenge himself to create special music.",
+        "score": 0.85,
+        "recallTime": 264,
+        "tokensUsed": 729,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Based on the conversation, Calvin's biggest current goal is to expand his brand worldwide and grow his fanbase. He wants his music to reach more people and make an impact. He is also working with artists from around the globe and challenging himself to create special music.",
+        "score": 1,
+        "tokensUsed": 24998
+      },
+      "memoryMd": {
+        "answer": "Based on the memory summary, Calvin's biggest current goal is **touring with Frank Ocean**. While he has other plans and commitments, the tour is the most prominent and ongoing situation mentioned.",
+        "score": 0,
+        "tokensUsed": 1188
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q93",
+    "question": "What is Dave's advice to Calvin regarding his dreams?",
+    "groundTruth": "to never forget his dreams",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave's advice to Calvin regarding his dreams is to:\n\n*   Keep at it and never forget your dreams.\n*   Don't stop pushing yourself and keep exploring.\n*   Keep going for those dreams.\n*   Keep pushing and never forget how awesome you are.",
+        "score": 0.85,
+        "recallTime": 318,
+        "tokensUsed": 773,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave gives Calvin the following advice regarding his dreams throughout their conversations:\n\n*   To stay focused and keep going.\n*   To keep pushing himself and never lose sight of his goals.\n*   To keep pursuing his music and never give up.\n*   To keep dreaming.\n*   To keep creating.\n*   To keep it real.\n*   To keep growing.\n*   To keep exploring.\n*   To keep making a difference.\n*   To keep pushing and making music.\n*   To keep pushing himself and striving for his goals.\n*   To keep working hard and living his best life.\n*   To keep working hard and coming up with new cool stuff.\n*   To keep working hard and making music.\n*   To keep working hard and keep those cars rolling.\n*   To never forget his dreams.\n*   To stay true to himself and his style.\n*   To stay awesome.\n*   To stay focused and work hard to make his dreams happen.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused and keep going.\n*   To stay focused",
+        "score": 0.85,
+        "tokensUsed": 28550
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary doesn't explicitly state Dave's advice to Calvin regarding his dreams. However, it does state that Dave and Calvin are close friends who support each other's passions and careers and frequently share updates on their lives and offer encouragement. Therefore, it can be inferred that Dave is supportive of Calvin's music career.",
+        "score": 0.1,
+        "tokensUsed": 1232
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q94",
+    "question": "What workshop did Dave get picked for on 11 August, 2023?",
+    "groundTruth": "Car mod workshop",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "The provided memories do not contain any dates. Therefore, it is impossible to determine what workshop Dave got picked for on August 11, 2023. However, based on the memories, Dave got picked for a car mod workshop.",
+        "score": 0.85,
+        "recallTime": 307,
+        "tokensUsed": 852,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "On 11 August, 2023, Dave got picked for a car mod workshop.",
+        "score": 1,
+        "tokensUsed": 24949
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain information about Dave getting picked for a workshop on 11 August, 2023.",
+        "score": 1,
+        "tokensUsed": 1173
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q95",
+    "question": "What kind of modifications has Dave been working on in the car mod workshop?",
+    "groundTruth": "engine swaps, suspension modifications, and body modifications",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "The provided memories do not specify the kind of modifications Dave has been working on in the car mod workshop. The memories only mention that he got picked for a car mod workshop to get better at car modifications and learn something new.",
+        "score": 0.85,
+        "recallTime": 275,
+        "tokensUsed": 1003,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave has been working on engine swaps and suspension modifications in the car mod workshop. He is also learning about body modifications and giving a classic muscle car a modern twist.",
+        "score": 0.85,
+        "tokensUsed": 24985
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not specify what kind of modifications Dave has been working on in the car mod workshop. It only mentions that Dave started a blog on car mods to share his passion with others and that he recently finished restoring a Ford Mustang.",
+        "score": 0.85,
+        "tokensUsed": 1215
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q96",
+    "question": "What type of car did Dave work on during the workshop?",
+    "groundTruth": "classic muscle car",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Based on the memories, Dave worked with cars at the workshop, but the specific type of car is not mentioned.",
+        "score": 0.1,
+        "recallTime": 271,
+        "tokensUsed": 981,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave worked on a classic muscle car during the workshop, giving it a modern twist. He specifically mentions doing engine swaps and suspension modifications, and learning about body modifications. He also shares a photo of a silver corvette.",
+        "score": 1,
+        "tokensUsed": 24993
+      },
+      "memoryMd": {
+        "answer": "The memory summary states that Dave recently finished restoring a Ford Mustang.",
+        "score": 0.85,
+        "tokensUsed": 1163
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q97",
+    "question": "What does Dave say is important for making his custom cars unique?",
+    "groundTruth": "attention to small details",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Dave says that showing his style is important for making his custom cars unique, like customizing a work of art on wheels. He also mentions that the customized purple glow gives a car a unique look that really stands out.",
+        "score": 0.85,
+        "recallTime": 319,
+        "tokensUsed": 967,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Dave says that it's all about those small details that make his custom cars unique and personalized.",
+        "score": 0.85,
+        "tokensUsed": 24961
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not explicitly state what Dave says is important for making his custom cars unique. However, it does mention that he shares his knowledge of car mods through his blog, suggesting that modifications are a key aspect of his custom car work.",
+        "score": 0.85,
+        "tokensUsed": 1214
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q98",
+    "question": "How did the audience in Tokyo react when Calvin sang one of his songs?",
+    "groundTruth": "Everyone was so into it and sang along",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "The audience in Tokyo was very enthusiastic when Calvin sang one of his songs. They were \"so into it\" and sang along with him, creating a \"magical moment.\"",
+        "score": 0.85,
+        "recallTime": 299,
+        "tokensUsed": 953,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "According to the conversation on DATE 14 August, 2023, the audience in Tokyo was so into it when Calvin played one of his songs and sang along.",
+        "score": 1,
+        "tokensUsed": 24973
+      },
+      "memoryMd": {
+        "answer": "The provided memory summary does not contain information about how the audience in Tokyo reacted to Calvin's performance. It only mentions that Calvin is planning a trip to Tokyo after his tour with Frank Ocean.",
+        "score": 0.85,
+        "tokensUsed": 1200
+      }
+    }
+  },
+  {
+    "conversationId": "conv-50",
+    "questionId": "conv-50-q99",
+    "question": "How did Calvin meet Frank Ocean?",
+    "groundTruth": "At a music festival in Tokyo",
+    "category": 4,
+    "results": {
+      "engram": {
+        "answer": "Calvin met Frank Ocean at a music festival in Tokyo and they clicked.",
+        "score": 1,
+        "recallTime": 257,
+        "tokensUsed": 1132,
+        "memoriesRecalled": 20
+      },
+      "fullContext": {
+        "answer": "Calvin met Frank Ocean at a music festival in Tokyo in August of last year (the year is not specified, but it can be inferred to be 2022 based on the conversation on October 19, 2023).",
+        "score": 1,
+        "tokensUsed": 24974
+      },
+      "memoryMd": {
+        "answer": "Calvin and Frank Ocean met at a festival and decided to collaborate.",
+        "score": 0.85,
+        "tokensUsed": 1155
+      }
+    }
+  }
+]

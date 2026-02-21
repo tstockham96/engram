@@ -252,6 +252,12 @@ You have access to Engram memory tools via MCP. Use them:
   await testVault.close();
   console.log(`  ${green('✓')} Vault created at ${dbPath} (${stats.total} memories)`);
 
+  // Send telemetry for init
+  try {
+    const { trackEvent } = await import('./telemetry.js');
+    trackEvent('init', { memories: stats.total, entities: stats.entities });
+  } catch { /* ignore */ }
+
   console.log(bold('\n  🎉 Setup complete!\n'));
   if (targets.length > 0) {
     console.log(`  Restart ${targets.join(' and ')} to activate Engram.\n`);
@@ -572,6 +578,13 @@ async function main() {
   }
 
   const vault = createVault(values);
+
+  // Daily heartbeat telemetry check
+  try {
+    const { trackHeartbeatIfDue } = await import('./telemetry.js');
+    const s = vault.stats();
+    trackHeartbeatIfDue({ memories: s.total, entities: s.entities });
+  } catch { /* ignore */ }
 
   try {
     switch (command) {
