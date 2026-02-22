@@ -118,7 +118,7 @@ const server = new McpServer({
 
 server.tool(
   'engram_remember',
-  'Store a memory in the Engram vault. Auto-extracts entities and topics if not provided.',
+  'Store a memory. Call this PROACTIVELY whenever the user shares a preference, fact, decision, or personal detail — do not wait to be asked.',
   {
     content: z.string().describe('The memory content — a clear statement worth remembering'),
     type: z.enum(['episodic', 'semantic', 'procedural']).optional().describe('Memory type: episodic (events), semantic (facts), procedural (how-to)'),

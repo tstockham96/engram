@@ -237,12 +237,29 @@ async function runInit(values: Record<string, unknown>) {
   if (hasClaudeDir) {
     const claudeMdPath = join(home, '.claude', 'CLAUDE.md');
     const engramBlock = `
-## Engram
-You have access to Engram memory tools via MCP. Use them:
-- At session start: call \`engram_briefing\` to load relevant context
-- When you learn something important: call \`engram_remember\`
+## Engram — Persistent Memory
+
+You have Engram memory tools via MCP. **Use them proactively** — do not wait to be asked.
+
+### Session Start
+- ALWAYS call \`engram_briefing\` at the start of every session to load context from past sessions.
+
+### What to Remember (call \`engram_remember\` immediately)
+Store ANY of these the moment you learn them — do not wait for the user to ask:
+- **Preferences**: "I prefer dark mode", "don't show my email", "I like TypeScript over Python"
+- **Personal facts**: name, role, projects, tools they use, team members
+- **Decisions**: "We decided to use PostgreSQL", "go with the blue design"
+- **Project context**: architecture choices, goals, constraints, deadlines
+- **Corrections**: "Actually, it's spelled differently", "No, I meant the other one"
+- **Opinions**: "I don't like that approach", "this framework is better because..."
+
+If the user shares something about themselves or makes a decision, store it. When in doubt, store it.
+
+### Recall
 - When you need context from past sessions: call \`engram_recall\`
-- At the end of a work session: call \`engram_ingest\` with a summary of what was accomplished
+
+### Session End
+- Summarize what was accomplished: call \`engram_ingest\` with the summary
 `;
     let claudeMd = '';
     if (existsSync(claudeMdPath)) {
@@ -252,7 +269,15 @@ You have access to Engram memory tools via MCP. Use them:
       writeFileSync(claudeMdPath, claudeMd + '\n' + engramBlock.trim() + '\n');
       console.log(`  ${green('✓')} Added instructions to ~/.claude/CLAUDE.md`);
     } else {
-      console.log(dim(`  ℹ CLAUDE.md already has Engram section`));
+      // Replace old Engram section with updated instructions
+      const engramSectionRegex = /## Engram[^\n]*\n[\s\S]*?(?=\n## [^E]|\n## $|$)/;
+      const updated = claudeMd.replace(engramSectionRegex, engramBlock.trim());
+      if (updated !== claudeMd) {
+        writeFileSync(claudeMdPath, updated);
+        console.log(`  ${green('✓')} Updated Engram instructions in ~/.claude/CLAUDE.md`);
+      } else {
+        console.log(dim(`  ℹ CLAUDE.md already has Engram section`));
+      }
     }
   }
 
@@ -344,7 +369,8 @@ You have access to Engram memory tools via MCP. Use them:
 
   console.log(bold('\n  🎉 Setup complete!\n'));
   if (targets.length > 0) {
-    console.log(`  Restart ${targets.join(' and ')} to activate Engram.\n`);
+    console.log(yellow(`  ⚠  You MUST restart ${targets.join(' and ')} before Engram will work.`));
+    console.log(yellow('     Memories saved in this session will NOT persist until you restart.\n'));
     console.log('  Your agent now has 10 memory tools:');
     console.log('    engram_remember    — Store a memory');
     console.log('    engram_recall      — Retrieve relevant memories');
