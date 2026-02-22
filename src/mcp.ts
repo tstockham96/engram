@@ -118,7 +118,7 @@ const server = new McpServer({
 
 server.tool(
   'engram_remember',
-  'Store a memory. Call this PROACTIVELY whenever the user shares a preference, fact, decision, or personal detail — do not wait to be asked.',
+  'Store a memory. Call this PROACTIVELY — do not wait to be asked. Store when: (1) the user shares a preference, fact, decision, or personal detail, (2) you read or synthesize useful knowledge from files, docs, or context (style guides, architecture patterns, workflow rules), (3) you learn HOW the user works (communication style, review patterns, tool preferences), (4) the user corrects you or clarifies something. If knowledge would be useful in a future session, store it NOW.',
   {
     content: z.string().describe('The memory content — a clear statement worth remembering'),
     type: z.enum(['episodic', 'semantic', 'procedural']).optional().describe('Memory type: episodic (events), semantic (facts), procedural (how-to)'),
@@ -297,7 +297,7 @@ server.tool(
 
 server.tool(
   'engram_ingest',
-  'Auto-ingest a conversation transcript or raw text. Extracts structured memories using LLM.',
+  'Auto-extract memories from a conversation transcript or raw text using LLM. Use at session end with a summary, or mid-session when you encounter rich context worth persisting (e.g., after reading a style guide, architecture doc, or long discussion).',
   {
     text: z.string().describe('Raw conversation text or transcript to ingest'),
     humanName: z.string().optional().describe('Name of the human in the conversation'),

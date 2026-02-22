@@ -267,18 +267,23 @@ You have Engram memory tools via MCP. **Use them proactively** — do not wait t
 - ALWAYS call \`engram_briefing\` at the start of every session to load context from past sessions.
 
 ### What to Remember (call \`engram_remember\` immediately)
-Store ANY of these the moment you learn them — do not wait for the user to ask:
-- **Preferences**: "I prefer dark mode", "don't show my email", "I like TypeScript over Python"
-- **Personal facts**: name, role, projects, tools they use, team members
-- **Decisions**: "We decided to use PostgreSQL", "go with the blue design"
-- **Project context**: architecture choices, goals, constraints, deadlines
-- **Corrections**: "Actually, it's spelled differently", "No, I meant the other one"
-- **Opinions**: "I don't like that approach", "this framework is better because..."
+Store ANY of these the moment you encounter them — do not batch, do not wait:
 
-If the user shares something about themselves or makes a decision, store it. When in doubt, store it.
+**From the user:**
+- Preferences, opinions, personal facts, decisions, corrections
+- "I prefer X", "we decided Y", "actually it's Z"
+
+**From your own work:**
+- When you read a file and synthesize useful knowledge (style guides, architecture patterns, workflow rules) — store the synthesis
+- When you figure out HOW the user works (communication style, review habits, tool preferences) — store the observation
+- When you discover project conventions, naming patterns, or implicit rules — store them
+- When you build something and learn what works vs what doesn't — store the lesson
+
+**The rule:** If this knowledge would be useful in a future session, store it NOW. Don't assume you'll remember — you won't.
 
 ### Recall
 - When you need context from past sessions: call \`engram_recall\`
+- When starting a task that relates to past work: recall before proceeding
 
 ### Session End
 - Summarize what was accomplished: call \`engram_ingest\` with the summary
