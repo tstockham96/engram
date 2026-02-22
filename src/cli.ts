@@ -109,6 +109,7 @@ async function runInit(values: Record<string, unknown>) {
   const { homedir } = await import('os');
   const { join } = await import('path');
   const { createInterface } = await import('readline');
+  const { execSync } = await import('child_process');
 
   const rl = createInterface({ input: process.stdin, output: process.stdout });
   const ask = (q: string): Promise<string> => new Promise(r => rl.question(q, r));
@@ -116,19 +117,22 @@ async function runInit(values: Record<string, unknown>) {
   console.log(bold('\n🧠 Engram Setup\n'));
   console.log('This will configure Engram as an MCP server for your AI coding agent.\n');
 
-  // 1. Detect which tools are installed
   const home = homedir();
-  const claudeConfigDir = join(home, '.claude');
-  const claudeConfigPath = join(claudeConfigDir, 'claude_desktop_config.json');
+
+  // 1. Detect which tools are installed
+  let hasClaudeCode = false;
+  try {
+    execSync('which claude', { stdio: 'ignore' });
+    hasClaudeCode = true;
+  } catch {}
+
+  const hasClaudeDir = existsSync(join(home, '.claude'));
   const cursorConfigDir = join(home, '.cursor');
   const cursorMcpPath = join(cursorConfigDir, 'mcp.json');
-
-  const hasClaudeDir = existsSync(claudeConfigDir);
   const hasCursorDir = existsSync(cursorConfigDir);
-
-  // Also check for Claude Code's settings.json approach
-  const claudeCodeSettingsDir = join(home, '.claude');
-  const claudeCodeMcpPath = join(claudeCodeSettingsDir, 'claude_desktop_config.json');
+  const windsurfConfigDir = join(home, '.codeium', 'windsurf');
+  const windsurfMcpPath = join(windsurfConfigDir, 'mcp_config.json');
+  const hasWindsurf = existsSync(windsurfConfigDir);
 
   // 2. Ask for owner name
   const defaultOwner = (values.owner as string) || process.env.USER || 'my-agent';
@@ -152,18 +156,11 @@ async function runInit(values: Record<string, unknown>) {
     console.log(`  ${green('✓')} Gemini API key found`);
   }
 
-  // 4. Build the MCP server config block
-  const engramConfig: Record<string, unknown> = {
-    command: 'npx',
-    args: ['tsx', join(process.cwd(), 'src', 'mcp.ts')],
-    env: {
-      ENGRAM_OWNER: owner,
-      ...(geminiKey ? { GEMINI_API_KEY: geminiKey } : {}),
-    },
-  };
+  // 4. Register with detected tools
+  const targets: string[] = [];
 
-  // For published package, use this instead:
-  const engramConfigPublished: Record<string, unknown> = {
+  // Build the MCP config (for Cursor/Windsurf/manual)
+  const mcpConfig = {
     command: 'npx',
     args: ['engram', 'mcp'],
     env: {
@@ -172,57 +169,71 @@ async function runInit(values: Record<string, unknown>) {
     },
   };
 
-  // Display config with masked API key
-  const displayConfig = JSON.parse(JSON.stringify({ engram: engramConfigPublished }));
-  if (displayConfig.engram?.env?.GEMINI_API_KEY) {
-    const key = displayConfig.engram.env.GEMINI_API_KEY as string;
-    displayConfig.engram.env.GEMINI_API_KEY = key.slice(0, 6) + '...' + key.slice(-4);
-  }
-  console.log('\n' + bold('  MCP Server Configuration:\n'));
-  console.log(dim('  ' + JSON.stringify(displayConfig, null, 2).split('\n').join('\n  ')));
-
-  // 5. Write config to detected tools
-  const targets: string[] = [];
-
-  if (hasClaudeDir) {
-    const write = (await ask(`\n  Write to Claude Code config? (${claudeConfigPath}) [Y/n]: `)).trim().toLowerCase();
-    if (write !== 'n') {
-      let config: Record<string, unknown> = {};
-      if (existsSync(claudeConfigPath)) {
-        try { config = JSON.parse(readFileSync(claudeConfigPath, 'utf-8')); } catch {}
-      }
-      if (!config.mcpServers) config.mcpServers = {};
-      (config.mcpServers as Record<string, unknown>).engram = engramConfig;
-      mkdirSync(claudeConfigDir, { recursive: true });
-      writeFileSync(claudeConfigPath, JSON.stringify(config, null, 2));
+  // Claude Code — use `claude mcp add` (the official way)
+  if (hasClaudeCode) {
+    try {
+      // Remove existing engram server if present (idempotent re-init)
+      try { execSync('claude mcp remove engram', { stdio: 'ignore' }); } catch {}
+      const envArgs = ['-e', `ENGRAM_OWNER=${owner}`];
+      if (geminiKey) envArgs.push('-e', `GEMINI_API_KEY=${geminiKey}`);
+      const args = ['claude', 'mcp', 'add', '-s', 'user', ...envArgs, '--', 'engram', 'npx', 'engram', 'mcp'];
+      execSync(args.join(' '), { stdio: 'ignore' });
       targets.push('Claude Code');
-      console.log(`  ${green('✓')} Written to ${claudeConfigPath}`);
+      console.log(`  ${green('✓')} Registered with Claude Code`);
+    } catch {
+      console.log(yellow('  ⚠ Could not register with Claude Code automatically.'));
+      console.log(dim('    Run manually: claude mcp add -s user -e ENGRAM_OWNER=' + owner + ' -- engram npx engram mcp'));
     }
   }
 
+  // Cursor — write to ~/.cursor/mcp.json
   if (hasCursorDir) {
-    const write = (await ask(`\n  Write to Cursor MCP config? (${cursorMcpPath}) [Y/n]: `)).trim().toLowerCase();
-    if (write !== 'n') {
+    try {
       let config: Record<string, unknown> = {};
       if (existsSync(cursorMcpPath)) {
         try { config = JSON.parse(readFileSync(cursorMcpPath, 'utf-8')); } catch {}
       }
       if (!config.mcpServers) config.mcpServers = {};
-      (config.mcpServers as Record<string, unknown>).engram = engramConfig;
+      (config.mcpServers as Record<string, unknown>).engram = mcpConfig;
       mkdirSync(cursorConfigDir, { recursive: true });
       writeFileSync(cursorMcpPath, JSON.stringify(config, null, 2));
       targets.push('Cursor');
-      console.log(`  ${green('✓')} Written to ${cursorMcpPath}`);
+      console.log(`  ${green('✓')} Registered with Cursor`);
+    } catch {
+      console.log(yellow('  ⚠ Could not write Cursor config.'));
     }
   }
 
-  if (!hasClaudeDir && !hasCursorDir) {
-    console.log(yellow('\n  No Claude Code or Cursor installation detected.'));
-    console.log('  Add this to your MCP client config manually:\n');
-    console.log('  ' + JSON.stringify({ mcpServers: { engram: engramConfigPublished } }, null, 2).split('\n').join('\n  '));
+  // Windsurf — write to ~/.codeium/windsurf/mcp_config.json
+  if (hasWindsurf) {
+    try {
+      let config: Record<string, unknown> = {};
+      if (existsSync(windsurfMcpPath)) {
+        try { config = JSON.parse(readFileSync(windsurfMcpPath, 'utf-8')); } catch {}
+      }
+      if (!config.mcpServers) config.mcpServers = {};
+      (config.mcpServers as Record<string, unknown>).engram = mcpConfig;
+      writeFileSync(windsurfMcpPath, JSON.stringify(config, null, 2));
+      targets.push('Windsurf');
+      console.log(`  ${green('✓')} Registered with Windsurf`);
+    } catch {
+      console.log(yellow('  ⚠ Could not write Windsurf config.'));
+    }
   }
 
-  // 5b. Add Engram instructions to CLAUDE.md (if Claude Code detected)
+  // No tools detected — show manual config
+  if (targets.length === 0) {
+    console.log(yellow('\n  No supported MCP client detected (Claude Code, Cursor, Windsurf).'));
+    console.log('  Add this to your MCP client config:\n');
+    const display = JSON.parse(JSON.stringify({ mcpServers: { engram: mcpConfig } }));
+    if (display.mcpServers?.engram?.env?.GEMINI_API_KEY) {
+      const key = display.mcpServers.engram.env.GEMINI_API_KEY as string;
+      display.mcpServers.engram.env.GEMINI_API_KEY = key.slice(0, 6) + '...' + key.slice(-4);
+    }
+    console.log('  ' + JSON.stringify(display, null, 2).split('\n').join('\n  '));
+  }
+
+  // 5. Add Engram instructions to CLAUDE.md (if Claude dir exists)
   if (hasClaudeDir) {
     const claudeMdPath = join(home, '.claude', 'CLAUDE.md');
     const engramBlock = `
@@ -239,9 +250,9 @@ You have access to Engram memory tools via MCP. Use them:
     }
     if (!claudeMd.includes('## Engram')) {
       writeFileSync(claudeMdPath, claudeMd + '\n' + engramBlock.trim() + '\n');
-      console.log(`  ${green('✓')} Added Engram instructions to ${claudeMdPath}`);
+      console.log(`  ${green('✓')} Added instructions to ~/.claude/CLAUDE.md`);
     } else {
-      console.log(dim(`  ℹ CLAUDE.md already has Engram section, skipping`));
+      console.log(dim(`  ℹ CLAUDE.md already has Engram section`));
     }
   }
 
@@ -250,7 +261,7 @@ You have access to Engram memory tools via MCP. Use them:
     const configDir = join(home, '.config', 'engram');
     mkdirSync(configDir, { recursive: true });
     writeFileSync(geminiKeyPath, geminiKey);
-    console.log(`  ${green('✓')} Gemini key saved to ${geminiKeyPath}`);
+    console.log(`  ${green('✓')} Gemini key saved`);
   }
 
   // 7. Create initial vault to verify setup
@@ -260,7 +271,7 @@ You have access to Engram memory tools via MCP. Use them:
   const testVault = new Vault({ owner, dbPath });
   const stats = testVault.stats();
   await testVault.close();
-  console.log(`  ${green('✓')} Vault created at ${dbPath} (${stats.total} memories)`);
+  console.log(`  ${green('✓')} Vault ready at ~/.engram/${owner}.db (${stats.total} memories)`);
 
   // Send telemetry for init
   try {
