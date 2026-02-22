@@ -293,6 +293,10 @@ You have access to Engram memory tools via MCP. Use them:
     console.log('    engram_entities    — List tracked entities');
     console.log('    engram_stats       — Vault statistics');
     console.log('    engram_ingest      — Auto-extract from text');
+    if (targets.includes('Claude Code')) {
+      console.log(dim('\n  After restarting, type /mcp in Claude Code to verify'));
+      console.log(dim('  Engram is connected. If prompted, enable the server.'));
+    }
   } else {
     console.log('  Add the config to your MCP client, then restart it.\n');
   }
