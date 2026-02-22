@@ -1,6 +1,6 @@
 {
   "name": "engram-sdk",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Universal memory layer for AI agents. Remember, recall, consolidate.",
   "type": "module",
   "main": "dist/index.js",
