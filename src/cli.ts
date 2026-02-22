@@ -256,6 +256,45 @@ You have access to Engram memory tools via MCP. Use them:
     }
   }
 
+  // 5c. Auto-approve Engram tools in Claude Code (skip per-project permission prompts)
+  if (hasClaudeDir) {
+    const settingsLocalPath = join(home, '.claude', 'settings.local.json');
+    try {
+      let settings: Record<string, unknown> = {};
+      if (existsSync(settingsLocalPath)) {
+        try { settings = JSON.parse(readFileSync(settingsLocalPath, 'utf-8')); } catch {}
+      }
+      if (!settings.permissions) settings.permissions = {};
+      const perms = settings.permissions as Record<string, unknown>;
+      if (!Array.isArray(perms.allow)) perms.allow = [];
+      const allow = perms.allow as string[];
+
+      const engramTools = [
+        'mcp__engram__engram_remember',
+        'mcp__engram__engram_recall',
+        'mcp__engram__engram_surface',
+        'mcp__engram__engram_briefing',
+        'mcp__engram__engram_consolidate',
+        'mcp__engram__engram_connect',
+        'mcp__engram__engram_forget',
+        'mcp__engram__engram_entities',
+        'mcp__engram__engram_stats',
+        'mcp__engram__engram_ingest',
+      ];
+
+      let added = 0;
+      for (const tool of engramTools) {
+        if (!allow.includes(tool)) { allow.push(tool); added++; }
+      }
+      if (added > 0) {
+        writeFileSync(settingsLocalPath, JSON.stringify(settings, null, 2));
+        console.log(`  ${green('✓')} Auto-approved ${added} Engram tools (no per-project prompts)`);
+      }
+    } catch {
+      // Non-critical — user will just get prompted to approve
+    }
+  }
+
   // 6. Save Gemini key if provided
   if (geminiKey) {
     const configDir = join(home, '.config', 'engram');
