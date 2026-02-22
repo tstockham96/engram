@@ -128,33 +128,42 @@ server.tool(
     status: z.enum(['active', 'pending', 'fulfilled', 'superseded', 'archived']).optional().describe('Memory lifecycle status'),
   },
   async (args) => {
-    const memory = vault.remember({
-      content: args.content,
-      type: args.type,
-      entities: args.entities,
-      topics: args.topics,
-      salience: args.salience,
-      status: args.status,
-    });
+    try {
+      const memory = vault.remember({
+        content: args.content,
+        type: args.type,
+        entities: args.entities,
+        topics: args.topics,
+        salience: args.salience,
+        status: args.status,
+      });
 
-    // Compute embedding async
-    if (embedder) {
-      vault.computeAndStoreEmbedding(memory.id, memory.content).catch(() => {});
+      // Compute embedding async
+      if (embedder) {
+        vault.computeAndStoreEmbedding(memory.id, memory.content).catch(() => {});
+      }
+
+      // Verify the memory was actually persisted
+      const verified = vault.stats();
+      const preview = memory.content.length > 80
+        ? memory.content.slice(0, 77) + '...'
+        : memory.content;
+
+      return {
+        content: [{
+          type: 'text',
+          text: `✓ Remembered: "${preview}"\n  Vault: ${owner} | Total memories: ${verified.total} | Entities: ${memory.entities.join(', ') || 'none'}\n  ID: ${memory.id} | Type: ${memory.type} | Status: ${memory.status}`,
+        }],
+      };
+    } catch (err: any) {
+      return {
+        content: [{
+          type: 'text',
+          text: `✗ FAILED to store memory: ${err.message}\n  Vault: ${owner} | DB: ${dbPath}\n  Content: ${args.content.slice(0, 100)}`,
+        }],
+        isError: true,
+      };
     }
-
-    return {
-      content: [{
-        type: 'text',
-        text: JSON.stringify({
-          stored: true,
-          id: memory.id,
-          entities: memory.entities,
-          topics: memory.topics,
-          salience: memory.salience,
-          status: memory.status,
-        }, null, 2),
-      }],
-    };
   },
 );
 
@@ -457,7 +466,10 @@ server.tool(
     return {
       content: [{
         type: 'text',
-        text: JSON.stringify(briefing, null, 2),
+        text: JSON.stringify({
+          ...briefing,
+          _vault: { owner, dbPath, embeddings: !!embedder },
+        }, null, 2),
       }],
     };
   },
