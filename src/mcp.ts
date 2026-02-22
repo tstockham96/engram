@@ -300,28 +300,43 @@ server.tool(
       return { content: [{ type: 'text', text: `Stored 1 memory (simple mode — set GEMINI_API_KEY for LLM extraction).` }] };
     }
 
-    // LLM extraction
-    const prompt = `You are a memory extraction engine. Analyze this text and extract structured memories.
+    // LLM extraction — facts AND behavioral signals
+    const prompt = `You are a memory extraction engine. Analyze this text and extract two types of memories:
 
 TEXT:
 ${args.text.slice(0, 4000)}
 
-Extract memories worth keeping long-term. For each:
-- content: Clear standalone statement
+Extract TWO categories:
+
+1. EXPLICIT MEMORIES — Facts, events, decisions stated directly.
+   - type: "episodic" (events), "semantic" (facts), or "procedural" (how-to)
+   - confidence: 0.7-0.9 (directly stated)
+
+2. IMPLICIT MEMORIES — Behavioral patterns, preferences, work style, communication style inferred from HOW the person talks and works, not what they say directly.
+   Examples: "Prefers testing as a real user over shortcuts", "Values directional correctness over perfection", "Pushes back to find better ideas", "Works late when excited about a project"
+   - type: "semantic"
+   - confidence: 0.3 (single observation — will accumulate over time)
+   - topics should include "implicit", "preference", "behavior", or "work-style" as appropriate
+
+For each memory:
+- content: Clear standalone statement (should make sense without the original text)
 - type: "episodic", "semantic", or "procedural"
 - entities: People, projects, tools mentioned
 - topics: Topic tags
 - salience: 0.0-1.0
-- status: "active" or "pending" (for commitments)
+- confidence: 0.3 for implicit, 0.7-0.9 for explicit
+- status: "active" or "pending" (for commitments/promises)
 
-Be selective. Skip trivial content.
+Be selective with explicit memories (skip trivial content).
+Be observant with implicit memories (capture behavioral signals others would miss).
+Do not extract more than 3 implicit memories per text block.
 
-JSON: {"memories": [{"content":"...","type":"...","entities":["..."],"topics":["..."],"salience":0.5,"status":"active"}]}
+JSON: {"memories": [{"content":"...","type":"...","entities":["..."],"topics":["..."],"salience":0.5,"confidence":0.7,"status":"active"}]}
 If nothing worth remembering: {"memories": []}`;
 
     try {
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -354,6 +369,7 @@ If nothing worth remembering: {"memories": []}`;
           entities: mem.entities ?? [],
           topics: [...(mem.topics ?? []), 'auto-ingested'],
           salience: mem.salience ?? 0.5,
+          confidence: mem.confidence ?? 0.7,
           status: mem.status ?? 'active',
         });
         created++;

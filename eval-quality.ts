@@ -281,6 +281,63 @@ const SCENARIOS: Scenario[] = [
     expectedHits: ['79.6%', 'LOCOMO'],
     idealResultCount: 3,
   },
+  // ── Confidence Accumulation ──
+  {
+    name: 'Reinforcing observations boost confidence',
+    category: 'confidence',
+    memories: [
+      { content: 'Thomas prefers direct communication without fluff', type: 'semantic' },
+      { content: 'Thomas skips pleasantries and gets straight to the point', type: 'semantic' },
+      { content: 'Thomas values concise responses over verbose ones', type: 'semantic' },
+      { content: 'The weather in Utah was sunny today' },
+    ],
+    query: 'How does Thomas prefer to communicate?',
+    expectedHits: ['direct communication', 'straight to the point', 'concise responses'],
+    expectedMisses: ['weather'],
+    idealResultCount: 3,
+  },
+  {
+    name: 'Low-confidence implicit memory stays below noise',
+    category: 'confidence',
+    memories: [
+      { content: 'Thomas works as a Senior PM at BambooHR', type: 'semantic' },
+      { content: 'Thomas studied Economics and CS at UVM', type: 'semantic' },
+      { content: 'Thomas might prefer dark mode based on one comment', type: 'semantic' },
+    ],
+    query: 'What do I know about Thomas professionally?',
+    expectedHits: ['Senior PM', 'Economics'],
+    idealResultCount: 2,
+  },
+
+  // ── Implicit Memory ──
+  {
+    name: 'Behavioral pattern recall',
+    category: 'implicit',
+    memories: [
+      { content: 'Thomas tests his own products as a real user instead of using shortcuts', type: 'semantic' },
+      { content: 'Thomas pushed back three times to find a better approach before committing', type: 'semantic' },
+      { content: 'Thomas values directional correctness over premature optimization', type: 'semantic' },
+      { content: 'The sprint review meeting was moved to Thursday' },
+    ],
+    query: 'How does Thomas approach product decisions?',
+    expectedHits: ['real user', 'pushed back', 'directional correctness'],
+    expectedMisses: ['sprint review'],
+    idealResultCount: 3,
+  },
+  {
+    name: 'Work style pattern recall',
+    category: 'implicit',
+    memories: [
+      { content: 'Thomas came back at 10pm on Sunday night to keep building Engram', type: 'semantic' },
+      { content: 'Thomas works late when he is excited about a project', type: 'semantic' },
+      { content: 'Thomas pivoted from Kin to Engram in two days', type: 'semantic' },
+      { content: 'Thomas completed the quarterly business review presentation' },
+    ],
+    query: 'What is Thomas like when he is excited about a project?',
+    expectedHits: ['10pm', 'works late', 'pivoted'],
+    expectedMisses: ['quarterly'],
+    idealResultCount: 3,
+  },
 ];
 
 // ── Eval Engine ────────────────────────────────────────────

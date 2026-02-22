@@ -303,7 +303,61 @@ You have access to Engram memory tools via MCP. Use them:
     console.log(`  ${green('✓')} Gemini key saved`);
   }
 
-  // 7. Create initial vault to verify setup
+  // 7. Set up auto-consolidation (session-end hook + nightly cron)
+  if (hasClaudeDir) {
+    // Claude Code Stop hook — triggers consolidation on session/context compact
+    const hooksDir = join(home, '.claude', 'hooks');
+    mkdirSync(hooksDir, { recursive: true });
+    const hookPath = join(hooksDir, 'engram-consolidate.sh');
+    const hookScript = `#!/bin/bash
+# Engram auto-consolidation — runs on session end and context compact
+# Triggers a lightweight consolidation cycle in the background
+set -euo pipefail
+npx engram consolidate --owner ${owner} --json > /dev/null 2>&1 &
+exit 0
+`;
+    writeFileSync(hookPath, hookScript, { mode: 0o755 });
+
+    // Register the hook in settings.json
+    const settingsPath = join(home, '.claude', 'settings.json');
+    let hookSettings: Record<string, unknown> = {};
+    if (existsSync(settingsPath)) {
+      try { hookSettings = JSON.parse(readFileSync(settingsPath, 'utf-8')); } catch {}
+    }
+    if (!hookSettings.hooks) hookSettings.hooks = {};
+    const hooks = hookSettings.hooks as Record<string, unknown>;
+    // Add Stop hook for session end
+    if (!hooks.Stop) hooks.Stop = [];
+    const stopHooks = hooks.Stop as Array<Record<string, unknown>>;
+    const hasEngramHook = stopHooks.some((h: any) =>
+      h.hooks?.some?.((hh: any) => hh.command?.includes?.('engram-consolidate'))
+    );
+    if (!hasEngramHook) {
+      stopHooks.push({
+        matcher: '',
+        hooks: [{ type: 'command', command: hookPath }],
+      });
+    }
+    writeFileSync(settingsPath, JSON.stringify(hookSettings, null, 2));
+    console.log(`  ${green('✓')} Auto-consolidation on session end`);
+  }
+
+  // Set up nightly cron (if crontab available)
+  try {
+    const cronJob = `0 4 * * * npx engram consolidate --owner ${owner} > /dev/null 2>&1`;
+    const existing = execSync('crontab -l 2>/dev/null || true', { encoding: 'utf-8' });
+    if (!existing.includes('engram consolidate')) {
+      const newCron = existing.trimEnd() + '\n' + cronJob + '\n';
+      execSync(`echo '${newCron.replace(/'/g, "'\\''")}' | crontab -`, { stdio: 'ignore' });
+      console.log(`  ${green('✓')} Nightly consolidation at 4am (cron)`);
+    } else {
+      console.log(dim(`  ℹ Nightly cron already set up`));
+    }
+  } catch {
+    console.log(dim(`  ℹ Could not set up nightly cron (optional)`));
+  }
+
+  // 8. Create initial vault to verify setup
   const engramDir = join(home, '.engram');
   mkdirSync(engramDir, { recursive: true });
   const dbPath = join(engramDir, `${owner}.db`);
@@ -758,6 +812,7 @@ async function main() {
         break;
       }
 
+      case 'sleep':
       case 'consolidate': {
         console.log(yellow('⏳ Running consolidation...'));
         const report = await vault.consolidate();

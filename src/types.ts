@@ -26,6 +26,7 @@ export const EdgeType = z.enum([
   'caused_by',        // This memory describes an effect
   'part_of',          // This memory is part of a larger concept
   'instance_of',      // This is a specific instance of a general pattern
+  'reinforces',       // This memory reinforces/confirms another
   'associated_with',  // General association
   'temporal_next',    // This happened after another memory
   'derived_from',     // Created from this memory during consolidation

@@ -66,6 +66,12 @@ export class Vault {
           this.dedup(memory);
         })
         .then(() => {
+          // Confidence reinforcement: if this memory reinforces an existing
+          // observation about the same entity, boost the existing one's
+          // confidence instead of keeping both weak signals.
+          this.reinforce(memory);
+        })
+        .then(() => {
           // Contradiction detection: if this memory updates a previous fact,
           // mark the old one as superseded. Only runs when LLM is configured.
           return this.detectContradictions(memory);
@@ -131,6 +137,82 @@ export class Vault {
       }
     } catch {
       // Dedup is best-effort; don't break remember() if it fails
+    }
+  }
+
+  /**
+   * Confidence reinforcement: when a new memory expresses a similar
+   * sentiment to an existing one about the same entities, boost the
+   * existing memory's confidence instead of keeping both.
+   *
+   * This is the mechanism that makes implicit memory work:
+   *   - First observation: "Thomas prefers direct communication" (confidence: 0.3)
+   *   - Second observation: "Thomas doesn't like fluff" (confidence: 0.3)
+   *   - These share entities and are semantically similar (75-92%)
+   *   - Instead of two weak memories, we get one strong one (confidence: 0.45)
+   *
+   * Over many sessions, real patterns accumulate confidence naturally
+   * while noise stays at low confidence and gets filtered from recall.
+   *
+   * Range: 0.08-0.25 cosine distance (75-92% similarity).
+   * Below 0.08 = dedup handles it. Above 0.25 = too different to reinforce.
+   */
+  private reinforce(memory: Memory): void {
+    // Only reinforce semantic memories (preferences, observations, patterns)
+    if (memory.type !== 'semantic') return;
+
+    // Skip if already superseded by dedup
+    const current = this.store.getMemoryDirect(memory.id);
+    if (!current || current.status !== 'active') return;
+
+    // Skip if no entities to match on
+    if (!memory.entities || memory.entities.length === 0) return;
+
+    try {
+      const embedding = this.store.getEmbedding(memory.id);
+      if (!embedding) return;
+
+      // Look for similar but not identical memories (the reinforcement zone)
+      const similar = this.store.findSimilar(embedding, 0.25, 10);
+
+      const memEntities = new Set(memory.entities.map(e => e.toLowerCase()));
+
+      for (const match of similar) {
+        if (match.memoryId === memory.id) continue;
+        if (match.distance <= 0.08) continue; // Too similar — dedup territory
+
+        const existing = this.store.getMemoryDirect(match.memoryId);
+        if (!existing) continue;
+        if (existing.status !== 'active') continue;
+        if (existing.type !== 'semantic') continue;
+
+        // Must share at least one entity
+        const existingEntities = new Set((existing.entities ?? []).map(e => e.toLowerCase()));
+        const shared = [...memEntities].filter(e => existingEntities.has(e));
+        if (shared.length === 0) continue;
+
+        // Reinforce: boost the older memory's confidence
+        // The boost is proportional to similarity (closer = stronger reinforcement)
+        const similarity = 1 - match.distance;
+        const boost = 0.1 * similarity; // Max +0.1 per reinforcement
+
+        const newConfidence = Math.min(1.0, existing.confidence + boost);
+        this.store.updateMemory(existing.id, { confidence: newConfidence });
+
+        // Create a 'reinforces' edge for graph traceability
+        this.store.createEdge(memory.id, existing.id, 'reinforces', similarity);
+
+        // Mark the new memory as lower priority since the existing one captures it
+        if (memory.confidence <= existing.confidence) {
+          this.store.updateMemory(memory.id, {
+            salience: Math.max(0.1, memory.salience - 0.15),
+          });
+        }
+
+        break; // Only reinforce one match per memory
+      }
+    } catch {
+      // Reinforcement is best-effort
     }
   }
 
@@ -1357,9 +1439,15 @@ ${episodeSummaries}
 ${existingContext}
 
 Extract:
-1. SEMANTIC MEMORIES: General facts, preferences, patterns that can be inferred from these episodes. Each should be a standalone statement of knowledge.
-2. ENTITIES: People, places, projects, or concepts mentioned. Include their type (person/place/project/concept) and any properties you can infer.
-3. CONTRADICTIONS: Any conflicts between these episodes or with existing knowledge.
+1. SEMANTIC MEMORIES — Two types:
+   a. EXPLICIT: General facts, events, decisions stated in the episodes. Confidence: 0.7-0.9.
+   b. IMPLICIT: Behavioral patterns, preferences, work style, communication style you can infer from HOW the person works across episodes, not what they said directly. Confidence: 0.4-0.6. Include "implicit" in topics.
+   Examples of implicit memories: "Prefers testing products as a real user", "Values iteration over perfection", "Works late when excited", "Pushes back to stress-test ideas"
+
+2. ENTITIES: People, places, projects, or concepts mentioned. Include their type and properties.
+
+3. CONTRADICTIONS: Conflicts between episodes or with existing knowledge. Also note when a newer fact supersedes an older one.
+
 4. CONNECTIONS: Which episodes are related and how.
 
 Respond in this exact JSON format:
@@ -1374,11 +1462,11 @@ Respond in this exact JSON format:
     {"memory_a": "...", "memory_b": "...", "description": "..."}
   ],
   "connections": [
-    {"episode_a": 1, "episode_b": 2, "type": "supports|elaborates|causes|associated_with", "strength": 0.0-1.0}
+    {"episode_a": 1, "episode_b": 2, "type": "supports|elaborates|causes|associated_with|reinforces", "strength": 0.0-1.0}
   ]
 }
 
-Be conservative with confidence scores. Only extract what's clearly supported by the episodes.`;
+Be conservative with explicit memories. Be observant with implicit ones — look for patterns across episodes, not just within a single one.`;
 
     try {
       const response = await this.callLLM(model, prompt, llmConfig);
