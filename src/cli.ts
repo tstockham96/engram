@@ -159,36 +159,45 @@ async function runInit(values: Record<string, unknown>) {
   // 4. Register with detected tools
   const targets: string[] = [];
 
-  // Build the MCP config (for Cursor/Windsurf/manual — uses resolved path)
+  // Resolve full paths to avoid PATH issues in sandboxed environments (Claude Code, etc.)
+  let engramBin = 'npx';
+  let engramArgs = ['engram', 'mcp'];
+  let nodeBinDir = '';
+  try {
+    const resolvedEngram = execSync('which engram', { encoding: 'utf-8' }).trim();
+    if (resolvedEngram) {
+      engramBin = resolvedEngram;
+      engramArgs = ['mcp'];
+    }
+  } catch {}
+  try {
+    const resolvedNode = execSync('which node', { encoding: 'utf-8' }).trim();
+    if (resolvedNode) {
+      const { dirname } = await import('path');
+      nodeBinDir = dirname(resolvedNode);
+    }
+  } catch {}
+
+  // Build env vars — include PATH so sandboxed environments can find node/npx
+  const mcpEnv: Record<string, string> = {
+    ENGRAM_OWNER: owner,
+    ...(geminiKey ? { GEMINI_API_KEY: geminiKey } : {}),
+    ...(nodeBinDir ? { PATH: `${nodeBinDir}:/usr/local/bin:/usr/bin:/bin` } : {}),
+  };
+
+  // Build the MCP config (for Cursor/Windsurf/manual)
   const mcpConfig = {
     command: engramBin,
     args: engramArgs,
-    env: {
-      ENGRAM_OWNER: owner,
-      ...(geminiKey ? { GEMINI_API_KEY: geminiKey } : {}),
-    },
+    env: mcpEnv,
   };
-
-  // Resolve full path to engram binary (avoids PATH issues in sandboxed environments)
-  let engramBin = 'npx';
-  let engramArgs = ['engram', 'mcp'];
-  try {
-    const resolved = execSync('which engram', { encoding: 'utf-8' }).trim();
-    if (resolved) {
-      engramBin = resolved;
-      engramArgs = ['mcp'];
-    }
-  } catch {
-    // Fall back to npx
-  }
 
   // Claude Code — use `claude mcp add` (the official way)
   if (hasClaudeCode) {
     try {
       // Remove existing engram server if present (idempotent re-init)
       try { execSync('claude mcp remove engram', { stdio: 'ignore' }); } catch {}
-      const envArgs = ['-e', `ENGRAM_OWNER=${owner}`];
-      if (geminiKey) envArgs.push('-e', `GEMINI_API_KEY=${geminiKey}`);
+      const envArgs = Object.entries(mcpEnv).flatMap(([k, v]) => ['-e', `${k}=${v}`]);
       const args = ['claude', 'mcp', 'add', '-s', 'user', ...envArgs, '--', 'engram', engramBin, ...engramArgs];
       execSync(args.join(' '), { stdio: 'ignore' });
       targets.push('Claude Code');
