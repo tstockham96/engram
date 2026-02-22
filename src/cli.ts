@@ -361,18 +361,18 @@ If the user shares something about themselves or makes a decision, store it. Whe
     const hooks = hookSettings.hooks as Record<string, unknown>;
     if (!hooks.Stop) hooks.Stop = [];
     const stopHooks = hooks.Stop as Array<Record<string, unknown>>;
-    const hasEngramHook = stopHooks.some((h: any) =>
-      h.hooks?.some?.((hh: any) => hh.command?.includes?.('engram'))
+    // Remove any existing engram hooks (replace with updated version)
+    const filtered = stopHooks.filter((h: any) =>
+      !h.hooks?.some?.((hh: any) => hh.command?.includes?.('engram'))
     );
-    if (!hasEngramHook) {
-      const consolidateCmd = engramBin === 'npx'
-        ? `npx engram consolidate --owner ${owner} --json`
-        : `${engramBin} consolidate --owner ${owner} --json`;
-      stopHooks.push({
-        matcher: '',
-        hooks: [{ type: 'command', command: consolidateCmd }],
-      });
-    }
+    // Prepend PATH so the hook can find node (shebangs use /usr/bin/env node)
+    const pathPrefix = nodeBinDir ? `PATH=${nodeBinDir}:/usr/local/bin:/usr/bin:/bin ` : '';
+    const consolidateCmd = `${pathPrefix}${engramBin} consolidate --owner ${owner} --json`;
+    filtered.push({
+      matcher: '',
+      hooks: [{ type: 'command', command: consolidateCmd }],
+    });
+    hooks.Stop = filtered;
     writeFileSync(settingsPath, JSON.stringify(hookSettings, null, 2));
     console.log(`  ${green('✓')} Auto-consolidation on session end`);
   }
