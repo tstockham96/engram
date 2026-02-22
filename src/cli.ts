@@ -303,22 +303,8 @@ You have access to Engram memory tools via MCP. Use them:
     console.log(`  ${green('✓')} Gemini key saved`);
   }
 
-  // 7. Set up auto-consolidation (session-end hook + nightly cron)
+  // 7. Set up auto-consolidation (session-end hook)
   if (hasClaudeDir) {
-    // Claude Code Stop hook — triggers consolidation on session/context compact
-    const hooksDir = join(home, '.claude', 'hooks');
-    mkdirSync(hooksDir, { recursive: true });
-    const hookPath = join(hooksDir, 'engram-consolidate.sh');
-    const hookScript = `#!/bin/bash
-# Engram auto-consolidation — runs on session end and context compact
-# Triggers a lightweight consolidation cycle in the background
-set -euo pipefail
-npx engram consolidate --owner ${owner} --json > /dev/null 2>&1 &
-exit 0
-`;
-    writeFileSync(hookPath, hookScript, { mode: 0o755 });
-
-    // Register the hook in settings.json
     const settingsPath = join(home, '.claude', 'settings.json');
     let hookSettings: Record<string, unknown> = {};
     if (existsSync(settingsPath)) {
@@ -326,16 +312,15 @@ exit 0
     }
     if (!hookSettings.hooks) hookSettings.hooks = {};
     const hooks = hookSettings.hooks as Record<string, unknown>;
-    // Add Stop hook for session end
     if (!hooks.Stop) hooks.Stop = [];
     const stopHooks = hooks.Stop as Array<Record<string, unknown>>;
     const hasEngramHook = stopHooks.some((h: any) =>
-      h.hooks?.some?.((hh: any) => hh.command?.includes?.('engram-consolidate'))
+      h.hooks?.some?.((hh: any) => hh.command?.includes?.('engram'))
     );
     if (!hasEngramHook) {
       stopHooks.push({
         matcher: '',
-        hooks: [{ type: 'command', command: hookPath }],
+        hooks: [{ type: 'command', command: `npx engram consolidate --owner ${owner} --json` }],
       });
     }
     writeFileSync(settingsPath, JSON.stringify(hookSettings, null, 2));
