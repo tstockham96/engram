@@ -76,6 +76,11 @@ export class Vault {
           // mark the old one as superseded. Only runs when LLM is configured.
           return this.detectContradictions(memory);
         })
+        .then(() => {
+          // Post-remember inference: extract implicit insights that a human
+          // would obviously infer (e.g., "builds hunting platform" → "likes hunting").
+          return this.inferInsights(memory);
+        })
         .catch(err => {
           console.warn(`Failed to process embedding/contradictions for ${memory.id}:`, err);
         })
@@ -213,6 +218,105 @@ export class Vault {
       }
     } catch {
       // Reinforcement is best-effort
+    }
+  }
+
+  /**
+   * Post-remember inference: after storing a memory, use LLM to extract
+   * 0-2 implicit insights that a human would obviously infer.
+   *
+   * Example: "Ian is building a hunting land acquisition platform"
+   *   → infers "Ian is interested in hunting"
+   *
+   * These are stored as low-confidence (0.3) semantic memories that
+   * accumulate via reinforcement over time. If someone is building
+   * a hunting platform AND talks about hunting trips AND buys hunting
+   * gear, the confidence on "Ian likes hunting" climbs naturally.
+   *
+   * Only runs when LLM is configured. Async, fire-and-forget.
+   * Skips memories that are already implicit or from consolidation.
+   */
+  private async inferInsights(memory: Memory): Promise<void> {
+    if (!this.config.llm) return;
+
+    // Don't infer from system/consolidation memories or already-implicit ones
+    if (memory.source?.type === 'consolidation') return;
+    if (memory.topics?.includes('implicit')) return;
+    if (memory.topics?.includes('meta')) return;
+
+    // Skip low-salience memories (not worth the LLM call)
+    if (memory.salience < 0.4) return;
+
+    // Skip very short memories (not enough signal)
+    if (memory.content.length < 40) return;
+
+    const llmConfig = this.config.llm;
+    const model = llmConfig.provider === 'gemini' ? 'gemini-2.0-flash'
+      : llmConfig.provider === 'openai' ? 'gpt-4o-mini'
+      : 'claude-3-5-haiku-20241022';
+
+    const prompt = `Given this memory about a person, extract 0-2 basic personal insights that any human would obviously infer. Focus on interests, personality traits, preferences, and relationships.
+
+Memory: "${memory.content}"
+Entities: ${memory.entities?.join(', ') || 'none'}
+
+Rules:
+- Only include inferences that are clearly supported by the memory
+- Keep each insight to one short sentence
+- Do NOT restate the original memory — only new inferences
+- If nothing interesting can be inferred, return empty array
+- These should be things like "X is interested in Y", "X values Z", "X and Y are close"
+
+JSON: {"insights": [{"content": "...", "entities": ["..."], "topics": ["..."]}]}
+If nothing: {"insights": []}`;
+
+    try {
+      const response = await this.callLLM(model, prompt, llmConfig);
+      const parsed = JSON.parse(response);
+
+      for (const insight of parsed.insights ?? []) {
+        if (!insight.content || insight.content.length < 10) continue;
+
+        // Check if this insight already exists (don't duplicate)
+        if (this.embedder && this.store.hasVectorSearch()) {
+          try {
+            const embedding = await this.embedder.embed(insight.content);
+            const similar = this.store.findSimilar(embedding, 0.15, 3);
+            if (similar.length > 0) {
+              // Similar insight exists — reinforce it instead of creating new
+              const existing = this.store.getMemoryDirect(similar[0].memoryId);
+              if (existing && existing.status === 'active') {
+                const newConf = Math.min(1.0, existing.confidence + 0.05);
+                this.store.updateMemory(existing.id, { confidence: newConf });
+                this.store.createEdge(memory.id, existing.id, 'supports', 0.6);
+                continue;
+              }
+            }
+          } catch {
+            // Embedding check failed — create anyway
+          }
+        }
+
+        // Store as implicit memory with low confidence
+        const inferred = this.remember({
+          content: insight.content,
+          type: 'semantic',
+          entities: insight.entities ?? memory.entities ?? [],
+          topics: [...(insight.topics ?? []), 'implicit', 'inferred'],
+          salience: 0.4,
+          confidence: 0.3,
+          source: {
+            type: 'inference',
+            evidence: [memory.id],
+          },
+        });
+
+        // Link the insight to the source memory
+        this.store.createEdge(memory.id, inferred.id, 'derived_from', 0.7);
+      }
+    } catch (err) {
+      // Inference is best-effort — never break the remember flow
+      console.error('Insight inference failed:', err);
     }
   }
 
@@ -786,15 +890,6 @@ export class Vault {
       connectionsFormed = result.connectionsFormed;
     }
 
-    // Apply decay
-    const decayed = this.store.applyDecay(this.config.decay?.halfLifeHours ?? 168);
-
-    // Archive deeply decayed memories
-    const archived = this.store.getDecayedMemories(this.config.decay?.archiveThreshold ?? 0.05);
-    for (const mem of archived) {
-      this.store.deleteMemory(mem.id); // TODO: move to cold storage instead of deleting
-    }
-
     const report: ConsolidationReport = {
       startedAt,
       completedAt: new Date().toISOString(),
@@ -804,13 +899,13 @@ export class Vault {
       entitiesDiscovered,
       connectionsFormed,
       contradictionsFound,
-      memoriesDecayed: decayed,
-      memoriesArchived: archived.length,
+      memoriesDecayed: 0,
+      memoriesArchived: 0,
     };
 
     // Store the consolidation report as a memory itself
     this.remember({
-      content: `Consolidation completed: processed ${episodes.length} episodes, created ${semanticCreated} semantic memories, discovered ${entitiesDiscovered} entities, formed ${connectionsFormed} connections, decayed ${decayed} memories.`,
+      content: `Consolidation completed: processed ${episodes.length} episodes, created ${semanticCreated} semantic memories, discovered ${entitiesDiscovered} entities, formed ${connectionsFormed} connections.`,
       type: 'procedural',
       topics: ['meta', 'consolidation'],
       salience: 0.3,
