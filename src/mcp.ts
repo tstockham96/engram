@@ -433,6 +433,27 @@ server.tool(
   },
   async (args) => {
     const briefing = await vault.briefing(args.context ?? '');
+
+    // Auto-consolidation: if it's been 24+ hours since last consolidation,
+    // trigger one in the background. No cron needed, no permissions.
+    // Checks for the most recent consolidation report memory.
+    try {
+      const recent = await vault.recall({
+        context: 'consolidation completed',
+        topics: ['consolidation'],
+        limit: 1,
+      });
+      const lastConsolidation = recent.length > 0 ? recent[0].createdAt : null;
+      const hoursSince = lastConsolidation
+        ? (Date.now() - new Date(lastConsolidation).getTime()) / (1000 * 60 * 60)
+        : Infinity;
+      if (hoursSince >= 24) {
+        vault.consolidate().catch(() => {});
+      }
+    } catch {
+      // Best-effort — never break briefing
+    }
+
     return {
       content: [{
         type: 'text',

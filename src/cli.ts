@@ -342,21 +342,6 @@ exit 0
     console.log(`  ${green('✓')} Auto-consolidation on session end`);
   }
 
-  // Set up nightly cron (if crontab available)
-  try {
-    const cronJob = `0 4 * * * npx engram consolidate --owner ${owner} > /dev/null 2>&1`;
-    const existing = execSync('crontab -l 2>/dev/null || true', { encoding: 'utf-8' });
-    if (!existing.includes('engram consolidate')) {
-      const newCron = existing.trimEnd() + '\n' + cronJob + '\n';
-      execSync(`echo '${newCron.replace(/'/g, "'\\''")}' | crontab -`, { stdio: 'ignore' });
-      console.log(`  ${green('✓')} Nightly consolidation at 4am (cron)`);
-    } else {
-      console.log(dim(`  ℹ Nightly cron already set up`));
-    }
-  } catch {
-    console.log(dim(`  ℹ Could not set up nightly cron (optional)`));
-  }
-
   // 8. Create initial vault to verify setup
   const engramDir = join(home, '.engram');
   mkdirSync(engramDir, { recursive: true });
