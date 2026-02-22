@@ -159,15 +159,28 @@ async function runInit(values: Record<string, unknown>) {
   // 4. Register with detected tools
   const targets: string[] = [];
 
-  // Build the MCP config (for Cursor/Windsurf/manual)
+  // Build the MCP config (for Cursor/Windsurf/manual — uses resolved path)
   const mcpConfig = {
-    command: 'npx',
-    args: ['engram', 'mcp'],
+    command: engramBin,
+    args: engramArgs,
     env: {
       ENGRAM_OWNER: owner,
       ...(geminiKey ? { GEMINI_API_KEY: geminiKey } : {}),
     },
   };
+
+  // Resolve full path to engram binary (avoids PATH issues in sandboxed environments)
+  let engramBin = 'npx';
+  let engramArgs = ['engram', 'mcp'];
+  try {
+    const resolved = execSync('which engram', { encoding: 'utf-8' }).trim();
+    if (resolved) {
+      engramBin = resolved;
+      engramArgs = ['mcp'];
+    }
+  } catch {
+    // Fall back to npx
+  }
 
   // Claude Code — use `claude mcp add` (the official way)
   if (hasClaudeCode) {
@@ -176,7 +189,7 @@ async function runInit(values: Record<string, unknown>) {
       try { execSync('claude mcp remove engram', { stdio: 'ignore' }); } catch {}
       const envArgs = ['-e', `ENGRAM_OWNER=${owner}`];
       if (geminiKey) envArgs.push('-e', `GEMINI_API_KEY=${geminiKey}`);
-      const args = ['claude', 'mcp', 'add', '-s', 'user', ...envArgs, '--', 'engram', 'npx', 'engram', 'mcp'];
+      const args = ['claude', 'mcp', 'add', '-s', 'user', ...envArgs, '--', 'engram', engramBin, ...engramArgs];
       execSync(args.join(' '), { stdio: 'ignore' });
       targets.push('Claude Code');
       console.log(`  ${green('✓')} Registered with Claude Code`);
@@ -343,9 +356,12 @@ If the user shares something about themselves or makes a decision, store it. Whe
       h.hooks?.some?.((hh: any) => hh.command?.includes?.('engram'))
     );
     if (!hasEngramHook) {
+      const consolidateCmd = engramBin === 'npx'
+        ? `npx engram consolidate --owner ${owner} --json`
+        : `${engramBin} consolidate --owner ${owner} --json`;
       stopHooks.push({
         matcher: '',
-        hooks: [{ type: 'command', command: `npx engram consolidate --owner ${owner} --json` }],
+        hooks: [{ type: 'command', command: consolidateCmd }],
       });
     }
     writeFileSync(settingsPath, JSON.stringify(hookSettings, null, 2));
