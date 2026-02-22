@@ -210,6 +210,16 @@ export interface VaultConfig {
     embeddingModel?: string;   // Default: text-embedding-3-small
   };
 
+  /** Temporal intelligence settings (contradiction detection, recency boost) */
+  temporal?: {
+    /** Enable contradiction detection at write time (default: true when LLM is configured) */
+    detectContradictions?: boolean;
+    /** Minimum entity overlap to consider contradiction (default: 1) */
+    minEntityOverlap?: number;
+    /** Similarity threshold for contradiction candidates (default: 0.75) */
+    contradictionSimilarityThreshold?: number;
+  };
+
   /** Decay settings */
   decay?: {
     /** Base half-life in hours for new memories (default: 168 = 1 week) */

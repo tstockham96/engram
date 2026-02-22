@@ -4,7 +4,8 @@ import { RememberInputSchema, RecallInputSchema } from './types.js';
 import type { Memory, Edge, Entity, RememberInput, RecallInput, RememberParsed, RecallParsed, ConsolidationReport, VaultConfig } from './types.js';
 import type { EmbeddingProvider } from './embeddings.js';
 import { extract } from './extract.js';
-import { calculateRecencyBoost, DEFAULT_TEMPORAL_CONFIG } from './temporal.js';
+import { calculateRecencyBoost, DEFAULT_TEMPORAL_CONFIG, findContradictionCandidates, verifyContradiction } from './temporal.js';
+import type { TemporalConfig } from './temporal.js';
 
 // ============================================================
 // Vault — The public API for Engram
@@ -64,8 +65,13 @@ export class Vault {
           // Dedup check: if a very similar memory already exists, merge instead of keeping both
           this.dedup(memory);
         })
+        .then(() => {
+          // Contradiction detection: if this memory updates a previous fact,
+          // mark the old one as superseded. Only runs when LLM is configured.
+          return this.detectContradictions(memory);
+        })
         .catch(err => {
-          console.warn(`Failed to compute embedding for ${memory.id}:`, err);
+          console.warn(`Failed to process embedding/contradictions for ${memory.id}:`, err);
         })
         .finally(() => {
           this.pendingEmbeddings.delete(p);
@@ -125,6 +131,99 @@ export class Vault {
       }
     } catch {
       // Dedup is best-effort; don't break remember() if it fails
+    }
+  }
+
+  /**
+   * Detect contradictions: when a new memory is stored, check if it
+   * updates or replaces an existing fact about the same entity.
+   *
+   * Uses a two-phase approach:
+   *   1. Fast heuristic filter (entity/topic overlap) — no LLM cost
+   *   2. LLM verification for top candidates — one call per candidate
+   *
+   * When a contradiction is confirmed, the old memory is marked as
+   * `superseded` and linked with a `supersedes` edge. This prevents
+   * stale facts from polluting recall results.
+   *
+   * Only runs when LLM is configured. Fails silently — contradiction
+   * detection is best-effort and should never break remember().
+   */
+  private async detectContradictions(memory: Memory): Promise<void> {
+    // Skip if LLM not configured or detection disabled
+    if (!this.config.llm) return;
+    if (this.config.temporal?.detectContradictions === false) return;
+
+    // Skip if memory was already superseded by dedup
+    const current = this.store.getMemoryDirect(memory.id);
+    if (!current || current.status !== 'active') return;
+
+    // Skip memories with no entities — can't detect contradictions without them
+    if (!memory.entities || memory.entities.length === 0) return;
+
+    try {
+      // Phase 1: Find candidates via vector similarity + entity overlap
+      const embedding = this.store.getEmbedding(memory.id);
+      if (!embedding) return;
+
+      // Wider search than dedup — we want topically similar, not identical
+      const similar = this.store.findSimilar(embedding, 0.5, 20);
+
+      const candidateIds = similar
+        .filter(s => s.memoryId !== memory.id)
+        .map(s => s.memoryId);
+
+      if (candidateIds.length === 0) return;
+
+      const candidateMemories = this.store.getMemoriesDirect(candidateIds)
+        .filter(m => m.status === 'active');
+
+      // Phase 1b: Heuristic filter — must share entities
+      const threshold = this.config.temporal?.contradictionSimilarityThreshold ?? 0.75;
+      const minOverlap = this.config.temporal?.minEntityOverlap ?? 1;
+
+      const filtered = findContradictionCandidates(memory, candidateMemories, {
+        detectContradictions: true,
+        recencyBoost: DEFAULT_TEMPORAL_CONFIG.recencyBoost,
+        minEntityOverlap: minOverlap,
+        contradictionSimilarityThreshold: threshold,
+      });
+
+      if (filtered.length === 0) return;
+
+      // Phase 2: LLM verification — check top 3 candidates max
+      const llmCall = (prompt: string) => this.callLLM(
+        this.config.llm!.model ?? 'gemini-2.0-flash',
+        prompt,
+        this.config.llm!,
+      );
+
+      // Only check older memories — newer ones can't be superseded by this memory
+      const olderCandidates = filtered
+        .filter(c => new Date(c.createdAt) < new Date(memory.createdAt))
+        .slice(0, 3);
+
+      for (const candidate of olderCandidates) {
+        const result = await verifyContradiction(memory, candidate, llmCall);
+
+        if (result && result.confidence >= 0.7) {
+          // Mark the old memory as superseded
+          this.store.updateStatus(candidate.id, 'superseded');
+          // Create a supersedes edge with the contradiction confidence
+          this.store.createEdge(memory.id, candidate.id, 'supersedes', result.confidence);
+
+          // Inherit the old memory's stability (it was a trusted fact)
+          const oldStability = candidate.stability;
+          if (oldStability > memory.stability) {
+            // The new fact inherits some credibility from the old one
+            this.store.updateMemory(memory.id, {
+              salience: Math.min(1.0, memory.salience + 0.1),
+            });
+          }
+        }
+      }
+    } catch {
+      // Contradiction detection is best-effort
     }
   }
 
