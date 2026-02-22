@@ -88,7 +88,7 @@ interface EvalResult {
 // ── Gemini API ──
 async function geminiCall(prompt: string, maxTokens = 500): Promise<string> {
   const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -329,13 +329,47 @@ Output ONLY valid JSON array. Each item must have:
 JSON:`;
 
   await sleep(RATE_LIMIT_MS);
-  const response = await geminiCall(prompt, 4000);
+  const response = await geminiCall(prompt, 16000);
 
-  // Parse JSON from response
-  const jsonMatch = response.match(/\[[\s\S]*\]/);
-  if (!jsonMatch) throw new Error('Failed to parse questions JSON from LLM response');
+  // Parse JSON from response — handle markdown fences, extra text, etc.
+  let jsonText = response;
+  // Strip markdown code fences
+  jsonText = jsonText.replace(/```json\s*/g, '').replace(/```\s*/g, '');
+  // Find the JSON array
+  const jsonMatch = jsonText.match(/\[[\s\S]*\]/);
+  if (!jsonMatch) {
+    console.error('LLM response (first 500 chars):', response.slice(0, 500));
+    throw new Error('Failed to parse questions JSON from LLM response');
+  }
 
-  const questions: CodebaseQuestion[] = JSON.parse(jsonMatch[0]);
+  let questions: CodebaseQuestion[];
+  try {
+    questions = JSON.parse(jsonMatch[0]);
+  } catch (parseErr: any) {
+    // Try to fix common JSON issues
+    let fixed = jsonMatch[0]
+      .replace(/,\s*\]/g, ']')   // trailing comma before ]
+      .replace(/,\s*\}/g, '}')   // trailing comma before }
+      .replace(/[\x00-\x1f]/g, (ch: string) => {
+        // Escape unescaped control characters inside strings
+        if (ch === '\n') return '\\n';
+        if (ch === '\r') return '\\r';
+        if (ch === '\t') return '\\t';
+        return '';
+      });
+    try {
+      questions = JSON.parse(fixed);
+    } catch (fixErr: any) {
+      // Last resort: ask LLM to fix the JSON
+      console.log('  JSON parse failed, asking LLM to fix...');
+      const fixPrompt = `The following JSON array has syntax errors. Fix it and return ONLY the valid JSON array, nothing else:\n\n${jsonMatch[0].slice(0, 8000)}`;
+      await sleep(RATE_LIMIT_MS);
+      const fixedResponse = await geminiCall(fixPrompt, 8000);
+      const fixedMatch = fixedResponse.replace(/```json\s*/g, '').replace(/```\s*/g, '').match(/\[[\s\S]*\]/);
+      if (!fixedMatch) throw new Error('LLM could not fix the JSON');
+      questions = JSON.parse(fixedMatch[0]);
+    }
+  }
   const questionsPath = join(EVAL_DIR, `codebase-questions-${repoNameOrPath}.json`);
   writeFileSync(questionsPath, JSON.stringify(questions, null, 2));
   console.log(`✅ Generated ${questions.length} questions → ${questionsPath}`);

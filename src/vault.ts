@@ -4,6 +4,7 @@ import { RememberInputSchema, RecallInputSchema } from './types.js';
 import type { Memory, Edge, Entity, RememberInput, RecallInput, RememberParsed, RecallParsed, ConsolidationReport, VaultConfig } from './types.js';
 import type { EmbeddingProvider } from './embeddings.js';
 import { extract } from './extract.js';
+import { calculateRecencyBoost, DEFAULT_TEMPORAL_CONFIG } from './temporal.js';
 
 // ============================================================
 // Vault — The public API for Engram
@@ -389,6 +390,10 @@ export class Vault {
       const statusPenalty = (r.memory.status === 'superseded' || r.memory.status === 'archived') ? 0.5 : 0;
 
       r.score = r.score * (0.5 + salienceBoost + stabilityBoost + typeBonus + confidenceBonus) - statusPenalty;
+
+      // Recency boost: newer memories get a small additive bump.
+      // Breaks ties between competing facts about the same entity.
+      r.score += calculateRecencyBoost(r.memory, DEFAULT_TEMPORAL_CONFIG.recencyBoost);
     }
 
     // 9. Sort by score and return top N

@@ -903,7 +903,9 @@ async function main() {
       if (existsSync(RESULTS_PATH)) {
         const existing = JSON.parse(readFileSync(RESULTS_PATH, 'utf8'));
         // Remove any existing results for this conversation
-        const filtered = existing.filter((r: EvaluationResult) => !r.conversationId.includes(`conv-${convIndex}`));
+        const ds: LoCoMoConversation[] = JSON.parse(readFileSync(LOCOMO_PATH, 'utf8'));
+        const convId = ds[convIndex].sample_id;
+        const filtered = existing.filter((r: EvaluationResult) => r.conversationId !== convId);
         allResults = [...filtered, ...results];
       } else {
         allResults = results;
