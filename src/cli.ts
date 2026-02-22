@@ -64,7 +64,7 @@ function parseCliArgs() {
 function createVault(values: Record<string, unknown>): Vault {
   const config: VaultConfig = {
     owner: (values.owner as string) || 'default',
-    dbPath: (values.db as string) || path.join(homedir(), '.engram', 'default.db'),
+    dbPath: (values.db as string) || path.join(homedir(), '.engram', `${(values.owner as string) || 'default'}.db`),
     agentId: (values.agent as string) || undefined,
   };
   return new Vault(config);
