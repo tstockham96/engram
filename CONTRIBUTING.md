@@ -1,65 +1,35 @@
 # Contributing to Engram
 
-Thanks for wanting to contribute! Engram is early-stage and moving fast — contributions are welcome.
+Thanks for your interest in Engram!
 
-## Getting Started
+## How to Contribute
 
-```bash
-git clone https://github.com/tstockham96/engram.git
-cd engram
-npm install
-npm test        # Run all tests (59 and counting)
-npm run lint    # Type check
-```
+### Bug Reports & Feature Requests
 
-## Development
+The best way to contribute is through [GitHub Issues](https://github.com/tstockham96/engram/issues):
 
-```bash
-npm run cli -- remember "test memory"   # Test CLI
-npm run cli -- recall "test"            # Test recall
-npm run serve                           # Start REST API on :3800
-npm test                                # Run tests
-```
+- **Bug reports** -- describe the issue, steps to reproduce, and your environment
+- **Feature requests** -- describe the use case and why it would be valuable
+- **Questions** -- ask anything about usage, architecture, or integration
 
-## What We Need Help With
+### Benchmark Contributions
 
-- **Python SDK** — thin client wrapping the REST API
-- **Framework integrations** — OpenClaw, LangChain, CrewAI, AutoGen adapters
-- **Consolidation improvements** — smarter rule-based consolidation, better LLM prompts
-- **Embedding providers** — Voyage, Cohere, local models
-- **Documentation** — examples, tutorials, guides
-- **Testing** — edge cases, stress tests, benchmarks
+The eval scripts in this repo are open. If you'd like to:
 
-## Pull Request Process
+- Run benchmarks on new datasets
+- Propose new evaluation methodologies
+- Report results from your own testing
 
-1. Fork the repo and create a branch from `main`
-2. Add tests for any new functionality
-3. Make sure all tests pass (`npm test`)
-4. Make sure types check (`npm run lint`)
-5. Keep PRs focused — one feature or fix per PR
-6. Write a clear description of what and why
+Please open an issue or submit a PR with your eval script and results.
 
-## Code Style
+### Documentation
 
-- TypeScript, strict mode
-- Use Zod for input validation
-- Tests in `src/__tests__/` using Vitest
-- No external runtime dependencies without discussion (we're at 4 deps total — let's keep it lean)
+Improvements to docs, README, and examples are always welcome via PR.
 
-## Architecture Decisions
+## Code Contributions
 
-- **Zero-dependency server**: The REST API uses Node's built-in `http` module, not Express/Hono/Fastify. This is intentional — fewer deps = fewer supply chain risks.
-- **SQLite**: Single-file database, no server setup. sqlite-vec for vector search.
-- **Local-first**: Everything runs on your machine by default. Cloud is opt-in.
+Engram's core SDK is distributed via npm (`engram-sdk`). If you're interested in contributing to the core codebase, please reach out to discuss: tstockham96@gmail.com
 
-## Reporting Issues
+## Code of Conduct
 
-Open an issue on GitHub. Include:
-- What you expected
-- What happened instead
-- Steps to reproduce
-- Node version, OS
-
-## License
-
-By contributing, you agree that your contributions will be licensed under the MIT License.
+Be respectful, constructive, and helpful. We're building something cool here.
