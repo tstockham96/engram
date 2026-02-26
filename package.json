@@ -1,0 +1,21 @@
+{
+  "name": "engram-sdk",
+  "version": "0.4.4",
+  "description": "Universal memory layer for AI agents. Remember, recall, consolidate.",
+  "homepage": "https://engram.fyi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tstockham96/engram.git"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "memory",
+    "mcp",
+    "llm",
+    "vector-search",
+    "knowledge-graph",
+    "consolidation"
+  ],
+  "license": "SEE LICENSE IN LICENSE"
+}
