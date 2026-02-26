@@ -1,80 +1,85 @@
-Business Source License 1.1
+Engram Software License Agreement
 
-License text copyright (c) 2017 MariaDB Corporation Ab, All Rights Reserved.
-"Business Source License" is a trademark of MariaDB Corporation Ab.
+Copyright (c) 2026 Thomas Stockham. All rights reserved.
 
-Parameters
+IMPORTANT: READ THIS LICENSE AGREEMENT CAREFULLY BEFORE USING THIS SOFTWARE.
 
-Licensor:             Thomas Stockham
-Licensed Work:        Engram
-                      The Licensed Work is (c) 2026 Thomas Stockham.
-Additional Use Grant: You may make production use of the Licensed Work,
-                      provided your use does not include offering the
-                      Licensed Work to third parties as a hosted or
-                      managed service, where the service provides users
-                      with access to any substantial set of the features
-                      or functionality of the Licensed Work.
+By installing, copying, or otherwise using this software ("Engram" or the
+"Software"), you agree to be bound by the terms of this license agreement.
+If you do not agree to these terms, do not install or use the Software.
 
-Change Date:          Four years from the date the Licensed Work is
-                      published. Each version of the Licensed Work has
-                      its own Change Date.
+1. GRANT OF LICENSE
 
-Change License:       Apache License, Version 2.0
+   Thomas Stockham ("Licensor") grants you a non-exclusive, non-transferable,
+   revocable license to:
 
-For information about alternative licensing arrangements for the Licensed
-Work, please contact: tstockham96@gmail.com
+   a) Install and use the Software for your internal business or personal
+      purposes.
+   b) Use the Software's APIs, CLI, and SDK to build applications and
+      integrations.
 
-Notice
+2. RESTRICTIONS
 
-The Business Source License (this document, or the "License") is not an
-Open Source license. However, the Licensed Work will eventually be made
-available under an Open Source License, as stated in this License.
+   You may NOT:
 
-License text
+   a) Copy, modify, adapt, translate, reverse engineer, decompile,
+      disassemble, or create derivative works based on the Software.
+   b) Distribute, sublicense, lease, rent, loan, or otherwise transfer
+      the Software or any rights therein to any third party.
+   c) Offer the Software, or any substantial portion of its functionality,
+      as a hosted service, managed service, API, or cloud-based product
+      to third parties.
+   d) Remove, alter, or obscure any proprietary notices, labels, or marks
+      on or in the Software.
+   e) Use the Software to build a competing product or service.
 
-The Licensor hereby grants you the right to copy, modify, create
-derivative works, redistribute, and make non-production use of the
-Licensed Work. The Licensor may make an Additional Use Grant, above,
-permitting limited production use.
+3. INTELLECTUAL PROPERTY
 
-Effective on the Change Date, or the fourth anniversary of the first
-publicly available distribution of a specific version of the Licensed
-Work, whichever comes first, the Licensor hereby grants you rights under
-the terms of the Change License, and the rights granted in the paragraph
-above terminate.
+   The Software is protected by copyright and other intellectual property
+   laws. The Licensor retains all right, title, and interest in and to the
+   Software, including all intellectual property rights therein. This license
+   does not grant you any rights to patents, copyrights, trade secrets,
+   trade names, trademarks, or any other rights in respect to the Software.
 
-If your use of the Licensed Work does not comply with the requirements
-currently in effect as described in this License, you must purchase a
-commercial license from the Licensor, its affiliated entities, or
-authorized resellers, or you must refrain from using the Licensed Work.
+4. DATA AND PRIVACY
 
-All copies of the original and modified Licensed Work, and derivative
-works of the Licensed Work, are subject to this License. This License
-applies separately for each version of the Licensed Work and the Change
-Date may vary for each version of the Licensed Work released by
-Licensor.
+   The Software may collect anonymous usage telemetry to improve the product.
+   No personal data or memory contents are transmitted. You may disable
+   telemetry via configuration.
 
-You must conspicuously display this License on each original or modified
-copy of the Licensed Work. If you receive the Licensed Work in original
-or modified form from a third party, the terms and conditions set forth
-in this License apply to your use of that work.
+5. WARRANTY DISCLAIMER
 
-Any use of the Licensed Work in violation of this License will
-automatically terminate your rights under this License for the current
-and all other versions of the Licensed Work.
+   THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS
+   OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. THE LICENSOR DOES
+   NOT WARRANT THAT THE SOFTWARE WILL BE ERROR-FREE OR UNINTERRUPTED.
 
-This License does not grant you any right in any trademark or logo of
-Licensor or its affiliates (provided that you may use a trademark or
-logo of Licensor as expressly required by this License).
+6. LIMITATION OF LIABILITY
 
-TO THE EXTENT PERMITTED BY APPLICABLE LAW, THE LICENSED WORK IS
-PROVIDED ON AN "AS IS" BASIS. LICENSOR HEREBY DISCLAIMS ALL WARRANTIES
-AND CONDITIONS, EXPRESS OR IMPLIED, INCLUDING (WITHOUT LIMITATION)
-WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
-NON-INFRINGEMENT, AND TITLE.
+   IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY INDIRECT, INCIDENTAL,
+   SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS OR
+   REVENUE, WHETHER INCURRED DIRECTLY OR INDIRECTLY, OR ANY LOSS OF DATA,
+   USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM YOUR USE OF
+   THE SOFTWARE.
 
-MariaDB hereby grants you permission to use this License's text to
-license your works, and to refer to it using the trademark "Business
-Source License", as long as you comply with the Cowardly Conditions of
-MariaDB's Business Source License Trademark Policy available at
-https://mariadb.com/bsl11/.
+7. TERMINATION
+
+   This license is effective until terminated. It will terminate automatically
+   if you fail to comply with any term of this agreement. Upon termination,
+   you must destroy all copies of the Software in your possession.
+
+8. GOVERNING LAW
+
+   This agreement shall be governed by and construed in accordance with the
+   laws of the State of Utah, without regard to its conflict of law provisions.
+
+9. COMMERCIAL LICENSING
+
+   For enterprise licensing, custom deployments, OEM arrangements, or any
+   use not covered by this license, contact: tstockham96@gmail.com
+
+10. ENTIRE AGREEMENT
+
+    This agreement constitutes the entire agreement between you and the
+    Licensor regarding the Software and supersedes all prior agreements
+    and understandings.

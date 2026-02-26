@@ -160,9 +160,9 @@ Hosted API coming soon. Self-hosting is free.
 
 ## License
 
-[Business Source License 1.1](./LICENSE)
+[Proprietary License](./LICENSE)
 
-You can use, modify, and self-host Engram freely. The one restriction: you cannot offer Engram as a hosted or managed service to third parties. After 4 years, each version converts to Apache 2.0.
+Engram is proprietary software. You may install and use it freely for internal purposes. See LICENSE for full terms.
 
 For commercial licensing, contact tstockham96@gmail.com.
 
