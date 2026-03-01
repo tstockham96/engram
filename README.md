@@ -48,6 +48,8 @@ Evaluated on [LOCOMO](https://arxiv.org/abs/2402.17753) -- the standard benchmar
 
 **10 conversations, 1,540 questions, 4 categories.** 19.6% relative improvement over Mem0 with 93.6% fewer tokens than full context.
 
+> Full context (dumping entire conversation history) scores highest but uses 30x more tokens and can't scale past context window limits. Engram closes most of the gap while using 96.6% fewer tokens.
+
 [Full benchmark methodology and per-category breakdown](https://www.engram.fyi/#/research)
 
 ---
