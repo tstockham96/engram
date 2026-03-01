@@ -8,6 +8,10 @@
 
 Every AI agent is born smart but amnesiac. Engram fixes that. It doesn't just store memories -- it learns, consolidates patterns, detects contradictions, and surfaces context you didn't ask for.
 
+<a href="https://glama.ai/mcp/servers/@tstockham96/engram">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@tstockham96/engram/badge" alt="Engram MCP server" />
+</a>
+
 ---
 
 ## Install
