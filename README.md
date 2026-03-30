@@ -73,6 +73,10 @@ Evaluated on [LOCOMO](https://arxiv.org/abs/2402.17753) -- the standard benchmar
 
 ---
 
+## Hosted deployment
+
+A hosted deployment is available on [Fronteir AI](https://fronteir.ai/mcp/tstockham96-engram).
+
 ## Quick Start
 
 ### MCP Setup (Claude Code / Cursor)
