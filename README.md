@@ -357,7 +357,7 @@ export ENGRAM_DB_PATH=/path/to/engram.db
 | `GEMINI_API_KEY` | Gemini API key for embeddings & consolidation | — |
 | `ENGRAM_LLM_PROVIDER` | LLM provider: `gemini`, `openai`, `anthropic` | `gemini` |
 | `ENGRAM_LLM_API_KEY` | LLM API key (falls back to `GEMINI_API_KEY` for gemini) | — |
-| `ENGRAM_LLM_MODEL` | LLM model name | provider default |
+| `ENGRAM_LLM_MODEL` | LLM model name (e.g. `gemini-3.1-flash-lite` for higher free-tier RPM) | `gemini-2.5-flash` / `gpt-4o-mini` / `claude-haiku-4-5` |
 | `ENGRAM_LLM_BASE_URL` | Custom API base URL (Groq, Cerebras, Ollama, etc.) | provider default |
 | `ENGRAM_DB_PATH` | SQLite database path | `~/.engram/default.db` |
 | `ENGRAM_OWNER` | Vault owner name | `default` |
@@ -388,6 +388,11 @@ Engram works with Gemini's free API tier, but be aware of its limits:
 
 - **Free tier:** ~20 requests/minute for `gemini-2.5-flash`, ~1,500 requests/day
 - **Embedding calls** also count toward the limit
+- **Want more headroom?** Lighter models like `gemini-3.1-flash-lite` have a higher free-tier RPM. Set `ENGRAM_LLM_MODEL` before running `engram init` and it is written into the MCP server config:
+
+```bash
+ENGRAM_LLM_MODEL=gemini-3.1-flash-lite engram init
+```
 
 Engram has built-in retry logic: if you hit a rate limit, it will automatically wait and retry up to 3 times. You'll see a log message like:
 

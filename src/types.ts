@@ -280,7 +280,7 @@ export interface VaultConfig {
   llm?: {
     provider: 'anthropic' | 'openai' | 'gemini';
     apiKey: string;
-    model?: string;            // Default: claude-3-5-haiku for consolidation
+    model?: string;            // Default: per-provider (see models.ts); overridable via ENGRAM_LLM_MODEL
     embeddingModel?: string;   // Default: text-embedding-3-small
     baseUrl?: string;          // Custom API base URL (for Groq, Cerebras, Ollama, etc.)
   };

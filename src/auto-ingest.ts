@@ -16,6 +16,7 @@
 import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
+import { resolveGeminiModel } from './models.js';
 
 // ============================================================
 // Config
@@ -23,6 +24,7 @@ import { homedir } from 'os';
 
 const ENGRAM_API = process.env.ENGRAM_API ?? 'http://127.0.0.1:3800/v1';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_MODEL = resolveGeminiModel();
 const STATE_PATH = join(homedir(), '.config', 'engram', 'ingest-state.json');
 // Directory containing JSONL session transcripts. Override with ENGRAM_SESSIONS_DIR
 // to point at any agent harness that writes sessions in that format.
@@ -228,7 +230,7 @@ If nothing worth remembering, respond: {"memories": []}`;
 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -245,7 +247,7 @@ If nothing worth remembering, respond: {"memories": []}`;
         console.warn(`Gemini rate limited, waiting 15s and retrying...`);
         await new Promise(resolve => setTimeout(resolve, 15000));
         const retry = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -329,11 +331,11 @@ async function ingestNewMessages(maxAgeDays: number = 1): Promise<IngestResult> 
   const transcripts = findAllRecentTranscripts(maxAgeDays);
 
   if (transcripts.length === 0) {
-    console.log('No recent transcripts found.');
+    console.error('No recent transcripts found.');
     return { memoriesCreated: 0, chunks: 0 };
   }
 
-  console.log(`Found ${transcripts.length} transcript(s) modified in the last ${maxAgeDays} day(s).`);
+  console.error(`Found ${transcripts.length} transcript(s) modified in the last ${maxAgeDays} day(s).`);
 
   let totalCreated = 0;
   let totalChunks = 0;
@@ -344,15 +346,15 @@ async function ingestNewMessages(maxAgeDays: number = 1): Promise<IngestResult> 
 
     if (turns.length === 0) continue;
 
-    console.log(`${transcript.sessionId}: ${turns.length} new turns from line ${startLine}`);
+    console.error(`${transcript.sessionId}: ${turns.length} new turns from line ${startLine}`);
     const chunks = chunkConversation(turns);
-    console.log(`  ${chunks.length} chunks to process.`);
+    console.error(`  ${chunks.length} chunks to process.`);
 
     for (let i = 0; i < chunks.length; i++) {
-      console.log(`  Processing chunk ${i + 1}/${chunks.length}...`);
+      console.error(`  Processing chunk ${i + 1}/${chunks.length}...`);
       const created = await ingestChunk(chunks[i]);
       totalCreated += created;
-      console.log(`    → ${created} memories extracted`);
+      console.error(`    → ${created} memories extracted`);
       // Rate limit: wait between chunks to avoid 429s
       if (i < chunks.length - 1) {
         await new Promise(r => setTimeout(r, 5000));
@@ -373,7 +375,7 @@ async function ingestNewMessages(maxAgeDays: number = 1): Promise<IngestResult> 
   state.totalRunCount++;
   saveState(state);
 
-  console.log(`\nDone. ${totalCreated} memories from ${totalChunks} chunks across ${transcripts.length} transcript(s).`);
+  console.error(`\nDone. ${totalCreated} memories from ${totalChunks} chunks across ${transcripts.length} transcript(s).`);
   return { memoriesCreated: totalCreated, chunks: totalChunks };
 }
 
@@ -391,7 +393,7 @@ const intervalMs = parseInt(process.env.ENGRAM_INGEST_INTERVAL_MS ?? '300000', 1
 
 if (isWatch) {
   const mins = Math.round(intervalMs / 60000);
-  console.log(`🧠 Engram auto-ingest running in watch mode (every ${mins} min)...`);
+  console.error(`🧠 Engram auto-ingest running in watch mode (every ${mins} min)...`);
   let running = false;
   const run = async () => {
     if (running) return; // skip if previous run still going
@@ -399,7 +401,7 @@ if (isWatch) {
     try {
       const result = await ingestNewMessages();
       if (result && result.memoriesCreated > 0) {
-        console.log(`  ✓ ${result.memoriesCreated} memories from ${result.chunks} chunks at ${new Date().toLocaleTimeString()}`);
+        console.error(`  ✓ ${result.memoriesCreated} memories from ${result.chunks} chunks at ${new Date().toLocaleTimeString()}`);
       }
     } catch (err) {
       console.error('Ingest error:', err);

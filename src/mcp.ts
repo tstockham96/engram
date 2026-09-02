@@ -24,6 +24,7 @@
 //   ENGRAM_OWNER=my-agent npx tsx src/mcp.ts
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { resolveGeminiModel } from './models.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { createServer as createHttpServer } from 'node:http';
@@ -57,6 +58,7 @@ const llmProvider = process.env.ENGRAM_LLM_PROVIDER ??
   (geminiKey ? 'gemini' : openaiKey ? 'openai' : anthropicKey ? 'anthropic' : undefined);
 const llmKey = process.env.ENGRAM_LLM_API_KEY ?? geminiKey ?? openaiKey ?? anthropicKey;
 const llmBaseUrl = process.env.ENGRAM_LLM_BASE_URL;
+const llmModel = process.env.ENGRAM_LLM_MODEL;
 
 // ============================================================
 // Initialize Vault
@@ -69,6 +71,7 @@ const vaultConfig: VaultConfig = {
     llm: {
       provider: llmProvider as 'gemini' | 'openai' | 'anthropic',
       apiKey: llmKey,
+      ...(llmModel ? { model: llmModel } : {}),
       ...(llmBaseUrl ? { baseUrl: llmBaseUrl } : {}),
     },
   } : {}),
@@ -368,7 +371,7 @@ If nothing worth remembering: {"memories": []}`;
 
     try {
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${resolveGeminiModel()}:generateContent?key=${geminiKey}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

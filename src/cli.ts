@@ -311,6 +311,7 @@ async function runInit(values: Record<string, unknown>) {
   const mcpEnv: Record<string, string> = {
     ...(owner !== 'default' ? { ENGRAM_OWNER: owner } : {}),
     ...(geminiKey ? { GEMINI_API_KEY: geminiKey } : {}),
+    ...(process.env.ENGRAM_LLM_MODEL ? { ENGRAM_LLM_MODEL: process.env.ENGRAM_LLM_MODEL } : {}),
     ...(nodeBinDir ? { PATH: isWindows ? `${nodeBinDir};${process.env.PATH ?? ''}` : `${nodeBinDir}:/usr/local/bin:/usr/bin:/bin` } : {}),
   };
 

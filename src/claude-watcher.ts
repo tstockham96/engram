@@ -17,6 +17,7 @@
 import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
+import { resolveGeminiModel } from './models.js';
 
 // ============================================================
 // Config
@@ -25,6 +26,7 @@ import { homedir } from 'os';
 const ENGRAM_API = process.env.ENGRAM_API ?? 'http://127.0.0.1:3800/v1';
 const ENGRAM_AUTH = process.env.ENGRAM_AUTH_TOKEN ? `Bearer ${process.env.ENGRAM_AUTH_TOKEN}` : '';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_MODEL = resolveGeminiModel();
 const CLAUDE_PROJECTS_DIR = join(homedir(), '.claude', 'projects');
 const STATE_PATH = join(homedir(), '.config', 'engram', 'claude-watcher-state.json');
 const MIN_CHUNK_SIZE = 200;
@@ -291,7 +293,7 @@ If the session is trivial (just fixing typos, running commands), respond: {"memo
 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
