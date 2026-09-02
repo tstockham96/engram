@@ -59,6 +59,9 @@ function compareVersions(a: string, b: string): number {
  * Returns immediately — the fetch runs in the background.
  */
 export function checkForUpdates(): void {
+  // Opt-out: set ENGRAM_NO_UPDATE_CHECK=1 to never contact the npm registry
+  if (process.env.ENGRAM_NO_UPDATE_CHECK) return;
+
   const state = loadState();
   const now = Date.now();
 

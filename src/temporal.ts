@@ -139,8 +139,6 @@ export function findContradictionCandidates(
  * Use LLM to verify if two memories genuinely contradict each other.
  *
  * Returns null if no contradiction, or a ContradictionResult if confirmed.
- *
- * TODO: Implement with Gemini call
  */
 export async function verifyContradiction(
   newMemory: Memory,
@@ -240,8 +238,6 @@ export function calculateRecencyBoost(
  *
  * This naturally surfaces the latest version of a fact when
  * multiple memories about the same entity exist.
- *
- * TODO: Integrate with vault.ts spreading activation
  */
 export function temporalEdgeWeight(
   baseWeight: number,

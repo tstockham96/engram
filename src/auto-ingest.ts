@@ -13,8 +13,8 @@
 //
 // State tracked in: ~/.config/engram/ingest-state.json
 
-import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'fs';
-import { join } from 'path';
+import { readFileSync, writeFileSync, existsSync, readdirSync, statSync, mkdirSync } from 'fs';
+import { join, dirname } from 'path';
 import { homedir } from 'os';
 import { resolveGeminiModel } from './models.js';
 
@@ -62,7 +62,12 @@ function loadState(): IngestState {
 }
 
 function saveState(state: IngestState): void {
-  writeFileSync(STATE_PATH, JSON.stringify(state, null, 2));
+  try {
+    mkdirSync(dirname(STATE_PATH), { recursive: true });
+    writeFileSync(STATE_PATH, JSON.stringify(state, null, 2));
+  } catch (err) {
+    console.error(`[auto-ingest] Failed to save state: ${(err as Error).message}`);
+  }
 }
 
 // ============================================================

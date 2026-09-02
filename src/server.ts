@@ -25,18 +25,35 @@ interface ServerConfig {
 // Active vault instances
 const vaultCache = new Map<string, Vault>();
 
+let warnedNoEmbeddings = false;
+
+function createEmbedder(config: VaultConfig): EmbeddingProvider | undefined {
+  const llm = config.llm;
+  if (llm?.provider === 'gemini') {
+    return new GeminiEmbeddings(llm.apiKey, llm.embeddingModel ?? 'gemini-embedding-001');
+  }
+  if (llm?.provider === 'openai') {
+    return new OpenAIEmbeddings(llm.apiKey, llm.embeddingModel ?? 'text-embedding-3-small');
+  }
+  // Anthropic (and custom base URLs) have no embeddings API. Fall back to a
+  // dedicated embeddings key rather than sending the wrong key to OpenAI.
+  if (process.env.GEMINI_API_KEY) return new GeminiEmbeddings(process.env.GEMINI_API_KEY);
+  if (process.env.OPENAI_API_KEY) return new OpenAIEmbeddings(process.env.OPENAI_API_KEY);
+  if (llm && !warnedNoEmbeddings) {
+    warnedNoEmbeddings = true;
+    console.error(
+      `⚠️  Engram: LLM provider "${llm.provider}" has no embeddings API. ` +
+      `Set GEMINI_API_KEY or OPENAI_API_KEY to enable semantic search. Falling back to keyword search.`,
+    );
+  }
+  return undefined;
+}
+
 function getOrCreateVault(config: VaultConfig): Vault {
   const key = `${config.owner}:${config.dbPath ?? 'default'}`;
   let vault = vaultCache.get(key);
   if (!vault) {
-    let embedder: EmbeddingProvider | undefined;
-    if (config.llm) {
-      if (config.llm.provider === 'gemini') {
-        embedder = new GeminiEmbeddings(config.llm.apiKey, config.llm.embeddingModel ?? 'gemini-embedding-001');
-      } else {
-        embedder = new OpenAIEmbeddings(config.llm.apiKey, config.llm.embeddingModel ?? 'text-embedding-3-small');
-      }
-    }
+    const embedder = createEmbedder(config);
     vault = new Vault(config, embedder);
     vaultCache.set(key, vault);
   }

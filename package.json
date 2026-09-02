@@ -1,7 +1,7 @@
 {
   "name": "engram-sdk",
   "mcpName": "io.github.tstockham96/engram",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Semantic memory with knowledge graphs, consolidation, and spreading activation for AI agents. 80% LOCOMO accuracy vs 28.8% for file-based memory. MCP server included.",
   "type": "module",
   "main": "dist/index.js",
@@ -58,10 +58,10 @@
     "node": ">=22.5.0"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.26.0",
-    "js-yaml": "^4.1.1",
-    "sqlite-vec": "^0.1.7-alpha.2",
-    "uuid": "^11.1.0",
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "js-yaml": "^4.3.2",
+    "sqlite-vec": "^0.1.9",
+    "uuid": "^11.1.1",
     "zod": "^3.24.1"
   },
   "devDependencies": {

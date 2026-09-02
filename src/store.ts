@@ -149,12 +149,30 @@ export class MemoryStore {
 
     // Create vector virtual table if sqlite-vec is loaded
     if (this.vecEnabled && this.embeddingDimensions > 0) {
-      this.db.exec(`
-        CREATE VIRTUAL TABLE IF NOT EXISTS vec_memories USING vec0(
-          memory_id TEXT PRIMARY KEY,
-          embedding float[${this.embeddingDimensions}]
+      // Guard: the vec table's dimension is fixed at creation. If the DB was
+      // built with a different embedding provider (e.g. Gemini 3072-d vs
+      // OpenAI 1536-d), every insert and search would fail. Detect the
+      // mismatch up front and degrade to keyword search with a clear message.
+      const existing = this.db
+        .prepare(`SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'vec_memories'`)
+        .get() as { sql?: string } | undefined;
+      const existingDims = existing?.sql?.match(/float\[(\d+)\]/)?.[1];
+      if (existingDims && Number(existingDims) !== this.embeddingDimensions) {
+        console.error(
+          `⚠️  Engram: this database's vector index uses ${existingDims}-dimension embeddings, ` +
+          `but the current embedding provider produces ${this.embeddingDimensions}. ` +
+          `Semantic search is disabled for this session (keyword search still works). ` +
+          `To fix: switch back to the original embedding provider, or point ENGRAM_DB_PATH at a new database.`,
         );
-      `);
+        this.vecEnabled = false;
+      } else {
+        this.db.exec(`
+          CREATE VIRTUAL TABLE IF NOT EXISTS vec_memories USING vec0(
+            memory_id TEXT PRIMARY KEY,
+            embedding float[${this.embeddingDimensions}]
+          );
+        `);
+      }
     }
   }
 

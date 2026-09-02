@@ -6,12 +6,12 @@
     "url": "https://github.com/tstockham96/engram",
     "source": "github"
   },
-  "version": "0.7.0",
+  "version": "0.7.1",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "engram-sdk",
-      "version": "0.7.0",
+      "version": "0.7.1",
       "transport": {
         "type": "stdio"
       },

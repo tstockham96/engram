@@ -958,26 +958,37 @@ async function runDoctor(values: Record<string, unknown>) {
     check(false, 'Vault exists and readable', err.message);
   }
 
-  // 2. Gemini API key configured
+  // 2. LLM API key configured (any supported provider)
   let geminiKey = process.env.GEMINI_API_KEY || '';
   const geminiKeyPath = join(home, '.config', 'engram', 'gemini-key');
   if (!geminiKey && existsSync(geminiKeyPath)) {
     geminiKey = readFileSync(geminiKeyPath, 'utf-8').trim();
   }
-  check(!!geminiKey, 'Gemini API key configured', geminiKey ? `${geminiKey.slice(0, 6)}...${geminiKey.slice(-4)}` : 'Set GEMINI_API_KEY or run engram init');
+  const openaiKey = process.env.OPENAI_API_KEY || '';
+  const anthropicKey = process.env.ANTHROPIC_API_KEY || '';
+  const genericKey = process.env.ENGRAM_LLM_API_KEY || '';
+  const mask = (k: string) => `${k.slice(0, 6)}...${k.slice(-4)}`;
+  const configuredKey =
+    geminiKey ? `Gemini ${mask(geminiKey)}` :
+    openaiKey ? `OpenAI ${mask(openaiKey)}` :
+    anthropicKey ? `Anthropic ${mask(anthropicKey)}` :
+    genericKey ? `${process.env.ENGRAM_LLM_PROVIDER ?? 'custom'} ${mask(genericKey)}` : '';
+  check(!!configuredKey, 'LLM API key configured', configuredKey || 'Set GEMINI_API_KEY (or OPENAI_API_KEY / ANTHROPIC_API_KEY) or run engram init');
 
-  // 3. Embedding works
-  if (geminiKey) {
+  // 3. Embedding works (Gemini or OpenAI — Anthropic has no embeddings API)
+  if (geminiKey || openaiKey) {
     try {
-      const { GeminiEmbeddings } = await import('./embeddings.js');
-      const embedder = new GeminiEmbeddings(geminiKey);
+      const { GeminiEmbeddings, OpenAIEmbeddings } = await import('./embeddings.js');
+      const embedder = geminiKey ? new GeminiEmbeddings(geminiKey) : new OpenAIEmbeddings(openaiKey);
       const start = Date.now();
       await embedder.embed('engram doctor test');
       const latency = Date.now() - start;
-      check(true, 'Embedding API works', `${latency}ms latency`);
+      check(true, 'Embedding API works', `${geminiKey ? 'Gemini' : 'OpenAI'}, ${latency}ms latency`);
     } catch (err: any) {
       check(false, 'Embedding API works', err.message?.slice(0, 80));
     }
+  } else if (anthropicKey || genericKey) {
+    check(false, 'Embedding API works', 'Skipped — Anthropic has no embeddings API; set GEMINI_API_KEY or OPENAI_API_KEY for semantic search');
   } else {
     check(false, 'Embedding API works', 'Skipped — no API key');
   }
