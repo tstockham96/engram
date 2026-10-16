@@ -201,11 +201,83 @@ describe('Vault', () => {
   describe('forget()', () => {
     it('soft forgets by zeroing salience', () => {
       const mem = vault.remember('Temporary note');
-      vault.forget(mem.id);
+      const result = vault.forget(mem.id.slice(0, 8));
 
-      // Should still exist but with zero salience
-      const stats = vault.stats();
-      expect(stats.total).toBe(1);
+      expect(result.found).toBe(true);
+      // Still stored — soft forget is not a delete (#3's hard-delete path is separate)
+      expect(vault.getMemoryById(mem.id)?.salience).toBe(0);
+      expect(vault.stats().total).toBe(1);
+    });
+
+    it('excludes soft-forgotten memories from default recall (#10)', async () => {
+      const forgotten = vault.remember({
+        content: 'Sentinel cobalt fox',
+        entities: ['sentinel'],
+        topics: ['test'],
+      });
+      const kept = vault.remember({
+        content: 'Sentinel amber owl',
+        entities: ['sentinel'],
+        topics: ['test'],
+      });
+
+      expect(vault.forget(forgotten.id.slice(0, 8)).found).toBe(true);
+      expect(vault.getMemoryById(forgotten.id)?.salience).toBe(0);
+
+      const results = await vault.recall({
+        context: 'sentinel',
+        entities: ['sentinel'],
+        topics: ['test'],
+        limit: 20,
+      });
+
+      expect(results.some(memory => memory.id === kept.id)).toBe(true);
+      expect(results.some(memory => memory.id === forgotten.id)).toBe(false);
+    });
+
+    it('includes soft-forgotten memories when minSalience is explicitly 0', async () => {
+      const forgotten = vault.remember({
+        content: 'Sentinel cobalt fox',
+        entities: ['sentinel'],
+        topics: ['test'],
+      });
+      vault.forget(forgotten.id);
+
+      const results = await vault.recall({
+        context: 'sentinel',
+        entities: ['sentinel'],
+        topics: ['test'],
+        minSalience: 0,
+        limit: 20,
+      });
+
+      expect(results.some(memory => memory.id === forgotten.id)).toBe(true);
+    });
+
+    it('does not return hard-deleted memories from recall', async () => {
+      const deleted = vault.remember({
+        content: 'Sentinel cobalt fox',
+        entities: ['sentinel'],
+        topics: ['test'],
+      });
+      const kept = vault.remember({
+        content: 'Sentinel amber owl',
+        entities: ['sentinel'],
+        topics: ['test'],
+      });
+
+      expect(vault.forget(deleted.id.slice(0, 8), true).found).toBe(true);
+      expect(vault.getMemoryById(deleted.id)).toBeNull();
+
+      const results = await vault.recall({
+        context: 'sentinel',
+        entities: ['sentinel'],
+        topics: ['test'],
+        limit: 20,
+      });
+
+      expect(results.some(memory => memory.id === kept.id)).toBe(true);
+      expect(results.some(memory => memory.id === deleted.id)).toBe(false);
     });
 
     it('hard forgets by deleting', () => {

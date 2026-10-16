@@ -46,6 +46,16 @@ async function withRetry<T>(
   throw new Error('unreachable');
 }
 
+/**
+ * Whether a memory's salience passes the recall threshold.
+ * Omitted threshold excludes soft-forgotten memories (salience 0).
+ * Explicit 0 includes them. A positive threshold is inclusive.
+ */
+function salienceMeetsThreshold(salience: number, minSalience: number | undefined): boolean {
+  if (minSalience === undefined) return salience > 0;
+  return salience >= minSalience;
+}
+
 // ============================================================
 // Vault — The public API for Engram
 // ============================================================
@@ -778,9 +788,13 @@ If nothing: {"insights": []}`;
       results = results.filter(r => parsed.types!.includes(r.memory.type));
     }
 
-    // 6. Apply minimum thresholds
+    // 6. Apply minimum thresholds.
+    // Soft forget stores the memory at salience 0. The old default threshold
+    // was 0 with an inclusive comparison, so forgotten memories still matched
+    // (#10). An omitted minSalience excludes salience 0. An explicit 0 opts
+    // back in. Any positive threshold stays inclusive.
     results = results.filter(r =>
-      r.memory.salience >= parsed.minSalience &&
+      salienceMeetsThreshold(r.memory.salience, parsed.minSalience) &&
       r.memory.confidence >= parsed.minConfidence
     );
 

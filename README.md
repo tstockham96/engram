@@ -278,7 +278,7 @@ curl http://localhost:3800/health
 ```
 
 ```json
-{ "status": "ok", "version": "0.7.1", "timestamp": "2026-09-02T10:30:00.000Z" }
+{ "status": "ok", "version": "0.7.2", "timestamp": "2026-09-02T10:30:00.000Z" }
 ```
 
 ---
@@ -380,6 +380,8 @@ export ENGRAM_DB_PATH=/path/to/engram.db
 
 > Full context (dumping entire conversation history) scores highest but uses 30x more tokens and can't scale past context window limits. Engram closes most of the gap while using 96.6% fewer tokens. For comparison, Mem0 (the most popular agent memory system) scores 66.9% on the same benchmark.
 
+**80.0% accuracy at 776 tokens/query is self-reported** until it is reproduced. The harness in [`benchmarks/`](./benchmarks/README.md) runs LoCoMo against `recall()` and writes its own numbers. It does not replace the figures in this table.
+
 
 ---
 
@@ -416,6 +418,23 @@ Using Engram in your project? Add the badge to your README:
 ```markdown
 [![Made with Engram](https://img.shields.io/badge/memory-Engram-8B5CF6?style=flat)](https://github.com/tstockham96/engram)
 ```
+
+---
+
+## How are you using Engram?
+
+Engram is early, and the useful feedback is specific. If you are using it — Claude Code, Cursor, another MCP client, a product, a research eval — tell us what you remember with it, what you wish it did, and what broke.
+
+Start a discussion from the template in [`.github/DISCUSSION_TEMPLATE/how-are-you-using-engram.yml`](./.github/DISCUSSION_TEMPLATE/how-are-you-using-engram.yml), or paste this into a new discussion:
+
+> **How are you using Engram?**
+>
+> - Where it runs (agent, app, or eval):
+> - What you store and recall:
+> - What is working:
+> - What is missing or broken:
+
+[Open a discussion](https://github.com/tstockham96/engram/discussions/new)
 
 ---
 

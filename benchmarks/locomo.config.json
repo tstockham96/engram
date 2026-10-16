@@ -1,0 +1,18 @@
+{
+  "datasetUrl": "https://raw.githubusercontent.com/snap-research/locomo/main/data/locomo10.json",
+  "datasetPath": "benchmarks/data/locomo10.json",
+  "recallLimit": 10,
+  "includeAdversarial": false,
+  "categoryLabels": {
+    "1": "multi-hop",
+    "2": "temporal",
+    "3": "open-domain",
+    "4": "single-hop",
+    "5": "adversarial"
+  },
+  "claimed": {
+    "accuracy": 0.8,
+    "tokensPerQuery": 776,
+    "note": "Self-reported published figures. This harness does not assert or overwrite them."
+  }
+}

@@ -19,3 +19,5 @@ hackernews-post.md
 signal-quality-plan.md
 .mcpregistry_*
 .env*
+benchmarks/data/
+benchmarks/results/

@@ -1,0 +1,36 @@
+title: How are you using Engram?
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Engram is early. Specific notes are more useful than a star rating: where it runs, what you store, what is working, and what broke.
+
+        This is the discussion starter for the "How are you using Engram?" prompt in the README.
+  - type: textarea
+    id: where
+    attributes:
+      label: Where does it run?
+      description: Agent, app, or eval. Include the client if you know it (Claude Code, Cursor, another MCP host, the REST API, the TypeScript SDK).
+      placeholder: Claude Code on a team repo, a Cursor project, a LoCoMo-style eval...
+    validations:
+      required: true
+  - type: textarea
+    id: using
+    attributes:
+      label: How are you using Engram?
+      description: What you store, what you recall, and how often.
+      placeholder: Session notes, preferences, decisions. Briefing at session start, recall when a name comes up.
+    validations:
+      required: true
+  - type: textarea
+    id: working
+    attributes:
+      label: What is working?
+    validations:
+      required: false
+  - type: textarea
+    id: missing
+    attributes:
+      label: What is missing or broken?
+    validations:
+      required: false
