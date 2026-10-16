@@ -2,6 +2,8 @@
 
 Get agent memory that compounds over time. Works alongside your existing CLAUDE.md — no risk, easy rollback.
 
+The recommended install (`engram init` in the README) registers the MCP server, which exposes **17 MCP tools**. This guide is the REST API path for environments that do not speak MCP.
+
 ## Quick Start (5 minutes)
 
 ### 1. Start Engram

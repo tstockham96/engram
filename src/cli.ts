@@ -588,17 +588,24 @@ async function runInit(values: Record<string, unknown>) {
   if (targets.length > 0) {
     console.log(yellow(`  ⚠  You MUST restart ${targets.join(' and ')} before Engram will work.`));
     console.log(yellow('     Memories saved in this session will NOT persist until you restart.\n'));
-    console.log('  Your agent now has 10 memory tools:');
-    console.log('    engram_remember    — Store a memory');
-    console.log('    engram_recall      — Retrieve relevant memories');
-    console.log('    engram_surface     — Proactive context surfacing');
-    console.log('    engram_briefing    — Session start briefing');
-    console.log('    engram_consolidate — Sleep cycle consolidation');
-    console.log('    engram_connect     — Link memories in the graph');
-    console.log('    engram_forget      — Remove memories');
-    console.log('    engram_entities    — List tracked entities');
-    console.log('    engram_stats       — Vault statistics');
-    console.log('    engram_ingest      — Auto-extract from text');
+    console.log('  Your agent now has 17 memory tools:');
+    console.log('    engram_remember            — Store a memory');
+    console.log('    engram_recall              — Retrieve relevant memories');
+    console.log('    engram_ask                 — Synthesized answer with confidence');
+    console.log('    engram_briefing            — Session start briefing');
+    console.log('    engram_consolidate         — Sleep cycle consolidation');
+    console.log('    engram_surface             — Proactive context surfacing');
+    console.log('    engram_alerts              — Pending items, stale follow-ups, contradictions');
+    console.log('    engram_audit               — Cross-check external notes against the vault');
+    console.log('    engram_checkpoint          — Save session context before it is lost');
+    console.log('    engram_connect             — Link memories in the graph');
+    console.log('    engram_forget              — Remove memories');
+    console.log('    engram_entities            — List tracked entities');
+    console.log('    engram_stats               — Vault statistics');
+    console.log('    engram_ingest              — Auto-extract from text');
+    console.log('    engram_import_obsidian     — Import an Obsidian vault');
+    console.log('    engram_import_claude_code  — Import Claude Code memory');
+    console.log('    engram_powered_by          — Attribution for this memory system');
     if (targets.includes('Claude Code')) {
       console.log(dim('\n  After restarting, type /mcp in Claude Code to verify'));
       console.log(dim('  Engram is connected. If prompted, enable the server.'));

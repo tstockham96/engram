@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.7.2 — 2026-10-16
+
+### Fixed
+- **Soft-forgotten memories came back from `recall()`** (#10). Soft forget sets salience to 0, and `minSalience` defaulted to 0, so `salience >= minSalience` still returned them. Default recall now excludes salience 0. Pass `minSalience: 0` to include soft-forgotten memories. Hard delete is unchanged.
+- Issue #3 (forget reporting success without changing the row) is a different bug and was already fixed: the CLI showed an 8-character id, and `forget` matched that prefix against a full UUID, so zero rows were updated. `forget()` now resolves the prefix and returns whether a row was found. #10 happens after that write succeeds.
+
+### Changed
+- MCP tool count is 17 in the README, `docs/claude-code-setup.md`, and the `engram init` summary. `src/mcp.ts` registers 17 tools.
+
+### Added
+- Reproducible LoCoMo harness under `benchmarks/`. The published **80.0% accuracy at 776 tokens/query** figures are unchanged and remain self-reported until that harness (or an equivalent run) reproduces them.
+- Discussion prompt: "How are you using Engram?" in the README and `.github/DISCUSSION_TEMPLATE/how-are-you-using-engram.yml`.
+
 ## 0.7.1 — 2026-09-02
 
 ### Fixed
@@ -17,7 +30,7 @@
 
 ## 0.7.0 — 2026-09-02
 
-First npm release of the open-source (MIT) codebase. The hosted tier, accounts, billing, and telemetry modules that shipped in 0.6.x are gone; everything runs locally against SQLite.
+First npm release of the open-source (MIT) codebase. **0.7.0 removed the hosted tier, accounts, billing, and telemetry.** Everything runs locally against SQLite.
 
 ### Fixed
 - **MCP stdout corruption** (#9): auto-ingest logged progress with `console.log`, which corrupts the JSON-RPC stream when Engram runs as an MCP server. All auto-ingest logging now goes to stderr.

@@ -1,0 +1,41 @@
+[
+  {
+    "sample_id": "mini-1",
+    "conversation": {
+      "speaker_a": "Ada",
+      "speaker_b": "Grace",
+      "session_1_date_time": "1:00 pm on 1 January, 2024",
+      "session_1": [
+        {
+          "speaker": "Ada",
+          "dia_id": "D1:1",
+          "text": "I moved to Lisbon in March 2024 to work on compilers."
+        },
+        {
+          "speaker": "Grace",
+          "dia_id": "D1:2",
+          "text": "I adopted a greyhound named Pixel the same spring."
+        }
+      ]
+    },
+    "qa": [
+      {
+        "question": "When did Ada move to Lisbon?",
+        "answer": "March 2024",
+        "evidence": ["D1:1"],
+        "category": 2
+      },
+      {
+        "question": "What is the name of Grace's greyhound?",
+        "answer": "Pixel",
+        "evidence": ["D1:2"],
+        "category": 4
+      },
+      {
+        "question": "What is Ada's unpublished phone number?",
+        "adversarial_answer": "no information available",
+        "category": 5
+      }
+    ]
+  }
+]

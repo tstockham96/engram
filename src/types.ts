@@ -164,7 +164,10 @@ export const RecallInputSchema = z.object({
   topics: z.array(z.string()).optional(),
   types: z.array(MemoryType).optional(),
   temporalFocus: z.enum(['recent', 'upcoming', 'latest', 'all']).default('all'),
-  minSalience: z.number().min(0).max(1).default(0),
+  // Omitted by default. recall() treats an omitted threshold as "salience > 0",
+  // so soft-forgotten memories (salience 0) stay out of results. Pass 0 to
+  // include them. A positive value keeps the inclusive `>=` check.
+  minSalience: z.number().min(0).max(1).optional(),
   minConfidence: z.number().min(0).max(1).default(0),
   limit: z.number().int().min(1).max(100).default(40),
 

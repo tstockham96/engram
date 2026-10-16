@@ -1,7 +1,7 @@
 {
   "name": "engram-sdk",
   "mcpName": "io.github.tstockham96/engram",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Semantic memory with knowledge graphs, consolidation, and spreading activation for AI agents. 80% LOCOMO accuracy vs 28.8% for file-based memory. MCP server included.",
   "type": "module",
   "main": "dist/index.js",
@@ -25,7 +25,9 @@
     "cli": "tsx src/cli.ts",
     "serve": "tsx src/server.ts",
     "mcp": "tsx src/mcp.ts",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "bench:locomo": "tsx benchmarks/locomo.ts",
+    "bench:locomo:fixture": "tsx benchmarks/locomo.ts --fixture"
   },
   "keywords": [
     "ai",
